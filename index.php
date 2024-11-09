@@ -2,11 +2,12 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Test</title>
+  <title>Mes projets</title>
   <link rel="stylesheet" href="style.css">
   <script src="script.js"></script>
 </head>
 <body>
-<h1> test 3</h1>
+<?php include 'header.php'; ?>
+<h1>Site en construction</h1>
 </body>
 </html>

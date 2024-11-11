@@ -160,7 +160,7 @@
     </div>
 
     <script>
-function openProjectDetail(event, title, description, link, borderColor) {
+function openProjectDetail(event, title, description, link) {
     event.stopPropagation();
     const projectDetail = document.getElementById('projectDetail');
     const projectLogo = projectDetail.querySelector('#projectLogo');
@@ -168,7 +168,8 @@ function openProjectDetail(event, title, description, link, borderColor) {
     projectDetail.querySelector('#projectDescription').innerText = description;
     projectDetail.querySelector('#projectLink').href = link;
     projectDetail.querySelector('#projectLink').innerText = `Lien - ${title}`;
-    projectDetail.style.borderColor = borderColor;
+
+    projectDetail.style.borderColor = '#3498db';
 
     if (title === 'Marley And Me') {
         projectLogo.src = 'logo-marley.png';
@@ -180,6 +181,7 @@ function openProjectDetail(event, title, description, link, borderColor) {
     projectDetail.style.display = 'block';
     document.getElementById('overlay').style.display = 'block';
 }
+
         function closeProjectDetail() {
             document.getElementById('projectDetail').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';

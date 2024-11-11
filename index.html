@@ -162,26 +162,26 @@
     </div>
 
     <script>
-        function openProjectDetail(event, title, description, link, borderColor) {
-            event.stopPropagation();
-            const projectDetail = document.getElementById('projectDetail');
-            const projectLogo = projectDetail.querySelector('#projectLogo');
-            projectDetail.querySelector('#projectTitle').innerText = title;
-            projectDetail.querySelector('#projectDescription').innerText = description;
-            projectDetail.querySelector('#projectLink').href = link;
-            projectDetail.style.borderColor = borderColor;
+function openProjectDetail(event, title, description, link, borderColor) {
+    event.stopPropagation();
+    const projectDetail = document.getElementById('projectDetail');
+    const projectLogo = projectDetail.querySelector('#projectLogo');
+    projectDetail.querySelector('#projectTitle').innerText = title;
+    projectDetail.querySelector('#projectDescription').innerText = description;
+    projectDetail.querySelector('#projectLink').href = link;
+    projectDetail.querySelector('#projectLink').innerText = `Lien - ${title}`;
+    projectDetail.style.borderColor = borderColor;
 
-            if (title === 'Marley And Me') {
-                projectLogo.src = 'logo-marley.png';
-                projectLogo.style.display = 'block';
-            } else {
-                projectLogo.style.display = 'none';
-            }
+    if (title === 'Marley And Me') {
+        projectLogo.src = 'logo-marley.png';
+        projectLogo.style.display = 'block';
+    } else {
+        projectLogo.style.display = 'none';
+    }
 
-            projectDetail.style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
-
+    projectDetail.style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+}
         function closeProjectDetail() {
             document.getElementById('projectDetail').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -9,32 +10,14 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body, html { display: flex; flex-direction: column; align-items: center; min-height: 100vh; background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png'); font-family: 'Gloria Hallelujah', cursive; color: #fff; overflow: hidden; padding: 20px; }
 
-        .main-button { 
-            margin: 2rem; padding: 1.8rem 2.8rem; font-size: 2.2rem; color: #fff; 
-            background: linear-gradient(145deg, #cc3e00, #e36d3c); border: none; 
-            border-radius: 50px 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.6); 
-            cursor: pointer; animation: pulse 1.5s infinite alternate; pointer-events: auto; 
-            z-index: 1; font-family: 'Gloria Hallelujah', cursive; 
-        }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .projects-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; max-width: 90%; margin-top: 3rem; pointer-events: auto; opacity: 1; }
 
-        .intro-frame, .after-click-frame { padding: 1.8rem; background: #1b1b1b; border-radius: 15px; text-align: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); max-width: 80%; width: fit-content; max-width: 90%; margin-top: 2rem; font-size: 1.4rem; }
-        .intro-frame { border: 3px solid #ff9800; }
-        .intro-frame.hide, .main-button.hide { display: none; }
-        .intro-frame p, .after-click-frame p { overflow: hidden; white-space: nowrap; border-right: 3px solid; animation: typing 4s steps(60, end), blink-caret 0.5s step-end infinite; }
-        .intro-frame p { border-color: #ff9800; }
-        .after-click-frame p { border-color: #3498db; }
-        @keyframes typing { from { width: 0; } to { width: 100%; } }
-        @keyframes blink-caret { 0%, 100% { border-color: transparent; } 50% { border-color: inherit; } }
-
-        .after-click-frame { display: none; border: 3px solid #3498db; margin-top: 50px; }
-
-        .projects-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; max-width: 90%; margin-top: 3rem; pointer-events: none; opacity: 0; }
+        .after-click-frame { display: block; border: 3px solid #3498db; margin-top: 50px; padding: 1.8rem; background: #1b1b1b; border-radius: 15px; text-align: center; max-width: 90%; font-size: 1.4rem; }
 
         .project {
             font-size: 1.4rem;
             text-align: center;
-            padding: 2.5rem; /* Augmente le padding pour plus d'espace */
+            padding: 2.5rem;
             color: #fff;
             width: 180px;
             height: 180px;
@@ -48,16 +31,9 @@
             cursor: pointer;
             transition: opacity 0.5s, transform 0.3s;
             border: 3px solid;
-            opacity: 0; /* Caché par défaut */
-            transform: translateY(-50px); /* Positionné plus haut pour l'effet de chute */
-        }
-
-        .project.show {
             opacity: 1;
             transform: translateY(0);
-            animation: drop 0.5s forwards;
         }
-        @keyframes drop { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
         /* Couleurs pour les projets */
         .project:nth-child(1) { border-color: #ff4500; }
@@ -71,28 +47,24 @@
         .project:nth-child(9) { border-color: #e74c3c; }
         .project:nth-child(10) { border-color: #9b59b6; }
 
-        /* Overlay pour rendre le fond invisible */
-        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 999; }
-
         /* Grande frame pour afficher les détails du projet */
         .project-detail { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1b1b1b; color: #fff; padding: 2.5rem; width: 80%; height: 60%; border-radius: 15px; border: 5px solid; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); text-align: center; z-index: 1000; }
         .project-detail h2 { margin-top: 1.5rem; margin-bottom: 1.2rem; font-size: 1.6rem; }
         .project-detail p { margin-bottom: 2rem; line-height: 1.5; font-size: 1.2rem; }
         .project-detail a { color: #3498db; text-decoration: none; font-size: 1.2rem; }
-        .project-logo { height: 50px; margin-bottom: 10px; } /* Ajouté pour centrer et espacer le logo */
+        .project-logo { height: 50px; margin-bottom: 10px; }
     </style>
 </head>
-<body><div class="after-click-frame"><p>Cliquez sur un projet pour voir sa description complète. Re-cliquez pour revenir à la liste.</p></div>
+<body>
+    <div class="after-click-frame"><p>Cliquez sur un projet pour voir sa description complète. Re-cliquez pour revenir à la liste.</p></div>
 
     <div class="projects-container" id="projectsGrid">
-        <!-- Projets -->
         <div class="project" onclick="openProjectDetail(event, 'Marley And Me', 'Description du projet Marley And Me', 'marley_and_me/index.html', '#ff4500')">
             <img src="logo-marley.png" alt="Logo Marley And Me" class="project-logo">
             <div>Marley And Me</div>
         </div>
         <div class="project" onclick="openProjectDetail(event, 'Projet 2', 'Description du Projet 2', '#', '#4caf50')">Projet 2</div>
         <div class="project" onclick="openProjectDetail(event, 'Projet 3', 'Description du Projet 3', '#', '#3f51b5')">Projet 3</div>
-        <!-- Projets non finis -->
         <div class="project">⌛</div>
         <div class="project">⌛</div>
         <div class="project">⌛</div>
@@ -112,23 +84,6 @@
     </div>
 
     <script>
-        function initializePage(event) {
-            event.stopPropagation();
-            document.querySelector('.main-button').classList.add('hide');
-            document.querySelector('.intro-frame').classList.add('hide');
-            document.querySelector('.after-click-frame').style.display = 'block';
-
-            const projects = document.querySelectorAll('.project');
-            projects.forEach((project, index) => {
-                setTimeout(() => {
-                    project.classList.add('show');
-                }, index * 150);
-            });
-
-            document.querySelector('.projects-container').style.pointerEvents = 'auto';
-            document.querySelector('.projects-container').style.opacity = '1';
-        }
-
         function openProjectDetail(event, title, description, link, borderColor) {
             event.stopPropagation();
             const projectDetail = document.getElementById('projectDetail');
@@ -138,7 +93,6 @@
             projectDetail.querySelector('#projectLink').href = link;
             projectDetail.style.borderColor = borderColor;
 
-            // Définir le logo selon le projet
             if (title === 'Marley And Me') {
                 projectLogo.src = 'logo-marley.png';
                 projectLogo.style.display = 'block';

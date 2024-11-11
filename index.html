@@ -1,396 +1,162 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio de Sylvain Hirtz, développeur web passionné et amateur de nouvelles technologies">
-    <title>Portfolio de Sylvain Hirtz</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Lobster&display=swap" rel="stylesheet">
+    <title>Portfolio - Sylvain Hirtz</title>
     <style>
-        :root {
-            --main-bg-color: #1e1e1e;
-            --header-bg-color: #2b2b2b;
-            --text-color: #f0f0f0;
-            --accent-color: #ffa07a;
-            --frame-bg-color: rgba(43, 43, 43, 0.8);
-            --link-color: #ffa07a;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body, html { display: flex; flex-direction: column; align-items: center; min-height: 100vh; background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png'); font-family: 'Gloria Hallelujah', cursive; color: #fff; overflow: hidden; padding: 20px; }
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: var(--main-bg-color);
-            color: var(--text-color);
-            min-height: 100vh;
+        .main-button { 
+            margin: 2rem; padding: 1.8rem 2.8rem; font-size: 2.2rem; color: #fff; 
+            background: linear-gradient(145deg, #cc3e00, #e36d3c); border: none; 
+            border-radius: 50px 15px; box-shadow: 0 6px 15px rgba(0,0,0,0.6); 
+            cursor: pointer; animation: pulse 1.5s infinite alternate; pointer-events: auto; 
+            z-index: 1; font-family: 'Gloria Hallelujah', cursive; 
+        }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        .intro-frame, .after-click-frame { padding: 1.8rem; background: #1b1b1b; border-radius: 15px; text-align: center; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5); max-width: 80%; width: fit-content; max-width: 90%; margin-top: 2rem; font-size: 1.4rem; }
+        .intro-frame { border: 3px solid #ff9800; }
+        .intro-frame.hide, .main-button.hide { display: none; }
+        .intro-frame p, .after-click-frame p { overflow: hidden; white-space: nowrap; border-right: 3px solid; animation: typing 4s steps(60, end), blink-caret 0.5s step-end infinite; }
+        .intro-frame p { border-color: #ff9800; }
+        .after-click-frame p { border-color: #3498db; }
+        @keyframes typing { from { width: 0; } to { width: 100%; } }
+        @keyframes blink-caret { 0%, 100% { border-color: transparent; } 50% { border-color: inherit; } }
+
+        .after-click-frame { display: none; border: 3px solid #3498db; margin-top: 50px; }
+
+        .projects-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; max-width: 90%; margin-top: 3rem; pointer-events: none; opacity: 0; }
+
+        .project {
+            font-size: 1.4rem;
+            text-align: center;
+            padding: 2.5rem; /* Augmente le padding pour plus d'espace */
+            color: #fff;
+            width: 180px;
+            height: 180px;
             display: flex;
             flex-direction: column;
-            transition: background 0.5s, color 0.5s;
-        }
-
-        header {
-            background: var(--header-bg-color);
-            color: var(--accent-color);
-            padding: 5px 20px;
-            text-align: left;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-            display: flex;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            transition: background 0.5s, color 0.5s;
-            height: 80px;
-        }
-
-        header h1 {
-            font-family: 'Lobster', cursive;
-            font-size: 2rem;
-            margin-bottom: 0;
-            transition: font-family 0.3s ease;
-        }
-
-        header p {
-            font-size: 1rem;
-            margin-top: 5px;
-        }
-
-        .nav-container {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-            padding: 30px;
-            width: 220px;
-            margin-left: 20px;
-            position: fixed;
-            top: 150px;
-            left: 0;
-            border-right: 2px solid var(--accent-color);
-            padding-right: 10px;
-        }
-
-        .nav-container a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-            text-align: center;
-        }
-
-        .nav-container a:hover {
-            color: var(--text-color);
-        }
-
-        .theme-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding: 30px;
-            width: 220px;
-            margin-right: 20px;
-            position: fixed;
-            top: 150px;
-            right: 0;
-            padding-left: 10px;
-        }
-
-        .toggle-button {
-            background: rgba(255, 160, 122, 0.1);
-            color: var(--accent-color);
-            font-weight: bold;
-            border: 1px solid var(--accent-color);
-            padding: 8px;
+            justify-content: center;
+            background: #1b1b1b;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             cursor: pointer;
-            transition: background 0.3s, color 0.3s, border 0.3s;
-            text-align: center;
-            border-radius: 15px;
+            transition: opacity 0.5s, transform 0.3s;
+            border: 3px solid;
+            opacity: 0; /* Caché par défaut */
+            transform: translateY(-50px); /* Positionné plus haut pour l'effet de chute */
         }
 
-        .toggle-button:hover {
-            background: rgba(255, 160, 122, 0.3);
-            color: var(--text-color);
-            border: 1px solid var(--text-color);
+        .project.show {
+            opacity: 1;
+            transform: translateY(0);
+            animation: drop 0.5s forwards;
         }
+        @keyframes drop { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .theme-options, .style-options {
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 10px;
-        }
+        /* Couleurs pour les projets */
+        .project:nth-child(1) { border-color: #ff4500; }
+        .project:nth-child(2) { border-color: #4caf50; }
+        .project:nth-child(3) { border-color: #3f51b5; }
+        .project:nth-child(4) { border-color: #ff9800; }
+        .project:nth-child(5) { border-color: #8e44ad; }
+        .project:nth-child(6) { border-color: #e67e22; }
+        .project:nth-child(7) { border-color: #3498db; }
+        .project:nth-child(8) { border-color: #2ecc71; }
+        .project:nth-child(9) { border-color: #e74c3c; }
+        .project:nth-child(10) { border-color: #9b59b6; }
 
-        .theme-options a, .style-options a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-            text-align: center;
-        }
+        /* Overlay pour rendre le fond invisible */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 999; }
 
-        .theme-options a:hover, .style-options a:hover {
-            color: var(--text-color);
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px;
-            display: none;
-            transition: all 0.5s ease;
-            background: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        section {
-            margin: 30px 0;
-        }
-
-        h2 {
-            text-align: left;
-            margin-bottom: 25px;
-            color: var(--accent-color);
-            font-weight: 700;
-        }
-
-        .about-skills, .projects, .testimonial {
-            padding: 40px;
-            background: none;
-            border-radius: 15px;
-            box-shadow: none;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-
-        .about-skills .content, .projects .project, .testimonial .testimonial-item {
-            margin-bottom: 40px;
-            padding: 25px;
-            background: var(--frame-bg-color);
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-
-        .about-skills .content:hover, .projects .project:hover, .testimonial .testimonial-item:hover {
-            transform: translateY(-5px);
-            background: rgba(43, 43, 43, 0.9);
-        }
-
-        .about-skills .content h3, .projects .project h3 {
-            margin-bottom: 15px;
-            color: var(--accent-color);
-        }
-
-        .testimonial p {
-            font-style: italic;
-        }
-
-        .container {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .decorative-frame {
-            padding: 40px;
-            background: var(--frame-bg-color);
-            border-radius: 15px;
-            border: 1px solid var(--accent-color);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 30px;
-            transition: background 0.5s, border 0.5s;
-        }
-
-        .decorative-frame::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, transparent 40%, var(--header-bg-color) 100%);
-            mix-blend-mode: overlay;
-            pointer-events: none;
-        }
-
-        #contact a {
-            color: var(--link-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        #contact a:hover {
-            color: var(--accent-color);
-        }
+        /* Grande frame pour afficher les détails du projet */
+        .project-detail { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1b1b1b; color: #fff; padding: 2.5rem; width: 80%; height: 60%; border-radius: 15px; border: 5px solid; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); text-align: center; z-index: 1000; }
+        .project-detail h2 { margin-top: 1.5rem; margin-bottom: 1.2rem; font-size: 1.6rem; }
+        .project-detail p { margin-bottom: 2rem; line-height: 1.5; font-size: 1.2rem; }
+        .project-detail a { color: #3498db; text-decoration: none; font-size: 1.2rem; }
+        .project-logo { height: 50px; margin-bottom: 10px; } /* Ajouté pour centrer et espacer le logo */
     </style>
+</head>
+<body>
+    <button class="main-button" onclick="initializePage(event)">Mes Projets</button>
+    <div class="intro-frame"><p>Bonjour, je suis Sylvain Hirtz, développeur passionné par le web et l'intelligence artificielle.</p></div>
+    <div class="after-click-frame"><p>Cliquez sur un projet pour voir sa description complète. Re-cliquez pour revenir à la liste.</p></div>
+
+    <div class="projects-container" id="projectsGrid">
+        <!-- Projets -->
+        <div class="project" onclick="openProjectDetail(event, 'Marley And Me', 'Description du projet Marley And Me', '#', '#ff4500')">
+            <img src="logo-marley.png" alt="Logo Marley And Me" class="project-logo">
+            <div>Marley And Me</div>
+        </div>
+        <div class="project" onclick="openProjectDetail(event, 'Projet 2', 'Description du Projet 2', '#', '#4caf50')">Projet 2</div>
+        <div class="project" onclick="openProjectDetail(event, 'Projet 3', 'Description du Projet 3', '#', '#3f51b5')">Projet 3</div>
+        <!-- Projets non finis -->
+        <div class="project">⌛</div>
+        <div class="project">⌛</div>
+        <div class="project">⌛</div>
+        <div class="project">⌛</div>
+        <div class="project">⌛</div>
+        <div class="project">⌛</div>
+        <div class="project">⌛</div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeProjectDetail()"></div>
+
+    <div class="project-detail" id="projectDetail" onclick="event.stopPropagation()">
+        <img id="projectLogo" src="" alt="Logo du projet" class="project-logo">
+        <h2 id="projectTitle"></h2>
+        <p id="projectDescription"></p>
+        <a id="projectLink" href="#" target="_blank">Voir le projet</a>
+    </div>
+
     <script>
-        function showSection(id) {
-            const sections = document.querySelectorAll('.container');
-            sections.forEach(section => section.style.display = 'none');
-            const targetSection = document.getElementById(id);
-            if (targetSection) {
-                targetSection.style.display = 'block';
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            }
+        function initializePage(event) {
+            event.stopPropagation();
+            document.querySelector('.main-button').classList.add('hide');
+            document.querySelector('.intro-frame').classList.add('hide');
+            document.querySelector('.after-click-frame').style.display = 'block';
+
+            const projects = document.querySelectorAll('.project');
+            projects.forEach((project, index) => {
+                setTimeout(() => {
+                    project.classList.add('show');
+                }, index * 150);
+            });
+
+            document.querySelector('.projects-container').style.pointerEvents = 'auto';
+            document.querySelector('.projects-container').style.opacity = '1';
         }
 
-        function toggleOptions(id) {
-            const options = document.getElementById(id);
-            if (options.style.display === 'none' || options.style.display === '') {
-                options.style.display = 'flex';
+        function openProjectDetail(event, title, description, link, borderColor) {
+            event.stopPropagation();
+            const projectDetail = document.getElementById('projectDetail');
+            const projectLogo = projectDetail.querySelector('#projectLogo');
+            projectDetail.querySelector('#projectTitle').innerText = title;
+            projectDetail.querySelector('#projectDescription').innerText = description;
+            projectDetail.querySelector('#projectLink').href = link;
+            projectDetail.style.borderColor = borderColor;
+
+            // Définir le logo selon le projet
+            if (title === 'Marley And Me') {
+                projectLogo.src = 'logo-marley.png';
+                projectLogo.style.display = 'block';
             } else {
-                options.style.display = 'none';
+                projectLogo.style.display = 'none';
             }
+
+            projectDetail.style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
         }
 
-        function changeTheme() {
-            const randomColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-            document.documentElement.style.setProperty('--main-bg-color', randomColor);
-            document.documentElement.style.setProperty('--header-bg-color', randomColor);
-            document.documentElement.style.setProperty('--frame-bg-color', randomColor);
-        }
-
-        function resetTheme() {
-            document.documentElement.style.setProperty('--main-bg-color', '#1e1e1e');
-            document.documentElement.style.setProperty('--header-bg-color', '#2b2b2b');
-            document.documentElement.style.setProperty('--frame-bg-color', 'rgba(43, 43, 43, 0.8)');
-            document.documentElement.style.setProperty('--text-color', '#f0f0f0');
-            document.documentElement.style.setProperty('--accent-color', '#ffa07a');
-        }
-
-        function setLightTheme() {
-            document.documentElement.style.setProperty('--main-bg-color', '#f0f0f0');
-            document.documentElement.style.setProperty('--header-bg-color', '#ffffff');
-            document.documentElement.style.setProperty('--frame-bg-color', '#ffffff');
-            document.documentElement.style.setProperty('--text-color', '#1e1e1e');
-            document.documentElement.style.setProperty('--accent-color', '#ffa07a');
-        }
-
-        function setRandomFont() {
-            const fonts = ['Arial', 'Verdana', 'Tahoma', 'Georgia', 'Times New Roman', 'Courier New', 'Lucida Console', 'Impact', 'Comic Sans MS', 'Trebuchet MS', 'Garamond', 'Palatino', 'Futura', 'Helvetica', 'Calibri', 'Franklin Gothic Medium', 'Gill Sans', 'Baskerville', 'Copperplate', 'Brush Script MT', 'Monaco', 'Candara', 'Constantia', 'Corbel', 'Didot'];
-            const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
-            document.body.style.fontFamily = randomFont;
-            document.querySelector('header h1').style.fontFamily = randomFont;
-        }
-
-        function resetFont() {
-            document.body.style.fontFamily = 'Roboto, sans-serif';
-            document.querySelector('header h1').style.fontFamily = 'Lobster, cursive';
+        function closeProjectDetail() {
+            document.getElementById('projectDetail').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
         }
     </script>
-<script src="scripts.js"></script>
-</head>
-
-<body>
-    <header>
-        <div>
-            <h1>Sylvain Hirtz</h1>
-            <p>Développeur web - Passionné par l'IA et l'innovation technologique</p>
-        </div>
-    </header>
-
-    <div class="nav-container">
-        <a href="#" onclick="showSection('about-skills')">Présentation</a>
-        <a href="#" onclick="showSection('projects')">Projets Récents</a>
-        <a href="#" onclick="showSection('testimonials')"> Témoignages</a>
-        <a href="#" onclick="showSection('contact')">Contact</a>
-    </div>
-
-    <div class="theme-container">
-        <button class="toggle-button" onclick="toggleOptions('theme-options')">Thème</button>
-        <div id="theme-options" class="theme-options">
-            <a href="#" onclick="setLightTheme()">Thème Clair</a>
-            <a href="#" onclick="changeTheme()">Thème Aléatoire</a>
-            <a href="#" onclick="resetTheme()">Thème d'Origine</a>
-        </div>
-        <button class="toggle-button" onclick="toggleOptions('style-options')">Style</button>
-        <div id="style-options" class="style-options">
-            <a href="#" onclick="setRandomFont()">Style Aléatoire</a>
-            <a href="#" onclick="resetFont()">Style d'Origine</a>
-        </div>
-    </div>
-
-    <div id="about-skills" class="container">
-        <!-- Section Présentation -->
-        <section>
-            <h2>Présentation</h2>
-            <div class="decorative-frame">
-                <p>Je suis Sylvain, un développeur web passionné par la technologie et toujours curieux d'apprendre. J'aime relever des défis et innover dans chaque projet que j'entreprends. Mon but est de créer des expériences utilisateur uniques, optimisées et agréables.</p>
-            </div>
-            <div class="about-skills">
-                <div class="decorative-frame">
-                    <h3>Développement Web Frontend</h3>
-                    <p>HTML, CSS, JavaScript, React.js, Vue.js</p>
-                </div>
-                <div class="decorative-frame">
-                    <h3>Développement Backend</h3>
-                    <p>Node.js, Express.js, PHP, SQL, MongoDB</p>
-                </div>
-                <div class="decorative-frame">
-                    <h3>Outils et Méthodologies</h3>
-                    <p>Git, Agile, Docker, Tests Unitaires</p>
-                </div>
-                <div class="decorative-frame">
-                    <h3>IA et Machine Learning</h3>
-                    <p>Utilisation de modèles IA pour automatiser des tâches et résoudre des problèmes complexes</p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div id="projects" class="container">
-        <!-- Section Projets -->
-        <section>
-            <h2>Projets Récents</h2>
-            <div class="projects">
-                <div class="decorative-frame">
-                    <h3>Plateforme de Collaboration</h3>
-                    <p>Développement d'une plateforme web permettant à des équipes de collaborer en temps réel, intégrant une gestion des tâches, un chat interne et des fonctionnalités de partage de documents.</p>
-                </div>
-                <div class="decorative-frame">
-                    <h3>Site Vitrine Marley And Me</h3>
-                    <p>Création d'un site vitrine moderne pour un graphiste, avec une navigation immersive et des animations personnalisées.</p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <div id="testimonials" class="container">
-        <!-- Section Témoignages -->
-        <section>
-            <h2>Témoignages</h2>
-            <div class="decorative-frame">
-                <p>"Sylvain est un développeur exceptionnel qui a toujours su apporter des solutions innovantes à chaque projet." - Client A</p>
-            </div>
-            <div class="decorative-frame">
-                <p>"Travailler avec Sylvain a été un plaisir. Sa rigueur et son souci du détail sont exemplaires." - Client B</p>
-            </div>
-        </section>
-    </div>
-
-    <div id="contact" class="container">
-        <!-- Section Contact -->
-        <section>
-            <h2>Contact</h2>
-            <div class="decorative-frame">
-                <p>Email : <a href="mailto:sylvain.hirtz@example.com">sylvain.hirtz@example.com</a></p>
-                <p>Téléphone : +33 6 12 34 56 78</p>
-                <p>LinkedIn : <a href="https://www.linkedin.com/in/sylvain-hirtz/" target="_blank">Sylvain Hirtz</a></p>
-            </div>
-        </section>
-    </div>
-
 </body>
-
 </html>

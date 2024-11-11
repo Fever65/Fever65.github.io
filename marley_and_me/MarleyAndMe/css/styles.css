@@ -1,0 +1,175 @@
+/* Couleurs et style de base */
+:root {
+    --main-bg-color: #202020;
+    --header-bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --accent-color: #9ed29a;
+    --frame-bg-color: rgba(158, 210, 154, 0.1);
+    --link-color: #9ed29a;
+}
+
+/* Appliquer la police au site */
+body {
+    font-family: 'Changa', sans-serif;
+    font-weight: 300;
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    background-color: var(--header-bg-color);
+    color: var(--accent-color);
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+}
+
+header .logo {
+    width: 50px;
+    height: auto;
+    margin-right: 15px;
+}
+
+header h1 {
+    font-size: 1.8em;
+    font-weight: 500;
+}
+
+/* Bouton de contact dans le header */
+.contact-button {
+    margin-left: auto;
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.contact-button:hover {
+    background-color: var(--accent-color);
+    color: var(--header-bg-color);
+}
+
+/* Menu de Navigation Latéral */
+.sidebar {
+    background-color: transparent;
+    width: 220px;
+    position: fixed;
+    top: 120px;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 0;
+    gap: 10px;
+    max-width: 100vw;
+    box-sizing: border-box;
+}
+
+.sidebar a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 400;
+    padding: 5px 0;
+    text-align: center;
+    width: 100%;
+    font-size: 0.9em;
+    transition: color 0.3s;
+}
+
+.sidebar a:hover {
+    color: #e0e0e0;
+}
+
+/* Contenu Principal avec espacement */
+main {
+    margin-left: 240px;
+    padding: 140px 40px 40px;
+    width: calc(100% - 240px);
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    box-sizing: border-box;
+}
+
+/* Decorative Frame pour le contenu principal */
+.content-section {
+    padding: 25px;
+    background: linear-gradient(145deg, #2a2a2a, #1c1c1c);
+    border-radius: 12px;
+    border: 1px solid rgba(158, 210, 154, 0.4);
+    color: var(--text-color);
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.05);
+    margin-top: 20px;
+}
+
+.content-section h2 {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    font-size: 1.6em;
+}
+
+.content-section p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Image sous le texte dans la decorative frame */
+.content-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(8px);
+    z-index: 998;
+    display: none;
+}
+
+.blur-overlay.active {
+    display: block;
+}
+
+
+/* Style pour l'image agrandie */
+.project-image img.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1); /* Centre parfaitement sans déformation */
+    max-width: 90vw; /* Limite la largeur à 90% de la vue */
+    max-height: 90vh; /* Limite la hauteur à 90% de la vue */
+    width: auto;
+    height: auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    cursor: zoom-out;
+}

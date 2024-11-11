@@ -8,31 +8,59 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { display: flex; flex-direction: column; align-items: center; min-height: 100vh; background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png'); font-family: 'Gloria Hallelujah', cursive; color: #fff; overflow: hidden; padding: 20px; }
+        
+        body, html { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh; 
+            background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png'); 
+            font-family: 'Gloria Hallelujah', cursive; 
+            color: #fff; 
+            overflow-y: auto; /* Activation du défilement vertical */
+            padding: 20px; 
+        }
 
-        .projects-container { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; max-width: 90%; margin-top: 3rem; pointer-events: auto; opacity: 1; }
+        .after-click-frame { 
+            display: block; 
+            border: 3px solid #3498db; 
+            margin-top: 20px; 
+            padding: 1.5rem; 
+            background: #1b1b1b; 
+            border-radius: 15px; 
+            text-align: center; 
+            max-width: 100%; 
+            font-size: 1.2rem; 
+        }
 
-        .after-click-frame { display: block; border: 3px solid #3498db; margin-top: 50px; padding: 1.8rem; background: #1b1b1b; border-radius: 15px; text-align: center; max-width: 90%; font-size: 1.4rem; }
+        .projects-container { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 1.5rem; /* Espacement amélioré entre les projets */
+            justify-content: center; 
+            max-width: 100%; 
+            margin-top: 1.5rem; 
+            pointer-events: auto; 
+            opacity: 1; 
+        }
 
-        .project {
-            font-size: 1.4rem;
-            text-align: center;
-            padding: 2.5rem;
-            color: #fff;
-            width: 180px;
-            height: 180px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #1b1b1b;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
-            transition: opacity 0.5s, transform 0.3s;
-            border: 3px solid;
-            opacity: 1;
-            transform: translateY(0);
+        .project { 
+            font-size: 1.2rem; 
+            text-align: center; 
+            padding: 1.8rem; 
+            color: #fff; 
+            width: 100px; 
+            height: 100px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            background: #1b1b1b; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+            cursor: pointer; 
+            transition: opacity 0.5s, transform 0.3s; 
+            border: 3px solid; 
         }
 
         /* Couleurs pour les projets */
@@ -48,11 +76,64 @@
         .project:nth-child(10) { border-color: #9b59b6; }
 
         /* Grande frame pour afficher les détails du projet */
-        .project-detail { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1b1b1b; color: #fff; padding: 2.5rem; width: 80%; height: 60%; border-radius: 15px; border: 5px solid; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); text-align: center; z-index: 1000; }
+        .project-detail { 
+            display: none; 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            background: #1b1b1b; 
+            color: #fff; 
+            padding: 2.5rem; 
+            width: 90%; 
+            height: 60%; 
+            border-radius: 15px; 
+            border: 5px solid; 
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5); 
+            text-align: center; 
+            z-index: 1000; 
+        }
+
+        /* Logo et Texte dans la grande frame */
         .project-detail h2 { margin-top: 1.5rem; margin-bottom: 1.2rem; font-size: 1.6rem; }
         .project-detail p { margin-bottom: 2rem; line-height: 1.5; font-size: 1.2rem; }
         .project-detail a { color: #3498db; text-decoration: none; font-size: 1.2rem; }
         .project-logo { height: 50px; margin-bottom: 10px; }
+        
+        /* Bouton Retour dans la lightbox, positionné en bas */
+        .return-button {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .return-button:hover {
+            background: #555;
+        }
+
+        /* Styles spécifiques pour grands écrans */
+        @media (min-width: 768px) {
+            .projects-container { gap: 2rem; }
+            .project { width: 180px; height: 180px; font-size: 1.4rem; padding: 2.5rem; }
+            .after-click-frame { font-size: 1.4rem; max-width: 90%; }
+        }
+
+        /* Styles spécifiques pour les très petits écrans pour espacement agréable */
+        @media (max-width: 480px) {
+            .project {
+                width: 80px;
+                height: 80px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -81,6 +162,7 @@
         <h2 id="projectTitle"></h2>
         <p id="projectDescription"></p>
         <a id="projectLink" href="#" target="_blank">Voir le projet</a>
+        <button class="return-button" onclick="closeProjectDetail()">Retour</button>
     </div>
 
     <script>

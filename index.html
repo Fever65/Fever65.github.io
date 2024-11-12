@@ -29,47 +29,45 @@
         }
 
         .after-click-frame {
-            display: block;
             border: 3px solid #3498db;
             margin-top: 20px;
             padding: 1.5rem;
             background: #1b1b1b;
-            border-radius: 15px;
+            border-radius: 10px;
             text-align: center;
-            max-width: 100%;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            width: auto;
+            max-width: 80%;
         }
 
         .projects-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
-            max-width: 80%;
-            margin-top: 1.5rem;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
         }
 
         .project {
-            font-size: 1.2rem;
-            text-align: center;
-            padding: 1.8rem;
-            color: #fff;
-            width: 150px;
-            /* Augmenter la largeur */
-            height: 150px;
-            /* Augmenter la hauteur */
-            display: flex;
-            flex-direction: column;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
+            padding: 1rem;
             background: #1b1b1b;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.2s;
             border: 3px solid;
+            gap: 0.5rem;
+            white-space: nowrap;
+            width: auto; /* Ajustement automatique de la taille du bouton */
+            min-width: 200px; /* Largeur minimale pour une apparence cohérente */
         }
 
+        .project:hover {
+            transform: scale(1.02);
+        }
 
         .project:nth-child(1) {
             border-color: #4caf50;
@@ -79,116 +77,134 @@
             border-color: #ff4500;
         }
 
-        .project:nth-child(3) {
-            border-color: #3f51b5;
+        .project-logo {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
         }
 
-        .project:nth-child(4) {
-            border-color: #ff9800;
+        .project-title {
+            font-size: 1.4rem;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 9;
+            display: none;
         }
 
         .project-detail {
-            display: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: #1b1b1b;
+            border-radius: 10px;
+            border: 5px solid #3498db;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 900px;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #1b1b1b;
-            color: #fff;
-            padding: 2rem;
-            width: 80%;
-            max-width: 600px;
-            height: auto;
-            border-radius: 15px;
-            border: 5px solid #3498db;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            z-index: 10;
             text-align: center;
-            overflow: hidden;
+            display: none;
         }
 
-        .project-detail h2 {
-            font-size: 1.8rem;
-            margin-top: 1rem;
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .project-content img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+
+        .project-content h2 {
+            font-size: 2rem;
             margin-bottom: 1rem;
         }
 
-        .project-detail p {
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-            font-size: 1.1rem;
+        .project-content p {
+            font-size: 1.2rem;
         }
 
-        .project-logo {
-            height: 40px;
+        .project-content a {
+            color: #9b59b6;
+            text-decoration: none;
             margin-bottom: 1rem;
         }
 
         .return-button {
-            margin-top: 2rem;
-            padding: 0.6rem 1.2rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
             font-size: 1rem;
             background: #333;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .return-button:hover {
-            background: #555;
         }
     </style>
 </head>
 
 <body>
     <div class="after-click-frame">
-        <p>Cliquez sur un projet pour voir sa description complète. Re-cliquez pour revenir à la liste.</p>
+        <p>Cliquez sur un projet pour voir sa description complète.</p>
     </div>
 
     <div class="projects-container" id="projectsGrid">
-        <div class="project"
-            onclick="openProjectDetail(event, 'Marley And Me', 'Site vitrine créé pour Pierre Lechat, graphiste professionnel.', 'marley_and_me/index.html', '#4caf50')">
+        <div class="project" onclick="openProjectDetail('Marley And Me', 'Site vitrine créé pour Pierre Lechat.', 'marley_and_me/index.html', 'logo-marley.png')">
             <img src="logo-marley.png" alt="Logo Marley And Me" class="project-logo">
-            <div>Marley And Me</div>
+            <div class="project-title">Marley And Me</div>
         </div>
-        <div class="project" onclick="openProjectDetail(event, 'BHBST', 'Service de boost Brawlhalla', 'BHBST/index.html', '#ff4500')">
+        <div class="project" onclick="openProjectDetail('BHBST', 'Service de boost Brawlhalla', 'BHBST/index.html', 'BHBST.png')">
             <img src="BHBST.png" alt="BHBST" class="project-logo">
-            BHBST</div>
-        <div class="project" onclick="openProjectDetail(event, 'Projet 3', 'Description du Projet 3', '#', '#3f51b5')">
-            Projet 3</div>
+            <div class="project-title">BHBST</div>
+        </div>
     </div>
 
+    <div class="overlay" id="overlay"></div>
+
     <div class="project-detail" id="projectDetail">
-        <img id="projectLogo" src="" alt="Logo du projet" class="project-logo">
-        <h2 id="projectTitle"></h2>
-        <p id="projectDescription"></p>
-        <a id="projectLink" href="#" target="_blank">Voir le projet</a>
-        <button class="return-button" onclick="closeProjectDetail()">Retour</button>
+        <div class="project-content">
+            <img id="projectLogo" src="" alt="Logo du projet">
+            <h2 id="projectTitle"></h2>
+            <p id="projectDescription"></p>
+            <a id="projectLink" href="#" target="_self">Voir le projet</a>
+            <button class="return-button" onclick="closeProjectDetail()">Retour</button>
+        </div>
     </div>
 
     <script>
-        function openProjectDetail(event, title, description, link, borderColor) {
-            event.stopPropagation();
+        function openProjectDetail(title, description, link, logoSrc) {
+            const overlay = document.getElementById('overlay');
             const projectDetail = document.getElementById('projectDetail');
-            const projectLogo = projectDetail.querySelector('#projectLogo');
-            projectDetail.querySelector('#projectTitle').innerText = title;
-            projectDetail.querySelector('#projectDescription').innerText = description;
-            projectDetail.querySelector('#projectLink').href = link;
-            projectDetail.querySelector('#projectLink').innerText = `Lien - ${title}`;
-            projectDetail.style.borderColor = borderColor;
 
-            if (title === 'Marley And Me') {
-                projectLogo.src = 'logo-marley.png';
-                projectLogo.style.display = 'block';
-            } else {
-                projectLogo.style.display = 'none';
-            }
+            document.getElementById('projectLogo').src = logoSrc;
+            document.getElementById('projectTitle').innerText = title;
+            document.getElementById('projectDescription').innerText = description;
+            document.getElementById('projectLink').href = link;
 
-            projectDetail.style.display = 'block';
+            overlay.style.display = 'block';
+            projectDetail.style.display = 'flex';
         }
 
         function closeProjectDetail() {
+            document.getElementById('overlay').style.display = 'none';
             document.getElementById('projectDetail').style.display = 'none';
         }
     </script>

@@ -1,1 +1,62 @@
-test 
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site en Construction</title>
+    <link rel="icon" href="jerome.png" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
+            font-family: 'Gloria Hallelujah', cursive;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .construction-text {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hourglass {
+            width: 100px;
+            height: 100px;
+            animation: spin 2s infinite linear;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="construction-text">SITE EN CONSTRUCTION</h1>
+        <img src="hourglass.png" alt="Sablier" class="hourglass">
+    </div>
+</body>
+
+</html>

@@ -15,8 +15,7 @@
             box-sizing: border-box;
         }
 
-        body,
-        html {
+        body {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -24,49 +23,56 @@
             background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
             font-family: 'Gloria Hallelujah', cursive;
             color: #fff;
-            overflow-y: auto;
-            padding: 20px;
+            padding-top: 80px;
+            padding-bottom: 60px;
         }
 
-        .after-click-frame {
-            border: 3px solid #3498db;
-            margin-top: 20px;
-            padding: 1.5rem;
-            background: #1b1b1b;
-            border-radius: 10px;
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
             text-align: center;
-            font-size: 1.4rem;
-            width: auto;
-            max-width: 80%;
+            font-size: 1.6rem;
+            padding: 10px;
+            background-color: #0e0e0e;
+            z-index: 1000;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 1.2rem;
+            padding: 10px;
+            background-color: #0e0e0e;
+            z-index: 1000;
         }
 
         .projects-container {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
             align-items: center;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: 80px;
+            padding-bottom: 60px;
         }
 
         .project {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
             padding: 1rem;
             background: #1b1b1b;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             cursor: pointer;
             transition: transform 0.2s;
             border: 3px solid;
-            gap: 0.5rem;
+            gap: 1rem;
+            width: auto;
             white-space: nowrap;
-            width: auto; /* Ajustement automatique de la taille du bouton */
-            min-width: 200px; /* Largeur minimale pour une apparence cohérente */
-        }
-
-        .project:hover {
-            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .project:nth-child(1) {
@@ -80,7 +86,6 @@
         .project-logo {
             width: 40px;
             height: 40px;
-            object-fit: contain;
         }
 
         .project-title {
@@ -97,117 +102,143 @@
             backdrop-filter: blur(8px);
             z-index: 9;
             display: none;
+            /* Masqué par défaut */
         }
 
         .project-detail {
-            display: flex;
+            display: none;
+            /* Masqué par défaut */
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 2rem;
             background: #1b1b1b;
             border-radius: 10px;
-            border: 5px solid #3498db;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            width: 90%;
-            max-width: 900px;
+            border: 3px solid #b45502;
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            max-height: 70vh;
             z-index: 10;
-            text-align: center;
-            display: none;
+            overflow-y: auto;
         }
 
-        .project-content {
+        .detail-container {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            justify-content: center;
+            gap: 2rem;
         }
 
-        .project-content img {
-            width: 120px;
-            height: 120px;
+        .detail-text {
+            flex: 1;
+            text-align: center;
+            /* Centrer le texte */
+        }
+
+        .detail-image {
+            width: 150px;
+            height: 150px;
             object-fit: contain;
+            border-radius: 5px;
         }
 
-        .project-content h2 {
+        .detail-text h2 {
             font-size: 2rem;
             margin-bottom: 1rem;
         }
 
-        .project-content p {
+        .detail-text p {
+            margin-bottom: 1rem;
             font-size: 1.2rem;
         }
 
-        .project-content a {
+        .detail-text a {
             color: #9b59b6;
             text-decoration: none;
+            display: block;
             margin-bottom: 1rem;
         }
 
         .return-button {
-            margin-top: 1rem;
-            padding: 0.5rem 1.5rem;
+            margin-top: 20px;
+            padding: 0.5rem 1rem;
             font-size: 1rem;
-            background: #333;
+            background: #b45502;
+            /* Même couleur que le cadre */
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            text-align: center;
+        }
+
+        .return-button:hover {
+            background: #ff4500;
         }
     </style>
 </head>
 
 <body>
-    <div class="after-click-frame">
-        <p>Cliquez sur un projet pour voir sa description complète.</p>
-    </div>
+    <header>
+        Bienvenue sur le Portfolio de Fever
+    </header>
 
-    <div class="projects-container" id="projectsGrid">
-        <div class="project" onclick="openProjectDetail('Marley And Me', 'Site vitrine créé pour Pierre Lechat.', 'marley_and_me/index.html', 'logo-marley.png')">
+    <div class="projects-container">
+        <div class="project"
+            onclick="openProjectDetail('Marley And Me', 'Site vitrine créé pour Pierre Lechat.', 'marley_and_me/index.html', 'logo-marley.png')">
             <img src="logo-marley.png" alt="Logo Marley And Me" class="project-logo">
             <div class="project-title">Marley And Me</div>
         </div>
-        <div class="project" onclick="openProjectDetail('BHBST', 'Service de boost Brawlhalla', 'BHBST/index.html', 'BHBST.png')">
+        <div class="project"
+            onclick="openProjectDetail('BHBST', 'Service de boost Brawlhalla', 'BHBST/index.html', 'BHBST.png')">
             <img src="BHBST.png" alt="BHBST" class="project-logo">
             <div class="project-title">BHBST</div>
         </div>
     </div>
 
-    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay" onclick="closeProjectDetail()"></div>
 
     <div class="project-detail" id="projectDetail">
-        <div class="project-content">
-            <img id="projectLogo" src="" alt="Logo du projet">
-            <h2 id="projectTitle"></h2>
-            <p id="projectDescription"></p>
-            <a id="projectLink" href="#" target="_self">Voir le projet</a>
-            <button class="return-button" onclick="closeProjectDetail()">Retour</button>
+        <div class="detail-container">
+            <div class="detail-text">
+                <h2 id="projectTitle"></h2>
+                <p id="projectDescription"></p>
+                <a id="projectLink" href="#" target="_self">Voir le projet</a>
+            </div>
+            <img id="projectLogo" src="" alt="Logo du projet" class="detail-image">
         </div>
+        <button class="return-button" onclick="closeProjectDetail()">Retour</button>
     </div>
+
+    <footer>
+        Contactez-moi sur Discord : fever65
+    </footer>
 
     <script>
         function openProjectDetail(title, description, link, logoSrc) {
             const overlay = document.getElementById('overlay');
             const projectDetail = document.getElementById('projectDetail');
-
             document.getElementById('projectLogo').src = logoSrc;
             document.getElementById('projectTitle').innerText = title;
             document.getElementById('projectDescription').innerText = description;
             document.getElementById('projectLink').href = link;
-
             overlay.style.display = 'block';
             projectDetail.style.display = 'flex';
         }
-
         function closeProjectDetail() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('projectDetail').style.display = 'none';
         }
+        window.onload = function () {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('projectDetail').style.display = 'none';
+        };
     </script>
+
 </body>
 
 </html>

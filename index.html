@@ -195,6 +195,26 @@
             vertical-align: middle;
 
         }
+
+        h1 {
+            padding-top: 4%;
+            font-size: 2.2rem;
+            text-align: center;
+        }
+
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.6rem;/ padding-top: 10%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.4rem;
+                padding-top: 12%;
+            }
+        }
     </style>
 </head>
 
@@ -203,6 +223,8 @@
         <img src="jerome.png" alt="Logo" class="header-logo">
         Mes projets
     </header>
+
+    <h1>Bienvenue dans mon espace dédié à mes créations de sites web !</h1>
 
     <div class="projects-container">
         <div class="project"
@@ -216,10 +238,10 @@
             <div class="project-title">BHBST</div>
         </div>
         <div class="project"
-        onclick="openProjectDetail('Maison', 'Jour. Nuit. Jour. Nuit !', 'Maison/index.html', 'maison.png')">
-        <img src="maison.png" alt="Maison" class="project-logo">
-        <div class="project-title">Maison</div>
-    </div>
+            onclick="openProjectDetail('Maison', 'Jour. Nuit. Jour. Nuit !', 'Maison/index.html', 'maison.png')">
+            <img src="maison.png" alt="Maison" class="project-logo">
+            <div class="project-title">Maison</div>
+        </div>
     </div>
 
     <div class="overlay" id="overlay" onclick="closeProjectDetail()"></div>
@@ -235,7 +257,6 @@
         </div>
         <button class="return-button" onclick="closeProjectDetail()">Retour</button>
     </div>
-
     <footer>
         Discord : fever65
     </footer>

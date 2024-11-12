@@ -199,7 +199,7 @@
 
     <div class="projects-container">
         <div class="project"
-            onclick="openProjectDetail('Marley And Me', 'Site vitrine créé pour Pierre Lechat.', 'marley_and_me/index.html', 'logo-marley.png')">
+            onclick="openProjectDetail('Marley And Me', 'Site vitrine créé pour Pierre Lechat.', 'marley_and_me/index.html', 'logo-marley.png', '_blank')">
             <img src="logo-marley.png" alt="Logo Marley And Me" class="project-logo">
             <div class="project-title">Marley And Me</div>
         </div>
@@ -229,13 +229,14 @@
     </footer>
 
     <script>
-        function openProjectDetail(title, description, link, logoSrc) {
+        function openProjectDetail(title, description, link, logoSrc, target = "_self") {
             const overlay = document.getElementById('overlay');
             const projectDetail = document.getElementById('projectDetail');
             document.getElementById('projectLogo').src = logoSrc;
             document.getElementById('projectTitle').innerText = title;
             document.getElementById('projectDescription').innerText = description;
             document.getElementById('projectLink').href = link;
+            document.getElementById('projectLink').target = target;
             overlay.style.display = 'block';
             projectDetail.style.display = 'flex';
         }

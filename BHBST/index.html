@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHBST</title>
+    <link rel="icon" href="BHBST.png" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Code Pro', monospace;
+            background-color: #0d1117;
+            color: #d1d7db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background-color: #161b22;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #38b48b;
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #5ec49b;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 5px;
+        }
+
+        p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #21262d;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .highlight {
+            color: #ffa657;
+            font-weight: bold;
+        }
+
+        /* Accentuation des sections importantes */
+        .limited-offer {
+            border: 2px solid #ffa657;
+            background-color: #272b33;
+            box-shadow: 0 0 15px rgba(255, 166, 87, 0.6);
+        }
+
+        .limited-offer h2 {
+            color: #ffa657;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #a5b0b5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Services de Boost</h1>
+
+        <div class="section">
+            <h2>Boost d'Elo</h2>
+            <p>2000 ➔ <span class="highlight">40€</span></p>
+            <p>2100 ➔ <span class="highlight">45€</span></p>
+            <p>2200 ➔ <span class="highlight">50€</span></p>
+            <p>2300 ➔ <span class="highlight">60€</span></p>
+            <p>2400 ➔ <span class="highlight">75€</span></p>
+            <p>2500 ➔ <span class="highlight">100€</span></p>
+            <p>2600 ➔ <span class="highlight">150€</span></p>
+            <p>2700 ➔ <span class="highlight">200€</span></p>
+            <p>2800 ➔ <span class="highlight">400€</span></p>
+            <p>Plus ➔ lire bas de page</p>
+        </div>
+
+        <div class="section">
+            <h2>Niveau Personnages</h2>
+            <p>Niveau 25 ➔ <span class="highlight">20€</span></p>
+            <p>Niveau 100 ➔ <span class="highlight">500€</span></p>
+            <p>Autre niveau ? ➔ lire bas de page</p>
+        </div>
+
+        <div class="section limited-offer">
+            <h2>Esport V2 (Jusqu'en décembre)</h2>
+            <p>tous les personnages ➔ <span class="highlight">20€</span></p>
+            <p>Nombre personnalisé ➔ lire bas de page</p>
+        </div>
+
+        <div class="section limited-offer">
+            <h2>Compléter le Pass de Combat (Bientôt fini)</h2>
+            <p>Quêtes d'une semaine ➔ <span class="highlight">15€</span></p>
+            <p>Toutes les quêtes ➔ <span class="highlight">100€</span></p>
+            <p>Autre demande ? ➔ lire bas de page</p>
+        </div>
+    </div>
+
+    <footer>
+        Pour toute demande, vous pouvez me contacter sur Discord.
+    </footer>
+</body>
+
+</html>

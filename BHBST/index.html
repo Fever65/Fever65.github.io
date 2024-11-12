@@ -74,7 +74,6 @@
             font-weight: bold;
         }
 
-        /* Accentuation des sections importantes */
         .limited-offer {
             border: 2px solid #ffa657;
             background-color: #272b33;
@@ -89,6 +88,51 @@
             margin-top: 30px;
             font-size: 1rem;
             color: #a5b0b5;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            font-size: 1.6rem;
+            padding: 10px;
+            background-color: #0e0e0e;
+            z-index: 10000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            height: 80px;
+        }
+
+        .header-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .return-button {
+            font-family: 'Source Code Pro', monospace;
+            margin-left: auto;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #b45502;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .return-button:hover {
+            background-color: #ff4500;
+        }
+
+        body {
+            margin-top: 80px;
         }
 
         @media (max-width: 768px) {
@@ -107,10 +151,13 @@
     </style>
 </head>
 
+<header>
+    <img src="jerome.png" alt="Logo" class="header-logo">
+    <button class="return-button" onclick="window.location.href='https://archivefever.work';">Mes projets</button>
+</header>
+
 <body>
     <div class="container">
-        <h1>Services de Boost</h1>
-
         <div class="section">
             <h2>Boost d'Elo</h2>
             <p>2000 ➔ <span class="highlight">40€</span></p>

@@ -90,9 +90,13 @@
             border-color: #ff4500;
         }
 
+        .project:nth-child(3) {
+            border-color: #8f1671;
+        }
+
         .project-logo {
-            width: 60px;
-            height: 60px;
+            width: 100px;
+            height: 100px;
         }
 
         .project-title {
@@ -211,6 +215,11 @@
             <img src="BHBST.png" alt="BHBST" class="project-logo">
             <div class="project-title">BHBST</div>
         </div>
+        <div class="project"
+        onclick="openProjectDetail('Maison', 'Jour. Nuit. Jour. Nuit !', 'Maison/index.html', 'Maison.png')">
+        <img src="Maison.png" alt="Maison" class="project-logo">
+        <div class="project-title">Maison</div>
+    </div>
     </div>
 
     <div class="overlay" id="overlay" onclick="closeProjectDetail()"></div>

@@ -67,12 +67,19 @@
             background: #1b1b1b;
             border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, opacity 0.5s ease-out;
             border: 3px solid;
             gap: 1rem;
             width: auto;
             white-space: nowrap;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .project.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .project:nth-child(1) {
@@ -245,9 +252,17 @@
             document.getElementById('projectDetail').style.display = 'none';
         }
         window.onload = function () {
+            const projects = document.querySelectorAll('.project');
+            projects.forEach((project, index) => {
+                setTimeout(() => {
+                    project.classList.add('visible');
+                }, index * 200);
+            });
+
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('projectDetail').style.display = 'none';
         };
+
     </script>
 
 </body>

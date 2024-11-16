@@ -287,12 +287,11 @@
 
 <body>
     <header>
-        <img src="jerome.png" alt="Logo" class="header-logo">
-        Mes projets
+        <img src="jerome.png" alt="Logo" class="header-logo" onclick="playSound()">
     </header>
 
     <h1>Bienvenue dans mon espace dédié à mes créations de sites web !</h1>
-
+    <audio id="click-sound" src="miaou.mp3"></audio>
     <div class="projects-container">
         <div class="project"
             onclick="openProjectDetail('Ma Configuration', 'Mon matériel (wow)', 'Setup/index.html', 'setup.png')">
@@ -370,7 +369,13 @@
         };
 
     </script>
-
+<script>
+    function playSound() {
+        const sound = document.getElementById('click-sound');
+        sound.currentTime = 0;
+        sound.play();
+    }
+</script>
 </body>
 
 </html>

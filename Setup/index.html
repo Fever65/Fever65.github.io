@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration Matérielle</title>
+    <link rel="icon" href="setup.png" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
+            font-family: 'Source Code Pro', monospace;
+            color: #dcdcdc;
+            padding: 20px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #0e0e0e;
+            z-index: 1000;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .return-button {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.2rem;
+            padding: 10px 15px;
+            background-color: #b45502;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .return-button:hover {
+            background-color: #ff4500;
+        }
+
+        .config-container {
+            width: 60%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 100px;
+        }
+
+        .config-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-family: 'Gloria Hallelujah', cursive;
+        }
+
+        .config-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .config-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .config-item:last-child {
+            border-bottom: none;
+        }
+
+        .config-item strong {
+            flex: 0 0 30%;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #76c7c0;
+        }
+
+        .config-item span {
+            flex: 1;
+            text-align: right;
+            font-size: 0.9rem;
+            color: #dcdcdc;
+        }
+
+        @media (max-width: 768px) {
+            .config-container {
+                width: 90%;
+            }
+
+            .config-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 5px 0;
+            }
+
+            .config-item strong,
+            .config-item span {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <body>
+        <header>
+            <img src="../jerome.png" alt="Logo" class="header-logo">
+            <button class="return-button" onclick="window.location.href='https://archivefever.work'">Mes
+                Projets</button>
+        </header>
+
+        <div class="config-container">
+            <h1 class="config-title">Ma Configuration Matérielle</h1>
+            <ul class="config-list">
+                <li class="config-item"><strong>Processeur :</strong> <span>AMD Ryzen 5 3600X</span></li>
+                <li class="config-item"><strong>Refroidissement :</strong> <span>Cooler Master ML240L V2 RGB</span></li>
+                <li class="config-item"><strong>Carte Mère :</strong> <span>Asus ROG STRIX B550-F GAMING</span></li>
+                <li class="config-item"><strong>Mémoire Vive :</strong> <span>HyperX Predator RGB 32GB 3600MHz</span>
+                </li>
+                <li class="config-item"><strong>Carte Graphique :</strong> <span>Asus GeForce RTX 2080 ROG STRIX
+                        A8G</span></li>
+                <li class="config-item"><strong>Boîtier :</strong> <span>In Win 103 Phantom</span></li>
+                <li class="config-item"><strong>Alimentation :</strong> <span>Be Quiet! Dark Power 12 750W</span></li>
+                <li class="config-item"><strong>OS :</strong> <span>Windows 11 Pro 64-bit</span></li>
+                <li class="config-item"><strong>Stockage :</strong> <span>WD Green 240GB, HyperX Fury 120GB, Aorus Gen4
+                        500GB, 2x 1TB</span></li>
+                <li class="config-item"><strong>Moniteurs :</strong> <span>LG-24GN600, HP 22vx</span></li>
+                <li class="config-item"><strong>Microphone :</strong> <span>Razer Sieren X</span></li>
+                <li class="config-item"><strong>Casque :</strong> <span>Beyerdynamic DT 770 PRO</span></li>
+                <li class="config-item"><strong>Souris :</strong> <span>Logitech G502 HERO</span></li>
+                <li class="config-item"><strong>Clavier :</strong> <span>Wooting 80HE</span></li>
+                <li class="config-item"><strong>Webcam :</strong> <span>Razer Kiyo X</span></li>
+                <li class="config-item"><strong>PC Portable :</strong> <span>MacBook Air M2 15" 256 Go</span></li>
+                <li class="config-item"><strong>Téléphone :</strong> <span>iPhone 13 128 Go, couleur Minuit</span></li>
+            </ul>
+        </div>
+
+        <script>
+            function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        </script>
+    </body>
+
+</html>

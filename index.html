@@ -131,23 +131,26 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
+            width: 90%;
             max-width: 600px;
-            max-height: 70vh;
-            z-index: 10;
+            max-height: 80vh;
+            height: auto;
             overflow-y: auto;
+            z-index: 10;
+        }
+
+        .project-detail h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            word-wrap: break-word;
         }
 
         .detail-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .detail-text {
-            flex: 1;
-            text-align: center;
+            gap: 1rem;
         }
 
         .detail-image {
@@ -155,16 +158,20 @@
             height: 150px;
             object-fit: contain;
             border-radius: 5px;
+            margin-bottom: 1rem;
         }
 
-        .detail-text h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
+        .detail-text {
+            flex: 1;
+            text-align: center;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
 
         .detail-text p {
             margin-bottom: 1rem;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            line-height: 1.4;
         }
 
         .detail-text a {
@@ -174,20 +181,45 @@
             margin-bottom: 1rem;
         }
 
-        .return-button {
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
             margin-top: 20px;
+        }
+
+        .view-button {
             padding: 0.5rem 1rem;
             font-size: 1rem;
             background: #b45502;
             color: #fff;
             border: none;
             border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .view-button:hover {
+            background: #ff4500;
+        }
+
+        .return-button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            background: #7a7a7a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
             text-align: center;
+            transition: background 0.3s;
+            font-family: 'Gloria Hallelujah', cursive;
         }
 
         .return-button:hover {
-            background: #ff4500;
+            background: #a0a0a0;
         }
 
         .header-logo {
@@ -196,7 +228,6 @@
             object-fit: cover;
             margin-right: 10px;
             vertical-align: middle;
-
         }
 
         h1 {
@@ -206,10 +237,9 @@
             text-align: center;
         }
 
-
         @media (max-width: 768px) {
             h1 {
-                font-size: 1.6rem;/ padding-top: 5%;
+                font-size: 1.6rem;
             }
         }
 
@@ -217,6 +247,14 @@
             h1 {
                 font-size: 1.4rem;
                 padding-top: 6%;
+            }
+
+            .project-detail h2 {
+                font-size: 1.6rem;
+            }
+
+            .detail-text p {
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -256,16 +294,19 @@
     <div class="overlay" id="overlay" onclick="closeProjectDetail()"></div>
 
     <div class="project-detail" id="projectDetail">
+        <h2 id="projectTitle"></h2>
         <div class="detail-container">
-            <div class="detail-text">
-                <h2 id="projectTitle"></h2>
-                <p id="projectDescription"></p>
-                <a id="projectLink" href="#" target="_self">Voir le projet</a>
-            </div>
             <img id="projectLogo" src="" alt="Logo du projet" class="detail-image">
+            <div class="detail-text">
+                <p id="projectDescription"></p>
+            </div>
         </div>
-        <button class="return-button" onclick="closeProjectDetail()">Retour</button>
+        <div class="button-container">
+            <a id="projectLink" href="#" target="_self" class="view-button">Voir le projet</a>
+            <button class="return-button" onclick="closeProjectDetail()">Retour</button>
+        </div>
     </div>
+
     <footer>
         Discord : fever65
     </footer>

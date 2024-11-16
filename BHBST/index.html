@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BHBST</title>
     <link rel="icon" href="../Sources/Images/BHBST.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+    <link href="../Sources/CSS/header.css" rel="stylesheet" />
+    <link href="../Sources/CSS/fond.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -26,7 +31,8 @@
             flex-direction: column;
             padding: 20px;
             min-height: 100vh;
-            text-align: center;
+            text-align: center;      
+            margin-top: 80px;
         }
 
         .container {
@@ -88,51 +94,6 @@
             margin-top: 30px;
             font-size: 1rem;
             color: #a5b0b5;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            font-size: 1.6rem;
-            padding: 10px;
-            background-color: #0e0e0e;
-            z-index: 10000;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            height: 80px;
-        }
-
-        .header-logo {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            margin-right: 10px;
-        }
-
-        .return-button {
-            font-family: 'Gloria Hallelujah', cursive;
-            margin-left: auto;
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #b45502;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .return-button:hover {
-            background-color: #ff4500;
-        }
-
-        body {
-            margin-top: 80px;
         }
 
         @media (max-width: 768px) {
@@ -198,6 +159,11 @@
     <footer>
         Pour toute demande, vous pouvez me contacter sur Discord.
     </footer>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 
 </html>

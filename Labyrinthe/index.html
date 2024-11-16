@@ -5,6 +5,14 @@
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width,initial-scale=1.0'>
     <title>Générateur de Labyrinthe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+    <link href="../Sources/CSS/header.css" rel="stylesheet" />
+    <link href="../Sources/CSS/fond.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="icon" href="../Sources/Images/labyrinthe.png" type="image/png">
     <header>
         <a href="https://archivefever.work">
@@ -13,393 +21,224 @@
         <button class="return-button" onclick="window.location.href='https://archivefever.work';">Mes projets</button>
     </header>
     <style>
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background-color: #0e0e0e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Arial', sans-serif;
-            color: #b0b0b0;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        #container {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #0e0e0e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    color: #b0b0b0;
+}
 
-        #options-container {
-            background-color: #1a1a1a;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-        }
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
+    color: #fff;
+    overflow: hidden;
+}
 
-        #options-container .controls-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            white-space: nowrap;
-        }
+*,
+h1, h2, h3, h4, h5, h6, p, span, button {
+    font-family: 'Gloria Hallelujah', cursive !important;
+}
 
-        #options-container button {
-            padding: 12px 20px;
-            background: linear-gradient(to right, #8b0000, #b22222);
-            border: none;
-            color: #d3d3d3;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: 700;
-            transition: background 0.3s, transform 0.3s;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8);
-        }
+#container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
 
-        #options-container button:hover {
-            background: linear-gradient(to right, #5a0000, #8b0000);
-            transform: translateY(-4px);
-        }
+#options-container {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
 
-        #maze-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: auto;
-        }
+#options-container .controls-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
 
-        canvas {
-            border: 5px solid #d35400;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-        }
+#options-container button {
+    padding: 12px 20px;
+    background: linear-gradient(to right, #8b0000, #b22222);
+    border: none;
+    color: #d3d3d3;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 700;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8);
+}
 
-        #status {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #d32f2f;
-            font-size: 2em;
-            font-family: 'Montserrat', sans-serif;
-            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
-            transition: color 1s ease;
-        }
+#options-container button:hover {
+    background: linear-gradient(to right, #5a0000, #8b0000);
+    transform: translateY(-4px);
+}
 
-        #about-button {
-            margin-top: 10px;
-            padding: 10px 15px;
-            background: linear-gradient(to right, #1c3d6e, #2e8bde);
-            border: none;
-            color: #c0c0c0;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: 600;
-            transition: background 0.3s, transform 0.3s;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8);
-        }
+#maze-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
 
-        #about-button:hover {
-            background: linear-gradient(to right, #163f5f, #1e609e);
-            transform: translateY(-4px);
-        }
+canvas {
+    border: 5px solid #d35400;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
 
-        #lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s, opacity 0.5s;
-        }
+#about-button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: linear-gradient(to right, #1c3d6e, #2e8bde);
+    border: none;
+    color: #c0c0c0;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8);
+}
 
-        #lightbox-content {
-            background: #1a1a1a;
-            color: #b0b0b0;
-            padding: 30px;
-            border-radius: 15px;
-            max-width: 500px;
-            text-align: center;
-            font-size: 1.1em;
-            line-height: 1.6em;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
+#about-button:hover {
+    background: linear-gradient(to right, #163f5f, #1e609e);
+    transform: translateY(-4px);
+}
 
-        #lightbox-content button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: #8b0000;
-            color: #b0b0b0;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
+#status {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #d32f2f;
+    font-size: 2em;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+    transition: color 1s ease;
+}
 
-        #lightbox-content button:hover {
-            background: #5a0000;
-        }
+#lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+}
 
-        #lightbox.show {
-            visibility: visible;
-            opacity: 1;
-        }
+#lightbox.show {
+    visibility: visible;
+    opacity: 1;
+}
 
-        *,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        span,
-        button {
-            font-family: 'Gloria Hallelujah', cursive !important;
-        }
+#lightbox-content {
+    background: #1a1a1a;
+    color: #b0b0b0;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.6em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
 
-        @media (max-width: 768px) {
-            body {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-                text-align: center;
-                padding: 20px;
-                background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
-                color: #ffffff;
-                font-family: 'Gloria Hallelujah', cursive !important;
-                overflow: hidden;
-            }
+#lightbox-content button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #8b0000;
+    color: #b0b0b0;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
 
-            #container,
-            canvas,
-            #options-container,
-            #maze-container,
-            #status,
-            #lightbox {
-                display: none !important;
-            }
+#lightbox-content button:hover {
+    background: #5a0000;
+}
 
-            body::before {
-                content: "Ce site est conçu pour PC. Malheureusement, l'affichage mobile n'est pas compatible.";
-                display: block;
-                font-size: 1.5em;
-                line-height: 1.6;
-                color: #ff8c00;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-                margin: 20px 0;
-            }
+#mobile-image { 
+  display:none;
+}
 
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-                padding: 10px 20px;
-                background-color: #0e0e0e;
-                z-index: 1000;
-            }
+@media (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+        background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
+        color: #ffffff;
+        font-family: 'Gloria Hallelujah', cursive !important;
+        overflow: hidden;
+    }
 
-            .header-logo {
-                width: 60px;
-                height: 60px;
-                object-fit: cover;
-            }
+    #container,
+    canvas,
+    #options-container,
+    #maze-container,
+    #status,
+    #lightbox {
+        display: none !important;
+    }
 
-            .return-button {
-                font-family: 'Gloria Hallelujah', cursive;
-                font-size: 1.2rem;
-                padding: 10px 15px;
-                background-color: #b45502;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
+    body::before {
+        content: "Ce site est conçu pour PC. Malheureusement, l'affichage mobile n'est pas compatible.";
+        display: block;
+        font-size: 1.5em;
+        line-height: 1.6;
+        color: #ff8c00;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        margin: 20px 0;
+    }
 
-            .return-button:hover {
-                background-color: #ff4500;
-            }
-        }
-    </style>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+    #mobile-image {
+        display: block !important;
+        width: 90%;
+        max-width: 400px;
+        margin: 20px auto;
+        border-radius: 10px;
+    }
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
-            color: #fff;
-            font-family: 'Gloria Hallelujah', cursive;
-            overflow: hidden;
-        }
-
-        * {
-            font-family: 'Gloria Hallelujah', cursive;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #0e0e0e;
-            z-index: 1000;
-        }
-
-        .header-logo {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-        }
-
-        .return-button {
-            text-decoration: none;
-            font-family: 'Gloria Hallelujah', cursive;
-            font-size: 1.2rem;
-            padding: 10px 15px;
-            background-color: #b45502;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .return-button:hover {
-            background-color: #ff4500;
-        }
-
-
-        *,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p,
-        span,
-        button {
-            font-family: 'Gloria Hallelujah', cursive !important;
-        }
-
-        #mobile-image {
-            display: none !important;
-        }
-
-
-        @media screen and (max-width: 768px) {
-            #mobile-image {
-                display: block !important;
-                width: 90%;
-                max-width: 400px;
-                margin: 20px auto;
-                border-radius: 10px;
-            }
-        }
-
-
-        @media (max-width: 768px) {
-            body {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-                text-align: center;
-                padding: 20px;
-                background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
-                color: #ffffff;
-                font-family: 'Gloria Hallelujah', cursive !important;
-                overflow: hidden;
-            }
-
-            #container,
-            canvas,
-            #options-container,
-            #maze-container,
-            #status,
-            #lightbox {
-                display: none !important;
-            }
-
-            body::before {
-                content: "Ce site est conçu pour PC. Malheureusement, l'affichage mobile n'est pas compatible.";
-                display: block;
-                font-size: 1.5em;
-                line-height: 1.6;
-                color: #ff8c00;
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-                margin: 20px 0;
-            }
-
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-                padding: 10px 20px;
-                background-color: #0e0e0e;
-                z-index: 1000;
-            }
-
-            .header-logo {
-                width: 60px;
-                height: 60px;
-                object-fit: cover;
-            }
-
-            .return-button {
-                text-decoration: none;
-                font-family: 'Gloria Hallelujah', cursive;
-                font-size: 1.2rem;
-                padding: 10px 15px;
-                background-color: #b45502;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-
-            .return-button:hover {
-                background-color: #ff4500;
-            }
     </style>
 </head>
 
@@ -435,6 +274,11 @@
     <script> const canvas = document.getElementById('maze'), ctx = canvas.getContext('2d'); const rowsSlider = document.getElementById('rowsSlider'); const colsSlider = document.getElementById('colsSlider'); const speedSlider = document.getElementById('speedSlider'); const rowsValue = document.getElementById('rowsValue'); const colsValue = document.getElementById('colsValue'); const generateButton = document.getElementById('generateButton'); const stopButton = document.getElementById('stopButton'); const status = document.getElementById('status'); const aboutButton = document.getElementById('about-button'); const lightbox = document.getElementById('lightbox'); const closeLightbox = document.getElementById('close-lightbox'); let cols = 7, rows = 7, cellSize; let grid = [], current, stack = [], path = []; let arrowSpeed = parseInt(speedSlider.value); let stopAnimation = false; let mazeResolved = false; rowsSlider.addEventListener('input', () => rowsValue.textContent = rowsSlider.value); colsSlider.addEventListener('input', () => colsValue.textContent = colsSlider.value); generateButton.addEventListener('click', () => { stopAnimation = true; setTimeout(() => { rows = parseInt(rowsSlider.value); cols = parseInt(colsSlider.value); arrowSpeed = parseInt(speedSlider.value); stopAnimation = false; mazeResolved = false; status.textContent = "Construction en cours..."; initializeMaze(); }, 100); }); stopButton.addEventListener('click', () => { stopAnimation = true; status.textContent = "Processus en pause."; }); speedSlider.addEventListener('input', () => arrowSpeed = 510 - parseInt(speedSlider.value)); aboutButton.addEventListener('click', () => { lightbox.classList.add('show'); }); closeLightbox.addEventListener('click', () => { lightbox.classList.remove('show'); }); function initializeMaze() { cellSize = Math.min(window.innerWidth / 3 / cols, window.innerHeight / 1.5 / rows); canvas.width = cols * cellSize; canvas.height = rows * cellSize; grid = []; stack = []; path = []; setup(); drawMaze(); } class Cell { constructor(x, y) { this.x = x; this.y = y; this.walls = [true, true, true, true]; this.visited = false; } show() { const x = this.x * cellSize, y = this.y * cellSize; ctx.strokeStyle = "#ff8c00"; ctx.lineWidth = 3; if (this.walls[0]) drawLine(x, y, x + cellSize, y); if (this.walls[1]) drawLine(x + cellSize, y, x + cellSize, y + cellSize); if (this.walls[2]) drawLine(x, y + cellSize, x + cellSize, y + cellSize); if (this.walls[3]) drawLine(x, y, x, y + cellSize); if (this.visited) { ctx.fillStyle = "rgba(70, 70, 90, 0.5)"; ctx.fillRect(x, y, cellSize, cellSize); } } checkNeighbors() { let neighbors = []; let top = grid[index(this.x, this.y - 1)]; let right = grid[index(this.x + 1, this.y)]; let bottom = grid[index(this.x, this.y + 1)]; let left = grid[index(this.x - 1, this.y)]; if (top && !top.visited) neighbors.push(top); if (right && !right.visited) neighbors.push(right); if (bottom && !bottom.visited) neighbors.push(bottom); if (left && !left.visited) neighbors.push(left); return neighbors.length > 0 ? neighbors[Math.floor(Math.random() * neighbors.length)] : undefined; } } function drawLine(x1, y1, x2, y2) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); } function index(x, y) { return x < 0 || y < 0 || x >= cols || y >= rows ? -1 : x + y * cols; } function setup() { for (let y = 0; y < rows; y++) { for (let x = 0; x < cols; x++) { grid.push(new Cell(x, y)); } } current = grid[0]; } function removeWalls(a, b) { let x = a.x - b.x; if (x === 1) { a.walls[3] = false; b.walls[1] = false; } else if (x === -1) { a.walls[1] = false; b.walls[3] = false; } let y = a.y - b.y; if (y === 1) { a.walls[0] = false; b.walls[2] = false; } else if (y === -1) { a.walls[2] = false; b.walls[0] = false; } } function drawMaze() { function step() { if (stopAnimation) return; current.visited = true; let next = current.checkNeighbors(); if (next) { next.visited = true; stack.push(current); removeWalls(current, next); current = next; } else if (stack.length > 0) { current = stack.pop(); } grid.forEach(cell => cell.show()); if (stack.length > 0) requestAnimationFrame(step); else { status.textContent = "Exploration en cours..."; drawPath(); } } requestAnimationFrame(step); } function drawPath() { path = [grid[0]]; let visited = new Set(); visited.add(grid[0]); function step() { if (stopAnimation) return; if (path.length > 0) { let current = path[path.length - 1]; if (current === grid[grid.length - 1]) { drawFinalPath(path); animateArrowLoop(path); return; } let neighbors = []; let top = grid[index(current.x, current.y - 1)]; let right = grid[index(current.x + 1, current.y)]; let bottom = grid[index(current.x, current.y + 1)]; let left = grid[index(current.x - 1, current.y)]; if (top && !current.walls[0] && !visited.has(top)) neighbors.push(top); if (right && !current.walls[1] && !visited.has(right)) neighbors.push(right); if (bottom && !current.walls[2] && !visited.has(bottom)) neighbors.push(bottom); if (left && !current.walls[3] && !visited.has(left)) neighbors.push(left); if (neighbors.length > 0) { let next = neighbors[Math.floor(Math.random() * neighbors.length)]; visited.add(next); path.push(next); } else { path.pop(); } ctx.fillStyle = "rgba(100, 100, 255, 0.3)"; ctx.fillRect(current.x * cellSize, current.y * cellSize, cellSize, cellSize); requestAnimationFrame(step); } } step(); } function drawFinalPath(finalPath) { ctx.strokeStyle = "rgba(255, 0, 0, 0.5)"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(finalPath[0].x * cellSize + cellSize / 2, finalPath[0].y * cellSize + cellSize / 2); for (let i = 1; i < finalPath.length; i++) { ctx.lineTo(finalPath[i].x * cellSize + cellSize / 2, finalPath[i].y * cellSize + cellSize / 2); } ctx.stroke(); drawEmoji(finalPath[0], "🚪"); drawEmoji(finalPath[finalPath.length - 1], "🪙"); if (!mazeResolved) { status.textContent = "Le labyrinthe est résolu."; mazeResolved = true; } } function drawEmoji(cell, emoji) { ctx.font = `${cellSize * 0.8}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(emoji, cell.x * cellSize + cellSize / 2, cell.y * cellSize + cellSize / 2); } function animateArrowLoop(finalPath) { let i = 0; function animateArrow() { if (stopAnimation) return; if (i >= finalPath.length - 1) { i = 0; } const current = finalPath[i]; const next = finalPath[i + 1]; const x1 = current.x * cellSize + cellSize / 2; const y1 = current.y * cellSize + cellSize / 2; const x2 = next.x * cellSize + cellSize / 2; const y2 = next.y * cellSize + cellSize / 2; ctx.clearRect(0, 0, canvas.width, canvas.height); grid.forEach(cell => cell.show()); drawFinalPath(finalPath); ctx.strokeStyle = "#ff4500"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); drawArrow(x1, y1, x2, y2); i++; setTimeout(() => requestAnimationFrame(animateArrow), arrowSpeed); } animateArrow(); } function drawArrow(x1, y1, x2, y2) { const headlen = 10; const angle = Math.atan2(y2 - y1, x2 - x1); ctx.beginPath(); ctx.moveTo(x2, y2); ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI / 6), y2 - headlen * Math.sin(angle - Math.PI / 6)); ctx.moveTo(x2, y2); ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI / 6), y2 - headlen * Math.sin(angle + Math.PI / 6)); ctx.stroke(); } initializeMaze(); </script>
     <script> const canvas = document.getElementById('maze'), ctx = canvas.getContext('2d'); const rowsSlider = document.getElementById('rowsSlider'); const colsSlider = document.getElementById('colsSlider'); const speedSlider = document.getElementById('speedSlider'); const rowsValue = document.getElementById('rowsValue'); const colsValue = document.getElementById('colsValue'); const generateButton = document.getElementById('generateButton'); const stopButton = document.getElementById('stopButton'); const status = document.getElementById('status'); const aboutButton = document.getElementById('about-button'); const lightbox = document.getElementById('lightbox'); const closeLightbox = document.getElementById('close-lightbox'); let cols = 7, rows = 7, cellSize; let grid = [], current, stack = [], path = []; let arrowSpeed = parseInt(speedSlider.value); let stopAnimation = false; let mazeResolved = false; rowsSlider.addEventListener('input', () => rowsValue.textContent = rowsSlider.value); colsSlider.addEventListener('input', () => colsValue.textContent = colsSlider.value); generateButton.addEventListener('click', () => { stopAnimation = true; setTimeout(() => { rows = parseInt(rowsSlider.value); cols = parseInt(colsSlider.value); arrowSpeed = parseInt(speedSlider.value); stopAnimation = false; mazeResolved = false; status.textContent = "Construction en cours..."; initializeMaze(); }, 100); }); stopButton.addEventListener('click', () => { stopAnimation = true; status.textContent = "Processus en pause."; }); speedSlider.addEventListener('input', () => arrowSpeed = 510 - parseInt(speedSlider.value)); aboutButton.addEventListener('click', () => { lightbox.classList.add('show'); }); closeLightbox.addEventListener('click', () => { lightbox.classList.remove('show'); }); function initializeMaze() { cellSize = Math.min(window.innerWidth / 3 / cols, window.innerHeight / 1.5 / rows); canvas.width = cols * cellSize; canvas.height = rows * cellSize; grid = []; stack = []; path = []; setup(); drawMaze(); } class Cell { constructor(x, y) { this.x = x; this.y = y; this.walls = [true, true, true, true]; this.visited = false; } show() { const x = this.x * cellSize, y = this.y * cellSize; ctx.strokeStyle = "#ff8c00"; ctx.lineWidth = 3; if (this.walls[0]) drawLine(x, y, x + cellSize, y); if (this.walls[1]) drawLine(x + cellSize, y, x + cellSize, y + cellSize); if (this.walls[2]) drawLine(x, y + cellSize, x + cellSize, y + cellSize); if (this.walls[3]) drawLine(x, y, x, y + cellSize); if (this.visited) { ctx.fillStyle = "rgba(70, 70, 90, 0.5)"; ctx.fillRect(x, y, cellSize, cellSize); } } checkNeighbors() { let neighbors = []; let top = grid[index(this.x, this.y - 1)]; let right = grid[index(this.x + 1, this.y)]; let bottom = grid[index(this.x, this.y + 1)]; let left = grid[index(this.x - 1, this.y)]; if (top && !top.visited) neighbors.push(top); if (right && !right.visited) neighbors.push(right); if (bottom && !bottom.visited) neighbors.push(bottom); if (left && !left.visited) neighbors.push(left); return neighbors.length > 0 ? neighbors[Math.floor(Math.random() * neighbors.length)] : undefined; } } function drawLine(x1, y1, x2, y2) { ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); } function index(x, y) { return x < 0 || y < 0 || x >= cols || y >= rows ? -1 : x + y * cols; } function setup() { for (let y = 0; y < rows; y++) { for (let x = 0; x < cols; x++) { grid.push(new Cell(x, y)); } } current = grid[0]; } function removeWalls(a, b) { let x = a.x - b.x; if (x === 1) { a.walls[3] = false; b.walls[1] = false; } else if (x === -1) { a.walls[1] = false; b.walls[3] = false; } let y = a.y - b.y; if (y === 1) { a.walls[0] = false; b.walls[2] = false; } else if (y === -1) { a.walls[2] = false; b.walls[0] = false; } } function drawMaze() { function step() { if (stopAnimation) return; current.visited = true; let next = current.checkNeighbors(); if (next) { next.visited = true; stack.push(current); removeWalls(current, next); current = next; } else if (stack.length > 0) { current = stack.pop(); } grid.forEach(cell => cell.show()); if (stack.length > 0) requestAnimationFrame(step); else { status.textContent = "Exploration en cours..."; drawPath(); } } requestAnimationFrame(step); } function drawPath() { path = [grid[0]]; let visited = new Set(); visited.add(grid[0]); function step() { if (stopAnimation) return; if (path.length > 0) { let current = path[path.length - 1]; if (current === grid[grid.length - 1]) { drawFinalPath(path); animateArrowLoop(path); return; } let neighbors = []; let top = grid[index(current.x, current.y - 1)]; let right = grid[index(current.x + 1, current.y)]; let bottom = grid[index(current.x, current.y + 1)]; let left = grid[index(current.x - 1, current.y)]; if (top && !current.walls[0] && !visited.has(top)) neighbors.push(top); if (right && !current.walls[1] && !visited.has(right)) neighbors.push(right); if (bottom && !current.walls[2] && !visited.has(bottom)) neighbors.push(bottom); if (left && !current.walls[3] && !visited.has(left)) neighbors.push(left); if (neighbors.length > 0) { let next = neighbors[Math.floor(Math.random() * neighbors.length)]; visited.add(next); path.push(next); } else { path.pop(); } ctx.fillStyle = "rgba(100, 100, 255, 0.3)"; ctx.fillRect(current.x * cellSize, current.y * cellSize, cellSize, cellSize); requestAnimationFrame(step); } } step(); } function drawFinalPath(finalPath) { ctx.strokeStyle = "rgba(255, 0, 0, 0.5)"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(finalPath[0].x * cellSize + cellSize / 2, finalPath[0].y * cellSize + cellSize / 2); for (let i = 1; i < finalPath.length; i++) { ctx.lineTo(finalPath[i].x * cellSize + cellSize / 2, finalPath[i].y * cellSize + cellSize / 2); } ctx.stroke(); drawEmoji(finalPath[0], "🚪"); drawEmoji(finalPath[finalPath.length - 1], "🪙"); if (!mazeResolved) { status.textContent = "Le labyrinthe est résolu."; mazeResolved = true; } } function drawEmoji(cell, emoji) { ctx.font = `${cellSize * 0.8}px sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText(emoji, cell.x * cellSize + cellSize / 2, cell.y * cellSize + cellSize / 2); } function animateArrowLoop(finalPath) { let i = 0; function animateArrow() { if (stopAnimation) return; if (i >= finalPath.length - 1) { i = 0; } const current = finalPath[i]; const next = finalPath[i + 1]; const x1 = current.x * cellSize + cellSize / 2; const y1 = current.y * cellSize + cellSize / 2; const x2 = next.x * cellSize + cellSize / 2; const y2 = next.y * cellSize + cellSize / 2; ctx.clearRect(0, 0, canvas.width, canvas.height); grid.forEach(cell => cell.show()); drawFinalPath(finalPath); ctx.strokeStyle = "#ff4500"; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); drawArrow(x1, y1, x2, y2); i++; setTimeout(() => requestAnimationFrame(animateArrow), arrowSpeed); } animateArrow(); } function drawArrow(x1, y1, x2, y2) { const headlen = 10; const angle = Math.atan2(y2 - y1, x2 - x1); ctx.beginPath(); ctx.moveTo(x2, y2); ctx.lineTo(x2 - headlen * Math.cos(angle - Math.PI / 6), y2 - headlen * Math.sin(angle - Math.PI / 6)); ctx.moveTo(x2, y2); ctx.lineTo(x2 - headlen * Math.cos(angle + Math.PI / 6), y2 - headlen * Math.sin(angle + Math.PI / 6)); ctx.stroke(); } initializeMaze(); </script>
     <script>
+        <script>
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body >
 
 </html >

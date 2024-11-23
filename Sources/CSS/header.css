@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+body {
+    padding-top: 70px;
+    margin: 0;
+}
+
 header {
     position: fixed;
     top: 0;

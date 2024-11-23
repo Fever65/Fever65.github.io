@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Fever</title>
     <link rel="icon" href="../Sources/Images/jerome.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+    <link href="../Sources/CSS/header.css" rel="stylesheet" />
+    <link href="../Sources/CSS/fond.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="../Sources/Images/Jerome.png" type="image/png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
 
@@ -15,37 +24,12 @@
             box-sizing: border-box;
         }
 
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
-            font-family: 'Gloria Hallelujah', cursive;
-            color: #fff;
-            padding-top: 80px;
-            padding-bottom: 60px;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 1.6rem;
-            background-color: #0e0e0e;
-            z-index: 1000;
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            text-align: center;
-            font-size: 1.2rem;
-            padding: 10px;
-            background-color: #0e0e0e;
-            z-index: 1000;
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 10px;
+            vertical-align: middle;
         }
 
         .projects-container {
@@ -225,14 +209,6 @@
             background: #a0a0a0;
         }
 
-        .header-logo {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
         h1 {
             padding-top: 40px;
             padding-bottom: 40px;
@@ -286,11 +262,12 @@
 
 <body>
     <header>
-        <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo" onclick="playSound()">
+        <a href="https://archivefever.work">
+            <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+        </a>
     </header>
 
     <h1>Bienvenue dans mon espace dédié à mes créations de sites web !</h1>
-    <audio id="click-sound" src="../Sources/Sons/miaou.mp3"></audio>
     <div class="projects-container">
         <div class="project"
             onclick="openProjectDetail('Ma Configuration', 'Mon matériel (wow)', '../Setup/index.html', '../Sources/Images/setup.png')">
@@ -335,10 +312,6 @@
         </div>
     </div>
 
-    <footer>
-        Discord : fever65
-    </footer>
-
     <script>
         function openProjectDetail(title, description, link, logoSrc, target = "_self") {
             const overlay = document.getElementById('overlay');
@@ -368,13 +341,6 @@
         };
 
     </script>
-<script>
-    function playSound() {
-        const sound = document.getElementById('click-sound');
-        sound.currentTime = 0;
-        sound.play();
-    }
-</script>
 </body>
 
 </html>

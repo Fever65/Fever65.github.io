@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture du Livre</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Qwitcher+Grypen:wght@400;700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link href="../Sources/CSS/header.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="../Sources/Images/maison.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Gloria Hallelujah', monospace;
+            background-color: #0f0f0f;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+
+        .table {
+            position: relative;
+            width: 80%;
+            height: 60%;
+            background: #663d2d;
+            border: 5px solid #4a2f21;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.8);
+        }
+
+        .book {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #8e6e53;
+            border: 2px solid #6b4e36;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #f5e5cc;
+            border-left: 2px solid #d6b85c;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        .book-buttons {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+        }
+
+        .book-button {
+            padding: 10px 20px;
+            background: #493125;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .book-button:hover {
+            background: #d6b85c;
+            color: #000;
+        }
+
+        .candle {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 50px;
+            height: 150px;
+            background: #f5e1c4;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .flame {
+            position: absolute;
+            top: -10px;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #ff9900, #ff4500);
+            border-radius: 50%;
+            animation: flicker 0.2s infinite ease-in-out;
+        }
+
+        @keyframes flicker {
+
+            0%,
+            100% {
+                transform: translateY(-2px) scale(1.1);
+            }
+
+            50% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .candle {
+                top: auto;
+                bottom: 5%;
+                left: 2%;
+                right: auto;
+            }
+        }
+
+        .book {
+            width: 250px;
+            height: 180px;
+        }
+
+        .book-button {
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html">
+            <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+        </a>
+        <a href="../Projet/index.html" class="return-button">Mes projets</a>
+    </header>
+    <audio id="page-turn-sound" src="../Sources/Sons/page.mp3"></audio>
+    <div class="table">
+        <div class="book">
+            <div class="page active" id="page1">Il était une fois...</div>
+            <div class="page" id="page2">Une personne incroyable, curieuse, qui ouvrit ce livre magique.</div>
+            <div class="page" id="page3">Elle lisait attentivement, découvrant les secrets du projet MAISON.</div>
+            <div class="page" id="page4">Il y a plusieurs détails cachés dans ce projet.</div>
+            <div class="page" id="page5">Premièrement, on ne peut entrer dans cette maison que les jours de pluie.</div>
+            <div class="page" id="page6">Deuxièmement, on peut cliquer sur le soleil et la lune pour faire passer le temps (littéralement).</div>
+            <div class="page" id="page7">On peut faire tomber la pluie en touchant les nuages.</div>
+            <div class="page" id="page8">TOC TOC TOC. Si tu essaies d'entrer alors qu'il ne pleut pas...</div>
+            <div class="page" id="page9">Sois attentif aux étoiles la nuit.</div>
+            <div class="page" id="page10">Peut-être qu'un jour, la maison évoluera encore...</div>
+            <div class="page" id="page11">FIN.</div>
+            <div class="page" id="page12">Sylvain (Fever pour les intimes).</div>
+            <div class="page" id="page13">Tu peux arrêter de tourner les pages, il n'y a plus rien.</div>
+            <div class="page" id="page14">Je t'avais prévenu.</div>
+            <div class="page" id="page15">STOP !!!</div>
+            <div class="page" id="page16">Bon, vu que tu es curieux, j'ai un cadeau pour toi à la véritable dernière page du livre.</div>
+            <div class="page" id="page17">
+                <a href="https://urlr.me/xqVQfk" target="_blank" style="text-decoration: none; color: #ff4500; font-weight: bold;">
+                    CADEAU ❤️‍🔥
+                </a>
+            </div>            
+            <div class="book-buttons">
+                <button class="book-button" onclick="prevPage()">Précédent</button>
+                <button class="book-button" onclick="nextPage()">Suivant</button>
+            </div>
+        </div>
+
+        <div class="candle">
+            <div class="flame"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 0;
+    
+        function playPageTurnSound() {
+            const sound = document.getElementById('page-turn-sound'); 
+            if (sound) {
+                sound.currentTime = 0;
+                sound.play().catch((error) => {
+                    console.warn("Impossible de lire le son :", error);
+                });
+            }
+        }
+
+        function updatePages() {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach((page, index) => {
+                page.classList.toggle('active', index === currentPage); 
+            });
+        }
+    
+        function nextPage() {
+            const pages = document.querySelectorAll('.page');
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                updatePages();
+                playPageTurnSound();
+            }
+        }
+    
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updatePages();
+                playPageTurnSound();
+            }
+        }
+
+        updatePages();
+    </script>
+    
+</body>
+
+</html>

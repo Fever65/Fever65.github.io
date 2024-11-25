@@ -19,7 +19,7 @@
         </a>
         <a href="../Projet/index.html" class="return-button">Mes projets</a>
     </header>
-    
+
     <style>
         @keyframes smoke {
             0% {
@@ -97,6 +97,7 @@
             cursor: default;
             box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
         }
+
         .moon:hover {
             box-shadow: 0 0 40px 20px rgb(160, 159, 157);
         }
@@ -215,7 +216,9 @@
             <div class="chimney">
                 <div class="smoke"></div>
             </div>
-            <div class="door"></div>
+            <div class="door" onclick="playSound()">
+                <audio id="click-sound" src="../Sources/Sons/bell.mp3"></audio>
+            </div>
             <div class="window window-left"></div>
             <div class="window window-right"></div>
         </div>
@@ -232,5 +235,12 @@
         <div class="shooting-star" style="--random-delay: 10; --random-direction: -1;"></div>
     </div>
 </body>
+
+<script>
+    function playSound() {
+        const audio = document.getElementById('click-sound');
+        audio.play();
+    }
+</script>
 
 </html>

@@ -189,21 +189,32 @@
             top: 20px;
             right: 20px;
         }
+        
+        .cloud {
+            position: absolute;
+            background: radial-gradient(circle at 50% 50%, #ebe7e7, #e7e7e7);
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            z-index: 2;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
     <div class="scene">
         <div class="sun" onclick="window.location.href='nuit.html'"></div>
-        <div class="cloud cloud1"></div>
-        <div class="cloud cloud2"></div>
+        <div class="cloud cloud1" onclick="window.location.href='pluie.html'"></div>
+        <div class="cloud cloud2" onclick="window.location.href='pluie.html'"></div>
         <div class="ground"></div>
         <div class="house">
             <div class="roof"></div>
             <div class="chimney">
                 <div class="smoke"></div>
             </div>
-            <div class="door"></div>
+            <div class="door" onclick="playSound()">
+                <audio id="click-sound" src="../Sources/Sons/bell.mp3"></audio>
+            </div>
             <div class="window window-left"></div>
             <div class="window window-right"></div>
         </div>
@@ -211,6 +222,10 @@
 </body>
 
 <script>
+    function playSound() {
+        const audio = document.getElementById('click-sound');
+        audio.play();
+    }
     function scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }

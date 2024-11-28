@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BHBST</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+    <link href="../Sources/CSS/header.css" rel="stylesheet" />
+    <link href="../Sources/CSS/fond.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Source Code Pro', monospace;
+            color: #ffffff;
+        }
+
+        .main-buttons {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .main-buttons a {
+            display: inline-block;
+            background-color: #37048a;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .main-buttons a:hover {
+            background-color: #520b6e;
+            transform: translateY(-2px);
+        }
+
+        main {
+            flex: 1;
+            text-align: center;
+            margin: 40px auto;
+            max-width: 90%;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #b82f0d;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin: 40px auto;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        footer {
+            width: 100%;
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            text-align: center;
+            padding: 15px 0;
+            border-top: 1px solid #333;
+            flex-shrink: 0;
+        }
+
+        .footer-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #bfbfbf;
+        }
+
+        footer strong {
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../index.html">
+            <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+        </a>
+        <a href="../Projet/index.html" class="return-button">Mes projets</a>
+    </header>
+
+    <div class="main-buttons">
+        <a href="index.html">Prix</a>
+        <a href="moi.html">Fever</a>
+        <a>Feedback</a>
+    </div>
+
+    <main>
+        <section>
+            <h2>Retour clients</h2>
+            <div class="gallery">
+                <img src="../Sources/Images/BHBST/clients/1.png" alt="Photo 1">
+                <img src="../Sources/Images/BHBST/clients/2.png" alt="Photo 2">
+                <img src="../Sources/Images/BHBST/clients/3.png" alt="Photo 3">
+                <img src="../Sources/Images/BHBST/clients/4.png" alt="Photo 4">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p>Pour toute demande ou information supplémentaire, contactez-moi sur Discord :
+                <strong>fever65</strong>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

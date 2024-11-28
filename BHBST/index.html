@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BHBST</title>
-    <link rel="icon" href="../Sources/Images/BHBST.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -13,130 +12,176 @@
         rel="stylesheet">
     <link href="../Sources/CSS/header.css" rel="stylesheet" />
     <link href="../Sources/CSS/fond.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
-            font-family: 'Gloria Hallelujah', cursive;
-            color: #fff;
+            font-family: 'Source Code Pro', monospace;
+            color: #ffffff;
             margin: 0;
         }
 
         main {
-            flex: 1;
-            width: 90%;
-            max-width: 1000px;
-            margin: 20px auto;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
             text-align: center;
         }
 
-        h1,
-        h2 {
-            font-family: 'Source Code Pro', monospace;
-            color: #e07b39;
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
-            margin-bottom: 15px;
+        main h2 {
+            color: #b82f0d;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
         }
 
-        h1 {
-            font-size: 2rem;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-        }
-
-        p {
-            font-family: 'Source Code Pro', monospace;
+        main p {
             color: #dcdcdc;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 1rem;
         }
 
-        table {
+        .main-buttons {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .main-buttons a {
+            display: inline-block;
+            background-color: #37048a;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .main-buttons a:hover {
+            background-color: #520b6e;
+            transform: translateY(-2px);
+        }
+
+        .accordion {
+            background-color: #1e1e1e;
+            color: #fff;
+            cursor: pointer;
+            padding: 15px 20px;
             width: 100%;
-            margin: 10px auto;
-            border-collapse: collapse;
-            background-color: #121212;
-            border: 1px solid #222;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-            font-size: 0.85rem;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
 
-        table thead {
-            background-color: #c07634;
-            color: #f1f1f1;
+        .accordion:hover {
+            background-color: #252525;
         }
 
-        table thead th {
-            padding: 8px;
-            text-transform: uppercase;
-            font-family: 'Source Code Pro', monospace;
-            font-size: 0.8rem;
+        .accordion.active {
+            background-color: #333;
         }
 
-        table tbody tr {
-            height: 30px;
+        .accordion .arrow {
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
         }
 
-        table tbody tr:nth-child(odd) {
+        .accordion.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        .panel {
+            padding: 0 15px;
+            display: none;
+            overflow: hidden;
             background-color: #181818;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
 
-        table tbody tr:nth-child(even) {
+        .panel table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .panel table thead {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .panel table thead th {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .panel table tbody tr {
+            border-bottom: 1px solid #444;
+        }
+
+        .panel table tbody tr:nth-child(odd) {
+            background-color: #252525;
+        }
+
+        .panel table tbody tr:nth-child(even) {
             background-color: #1e1e1e;
         }
 
-        table tbody td {
-            padding: 6px 8px;
-            color: #dcdcdc;
-            font-family: 'Source Code Pro', monospace;
-            border: 1px solid #222;
-            text-align: center;
-            width: 50%;
-            white-space: nowrap;
+        .panel table tbody tr:hover {
+            background-color: #e07b39;
+            color: #fff;
         }
 
-        table tbody tr:hover {
-            background-color: #2a2a2a;
-            color: #e07b39;
-            cursor: pointer;
+        .panel table tbody td {
+            padding: 10px;
+            text-align: center;
+            color: #ddd;
         }
 
         footer {
             width: 100%;
-            background-color: #0e0e0e;
+            background-color: #1e1e1e;
             color: #dcdcdc;
-            font-family: 'Source Code Pro', monospace;
-            font-size: 0.9rem;
             text-align: center;
-            padding: 10px 0;
-            position: relative;
-            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            border-top: 1px solid #333;
+            position: fixed;
+            bottom: 0;
+            left: 0;
         }
 
-        @media (max-width: 768px) {
-            table {
-                font-size: 0.75rem;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            h2 {
-                font-size: 1.4rem;
-            }
-
-            footer {
-                font-size: 0.8rem;
-            }
+        .footer-container {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        div iframe {
-            width: 100%;
-            max-width: 560px;
+        footer p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: #bfbfbf;
+        }
+
+        footer strong {
+            color: #ffffff;
+        }
+
+        .responsive-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        main img {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -149,108 +194,139 @@
         <a href="../Projet/index.html" class="return-button">Mes projets</a>
     </header>
 
+    <div class="main-buttons">
+        <a>Prix</a>
+        <a href="moi.html">Fever</a>
+        <a href="avis.html">Feedback</a>
+    </div>
+
     <main>
         <section>
             <h2>Boost de Rang 1v1</h2>
-            <p>Le boost de rang vous permet d’atteindre un rang plus élevé en 1v1. Vous choisissez votre ELO cible, et
-                je me chargerai d’augmenter votre Elo en toute sécurité.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ELO de Cible</th>
-                        <th>Prix (€)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1800</td>
-                        <td>45€</td>
-                    </tr>
-                    <tr>
-                        <td>1900</td>
-                        <td>50€</td>
-                    </tr>
-                    <tr>
-                        <td>2000</td>
-                        <td>55€</td>
-                    </tr>
-                    <tr>
-                        <td>2100</td>
-                        <td>60€</td>
-                    </tr>
-                    <tr>
-                        <td>2200</td>
-                        <td>70€</td>
-                    </tr>
-                    <tr>
-                        <td>2300</td>
-                        <td>80€</td>
-                    </tr>
-                    <tr>
-                        <td>2400</td>
-                        <td>90€</td>
-                    </tr>
-                    <tr>
-                        <td>2500</td>
-                        <td>100€</td>
-                    </tr>
-                    <tr>
-                        <td>2600</td>
-                        <td>125€</td>
-                    </tr>
-                    <tr>
-                        <td>2700</td>
-                        <td>200€</td>
-                    </tr>
-                    <tr>
-                        <td>2800</td>
-                        <td>400€</td>
-                    </tr>
-                </tbody>
-            </table>
+            <img src="../Sources/Images/elo.png" alt="Illustration Boost Rang" class="responsive-image"
+                style="margin-bottom: 20px;">
+            <p>Choisissez votre ELO cible et je m'occupe du reste en toute sécurité.</p>
 
-            <h2>Boost de Niveau</h2>
-            <p>Le boost de niveau est idéal pour débloquer du contenu plus rapidement ou atteindre vos objectifs.
-                J'augmenterai votre niveau jusqu’à celui que vous avez choisi.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Niveau Cible</th>
-                        <th>Prix (€)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>25</td>
-                        <td>30€</td>
-                    </tr>
-                    <tr>
-                        <td>50</td>
-                        <td>150€</td>
-                    </tr>
-                    <tr>
-                        <td>100</td>
-                        <td>750€</td>
-                    </tr>
-                </tbody>
-            </table>
-            <h2>Vidéo de quelques parties en Ranked 1v1</h2>
-            <div style="margin: 20px auto; text-align: center;">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/-Lb3vaNyGmE"
-                    title="YouTube video player" frameborder="0" allowfullscreen>
-                </iframe>
+            <button class="accordion">Prix des Boosts de Rang<span class="arrow">▼</span></button>
+            <div class="panel">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ELO de Cible</th>
+                            <th>Prix (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1800</td>
+                            <td>45€</td>
+                        </tr>
+                        <tr>
+                            <td>1900</td>
+                            <td>50€</td>
+                        </tr>
+                        <tr>
+                            <td>2000</td>
+                            <td>55€</td>
+                        </tr>
+                        <tr>
+                            <td>2100</td>
+                            <td>60€</td>
+                        </tr>
+                        <tr>
+                            <td>2200</td>
+                            <td>70€</td>
+                        </tr>
+                        <tr>
+                            <td>2300</td>
+                            <td>80€</td>
+                        </tr>
+                        <tr>
+                            <td>2400</td>
+                            <td>90€</td>
+                        </tr>
+                        <tr>
+                            <td>2500</td>
+                            <td>100€</td>
+                        </tr>
+                        <tr>
+                            <td>2600</td>
+                            <td>125€</td>
+                        </tr>
+                        <tr>
+                            <td>2700</td>
+                            <td>200€</td>
+                        </tr>
+                        <tr>
+                            <td>2800</td>
+                            <td>400€</td>
+                        </tr>
+                        <tr>
+                            <td>Autres ?</td>
+                            <td>Discord : fever65</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <p>Pour s'organiser il faudras passer par des messages privés via DISCORD.</p>
+        </section>
+
+        <section>
+            <h2>Boost de Niveau de légende</h2>
+            <img src="../Sources/Images/level.png" alt="Illustration Boost Niveau" class="responsive-image"
+                style="margin-bottom: 20px;">
+            <p>Je monte en niveau avec ton personnage choisi.</p>
+
+            <button class="accordion">Prix des Boosts de Niveau de légende<span class="arrow">▼</span></button>
+            <div class="panel">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Niveau Cible</th>
+                            <th>Prix (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>25</td>
+                            <td>30€</td>
+                        </tr>
+                        <tr>
+                            <td>50</td>
+                            <td>150€</td>
+                        </tr>
+                        <tr>
+                            <td>100</td>
+                            <td>750€</td>
+                        </tr>
+                        <tr>
+                            <td>Autres ?</td>
+                            <td>Discord : fever65</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
-    <footer>
-        Pour toute demande ou information supplémentaire, veuillez me contacter sur Discord : <strong>fever65</strong>.
-    </footer>
 
+    <footer>
+        <div class="footer-container">
+            <p>Pour toute demande ou information supplémentaire, contactez-moi sur Discord : <strong>fever65</strong>
+            </p>
+        </div>
+    </footer>
     <script>
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        const accordions = document.querySelectorAll('.accordion');
+        accordions.forEach(acc => {
+            acc.addEventListener('click', function () {
+                this.classList.toggle('active');
+                const panel = this.nextElementSibling;
+                if (panel.style.display === 'block') {
+                    panel.style.display = 'none';
+                } else {
+                    panel.style.display = 'block';
+                }
+            });
+        });
     </script>
 </body>
 

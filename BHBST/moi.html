@@ -134,6 +134,31 @@
             color: #ffffff;
         }
 
+        .custom-button {
+    display: inline-block;
+    background: linear-gradient(90deg, #ff6f61, #ff8561);
+    color: #ffffff;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.custom-button:hover {
+    background: linear-gradient(90deg, #ff8561, #ffa061);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.button-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
         @media (min-width: 768px) {
             .responsive-image {
                 max-width: 70%;
@@ -243,8 +268,16 @@
                 <img src="../Sources/Images//BHBST/moi/Ale3.png" alt="Photo 3">
             </div>
         </section>
+        <section>
+            <h2>Level de mes légendes</h2>
+            <div class="button-container">
+                <a href="https://douwdy.github.io/BlackValhalla/" target="_blank" class="custom-button">
+                    Lien vers Black Valhalla (Site créé par D0uwdy)
+                </a>
+            </div>            
+        </section>
     </main>
-
+    
     <footer>
         <div class="footer-container">
             <p>Pour toute demande ou information supplémentaire, contactez-moi sur Discord :

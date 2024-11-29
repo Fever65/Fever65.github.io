@@ -244,6 +244,43 @@
             text-align: center;
         }
 
+        .logo-switch-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-switch-button:hover {
+            transform: scale(1.1);
+        }
+
+
+        .button-icon {
+            width: 100px;
+            height: auto;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .button-icon.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .header-logo {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .header-logo.hidden {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.6rem;
@@ -278,10 +315,11 @@
                 padding: 0.4rem 1rem;
                 font-size: 0.9rem;
             }
+
             .project-detail.visible {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
         }
 
 
@@ -339,10 +377,11 @@
                 padding: 0.5rem;
                 font-size: 0.8rem;
             }
+
             .project-detail.visible {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
     </style>
 </head>
 
@@ -352,7 +391,6 @@
             <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
         </a>
     </header>
-
     <h1>Bienvenue dans mon espace dédié à mes créations de sites web !</h1>
     <div class="projects-container">
         <div class="project"
@@ -399,6 +437,28 @@
     </div>
 
     <script>
+        window.onload = function () {
+            // Initialisation des projets
+            const projects = document.querySelectorAll('.project');
+            projects.forEach((project, index) => {
+                setTimeout(() => {
+                    project.classList.add('visible');
+                }, index * 200);
+            });
+
+            // Masquer l'overlay et la fenêtre de détail au chargement
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('projectDetail').style.display = 'none';
+
+            // Faire apparaître le bouton logo-switch après 1 seconde
+            setTimeout(() => {
+                const logoButton = document.querySelector('.logo-switch-button');
+                if (logoButton) {
+                    logoButton.classList.add('visible');
+                }
+            }, 1000);
+        };
+
         function openProjectDetail(title, description, link, logoSrc, target = "_self", borderColor) {
             const overlay = document.getElementById('overlay');
             const projectDetail = document.getElementById('projectDetail');
@@ -442,18 +502,37 @@
             }, 300); // Le délai correspond à la durée de la transition CSS
         }
 
-        window.onload = function () {
-            const projects = document.querySelectorAll('.project');
-            projects.forEach((project, index) => {
-                setTimeout(() => {
-                    project.classList.add('visible');
-                }, index * 200);
-            });
+        function switchLogo() {
+            const logo = document.querySelector('.header-logo');
+            const buttonIcon = document.querySelector('.button-icon'); // L'image dans le bouton
+            const newLogoSrc = '../Sources/Images/JeromeN.png';
+            const newButtonIconSrc = '../Sources/Images/palmier.png'; // Image du palmier
+            const defaultButtonIconSrc = '../Sources/Images/sapin.png'; // Image du sapin
 
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('projectDetail').style.display = 'none';
-        };
+            // Étape 1 : Masquer le logo et l'image du bouton avec une animation
+            logo.classList.add('hidden');
+            buttonIcon.classList.add('hidden');
+
+            // Étape 2 : Attendre que l'animation termine avant de changer les images
+            setTimeout(() => {
+                // Changer le logo
+                if (logo.src.includes('jerome.png')) {
+                    logo.src = newLogoSrc; // Change vers le nouveau logo
+                    buttonIcon.src = newButtonIconSrc; // Change l'image du bouton en palmier
+                } else {
+                    logo.src = '../Sources/Images/jerome.png'; // Reviens au logo initial
+                    buttonIcon.src = defaultButtonIconSrc; // Reviens au sapin
+                }
+
+                // Réafficher les images avec une animation fluide
+                logo.classList.remove('hidden');
+                buttonIcon.classList.remove('hidden');
+            }, 500); // Correspond à la durée de la transition CSS (0.5s)
+        }
     </script>
+    <button class="logo-switch-button" onclick="switchLogo()">
+        <img src="../Sources/Images/sapin.png" alt="Sapin" class="button-icon">
+    </button>
 </body>
 
 </html>

@@ -77,19 +77,3 @@ function disableChristmasMode() {
 
     stopFireworkLoop();
 }
-
-function activateChristmasModeIfApplicable() {
-    const today = new Date();
-    const startChristmas = new Date(today.getFullYear(), 11, 1); 
-    const endChristmas = new Date(today.getFullYear() + 1, 0, 1); 
-
-    if (today >= startChristmas && today < endChristmas) {
-        enableChristmasMode(); 
-        const buttonIcon = document.querySelector('.button-icon');
-        if (buttonIcon) {
-            buttonIcon.src = '../Sources/Images/palmier.png'; 
-        }
-    }
-}
-
-activateChristmasModeIfApplicable();

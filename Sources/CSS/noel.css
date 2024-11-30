@@ -1,0 +1,101 @@
+body.christmas-mode {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+header.christmas-mode {
+    background-color: #111111;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    padding: 10px 0;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+header.christmas-mode img {
+    filter: brightness(0.8);
+    transition: filter 0.5s ease;
+}
+
+h1.christmas-mode {
+    color: #f0d89e;
+    text-shadow: 0 0 2px #f0d89e, 0 0 4px #b88e43;
+    transition: text-shadow 0.5s ease;
+}
+
+.project.christmas-mode {
+    background-color: transparent;
+    border: 2px solid var(--project-color);
+    box-shadow: 0 0 8px 3px var(--project-color);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.project.christmas-mode:nth-child(1) {
+    --project-color: #d3e200;
+    color: #d3e200;
+}
+
+.project.christmas-mode:nth-child(2) {
+    --project-color: #ff4500;
+    color: #ff4500;
+}
+
+.project.christmas-mode:nth-child(3) {
+    --project-color: #8f1671;
+    color: #8f1671;
+}
+
+.project.christmas-mode:nth-child(4) {
+    --project-color: #2603a5;
+    color: #2603a5;
+}
+
+.project.christmas-mode:nth-child(5) {
+    --project-color: #4caf50;
+    color: #4caf50;
+}
+
+.project.christmas-mode:hover {
+    box-shadow: 0 0 15px 5px var(--project-color);
+    transform: scale(1.05);
+}
+
+.project.christmas-mode .project-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--project-color);
+    transition: color 0.3s ease;
+    text-shadow: none;
+}
+
+.project-detail.christmas-mode {
+    background-color: #0f0f0f;
+    border: 2px solid var(--project-color);
+    box-shadow: 0 0 10px 5px var(--project-color);
+    transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.project-detail.christmas-mode h2 {
+    color: var(--project-color);
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.project-detail.christmas-mode .detail-image {
+    box-shadow: none;
+    border: none;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease;
+}
+
+.project-detail.christmas-mode .detail-text {
+    color: #e0e0e0;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.project-detail.christmas-mode {
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Même vitesse pour Noël */
+}
+
+

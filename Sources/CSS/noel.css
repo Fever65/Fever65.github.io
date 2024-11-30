@@ -95,7 +95,5 @@ h1.christmas-mode {
 }
 
 .project-detail.christmas-mode {
-    transition: transform 0.4s ease-out, opacity 0.4s ease-out; /* Même vitesse pour Noël */
+    transition: transform 0.4s ease-out, opacity 0.4s ease-out;
 }
-
-

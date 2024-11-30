@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(){ 
-    window.onload = function () {
+window.onload = function () {
         const projects = document.querySelectorAll('.project');
         projects.forEach((project, index) => {
             setTimeout(() => {
@@ -53,4 +52,4 @@ document.addEventListener("DOMContentLoaded", function(){
             projectDetail.style.display = 'none';
         }, 300);
     }
-});
+

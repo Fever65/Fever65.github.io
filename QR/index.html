@@ -1,58 +1,227 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QR Code avec Couleurs Custom</title>
+  <title>COLOR QR</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
-        rel="stylesheet">
-    <link href="../Sources/CSS/header.css" rel="stylesheet" />
-    <link href="../Sources/CSS/fond.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+    rel="stylesheet">
+  <link href="../Sources/CSS/header.css" rel="stylesheet" />
+  <link href="../Sources/CSS/fond.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" href="../Sources/Images/QR.png" type="image/png">
   <style>
-    #qr-code {
-      margin-top: 25px;
+   h1 {
+    margin-top: 20px;
+    font-family: 'Gloria Hallelujah', cursive;
+    color: #db8402;
+    text-align: center;
+    font-size: 32px; 
+    word-wrap: break-word; 
+  }
+
+    h2 {
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 20px;
+      color: #db8402;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 10px;
     }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #db8402;
+      text-align: center;
+    }
+
+    form input[type="url"],
+    form input[type="color"],
+    form input[type="text"],
+    form button {
+      width: 20%;
+      margin: 10px auto;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 14px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    form input[type="color"] {
+      height: 20px;
+      padding: 0;
+      border: none;
+    }
+
+    form input[type="text"] {
+      margin-top: -5px;
+    }
+
+    form button {
+      background-color: #b46d01;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    form button:hover {
+      background-color: #804d00;
+    }
+
+    #qr-code {
+      margin: 25px auto;
+      display: none;
+      background-color: white;
+      border-radius: 10px;
+    }
+
+    #download-button {
+      margin-top: 20px;
+      background-color: #db8402;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    #download-button:hover {
+      background-color: #804d00;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    #qr-code {
+      display: none;
+      margin: 25px auto;
+      background-color: transparent;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    form button,
+    #download-button {
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+      background-color: #b46d01;
+      color: #fff;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+    }
+
+    form button:hover,
+    #download-button:hover {
+      background-color: #804d00;
+    }
+
+    #download-button {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+        margin: 10px;
+      }
+    }
+
+    form {
+      width: 90%;
+    }
+
+    form input[type="url"],
+    form input[type="color"],
+    form input[type="text"],
+    form button,
+    #download-button {
+      font-size: 12px;
+    }
+
+    #qr-code {
+      width: 80%;
+      height: auto;
+    }
+
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 </head>
+
 <body>
   <header>
     <a href="../index.html">
-        <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+      <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
     </a>
     <a href="../projet/index.html" class="return-button">Mes projets</a>
   </header>
-  <h1>Générateur de QR Code Custom</h1>
+  <h1>Crée ton QRCODE avec tes couleurs</h1>
   <form id="qr-form">
-    <input type="url" id="url" placeholder="Entrez un lien" required>
-    <br><br>
-    <label for="dark-color">Couleur des parties sombres :</label>
-    <input type="color" id="dark-color" value="#000000">
-    <input type="text" id="dark-color-hex" placeholder="#000000">
-    <br><br>
-    <label for="light-color">Couleur des parties claires :</label>
-    <input type="color" id="light-color" value="#ffffff">
-    <input type="text" id="light-color-hex" placeholder="#ffffff">
-    <br><br>
+    <h2>Insérer le lien :</h2>
+    <div class="form-group">
+      <input type="url" id="url" placeholder="Entrez un lien" required>
+    </div>
+
+    <h2>Couleur des parties sombres :</h2>
+    <div class="form-group">
+      <label for="dark-color"></label>
+      <input type="color" id="dark-color" value="#000000">
+      <label for="dark-color-hex"></label>
+      <input type="text" id="dark-color-hex" placeholder="#000000">
+    </div>
+
+    <h2>Couleur des parties claires :</h2>
+    <div class="form-group">
+      <label for="light-color"></label>
+      <input type="color" id="light-color" value="#ffffff">
+      <label for="light-color-hex"></label>
+      <input type="text" id="light-color-hex" placeholder="#ffffff">
+    </div>
+
     <button type="submit">Générer le QR Code</button>
   </form>
+
   <canvas id="qr-code" width="300" height="300"></canvas>
+  <div class="button-container">
+    <button id="download-button">Télécharger le QR Code</button>
+  </div>
 
   <script>
-    function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
     const form = document.getElementById('qr-form');
     const qrCanvas = document.getElementById('qr-code');
     const darkColorInput = document.getElementById('dark-color');
     const darkColorHex = document.getElementById('dark-color-hex');
     const lightColorInput = document.getElementById('light-color');
     const lightColorHex = document.getElementById('light-color-hex');
+    const downloadButton = document.getElementById('download-button');
 
     darkColorInput.addEventListener('input', () => {
       darkColorHex.value = darkColorInput.value;
@@ -79,14 +248,36 @@
       ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
 
       await QRCode.toCanvas(qrCanvas, url, {
-        width: 300, 
-        margin: 0, 
+        width: 300,
+        margin: 0,
         color: {
           dark: darkColor,
-          light: lightColor
-        }
+          light: lightColor,
+        },
       });
+
+      qrCanvas.style.display = "block";
+      downloadButton.style.display = "inline-block";
     });
+
+    downloadButton.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'qr-code.png';
+      link.href = qrCanvas.toDataURL('image/png');
+      link.click();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+    const defaultDarkColor = "#970000"; 
+    const defaultLightColor = "#00ff00"; 
+
+    document.getElementById('dark-color').value = defaultDarkColor;
+    document.getElementById('dark-color-hex').value = defaultDarkColor;
+    document.getElementById('light-color').value = defaultLightColor;
+    document.getElementById('light-color-hex').value = defaultLightColor;
+  });
   </script>
 </body>
+
 </html>

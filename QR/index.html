@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code avec Couleurs Custom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
+    <link href="../Sources/CSS/header.css" rel="stylesheet" />
+    <link href="../Sources/CSS/fond.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    #qr-code {
+      margin-top: 25px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../index.html">
+        <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+    </a>
+    <a href="../projet/index.html" class="return-button">Mes projets</a>
+  </header>
+  <h1>Générateur de QR Code Custom</h1>
+  <form id="qr-form">
+    <input type="url" id="url" placeholder="Entrez un lien" required>
+    <br><br>
+    <label for="dark-color">Couleur des parties sombres :</label>
+    <input type="color" id="dark-color" value="#000000">
+    <input type="text" id="dark-color-hex" placeholder="#000000">
+    <br><br>
+    <label for="light-color">Couleur des parties claires :</label>
+    <input type="color" id="light-color" value="#ffffff">
+    <input type="text" id="light-color-hex" placeholder="#ffffff">
+    <br><br>
+    <button type="submit">Générer le QR Code</button>
+  </form>
+  <canvas id="qr-code" width="300" height="300"></canvas>
+
+  <script>
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    const form = document.getElementById('qr-form');
+    const qrCanvas = document.getElementById('qr-code');
+    const darkColorInput = document.getElementById('dark-color');
+    const darkColorHex = document.getElementById('dark-color-hex');
+    const lightColorInput = document.getElementById('light-color');
+    const lightColorHex = document.getElementById('light-color-hex');
+
+    darkColorInput.addEventListener('input', () => {
+      darkColorHex.value = darkColorInput.value;
+    });
+    darkColorHex.addEventListener('input', () => {
+      darkColorInput.value = darkColorHex.value;
+    });
+
+    lightColorInput.addEventListener('input', () => {
+      lightColorHex.value = lightColorInput.value;
+    });
+    lightColorHex.addEventListener('input', () => {
+      lightColorInput.value = lightColorHex.value;
+    });
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const url = document.getElementById('url').value;
+      const darkColor = darkColorInput.value;
+      const lightColor = lightColorInput.value;
+
+      const ctx = qrCanvas.getContext('2d');
+      ctx.clearRect(0, 0, qrCanvas.width, qrCanvas.height);
+
+      await QRCode.toCanvas(qrCanvas, url, {
+        width: 300, 
+        margin: 0, 
+        color: {
+          dark: darkColor,
+          light: lightColor
+        }
+      });
+    });
+  </script>
+</body>
+</html>

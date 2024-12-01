@@ -69,10 +69,16 @@
             margin-top: 20px;
         }
 
+        main section:first-child {
+            display: block;
+        }
+
         section {
             margin: 10px auto;
             text-align: center;
             max-width: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .video-container {
@@ -227,10 +233,6 @@
             .gallery {
                 grid-template-columns: 1fr;
                 margin: 20px auto;
-            }
-
-            .video-container iframe {
-                height: auto;
             }
         }
     </style>

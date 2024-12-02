@@ -16,6 +16,7 @@
     <style>
         html,
         body {
+            overflow-x: hidden;
             height: 100%;
             margin: 0;
             display: flex;
@@ -97,9 +98,9 @@
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 10px;
-            max-width: 1200px;
+            max-width: 100%;
             margin: 20px auto;
             justify-items: center;
             align-items: start;
@@ -174,17 +175,17 @@
         .video-container-wrapper {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
+            /* Par défaut : 2 vidéos par ligne */
             gap: 10px;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 10px;
         }
 
         .video-container {
-            position: relative;
             width: 100%;
-            aspect-ratio: 16 / 9;
-            background-color: #000;
+            max-width: 100%;
+            /* Assurer qu'il n'y ait pas de débordement */
+            margin: 0 auto;
         }
 
         .video-container iframe {
@@ -225,15 +226,23 @@
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-        }
-
-        @media (max-width: 768px) {
 
             .video-container,
             .gallery {
                 grid-template-columns: 1fr;
                 margin: 20px auto;
             }
+
+            .video-container-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
         }
     </style>
 </head>

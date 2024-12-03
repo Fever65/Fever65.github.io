@@ -30,31 +30,36 @@ h1.christmas-mode {
 }
 
 .project.christmas-mode:nth-child(1) {
+    --project-color: #48D1CC;
+    color: #48D1CC;
+}
+
+.project.christmas-mode:nth-child(2) {
     --project-color: #d3e200;
     color: #d3e200;
 }
 
-.project.christmas-mode:nth-child(2) {
+.project.christmas-mode:nth-child(3) {
     --project-color: #ff4500;
     color: #ff4500;
 }
 
-.project.christmas-mode:nth-child(3) {
+.project.christmas-mode:nth-child(4) {
     --project-color: #8f1671;
     color: #8f1671;
 }
 
-.project.christmas-mode:nth-child(4) {
+.project.christmas-mode:nth-child(5) {
     --project-color: #2603a5;
     color: #2603a5;
 }
 
-.project.christmas-mode:nth-child(5) {
+.project.christmas-mode:nth-child(6) {
     --project-color: #4caf50;
     color: #4caf50;
 }
 
-.project.christmas-mode:nth-child(6) {
+.project.christmas-mode:nth-child(7) {
     --project-color: #FF00FF;
     color: #FF00FF;
 }

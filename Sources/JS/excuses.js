@@ -187,7 +187,10 @@ function generateExcuse(category) {
             "J'admirais Kubernetis 🥵",
             "Désolé je génère des excuses.",
             "Je donnais un titre à One__IQ",
-            "J'installais Brawlhalla."
+            "J'installais Brawlhalla.",
+            "URGENCE ABSOLUE. J'avais pas envie vraiment.",
+            "Une folle m'a menacé de stopper mon calendrier de l'avent.";
+            "Je visitais le site web ARCHIVEFEVER.WORK 🥰"
         ]
     };
 

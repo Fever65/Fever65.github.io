@@ -189,8 +189,8 @@ function generateExcuse(category) {
             "Je donnais un titre à One__IQ",
             "J'installais Brawlhalla.",
             "URGENCE ABSOLUE. J'avais pas envie vraiment.",
-            "Une folle m'a menacé de stopper mon calendrier de l'avent.";
-            "Je visitais le site web ARCHIVEFEVER.WORK 🥰"
+            "Une folle m'a menacé de stopper mon calendrier de l'avent.",
+            "Je visitais le site web ARCHIVEFEVER.WORK 🥰",
         ]
     };
 

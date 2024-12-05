@@ -183,7 +183,7 @@ function generateExcuse(category) {
             "Je fesai un câlin à Jérôme.",
             "J'ai pété.",
             "Sur une échelle de 1 à 10 ? Quelles sont les chances que tu calcules cette excuse ?",
-            "Je mangeais mes pâtes préférées avec MON AMIIIIIII 🤌",
+            "Je mangeais des crêpes au nutella che MON AMIIIIIII 🤌",
             "J'admirais Kubernetis 🥵",
             "Désolé je génère des excuses.",
             "Je donnais un titre à One__IQ",

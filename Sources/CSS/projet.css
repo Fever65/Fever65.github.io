@@ -107,6 +107,14 @@
     transform: scale(1.05);
 }
 
+.project:nth-child(8) {
+    border-color: #FF6F61;
+}
+
+.project:nth-child(8):hover {
+    box-shadow: 0 0 20px 5px #FF6F61;
+    transform: scale(1.05);
+}
 .project-logo {
     width: 100px;
     height: 100px;

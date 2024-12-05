@@ -64,6 +64,11 @@ h1.christmas-mode {
     color: #FF00FF;
 }
 
+.project.christmas-mode:nth-child(8) {
+    --project-color: #FF6F61;
+    color: #FF6F61;
+}
+
 .project.christmas-mode:hover {
     box-shadow: 0 0 15px 5px var(--project-color);
     transform: scale(1.05);

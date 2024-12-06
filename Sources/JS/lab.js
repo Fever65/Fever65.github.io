@@ -5,6 +5,24 @@ const widthSelector = document.getElementById('width');
 const heightSelector = document.getElementById('height');
 const solveBtn = document.getElementById('solve');
 
+canvas.style.display = 'none';
+
+generateBtn.addEventListener('click', () => {
+    rows = parseInt(heightSelector.value);
+    cols = parseInt(widthSelector.value);
+    solveBtn.disabled = true;
+    solving = false;
+
+    canvas.style.display = 'block';
+
+    initializeCanvas();
+    initializeGrid();
+    generateMaze(() => {
+        drawStartAndEnd();
+        solveBtn.disabled = false;
+    });
+});
+
 let rows = 10, cols = 10, grid = [], stack = [], cellSize, solving = false;
 
 generateBtn.addEventListener('click', () => {

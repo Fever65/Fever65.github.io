@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Source Code Pro', monospace;
 }
 
 body,
@@ -19,6 +20,7 @@ html {
 }
 
 #header {
+    font-family: 'Source Code Pro', monospace;
     width: 100%;
     max-width: 1200px;
     display: flex;

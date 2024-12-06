@@ -54,8 +54,10 @@ body {
 
 *,
 h1, h2, h3, h4, h5, h6, p, span, button {
-    font-family: 'Gloria Hallelujah', cursive !important;
+        font-family: 'Source Code Pro', monospace;
 }
+
+
 
 #container {
     display: flex;
@@ -133,6 +135,7 @@ canvas {
 }
 
 #status {
+    font-family: 'Gloria Hallelujah', cursive !important;
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -221,7 +224,8 @@ canvas {
     }
 
     body::before {
-        content: "Ce site est conçu pour PC. Malheureusement, l'affichage mobile n'est pas compatible.";
+        font-family: 'Source Code Pro', monospace;
+        content: "Cette page est conçu pour PC. Malheureusement, l'affichage mobile n'est pas compatible.";
         display: block;
         font-size: 1.5em;
         line-height: 1.6;

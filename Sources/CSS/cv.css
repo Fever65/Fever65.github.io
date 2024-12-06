@@ -34,12 +34,14 @@ ul li {
     padding: 0.8rem;
     border-left: 5px solid #f57c00;
     border-radius: 5px;
+    font-family: 'Source Code Pro', monospace;
 }
 
 p {
     font-size: 1.1rem;
     line-height: 1.8;
     color: #ffffff;
+    font-family: 'Source Code Pro', monospace;
 }
 
 #contact p {

@@ -25,19 +25,6 @@ generateBtn.addEventListener('click', () => {
 
 let rows = 10, cols = 10, grid = [], stack = [], cellSize, solving = false;
 
-generateBtn.addEventListener('click', () => {
-    rows = parseInt(heightSelector.value);
-    cols = parseInt(widthSelector.value);
-    solveBtn.disabled = true;
-    solving = false;
-    initializeCanvas();
-    initializeGrid();
-    generateMaze(() => {
-        drawStartAndEnd();
-        solveBtn.disabled = false;
-    });
-});
-
 solveBtn.addEventListener('click', () => {
     if (!solving) {
         solveBtn.disabled = true;
@@ -123,11 +110,29 @@ function index(x, y) {
 }
 
 function removeWalls(a, b) {
-    const x = a.x - b.x, y = a.y - b.y;
-    if (x === 1) { a.walls[3] = false; b.walls[1] = false; }
-    if (x === -1) { a.walls[1] = false; b.walls[3] = false; }
-    if (y === 1) { a.walls[0] = false; b.walls[2] = false; }
-    if (y === -1) { a.walls[2] = false; b.walls[0] = false; }
+    const x = a.x - b.x;
+    const y = a.y - b.y;
+
+    if (x === 1) { 
+        a.walls[3] = false; // Mur gauche de `a`
+        b.walls[1] = false; // Mur droit de `b`
+    } else if (x === -1) { 
+        a.walls[1] = false; // Mur droit de `a`
+        b.walls[3] = false; // Mur gauche de `b`
+    }
+
+    if (y === 1) { 
+        a.walls[0] = false; // Mur haut de `a`
+        b.walls[2] = false; // Mur bas de `b`
+    } else if (y === -1) { 
+        a.walls[2] = false; // Mur bas de `a`
+        b.walls[0] = false; // Mur haut de `b`
+    }
+
+    // Double vérification pour s'assurer que les murs sont bien supprimés
+    if (!a.walls.includes(true) || !b.walls.includes(true)) {
+        console.error("Erreur lors de la suppression des murs : ", a, b);
+    }
 }
 
 function generateMaze(callback) {
@@ -152,6 +157,7 @@ function generateMaze(callback) {
     }
     step();
 }
+
 function solveMaze(callback) {
     solving = true;
     const start = grid[0], end = grid[grid.length - 1];
@@ -197,12 +203,10 @@ function solveMaze(callback) {
 }
 
 function drawFinalPath(path) {
-    // Assurez-vous que la flèche atteint la dernière case
     path.push(grid[grid.length - 1]);
-
     for (let i = 0; i < path.length - 1; i++) {
         const from = path[i], to = path[i + 1];
-        drawArrow(from, to, "#FF0000"); // Rouge vif pour la solution
+        drawArrow(from, to, "#FF0000");
     }
 }
 

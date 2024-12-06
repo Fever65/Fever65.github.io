@@ -1,0 +1,221 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: #0e0e0e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif;
+    color: #b0b0b0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
+    color: #fff;
+    overflow: hidden;
+}
+
+*,
+h1, h2, h3, h4, h5, h6, p, span, button {
+        font-family: 'Source Code Pro', monospace;
+}
+
+
+
+#container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+#options-container {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+#options-container .controls-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+#options-container button {
+    padding: 12px 20px;
+    background: linear-gradient(to right, #8b0000, #b22222);
+    border: none;
+    color: #d3d3d3;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 700;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+#options-container button:hover {
+    background: linear-gradient(to right, #5a0000, #8b0000);
+    transform: translateY(-4px);
+}
+
+#maze-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+canvas {
+    border: 5px solid #d35400;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+#about-button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: linear-gradient(to right, #1c3d6e, #2e8bde);
+    border: none;
+    color: #c0c0c0;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background 0.3s, transform 0.3s;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.8);
+}
+
+#about-button:hover {
+    background: linear-gradient(to right, #163f5f, #1e609e);
+    transform: translateY(-4px);
+}
+
+#status {
+    font-family: 'Gloria Hallelujah', cursive !important;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #d32f2f;
+    font-size: 2em;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+    transition: color 1s ease;
+}
+
+#lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s;
+}
+
+#lightbox.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+#lightbox-content {
+    background: #1a1a1a;
+    color: #b0b0b0;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    text-align: center;
+    font-size: 1.1em;
+    line-height: 1.6em;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+#lightbox-content button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #8b0000;
+    color: #b0b0b0;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+#lightbox-content button:hover {
+    background: #5a0000;
+}
+
+#mobile-image { 
+  display:none;
+}
+
+@media (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        padding: 20px;
+        background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
+        color: #ffffff;
+        font-family: 'Gloria Hallelujah', cursive !important;
+        overflow: hidden;
+    }
+
+    #container,
+    canvas,
+    #options-container,
+    #maze-container,
+    #status,
+    #lightbox {
+        display: none !important;
+    }
+
+    body::before {
+        font-family: 'Source Code Pro', monospace;
+        content: "Cette page est conçu pour PC. Malheureusement, l'affichage mobile n'est pas compatible.";
+        display: block;
+        font-size: 1.5em;
+        line-height: 1.6;
+        color: #ff8c00;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        margin: 20px 0;
+    }
+
+    #mobile-image {
+        display: block !important;
+        width: 90%;
+        max-width: 400px;
+        margin: 20px auto;
+        border-radius: 10px;
+    }
+}

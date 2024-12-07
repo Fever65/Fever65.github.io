@@ -82,11 +82,11 @@
 }
 
 .project:nth-child(5) {
-    border-color: #2603a5;
+    border-color: #2b03b9;
 }
 
 .project:nth-child(5):hover {
-    box-shadow: 0 0 20px 5px #2603a5;
+    box-shadow: 0 0 20px 5px #2b03b9;
     transform: scale(1.05);
 }
 

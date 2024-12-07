@@ -58,9 +58,11 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // Fonction pour ouvrir les détails d'un projet
-function openProjectDetail(title, description, link, logoSrc, target = "_self", borderColor) {
+function openProjectDetail(title, description, link, logoSrc, target = "_self", borderColor, isFinished = true) {
     const overlay = document.getElementById('overlay');
     const projectDetail = document.getElementById('projectDetail');
+    const viewButton = document.getElementById('projectLink'); // Bouton "Voir le projet"
+    const projectContainer = document.querySelector(`.project[onclick*="${title}"]`);
 
     document.getElementById('projectLogo').src = logoSrc;
     document.getElementById('projectTitle').innerText = title;
@@ -72,6 +74,15 @@ function openProjectDetail(title, description, link, logoSrc, target = "_self", 
     overlay.style.background = `${borderColor}22`;
     overlay.style.display = 'block';
     projectDetail.style.display = 'flex';
+
+    // Affiche ou masque le bouton selon si le projet est terminé ou non
+    if (!isFinished) {
+        viewButton.style.display = 'none';
+       
+    } else {
+        viewButton.style.display = 'inline-block';
+    }
+
 
     setTimeout(() => {
         overlay.classList.add('visible');

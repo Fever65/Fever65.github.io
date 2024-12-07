@@ -69,6 +69,39 @@ h1.christmas-mode {
     color: #FF6F61;
 }
 
+.project.christmas-mode:nth-child(9) {
+    --project-color: #00FFFF;
+    color: #00FFFF;
+}
+
+.project.christmas-mode:nth-child(10) {
+    --project-color: #8A2BE2;
+    color: #8A2BE2;
+}
+
+/* Projets non terminés en mode Noël avec hachures festives */
+.project.unfinished.christmas-mode {
+    background: repeating-linear-gradient(
+        135deg,
+        #0d0d0d, /* Noir presque total */
+        #0d0d0d 10px,
+        #330000 10px, /* Rouge très sombre */
+        #1d0000 20px,
+        #0d0d0d 20px,
+        #0d0d0d 30px,
+        #001f00 30px, /* Vert très sombre */
+        #001b00 40px
+    ); /* Fond hachuré festif */ 
+    color: #FFFFFF; /* Texte blanc */
+   
+}
+
+/* Transition fluide entre les modes */
+.project.unfinished:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+}
+
 .project.christmas-mode:hover {
     box-shadow: 0 0 15px 5px var(--project-color);
     transform: scale(1.05);
@@ -80,6 +113,8 @@ h1.christmas-mode {
     color: var(--project-color);
     transition: color 0.3s ease;
     text-shadow: none;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
 }
 
 .project-detail.christmas-mode {

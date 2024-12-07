@@ -117,6 +117,24 @@
     transform: scale(1.05);
 }
 
+.project:nth-child(9) {
+    border-color: #00FFFF;
+}
+
+.project:nth-child(9):hover {
+    box-shadow: 0 0 20px 5px #00FFFF;
+    transform: scale(1.05);
+}
+
+.project:nth-child(10) {
+    border-color: #8A2BE2;
+}
+
+.project:nth-child(10):hover {
+    box-shadow: 0 0 20px 5px #8A2BE2;
+    transform: scale(1.05);
+}
+
 .project-logo {
     width: 100px;
     height: 100px;
@@ -124,6 +142,8 @@
 
 .project-title {
     font-size: 1.4rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    font-weight: bold;
 }
 
 .project-detail {
@@ -319,6 +339,19 @@ h1 {
     font-family: 'Source Code Pro', monospace;
 }
 
+/* Projets non terminés par défaut (mode normal avec hachures sombres) */
+.project.unfinished {
+    background: repeating-linear-gradient(
+        135deg,
+        #0d0d0d, /* Noir presque total */
+        #0d0d0d 10px,
+        #1a1a1a 10px,
+        #1a1a1a 20px
+    ); /* Fond hachuré sombre */
+    color: #FFFFFF; /* Texte blanc pour rester lisible */
+    font-weight: bold; /* Accentue la visibilité */
+    transition: background 0.3s ease; /* Transition fluide lors des changements */
+}
 
 @media (max-width: 480px) {
     h1 {
@@ -346,7 +379,7 @@ h1 {
     }
 
     .project-title {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
     .project-detail {

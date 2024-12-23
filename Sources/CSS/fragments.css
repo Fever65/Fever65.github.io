@@ -404,6 +404,18 @@ main {
         gap: 15px;
         justify-content: center;
     }
+    
+    .volume-slider {
+        display: none;
+    }
+    
+    .volume-icon {
+        display: none;
+    }
+    
+    .volume-box {
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {

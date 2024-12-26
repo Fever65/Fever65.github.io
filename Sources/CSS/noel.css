@@ -84,6 +84,11 @@ h1.christmas-mode {
     color: #FFB347;
 }
 
+.project.christmas-mode:nth-child(12) {
+    --project-color: #004f63;
+    color: #004f63;
+}
+
 /* Projets non terminés en mode Noël avec hachures festives */
 .project.unfinished.christmas-mode {
     background: repeating-linear-gradient(

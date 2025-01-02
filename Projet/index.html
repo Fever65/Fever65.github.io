@@ -24,56 +24,68 @@
     <h1>Bienvenue dans mon espace dédié à mes créations de sites web !</h1> 
 
     <div class="projects-container">
-        <div class="project" onclick="openProjectDetail('CV - Fever', 'Je cherche une entreprise pour une alternance de CDA IA (Concepteur développeur d\'application avec spécialisation sur l\'intelligence artificielle)', '../CV/index.html', '../Sources/Images/CV.png', '_self', '#48D1CC')">
-            <img src="../Sources/Images/CV.png" alt="CV" class="project-logo">
-            <div class="project-title">CV - Fever</div>
+
+        <!-- Projets Finis -->
+        <h2>Projets Finis :</h2>
+        <div class="project-list">
+            <div class="project project-cv" onclick="openProjectDetail('CV - Fever', 'Je cherche une entreprise pour une alternance de CDA IA...', '../CV/index.html', '../Sources/Images/CV.png', '_self', '#48D1CC')">
+                <img src="../Sources/Images/CV.png" alt="CV" class="project-logo">
+                <div class="project-title">CV - Fever</div>
+            </div>
+            <div class="project project-setup" onclick="openProjectDetail('Mon setup', 'Une page qui présente uniquement ma configuration informatique...', '../Setup/index.html', '../Sources/Images/setup.png', '_self', '#d3e200')">
+                <img src="../Sources/Images/setup.png" alt="setup" class="project-logo">
+                <div class="project-title">Mon setup</div>
+            </div>
+            <div class="project project-bhbst" onclick="openProjectDetail('BhBst', 'Un service qui aide les joueurs à monter en rang...', '../BHBST/index.html', '../Sources/Images/BHBST.png', '_self', '#ff4500')">
+                <img src="../Sources/Images/BHBST.png" alt="BhBst" class="project-logo">
+                <div class="project-title">BhBst</div>
+            </div>
+            <div class="project project-maison" onclick="openProjectDetail('Maison', 'Un projet qui recrée une maison entièrement en CSS...', '../Maison/index.html', '../Sources/Images/maison.png', '_self', '#8f1671')">
+                <img src="../Sources/Images/maison.png" alt="Maison" class="project-logo">
+                <div class="project-title">Maison</div>
+            </div>
+            <div class="project project-labyrinthe" onclick="openProjectDetail('Labyrinthe', 'Un outil simple pour générer des labyrinthes personnalisés...', '../Labyrinthe/index.html', '../Sources/Images/labyrinthe.png', '_self', '#2b03b9')">
+                <img src="../Sources/Images/labyrinthe.png" alt="Labyrinthe" class="project-logo">
+                <div class="project-title">Labyrinthe</div>
+            </div>
+            <div class="project project-colorqr" onclick="openProjectDetail('ColorQR', 'Créez des QR codes uniques et colorés...', '../QR/index.html', '../Sources/Images/QR.png', '_self', '#FF00FF')">
+                <img src="../Sources/Images/QR.png" alt="ColorQR" class="project-logo">
+                <div class="project-title">ColorQR</div>
+            </div>
+            <div class="project project-excuses" onclick="openProjectDetail('Boîte à excuses', 'Ceci est un générateur de texte...', '../Excuses/index.html', '../Sources/Images/Vacances.png', '_self', '#FF6F61')">
+                <img src="../Sources/Images/Vacances.png" alt="Boîte à excuses" class="project-logo">
+                <div class="project-title">Boîte à excuses</div>
+            </div>
+            <div class="project project-fragments" onclick="openProjectDetail('Fragments', 'Cet album est le fruit d\'une collaboration entre IA...', '../Fragments/index.html', '../Sources/Images/Fragments.png', '_self', '#FFB347')">
+                <img src="../Sources/Images/Fragments.png" alt="Fragments" class="project-logo">
+                <div class="project-title">Fragments</div>
+            </div>
+            <div class="project project-ocean" onclick="openProjectDetail('Ocean', 'Un deuxième album créé à l\'aide de l\'intelligence artificielle...', '../Ocean/index.html', '../Sources/Images/Ocean.png', '_self', '#004f63')">
+                <img src="../Sources/Images/Ocean.png" alt="Ocean" class="project-logo">
+                <div class="project-title">Ocean</div>
+            </div>
         </div>
-        <div class="project" onclick="openProjectDetail('Mon setup', 'Une page qui présente ma configuration informatique avec les composants et périphériques que j\'utilise pour mes projets.', '../Setup/index.html', '../Sources/Images/setup.png', '_self', '#d3e200')">
-            <img src="../Sources/Images/setup.png" alt="setup" class="project-logo">
-            <div class="project-title">Mon setup</div>
-        </div>
-        <div class="project" onclick="openProjectDetail('BhBst', 'Un service qui aide les joueurs à monter en rang sur Brawlhalla grâce à un accompagnement personnalisé.', '../BHBST/index.html', '../Sources/Images/BHBST.png', '_self', '#ff4500')">
-            <img src="../Sources/Images/BHBST.png" alt="BhBst" class="project-logo">
-            <div class="project-title">BhBst</div>
-        </div>
-        <div class="project" onclick="openProjectDetail('Maison', 'Un projet qui recrée une maison entièrement en CSS pour montrer les possibilités du design web. 🌞/🌜', '../Maison/index.html', '../Sources/Images/maison.png', '_self', '#8f1671')">
-            <img src="../Sources/Images/maison.png" alt="Maison" class="project-logo">
-            <div class="project-title">Maison</div>
-        </div>
-        <div class="project" onclick="openProjectDetail('Labyrinthe', 'Un outil simple pour générer des labyrinthes personnalisés avec différentes options.', '../Labyrinthe/index.html', '../Sources/Images/labyrinthe.png', '_self', '#2b03b9')">
-            <img src="../Sources/Images/labyrinthe.png" alt="Labyrinthe" class="project-logo">
-            <div class="project-title">Labyrinthe</div>
-        </div>
-        <div class="project unfinished" onclick="openProjectDetail('Marley And Me', 'Portfolio du Graphiste Pierre Lechat', '', '../Sources/Images/logo-marley.png', '_blank', '#4caf50', false)">
-            <img src="../Sources/Images/logo-marley.png" alt="Logo Marley And Me" class="project-logo">
-            <div class="project-title">Marley And Me ⌛</div>
-        </div>
-        <div class="project" onclick="openProjectDetail('ColorQR', 'Créez des QR codes uniques et colorés pour un design moderne et personnalisé !', '../QR/index.html', '../Sources/Images/QR.png', '_self', '#FF00FF')">
-            <img src="../Sources/Images/QR.png" alt="Logo ColorQR" class="project-logo">
-            <div class="project-title">ColorQR</div>
-        </div>
-        <div class="project" onclick="openProjectDetail('Boîte à excuses', 'Ceci est un générateur de texte pour s\'excuser de quelques choses.', '../Excuses/index.html', '../Sources/Images/Vacances.png', '_self', '#FF6F61')">
-            <img src="../Sources/Images/Vacances.png" alt="Logo Boîte à excuses" class="project-logo">
-            <div class="project-title">Boîte à excuses</div>
-        </div>
-        <div class="project unfinished" onclick="openProjectDetail('Vision', 'Ma vision bientôt.', '', '../Sources/Images/Vision.png', '_self', '#00FFFF', false)">
-            <img src="../Sources/Images/Vision.png" alt="Logo Vision" class="project-logo">
-            <div class="project-title">Vision ⌛</div>
-        </div>
-        <div class="project unfinished" onclick="openProjectDetail('Crabe 560', 'Un jeu avec des crabes. BEAUCOUP DE CRABES...', '', '../Sources/Images/Crabe560.png', '_self', '#8A2BE2', false)">
-            <img src="../Sources/Images/Crabe560.png" alt="Logo Crabe 560" class="project-logo">
-            <div class="project-title">Crabe 560 ⌛</div>
-        </div>        
-        <div class="project" onclick="openProjectDetail('Fragments', 'Cet album est le fruit d\'une collaboration entre IA : ChatGPT, Suno et Midjourney.', '../Fragments/index.html', '../Sources/Images/Fragments.png', '_self', '#FFB347')">
-            <img src="../Sources/Images/Fragments.png" alt="Logo Fragments" class="project-logo">
-            <div class="project-title">Fragments</div>
-        </div>
-        <div class="project" onclick="openProjectDetail('Ocean', 'Un deuxième album crée à l\'aide de l\'intelligence artificielle, bon voyage.', '../Ocean/index.html', '../Sources/Images/Ocean.png', '_self', '#004f63')">
-            <img src="../Sources/Images/Ocean.png" alt="Logo Ocean" class="project-logo">
-            <div class="project-title">Ocean</div>
+    
+        <!-- Ajout du titre des Projets en Cours ici -->
+        <h2>Projets en Cours :</h2>
+    
+        <!-- Projets en Cours -->
+        <div class="project-list">
+            <div class="project project-marley unfinished" onclick="openProjectDetail('Marley And Me', 'Portfolio du Graphiste Pierre Lechat', '', '../Sources/Images/logo-marley.png', '_blank', '#4caf50')">
+                <img src="../Sources/Images/logo-marley.png" alt="Marley And Me" class="project-logo">
+                <div class="project-title">Marley And Me ⌛</div>
+            </div>
+            <div class="project project-vision unfinished" onclick="openProjectDetail('Vision', 'Ma vision bientôt.', '', '../Sources/Images/Vision.png', '_self', '#00FFFF', false)">
+                <img src="../Sources/Images/Vision.png" alt="Vision" class="project-logo">
+                <div class="project-title">Vision ⌛</div>
+            </div>
+            <div class="project project-crabe unfinished" onclick="openProjectDetail('Crabe 560', 'Un jeu avec des crabes. BEAUCOUP DE CRABES...', '', '../Sources/Images/Crabe560.png', '_self', '#8A2BE2', false)">
+                <img src="../Sources/Images/Crabe560.png" alt="Crabe 560" class="project-logo">
+                <div class="project-title">Crabe 560 ⌛</div>
+            </div>
         </div>
     </div>
-
+    
     <div class="overlay" id="overlay" onclick="closeProjectDetail()"></div>
     <div class="project-detail" id="projectDetail">
         <h2 id="projectTitle"></h2>
@@ -91,11 +103,16 @@
 
     <button class="logo-switch-button" onclick="switchLogo()">
         <img src="../Sources/Images/sapin.png" alt="Sapin" class="button-icon">
-    </button>
+    </button>    
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="../Sources/JS/logoSwitch.js"></script>
     <script src="../Sources/JS/projectdetail.js"></script>
 </body>
+
+<footer style="text-align: center; margin-top: 20px; padding: 10px; font-size: 0.8rem; color: #ffffff; background-color: #1b1b1b;">
+    Page projet temporaire en cours de reconstruction
+</footer>
+
 
 </html>

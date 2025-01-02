@@ -36,8 +36,6 @@
     width: auto;
     white-space: nowrap;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    opacity: 0;
-    transform: translateY(20px);
 }
 
 .project.visible {
@@ -45,110 +43,110 @@
     transform: translateY(0);
 }
 
-.project:nth-child(1) {
+.project-cv {
     border-color: #48D1CC;
 }
 
-.project:nth-child(1):hover {
+.project-cv:hover {
     box-shadow: 0 0 20px 5px #48D1CC;
     transform: scale(1.05);
 }
 
-.project:nth-child(2) {
+.project-setup {
     border-color: #d3e200;
 }
 
-.project:nth-child(2):hover {
+.project-setup:hover {
     box-shadow: 0 0 20px 5px #d3e200;
     transform: scale(1.05);
 }
 
-.project:nth-child(3) {
+.project-bhbst {
     border-color: #ff4500;
 }
 
-.project:nth-child(3):hover {
+.project-bhbst:hover {
     box-shadow: 0 0 20px 5px #ff4500;
     transform: scale(1.05);
 }
 
-.project:nth-child(4) {
+.project-maison {
     border-color: #8f1671;
 }
 
-.project:nth-child(4):hover {
+.project-maison:hover {
     box-shadow: 0 0 20px 5px #8f1671;
     transform: scale(1.05);
 }
 
-.project:nth-child(5) {
+.project-labyrinthe {
     border-color: #2b03b9;
 }
 
-.project:nth-child(5):hover {
+.project-labyrinthe:hover {
     box-shadow: 0 0 20px 5px #2b03b9;
     transform: scale(1.05);
 }
 
-.project:nth-child(6) {
+.project-marley {
     border-color: #4caf50;
 }
 
-.project:nth-child(6):hover {
+.project-marley:hover {
     box-shadow: 0 0 20px 5px #4caf50;
     transform: scale(1.05);
 }
 
-.project:nth-child(7) {
+.project-colorqr {
     border-color: #FF00FF;
 }
 
-.project:nth-child(7):hover {
+.project-colorqr:hover {
     box-shadow: 0 0 20px 5px #FF00FF;
     transform: scale(1.05);
 }
 
-.project:nth-child(8) {
+.project-excuses {
     border-color: #FF6F61;
 }
 
-.project:nth-child(8):hover {
+.project-excuses:hover {
     box-shadow: 0 0 20px 5px #FF6F61;
     transform: scale(1.05);
 }
 
-.project:nth-child(9) {
+.project-vision {
     border-color: #00FFFF;
 }
 
-.project:nth-child(9):hover {
+.project-vision:hover {
     box-shadow: 0 0 20px 5px #00FFFF;
     transform: scale(1.05);
 }
 
-.project:nth-child(10) {
+.project-crabe {
     border-color: #8A2BE2;
 }
 
-.project:nth-child(10):hover {
+.project-crabe:hover {
     box-shadow: 0 0 20px 5px #8A2BE2;
     transform: scale(1.05);
 }
 
-.project:nth-child(11) {
+.project-fragments {
     border-color: #FFB347;
 }
 
-.project:nth-child(11):hover {
+.project-fragments:hover {
     box-shadow: 0 0 20px 5px #FFB347;
     transform: scale(1.05);
 }
 
-.project:nth-child(12) {
+.project-ocean {
     border-color: #004f63;
 }
 
-.project:nth-child(12):hover {
+.project-ocean:hover {
     box-shadow: 0 0 20px 5px #004f63;
     transform: scale(1.05);
 }
@@ -304,23 +302,16 @@ h1 {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 10px;
     background-color: transparent;
     border: none;
     cursor: pointer;
     z-index: 1000;
-    transition: transform 0.3s ease;
 }
-
-.logo-switch-button:hover {
-    transform: scale(1.1);
-}
-
 
 .button-icon {
     width: 50px;
     height: auto;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: transform 0.3s ease;
 }
 
 .button-icon.hidden {
@@ -357,18 +348,62 @@ h1 {
     font-family: 'Source Code Pro', monospace;
 }
 
-/* Projets non terminés par défaut (mode normal avec hachures sombres) */
+.project:hover {
+    transform: scale(1.05);
+    color: #FFD700;
+  }
+
 .project.unfinished {
     background: repeating-linear-gradient(
         135deg,
-        #0d0d0d, /* Noir presque total */
+        #0d0d0d 0px,  /* Noir presque total */
         #0d0d0d 10px,
-        #1a1a1a 10px,
+        #1a1a1a 10px, /* Gris foncé */
         #1a1a1a 20px
     ); /* Fond hachuré sombre */
     color: #FFFFFF; /* Texte blanc pour rester lisible */
     font-weight: bold; /* Accentue la visibilité */
-    transition: background 0.3s ease; /* Transition fluide lors des changements */
+    text-align: center; /* Centre le texte */
+    padding: 10px; /* Ajoute un peu d'espace intérieur */
+    border-radius: 8px; /* Coins arrondis pour un style plus moderne */
+    transition: background 0.3s ease, transform 0.3s ease; /* Transition fluide */
+}
+
+/* Effet hover pour les projets non terminés */
+.project.unfinished:hover {
+    background: repeating-linear-gradient(
+        135deg,
+        #1a1a1a 0px,  /* Gris foncé */
+        #1a1a1a 10px,
+        #2a2a2a 10px, /* Gris légèrement plus clair */
+        #2a2a2a 20px
+    ); /* Fond hachuré plus clair */
+    transform: scale(1.05); /* Effet de zoom léger */
+    box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.2); /* Lueur blanche subtile */
+    color: #FFD700; /* Texte doré pour signaler l'interaction */
+}
+
+.projects-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; 
+}
+
+.project-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; 
+}
+
+h2 {
+    text-align: center; /* Centrer le texte */
+    font-size: 1.9rem; /* Taille du texte */
+    margin: 10px 0; /* Espacement vertical */
+    color: #ffffff; /* Couleur blanche */
+    font-weight: normal; /* Police par défaut, sans effet gras */
+    font-family: 'Source Code Pro', monospace; /* Hérite de la police par défaut du navigateur */
 }
 
 @media (max-width: 480px) {

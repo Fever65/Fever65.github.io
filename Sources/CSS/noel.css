@@ -29,87 +29,113 @@ h1.christmas-mode {
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-.project.christmas-mode:nth-child(1) {
+.project-cv.christmas-mode {
     --project-color: #48D1CC;
     color: #48D1CC;
 }
 
-.project.christmas-mode:nth-child(2) {
+.project-setup.christmas-mode {
     --project-color: #d3e200;
     color: #d3e200;
 }
 
-.project.christmas-mode:nth-child(3) {
+.project-bhbst.christmas-mode {
     --project-color: #ff4500;
     color: #ff4500;
 }
 
-.project.christmas-mode:nth-child(4) {
+.project-maison.christmas-mode {
     --project-color: #8f1671;
     color: #8f1671;
 }
 
-.project.christmas-mode:nth-child(5) {
+.project-labyrinthe.christmas-mode {
     --project-color: #2b03b9;
     color: #2b03b9;
 }
 
-.project.christmas-mode:nth-child(6) {
+.project-marley.christmas-mode {
     --project-color: #4caf50;
     color: #4caf50;
 }
 
-.project.christmas-mode:nth-child(7) {
+.project-colorqr.christmas-mode {
     --project-color: #FF00FF;
     color: #FF00FF;
 }
 
-.project.christmas-mode:nth-child(8) {
+.project-excuses.christmas-mode {
     --project-color: #FF6F61;
     color: #FF6F61;
 }
 
-.project.christmas-mode:nth-child(9) {
+.project-vision.christmas-mode {
     --project-color: #00FFFF;
     color: #00FFFF;
 }
 
-.project.christmas-mode:nth-child(10) {
+.project-crabe.christmas-mode {
     --project-color: #8A2BE2;
     color: #8A2BE2;
 }
 
-.project.christmas-mode:nth-child(11) {
+.project-fragments.christmas-mode {
     --project-color: #FFB347;
     color: #FFB347;
 }
 
-.project.christmas-mode:nth-child(12) {
+.project-ocean.christmas-mode {
     --project-color: #004f63;
     color: #004f63;
 }
 
-/* Projets non terminés en mode Noël avec hachures festives */
+.project {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.project.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Projets Non Terminés en Mode Noël */
 .project.unfinished.christmas-mode {
     background: repeating-linear-gradient(
         135deg,
-        #0d0d0d, /* Noir presque total */
+        #0d0d0d 0px,  /* Noir presque total */
         #0d0d0d 10px,
         #330000 10px, /* Rouge très sombre */
-        #1d0000 20px,
-        #0d0d0d 20px,
-        #0d0d0d 30px,
-        #001f00 30px, /* Vert très sombre */
-        #001b00 40px
-    ); /* Fond hachuré festif */ 
-    color: #FFFFFF; /* Texte blanc */
-   
+        #330000 20px,
+        #001f00 20px, /* Vert très sombre */
+        #001f00 30px
+    ); /* Fond hachuré festif */
+    color: #FFFFFF; /* Texte blanc pour une bonne lisibilité */
+    font-weight: bold; /* Accentue la visibilité */
+    border-radius: 10px; /* Coins arrondis pour un effet moderne */
+    text-align: center;
+    padding: 15px; /* Ajout d'espace intérieur pour un style aéré */
+    transition: background 0.3s ease, transform 0.3s ease; /* Effet fluide */
 }
 
-/* Transition fluide entre les modes */
-.project.unfinished:hover {
-    transform: scale(1.05);
-    transition: transform 0.2s ease-in-out;
+/* Effet Hover pour les Projets Non Terminés en Mode Noël */
+.project.unfinished.christmas-mode:hover {
+    background: repeating-linear-gradient(
+        135deg,
+        #1a1a1a 0px,  /* Gris sombre */
+        #1a1a1a 10px,
+        #550000 10px, /* Rouge vif */
+        #550000 20px,
+        #003f00 20px, /* Vert vif */
+        #003f00 30px ); /* Fond hachuré vif */
+    transform: scale(1.1); /* Zoom léger */
+}
+
+.projects-container h2 {
+    text-align: center; /* Centrer le texte */
+    font-size: 1.5em;
+    color: #FFFFFF;
 }
 
 .project.christmas-mode:hover {

@@ -102,3 +102,4 @@ function closeProjectDetail() {
         projectDetail.style.display = 'none';
     }, 300);
 }
+

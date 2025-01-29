@@ -14,7 +14,7 @@ const songs = [
   { title: "Dernier souffle", image: "Dernier souffle.png", audio: "Dernier souffle.flac" },
   { title: "CV", image: "CV.png", audio: "CV.flac" },
   { title: "Tournée générale XXL", image: "Tournée générale XXL.png", audio: "Tournée générale XXL.flac" },
-  { title: "A+", image: "A+.png", audio: "A+.flac" }
+  { title: "A+", image: "A+.png", audio: "A+.flac" },
 ];
 
 let firstLoading = true

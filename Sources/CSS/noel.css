@@ -89,6 +89,11 @@ h1.christmas-mode {
     color: #004f63;
 }
 
+.project-203.christmas-mode {
+    --project-color: #FFB6C1;
+    color: #FFB6C1;
+}
+
 .project {
     opacity: 0;
     transform: translateY(20px);

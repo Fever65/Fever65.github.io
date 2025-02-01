@@ -323,39 +323,48 @@
     saveBtn.addEventListener('click', () => {
       // Définir des dimensions minimales pour la sauvegarde
       const minWidth = 300;
-      const minHeight = 200; // Vous pouvez ajuster cette valeur selon vos besoins
-
-      // Utiliser la largeur et la hauteur du canvas, ou les dimensions minimales si elles sont inférieures
+      const minHeight = 200;
       const savedWidth = Math.max(canvas.width, minWidth);
       const savedHeight = Math.max(canvas.height, minHeight);
 
-      // Définir la hauteur de la bande du watermark en proportion (ici 10% de la hauteur sauvegardée)
+      // Définir la hauteur de la bande (ici 10% de la hauteur sauvegardée)
       const bandHeight = savedHeight * 0.1;
 
-      // Créez un canvas offscreen avec la hauteur augmentée pour la bande
+      // Créez un canvas offscreen avec une hauteur supplémentaire pour la bande
       const offscreen = document.createElement('canvas');
       offscreen.width = savedWidth;
       offscreen.height = savedHeight + bandHeight;
       const offCtx = offscreen.getContext('2d');
 
-      // Copiez le dessin existant en adaptant la taille si nécessaire
+      // Copiez le dessin existant en redimensionnant si nécessaire
       offCtx.drawImage(canvas, 0, 0, savedWidth, savedHeight);
 
       // Dessinez la bande de watermark en bas (fond semi-transparent)
       offCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
       offCtx.fillRect(0, savedHeight, savedWidth, bandHeight);
 
-      // Déterminez le type d'appareil (Mobile si la fenêtre est inférieure à 600px)
+      // Déterminez le type d'appareil
       let deviceType = window.innerWidth < 600 ? "Mobile" : "PC";
-      // Ajustez la taille de la police selon la largeur sauvegardée
+      let watermarkText = `BlitzDraw – archivefever.work [${deviceType}] ${formatTime(challengeDuration)}`;
+
+      // Choisissez une taille de police de départ
       let fontSize = savedWidth < 600 ? 20 : 16;
       offCtx.font = `${fontSize}px sans-serif`;
+
+      // Ajustez la taille de la police pour que le texte rentre (avec une marge)
+      const margin = 20; // marge totale (10px de chaque côté)
+      let textWidth = offCtx.measureText(watermarkText).width;
+      while (textWidth > savedWidth - margin && fontSize > 10) {
+        fontSize--;
+        offCtx.font = `${fontSize}px sans-serif`;
+        textWidth = offCtx.measureText(watermarkText).width;
+      }
+
       offCtx.fillStyle = "#000";
       offCtx.textAlign = "center";
-
-      // Ajoutez le texte du watermark centré dans la bande
+      // Positionnez le texte verticalement centré dans la bande
       offCtx.fillText(
-        `BlitzDraw – archivefever.work [${deviceType}] ${formatTime(challengeDuration)}`,
+        watermarkText,
         savedWidth / 2,
         savedHeight + bandHeight / 2 + fontSize / 3
       );

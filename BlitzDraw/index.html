@@ -321,33 +321,43 @@
     }
 
     saveBtn.addEventListener('click', () => {
-      // Utilise 10% de la hauteur du canvas pour la bande de watermark
-      const bandHeight = canvas.height * 0.1;
-      // Créez un canvas offscreen avec une hauteur supplémentaire pour la bande
+      // Définir des dimensions minimales pour la sauvegarde
+      const minWidth = 300;
+      const minHeight = 200; // Vous pouvez ajuster cette valeur selon vos besoins
+
+      // Utiliser la largeur et la hauteur du canvas, ou les dimensions minimales si elles sont inférieures
+      const savedWidth = Math.max(canvas.width, minWidth);
+      const savedHeight = Math.max(canvas.height, minHeight);
+
+      // Définir la hauteur de la bande du watermark en proportion (ici 10% de la hauteur sauvegardée)
+      const bandHeight = savedHeight * 0.1;
+
+      // Créez un canvas offscreen avec la hauteur augmentée pour la bande
       const offscreen = document.createElement('canvas');
-      offscreen.width = canvas.width;
-      offscreen.height = canvas.height + bandHeight;
+      offscreen.width = savedWidth;
+      offscreen.height = savedHeight + bandHeight;
       const offCtx = offscreen.getContext('2d');
 
-      // Copiez le dessin existant sur le canvas
-      offCtx.drawImage(canvas, 0, 0);
+      // Copiez le dessin existant en adaptant la taille si nécessaire
+      offCtx.drawImage(canvas, 0, 0, savedWidth, savedHeight);
 
       // Dessinez la bande de watermark en bas (fond semi-transparent)
       offCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
-      offCtx.fillRect(0, canvas.height, canvas.width, bandHeight);
+      offCtx.fillRect(0, savedHeight, savedWidth, bandHeight);
 
-      // Déterminez le type d'appareil : si la largeur de la fenêtre est inférieure à 600px, on considère que c'est Mobile
+      // Déterminez le type d'appareil (Mobile si la fenêtre est inférieure à 600px)
       let deviceType = window.innerWidth < 600 ? "Mobile" : "PC";
-      // Ajustez la taille de la police en fonction de la largeur du canvas
-      let fontSize = canvas.width < 600 ? 20 : 16;
-
+      // Ajustez la taille de la police selon la largeur sauvegardée
+      let fontSize = savedWidth < 600 ? 20 : 16;
       offCtx.font = `${fontSize}px sans-serif`;
       offCtx.fillStyle = "#000";
       offCtx.textAlign = "center";
+
+      // Ajoutez le texte du watermark centré dans la bande
       offCtx.fillText(
-        `BlitzDraw – archivefever.work sur ${deviceType} en ${formatTime(challengeDuration)} Bravo !`,
-        canvas.width / 2,
-        canvas.height + bandHeight / 2 + fontSize / 3
+        `BlitzDraw – archivefever.work [${deviceType}] ${formatTime(challengeDuration)}`,
+        savedWidth / 2,
+        savedHeight + bandHeight / 2 + fontSize / 3
       );
 
       // Génère le PNG et télécharge l'image

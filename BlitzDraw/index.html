@@ -375,6 +375,35 @@
     canvas.addEventListener('mouseup', () => isDrawing = false);
     canvas.addEventListener('mouseleave', () => isDrawing = false);
 
+        // Pour les écrans tactiles
+        canvas.addEventListener('touchstart', (e) => {
+      if (!drawingEnabled) return;
+      isDrawing = true;
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      lastX = touch.clientX - rect.left;
+      lastY = touch.clientY - rect.top;
+      e.preventDefault();
+    });
+    canvas.addEventListener('touchmove', (e) => {
+      if (!isDrawing || !drawingEnabled) return;
+      const touch = e.touches[0];
+      const rect = canvas.getBoundingClientRect();
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+      ctx.strokeStyle = currentColor;
+      ctx.lineWidth = 4;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      lastX = x;
+      lastY = y;
+      e.preventDefault();
+    });
+    canvas.addEventListener('touchend', () => isDrawing = false);
+
     // Gestion de la palette de couleurs
     colorButtons.forEach(btn => {
       btn.addEventListener('click', () => {

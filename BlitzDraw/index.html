@@ -316,32 +316,41 @@
     });
 
     // Bouton Enregistrer : ajoute une bande en bas avec le watermark et télécharge l'image
+    function formatTime(seconds) {
+      return seconds < 60 ? `${seconds} s` : `${Math.floor(seconds / 60)} min`;
+    }
+
     saveBtn.addEventListener('click', () => {
-      const bandHeight = 30; // Hauteur de la bande de watermark
+      // Utilise 10% de la hauteur du canvas pour la bande de watermark
+      const bandHeight = canvas.height * 0.1;
       // Créez un canvas offscreen avec une hauteur supplémentaire pour la bande
       const offscreen = document.createElement('canvas');
       offscreen.width = canvas.width;
       offscreen.height = canvas.height + bandHeight;
       const offCtx = offscreen.getContext('2d');
 
-      // Copiez le dessin existant
+      // Copiez le dessin existant sur le canvas
       offCtx.drawImage(canvas, 0, 0);
 
       // Dessinez la bande de watermark en bas (fond semi-transparent)
       offCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
       offCtx.fillRect(0, canvas.height, canvas.width, bandHeight);
 
-      // Ajoutez le texte du watermark dans la bande
-      offCtx.font = "16px sans-serif";
+      // Déterminez le type d'appareil : si la largeur de la fenêtre est inférieure à 600px, on considère que c'est Mobile
+      let deviceType = window.innerWidth < 600 ? "Mobile" : "PC";
+      // Ajustez la taille de la police en fonction de la largeur du canvas
+      let fontSize = canvas.width < 600 ? 20 : 16;
+
+      offCtx.font = `${fontSize}px sans-serif`;
       offCtx.fillStyle = "#000";
       offCtx.textAlign = "center";
       offCtx.fillText(
-        `BlitzDraw – Un chef-d'œuvre réalisé sur archivefever.work en seulement ${formatTime(challengeDuration)}. WOW !`,
+        `BlitzDraw – archivefever.work [${deviceType}] ${formatTime(challengeDuration)}`,
         canvas.width / 2,
-        canvas.height + bandHeight / 2 + 6 // Ajustement vertical pour centrer le texte
+        canvas.height + bandHeight / 2 + fontSize / 3
       );
 
-      // Génération et téléchargement du PNG
+      // Génère le PNG et télécharge l'image
       const dataURL = offscreen.toDataURL("image/png");
       const a = document.createElement('a');
       a.href = dataURL;
@@ -375,8 +384,8 @@
     canvas.addEventListener('mouseup', () => isDrawing = false);
     canvas.addEventListener('mouseleave', () => isDrawing = false);
 
-        // Pour les écrans tactiles
-        canvas.addEventListener('touchstart', (e) => {
+    // Pour les écrans tactiles
+    canvas.addEventListener('touchstart', (e) => {
       if (!drawingEnabled) return;
       isDrawing = true;
       const touch = e.touches[0];

@@ -94,6 +94,11 @@ h1.christmas-mode {
     color: #FFB6C1;
 }
 
+.project-BlitzDraw.christmas-mode {
+    --project-color: #006400;
+    color: #006400;
+}
+
 .project {
     opacity: 0;
     transform: translateY(20px);

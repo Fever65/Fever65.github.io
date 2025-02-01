@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blitz Draw - ArchiveFever.work</title>
+  <link rel="icon" href="../Sources/Images/BlitzDraw.png" type="image/png">
+  <!-- Google Fonts & CSS externes (NE PAS TOUCHER) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- On utilisera Gloria Hallelujah pour le titre et Source Code Pro pour le reste -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200;1,400&display=swap"
+    rel="stylesheet">
+  <link href="../Sources/CSS/header.css" rel="stylesheet" />
+  <link href="../Sources/CSS/fond.css" rel="stylesheet" />
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Global Dark Theme & Layout */
+    body {
+      background: linear-gradient(135deg, #1f1f1f, #333);
+      font-family: 'Source Code Pro', monospace;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      /* Laisser de l'espace pour le header fixe */
+      padding-top: 100px;
+      min-height: 100vh;
+    }
+
+    /* Titre personnalisé */
+    h1 {
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 2.5rem;
+      text-align: center;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+      margin-bottom: 10px;
+    }
+
+    #info {
+      font-size: 1.2rem;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Conteneur global du challenge */
+    #challenge-container {
+      width: min(90vw, 800px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* Section de Contrôles */
+    #controls {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    /* Boutons de temps (couleurs selon difficulté) */
+    .time-btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    .time-btn[data-time="30"] {
+      background: #e74c3c;
+    }
+
+    /* Rouge pour 30 s */
+    .time-btn[data-time="300"] {
+      background: #e67e22;
+    }
+
+    /* Orange pour 5 min */
+    .time-btn[data-time="600"] {
+      background: #27ae60;
+    }
+
+    /* Vert pour 10 min */
+    .time-btn.active {
+      opacity: 0.85;
+    }
+
+    /* Boutons d'action */
+    button.control-btn {
+      padding: 8px 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+      transition: background 0.3s;
+    }
+
+    /* Démarrer en bleu */
+    #startBtn {
+      background: #2980b9;
+    }
+
+    /* Finir en rouge, Reset en bleu-gris, Save en violet */
+    #finishBtn {
+      background: #c0392b;
+      display: none;
+    }
+
+    #resetBtn {
+      background: #34495e;
+      display: none;
+    }
+
+    #saveBtn {
+      background: #9b59b6;
+      display: none;
+    }
+
+    /* Palette de Couleurs */
+    #palette {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .color-btn {
+      width: 36px;
+      height: 36px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.2s, border 0.2s;
+    }
+
+    .color-btn:hover {
+      transform: scale(1.1);
+    }
+
+    .color-btn.active {
+      border: 2px solid #000;
+    }
+
+    /* Zone de Dessin : Le conteneur est un rectangle adapté à un écran 16:9 (et aux mobiles) */
+    #drawing-container {
+      width: 100%;
+      max-width: 800px;
+      /* Utilisation d'un aspect-ratio de 16/9 */
+      aspect-ratio: 16 / 9;
+      background: #fff;
+      border: 5px solid #444;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Le canvas occupe toute la zone du conteneur */
+    #drawingCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #fff;
+      border-radius: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header (NE PAS TOUCHER) -->
+  <header>
+    <a href="../index.html">
+      <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+    </a>
+    <a href="../Projet/index.html" class="return-button">Mes projets</a>
+  </header>
+
+  <!-- Conteneur du Challenge -->
+  <div id="challenge-container">
+    <h1>Blitz Draw</h1>
+    <div id="info">Sélectionnez la durée, puis appuyez sur "Démarrer".</div>
+
+    <!-- Contrôles : Temps et Boutons d'Action -->
+    <div id="controls">
+      <button class="time-btn active" data-time="30">30 s</button>
+      <button class="time-btn" data-time="300">5 min</button>
+      <button class="time-btn" data-time="600">10 min</button>
+      <button id="startBtn" class="control-btn">Démarrer</button>
+      <button id="finishBtn" class="control-btn">Finir</button>
+      <button id="resetBtn" class="control-btn">Reset</button>
+      <button id="saveBtn" class="control-btn">Enregistrer l'image</button>
+    </div>
+
+    <!-- Palette de Couleurs -->
+    <div id="palette">
+      <button class="color-btn active" data-color="#000000" style="background:#000000;"></button>
+      <button class="color-btn" data-color="#ffffff" style="background:#ffffff; border:2px solid #000;"></button>
+      <button class="color-btn" data-color="#e74c3c" style="background:#e74c3c;"></button>
+      <button class="color-btn" data-color="#3498db" style="background:#3498db;"></button>
+      <button class="color-btn" data-color="#27ae60" style="background:#27ae60;"></button>
+      <button class="color-btn" data-color="#f1c40f" style="background:#f1c40f;"></button>
+      <button class="color-btn" data-color="#9b59b6" style="background:#9b59b6;"></button>
+      <button class="color-btn" data-color="#e67e22" style="background:#e67e22;"></button>
+      <button class="color-btn" data-color="#8B4513" style="background:#8B4513;"></button>
+      <button class="color-btn" data-color="#1abc9c" style="background:#1abc9c;"></button>
+      <button class="color-btn" data-color="#D2B48C" style="background:#D2B48C; border:2px solid #000;"></button>
+    </div>
+
+    <!-- Zone de Dessin -->
+    <div id="drawing-container">
+      <canvas id="drawingCanvas"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('drawingCanvas');
+    const ctx = canvas.getContext('2d');
+    const container = document.getElementById('drawing-container');
+    const infoDiv = document.getElementById('info');
+    const startBtn = document.getElementById('startBtn');
+    const finishBtn = document.getElementById('finishBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const timeButtons = document.querySelectorAll('.time-btn');
+    const colorButtons = document.querySelectorAll('.color-btn');
+
+    let challengeDuration = 30; // Durée par défaut en secondes
+    let drawingEnabled = false;
+    let timerInterval;
+    let timeLeft = challengeDuration;
+    let isDrawing = false;
+    let lastX = 0, lastY = 0;
+    let currentColor = "#000000";
+
+    // Initialisation du canvas en conservant le dessin existant
+    function setupCanvas() {
+      const dataURL = canvas.toDataURL();
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight;
+      const img = new Image();
+      img.src = dataURL;
+      img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      if (!canvas.dataset.initialized) {
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        canvas.dataset.initialized = "true";
+      }
+    }
+    setupCanvas();
+    window.addEventListener('resize', setupCanvas);
+
+    function formatTime(seconds) {
+      return seconds < 60 ? `${seconds} s` : `${Math.floor(seconds / 60)} min`;
+    }
+
+    // Sélection du temps
+    timeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        timeButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        challengeDuration = parseInt(btn.getAttribute('data-time'));
+        timeLeft = challengeDuration;
+        infoDiv.textContent = `Temps restant : ${formatTime(timeLeft)}`;
+      });
+    });
+
+    // Bouton Démarrer : démarre le challenge et masque les boutons de temps
+    startBtn.addEventListener('click', () => {
+      drawingEnabled = true;
+      startBtn.style.display = 'none';
+      timeButtons.forEach(btn => btn.style.display = 'none');
+      infoDiv.textContent = `Temps restant : ${formatTime(timeLeft)}`;
+      finishBtn.style.display = 'inline-block';
+      resetBtn.style.display = 'inline-block';
+      saveBtn.style.display = 'inline-block';
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        infoDiv.textContent = `Temps restant : ${formatTime(timeLeft)}`;
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          drawingEnabled = false;
+          infoDiv.textContent = "Temps écoulé ! Votre chef-d'œuvre est terminé.";
+        }
+      }, 1000);
+    });
+
+    // Bouton Finir : arrête le chrono et désactive le dessin
+    finishBtn.addEventListener('click', () => {
+      clearInterval(timerInterval);
+      drawingEnabled = false;
+      infoDiv.textContent = "Challenge terminé.";
+      finishBtn.style.display = 'none';
+    });
+
+    // Bouton Reset : recharge la page pour revenir à l'état initial
+    resetBtn.addEventListener('click', () => {
+      location.reload();
+    });
+
+    // Bouton Enregistrer : ajoute une bande en bas avec le watermark et télécharge l'image
+    saveBtn.addEventListener('click', () => {
+      const bandHeight = 30; // Hauteur de la bande de watermark
+      // Créez un canvas offscreen avec une hauteur supplémentaire pour la bande
+      const offscreen = document.createElement('canvas');
+      offscreen.width = canvas.width;
+      offscreen.height = canvas.height + bandHeight;
+      const offCtx = offscreen.getContext('2d');
+
+      // Copiez le dessin existant
+      offCtx.drawImage(canvas, 0, 0);
+
+      // Dessinez la bande de watermark en bas (fond semi-transparent)
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      offCtx.fillRect(0, canvas.height, canvas.width, bandHeight);
+
+      // Ajoutez le texte du watermark dans la bande
+      offCtx.font = "16px sans-serif";
+      offCtx.fillStyle = "#000";
+      offCtx.textAlign = "center";
+      offCtx.fillText(
+        `BlitzDraw – Un chef-d'œuvre réalisé sur archivefever.work en seulement ${formatTime(challengeDuration)}. WOW !`,
+        canvas.width / 2,
+        canvas.height + bandHeight / 2 + 6 // Ajustement vertical pour centrer le texte
+      );
+
+      // Génération et téléchargement du PNG
+      const dataURL = offscreen.toDataURL("image/png");
+      const a = document.createElement('a');
+      a.href = dataURL;
+      a.download = "chef_doeuvre.png";
+      a.click();
+    });
+
+    // Gestion des événements de dessin
+    canvas.addEventListener('mousedown', (e) => {
+      if (!drawingEnabled) return;
+      isDrawing = true;
+      const rect = canvas.getBoundingClientRect();
+      lastX = e.clientX - rect.left;
+      lastY = e.clientY - rect.top;
+    });
+    canvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing || !drawingEnabled) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      ctx.strokeStyle = currentColor;
+      ctx.lineWidth = 4;
+      ctx.lineCap = "round";
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      lastX = x;
+      lastY = y;
+    });
+    canvas.addEventListener('mouseup', () => isDrawing = false);
+    canvas.addEventListener('mouseleave', () => isDrawing = false);
+
+    // Gestion de la palette de couleurs
+    colorButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentColor = btn.getAttribute('data-color');
+        colorButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+
+</html>

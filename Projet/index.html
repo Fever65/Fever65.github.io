@@ -2,124 +2,583 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listes des projets - Fever</title>
-    <link rel="icon" href="../Sources/Images/jerome.png" type="image/png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
-    <link href="../Sources/CSS/header.css" rel="stylesheet" />
-    <link href="../Sources/CSS/fond.css" rel="stylesheet" />
-    <link href="../Sources/CSS/noel.css" rel="stylesheet" />
-    <link href="../Sources/CSS/projet.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ArchiveFever.work - Projets</title>
+  <link rel="icon" href="../Sources/Images/jerome.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+    rel="stylesheet" />
+  <!-- HEADER CSS INTACT -->
+  <link href="../Sources/CSS/header.css" rel="stylesheet" />
+  <style>
+    /* Global */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Source Code Pro", monospace;
+      background: #121212;
+      color: #fff;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: background 1s, color 1s;
+    }
+
+    body.christmas-mode {
+      background: radial-gradient(circle, #8B0000 0%, #FF8C00 100%);
+      color: #fff8e7;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    #header-title {
+      font-size: 2.5rem;
+      transition: color 1s;
+    }
+
+    header.christmas-mode #header-title {
+      color: #FFD700;
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
+      }
+
+      50% {
+        text-shadow: 0 0 10px #FFD700, 0 0 20px #FFD700;
+      }
+
+      100% {
+        text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
+      }
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      background: #1b1b1b;
+      border-radius: 10px;
+      font-size: 0.8rem;
+      transition: background 1s, padding 1s, margin 1s;
+    }
+
+    .container {
+      flex: 1;
+      min-height: calc(100vh - 80px);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 20px;
+      padding: 20px;
+      transition: background 1s;
+    }
+
+    .column {
+      background: #1b1b1b;
+      padding: 20px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      transition: background 1s;
+    }
+
+    .column h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      border-bottom: 2px solid #444;
+      padding-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    body.christmas-mode #finished h2,
+    body.christmas-mode #ongoing h2,
+    body.christmas-mode #detail-panel h2 {
+      color: #FFD700;
+      border-bottom-color: #FFD700;
+    }
+
+    #finished .projects-grid,
+    #ongoing .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      justify-items: center;
+    }
+
+    .project {
+      background: transparent;
+      border: none;
+      padding: 10px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.2s;
+    }
+
+    .project:hover {
+      transform: scale(1.03);
+    }
+
+    .project img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+    }
+
+    .project span {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-shadow: #000000 1px 1px 5px;
+    }
+
+    #detail-panel {
+      background: #292929;
+      border-radius: 8px;
+      padding: 30px;
+      text-align: center;
+      transition: background 1s;
+    }
+
+    /* Augmentation de la taille de l'image centrale */
+    #detail-panel img {
+      width: 400px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    #projectDetail h3 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .project-access {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 12px 18px;
+      background: #b45502;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 1.2rem;
+      transition: background 0.2s;
+    }
+
+    .project-access:hover {
+      background: #a04502;
+    }
+
+    .project-access.christmas-mode {
+      background: #d33682;
+    }
+
+    .project-access.christmas-mode:hover {
+      background: #c02570;
+    }
+
+    .unfinished-note {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .mode-button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .mode-button:hover {
+      transform: scale(1.1);
+    }
+
+    .mode-button img {
+      width: 70px;
+      height: 70px;
+      object-fit: contain;
+    }
+
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr 2fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+        padding: 15px;
+      }
+
+    .project span {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-shadow: #000000 1px 1px 5px;
+    }
+
+      #finished .projects-grid,
+      #ongoing .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .container {
+        padding: 40px;
+        gap: 30px;
+      }
+
+      .column h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <header>
-        <a href="../index.html">
-            <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
-        </a>
-    </header>
+  <!-- HEADER -->
+  <header>
+    <a href="../index.html">
+      <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo" style="width:80px; height:auto;" />
+    </a>
+    <h1 id="header-title">ArchiveFever.work - Projets</h1>
+  </header>
 
-    <h1>Bienvenue dans mon espace dédié à mes créations de sites web !</h1> 
-
-    <div class="projects-container">
-
-        <!-- Projets Finis -->
-        <h2>Projets Finis :</h2>
-        <div class="project-list">
-            <div class="project project-cv" onclick="openProjectDetail('CV - Fever', 'Je cherche une entreprise pour une alternance de CDA IA.', '../CV/index.html', '../Sources/Images/CV.png', '_self', '#48D1CC')">
-                <img src="../Sources/Images/CV.png" alt="CV" class="project-logo">
-                <div class="project-title">CV - Fever</div>
-            </div>
-            <div class="project project-setup" onclick="openProjectDetail('Mon setup', 'Une page qui présente ma configuration informatique.', '../Setup/index.html', '../Sources/Images/setup.png', '_self', '#d3e200')">
-                <img src="../Sources/Images/setup.png" alt="setup" class="project-logo">
-                <div class="project-title">Mon setup</div>
-            </div>
-            <div class="project project-bhbst" onclick="openProjectDetail('BhBst', 'Un service qui aide les joueurs à monter en rang sur Brawlhalla.', '../BHBST/index.html', '../Sources/Images/BHBST.png', '_self', '#ff4500')">
-                <img src="../Sources/Images/BHBST.png" alt="BhBst" class="project-logo">
-                <div class="project-title">BhBst</div>
-            </div>
-            <div class="project project-maison" onclick="openProjectDetail('Maison', 'Un projet qui recrée une maison entièrement en CSS.', '../Maison/index.html', '../Sources/Images/maison.png', '_self', '#8f1671')">
-                <img src="../Sources/Images/maison.png" alt="Maison" class="project-logo">
-                <div class="project-title">Maison</div>
-            </div>
-            <div class="project project-labyrinthe" onclick="openProjectDetail('Labyrinthe', 'Un outil simple pour générer des labyrinthes personnalisés.', '../Labyrinthe/index.html', '../Sources/Images/labyrinthe.png', '_self', '#2b03b9')">
-                <img src="../Sources/Images/labyrinthe.png" alt="Labyrinthe" class="project-logo">
-                <div class="project-title">Labyrinthe</div>
-            </div>
-            <div class="project project-colorqr" onclick="openProjectDetail('ColorQR', 'Créez des QR codes uniques et colorés.', '../QR/index.html', '../Sources/Images/QR.png', '_self', '#FF00FF')">
-                <img src="../Sources/Images/QR.png" alt="ColorQR" class="project-logo">
-                <div class="project-title">ColorQR</div>
-            </div>
-            <div class="project project-excuses" onclick="openProjectDetail('Boîte à excuses', 'Ceci est un générateur de texte pour s\'excuser.', '../Excuses/index.html', '../Sources/Images/Vacances.png', '_self', '#FF6F61')">
-                <img src="../Sources/Images/Vacances.png" alt="Boîte à excuses" class="project-logo">
-                <div class="project-title">Boîte à excuses</div>
-            </div>
-            <div class="project project-fragments" onclick="openProjectDetail('Fragments', 'Cet album est le fruit d\'une collaboration entre IA.', '../Fragments/index.html', '../Sources/Images/Fragments.png', '_self', '#FFB347')">
-                <img src="../Sources/Images/Fragments.png" alt="Fragments" class="project-logo">
-                <div class="project-title">Fragments</div>
-            </div>
-            <div class="project project-ocean" onclick="openProjectDetail('Ocean', 'Un deuxième album créé à l\'aide de l\'intelligence artificielle.', '../Ocean/index.html', '../Sources/Images/Ocean.png', '_self', '#004f63')">
-                <img src="../Sources/Images/Ocean.png" alt="Ocean" class="project-logo">
-                <div class="project-title">Ocean</div>
-            </div>
-            <div class="project project-203" onclick="openProjectDetail('203', '3éme Album de la page, car jamais deux sans trois comme on dis (lol 203)', '../203/index.html', '../Sources/Images/203.png', '_self', '#FFB6C1')">
-                <img src="../Sources/Images/203.png" alt="203" class="project-logo">
-                <div class="project-title">203</div>
-            </div>
-            <div class="project project-BlitzDraw" onclick="openProjectDetail('BlitzDraw', 'Dessine. Dessine vite !', '../BlitzDraw/index.html', '../Sources/Images/BlitzDraw.png', '_self', '#006400')">
-                <img src="../Sources/Images/BlitzDraw.png" alt="BlitzDraw" class="project-logo">
-                <div class="project-title">BlitzDraw</div>
-            </div>
-        </div>
-    
-        <!-- Ajout du titre des Projets en Cours ici -->
-        <h2>Projets en Cours :</h2>
-    
-        <!-- Projets en Cours -->
-        <div class="project-list">
-            <div class="project project-marley unfinished" onclick="openProjectDetail('Marley And Me', 'Portfolio du Graphiste Pierre Lechat', '', '../Sources/Images/logo-marley.png', '_blank', '#4caf50', false)">
-                <img src="../Sources/Images/logo-marley.png" alt="Marley And Me" class="project-logo">
-                <div class="project-title">Marley And Me ⌛</div>
-            </div>
-            <div class="project project-vision unfinished" onclick="openProjectDetail('Vision', 'Ma vision bientôt.', '', '../Sources/Images/Vision.png', '_self', '#00FFFF', false)">
-                <img src="../Sources/Images/Vision.png" alt="Vision" class="project-logo">
-                <div class="project-title">Vision ⌛</div>
-            </div>
-            <div class="project project-crabe unfinished" onclick="openProjectDetail('Crabe 560', 'Un jeu avec des crabes. BEAUCOUP DE CRABES...', '', '../Sources/Images/Crabe560.png', '_self', '#8A2BE2', false)">
-                <img src="../Sources/Images/Crabe560.png" alt="Crabe 560" class="project-logo">
-                <div class="project-title">Crabe 560 ⌛</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="overlay" id="overlay" onclick="closeProjectDetail()"></div>
-    <div class="project-detail" id="projectDetail">
-        <h2 id="projectTitle"></h2>
-        <div class="detail-container">
-            <img id="projectLogo" src="" alt="Logo du projet" class="detail-image">
-            <div class="detail-text">
-                <p id="projectDescription"></p>
-            </div>
-        </div>
-        <div class="button-container">
-            <a id="projectLink" href="#" target="_self" class="view-button">Voir le projet</a>
-            <button class="return-button" onclick="closeProjectDetail()">Retour</button>
-        </div>
+  <!-- Conteneur principal -->
+  <div class="container">
+    <!-- Colonne gauche : Projets Finis -->
+    <div class="column" id="finished">
+      <h2>Projets Finis</h2>
+      <div class="projects-grid">
+        <button class="project" style="color: #48D1CC;"
+          onclick="showDetail('CV - Fever','Je cherche une entreprise pour une alternance de CDA IA.','../CV/index.html','../Sources/Images/CV.png')">
+          <img src="../Sources/Images/CV.png" alt="CV - Fever" />
+          <span>CV - Fever</span>
+        </button>
+        <button class="project" style="color: #d3e200;"
+          onclick="showDetail('Mon setup','Présentation de ma configuration informatique.','../Setup/index.html','../Sources/Images/setup.png')">
+          <img src="../Sources/Images/setup.png" alt="Mon setup" />
+          <span>Mon setup</span>
+        </button>
+        <button class="project" style="color: #FF4500;"
+          onclick="showDetail('BhBst','Service pour joueurs sur Brawlhalla.','../BHBST/index.html','../Sources/Images/BHBST.png')">
+          <img src="../Sources/Images/BHBST.png" alt="BhBst" />
+          <span>BhBst</span>
+        </button>
+        <button class="project" style="color: #8f1671;"
+          onclick="showDetail('Maison','Maison recréée en CSS.','../Maison/index.html','../Sources/Images/maison.png')">
+          <img src="../Sources/Images/maison.png" alt="Maison" />
+          <span>Maison</span>
+        </button>
+        <button class="project" style="color: #2b03b9;"
+          onclick="showDetail('Labyrinthe','Générateur de labyrinthes.','../Labyrinthe/index.html','../Sources/Images/labyrinthe.png')">
+          <img src="../Sources/Images/labyrinthe.png" alt="Labyrinthe" />
+          <span>Labyrinthe</span>
+        </button>
+        <button class="project" style="color: #FF00FF;"
+          onclick="showDetail('ColorQR','QR codes uniques et colorés.','../QR/index.html','../Sources/Images/QR.png')">
+          <img src="../Sources/Images/QR.png" alt="ColorQR" />
+          <span>ColorQR</span>
+        </button>
+        <button class="project" style="color: #FF6F61;"
+          onclick="showDetail('Boîte à excuses','Générateur d\'excuses.','../Excuses/index.html','../Sources/Images/Vacances.png')">
+          <img src="../Sources/Images/Vacances.png" alt="Boîte à excuses" />
+          <span>Boîte à excuses</span>
+        </button>
+        <button class="project" style="color: #FFB347;"
+          onclick="showDetail('Fragments','Album collaboratif avec IA.','../Fragments/index.html','../Sources/Images/Fragments.png')">
+          <img src="../Sources/Images/Fragments.png" alt="Fragments" />
+          <span>Fragments</span>
+        </button>
+        <button class="project" style="color: #004f63;"
+          onclick="showDetail('Ocean','Album via IA.','../Ocean/index.html','../Sources/Images/Ocean.png')">
+          <img src="../Sources/Images/Ocean.png" alt="Ocean" />
+          <span>Ocean</span>
+        </button>
+        <button class="project" style="color: #FFB6C1;"
+          onclick="showDetail('203','3ème Album, jamais deux sans trois.','../203/index.html','../Sources/Images/203.png')">
+          <img src="../Sources/Images/203.png" alt="203" />
+          <span>203</span>
+        </button>
+        <button class="project" style="color: #006400;"
+          onclick="showDetail('BlitzDraw','Dessine. Dessine vite !','../BlitzDraw/index.html','../Sources/Images/BlitzDraw.png')">
+          <img src="../Sources/Images/BlitzDraw.png" alt="BlitzDraw" />
+          <span>BlitzDraw</span>
+        </button>
+      </div>
     </div>
 
-    <button class="logo-switch-button" onclick="switchLogo()">
-        <img src="../Sources/Images/sapin.png" alt="Sapin" class="button-icon">
-    </button>    
+    <!-- Colonne centrale : Détail du Projet -->
+    <div class="column" id="detail-panel">
+      <h2>Détail du Projet</h2>
+      <div id="projectDetail">
+        <p>Sélectionnez un projet pour voir ses détails.</p>
+      </div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="../Sources/JS/logoSwitch.js"></script>
-    <script src="../Sources/JS/projectdetail.js"></script>
+    <!-- Colonne droite : Projets en Cours -->
+    <div class="column" id="ongoing">
+      <h2>Projets en Cours</h2>
+      <div class="projects-grid">
+        <button class="project unfinished" style="color: #4caf50;"
+          onclick="showDetail('Marley And Me','Portfolio du Graphiste Pierre Lechat','','../Sources/Images/logo-marley.png')">
+          <img src="../Sources/Images/logo-marley.png" alt="Marley And Me" />
+          <span>Marley And Me</span>
+        </button>
+        <button class="project unfinished" style="color: #00FFFF;"
+          onclick="showDetail('Vision','Ma vision bientôt','','../Sources/Images/Vision.png')">
+          <img src="../Sources/Images/Vision.png" alt="Vision" />
+          <span>Vision</span>
+        </button>
+        <button class="project unfinished" style="color: #8A2BE2;"
+          onclick="showDetail('Crabe 560','Un jeu avec BEAUCOUP DE CRABES','','../Sources/Images/Crabe560.png')">
+          <img src="../Sources/Images/Crabe560.png" alt="Crabe 560" />
+          <span>Crabe 560</span>
+        </button>
+      </div>
+      <!-- Bouton Mode Noël -->
+      <button class="mode-button" onclick="switchLogo()">
+        <img src="../Sources/Images/sapin.png" alt="Mode Noël" class="button-icon" />
+      </button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    function showDetail(title, description, link, imgSrc) {
+      const unfinishedTitles = ["Marley And Me", "Vision", "Crabe 560"];
+      let content = "";
+      if (unfinishedTitles.includes(title)) {
+        content = `<p class="unfinished-note">Merci de votre compréhension, ce projet n'est pas fini</p>`;
+      } else if (link && link.trim() !== "") {
+        content = `<a href="${link}" target="_blank" class="project-access">Accéder au projet</a>`;
+      } else {
+        content = `<p class="unfinished-note">Merci de votre compréhension, ce projet n'est pas fini</p>`;
+      }
+      document.getElementById("projectDetail").innerHTML = `
+          <h3>${title}</h3>
+          <img src="${imgSrc}" alt="${title}">
+          <p>${description}</p>
+          ${content}
+        `;
+    }
+
+    let fireworkInterval;
+    function switchLogo() {
+      const headerLogo = document.querySelector(".header-logo");
+      const buttonIcon = document.querySelector(".button-icon");
+      const sapinSrc = "../Sources/Images/sapin.png";
+      const palmierSrc = "../Sources/Images/palmier.png";
+      const defaultLogoSrc = "../Sources/Images/jerome.png";
+      const newLogoSrc = "../Sources/Images/JeromeN.png";
+      if (buttonIcon.src.includes("sapin.png")) {
+        buttonIcon.src = palmierSrc;
+        headerLogo.src = newLogoSrc;
+        document.getElementById("header-title").textContent = "Joyeux Noël";
+        enableChristmasMode();
+      } else {
+        buttonIcon.src = sapinSrc;
+        headerLogo.src = defaultLogoSrc;
+        document.getElementById("header-title").textContent = "ArchiveFever.work - Projets";
+        disableChristmasMode();
+      }
+    }
+
+    function launchFirework() {
+      confetti({
+        particleCount: 50,
+        spread: Math.random() * 100 + 50,
+        startVelocity: Math.random() * 20 + 40,
+        origin: { x: Math.random(), y: 0.5 + Math.random() * 0.4 },
+        colors: ["#FFD700", "#FF4500", "#00BFFF", "#ADFF2F", "#8F1671"]
+      });
+    }
+
+    function startFireworkLoop() {
+      stopFireworkLoop();
+      fireworkInterval = setInterval(launchFirework, 1000);
+    }
+
+    function stopFireworkLoop() {
+      if (fireworkInterval) {
+        clearInterval(fireworkInterval);
+        fireworkInterval = null;
+      }
+    }
+
+    function enableChristmasMode() {
+      document.body.classList.add("christmas-mode");
+      document.getElementById("ongoing").classList.add("christmas-mode");
+      document.getElementById("detail-panel").classList.add("christmas-mode");
+      document.getElementById("projectDetail").classList.add("christmas-mode");
+      startFireworkLoop();
+    }
+
+    function disableChristmasMode() {
+      document.body.classList.remove("christmas-mode");
+      document.getElementById("ongoing").classList.remove("christmas-mode");
+      document.getElementById("detail-panel").classList.remove("christmas-mode");
+      document.getElementById("projectDetail").classList.remove("christmas-mode");
+      stopFireworkLoop();
+    }
+  </script>
+  <!-- Ajoutez ce CSS dans la balise <style> existante -->
+  <style>
+    /* Affichage mobile */
+    @media (max-width: 768px) {
+
+      /* Masquer la grille PC et le texte du header */
+      .container {
+        display: none;
+      }
+
+      #header-title {
+        display: none;
+      }
+
+      /* Affichage de la nouvelle grille mobile */
+      #mobile-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 20px;
+      }
+
+      /* Style identique aux projets déjà définis */
+      .project-mobile {
+        background: #1b1b1b;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        transition: transform 0.2s;
+      }
+
+      .project-mobile:hover {
+        transform: scale(1.03);
+      }
+
+      .project-mobile img {
+        width: 70px;
+        height: 70px;
+        object-fit: contain;
+      }
+    }
+    
+    .project span {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-shadow: #000000 1px 1px 5px;
+    }
+
+    @media (min-width: 769px) {
+
+      
+    .project span {
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-shadow: #000000 1px 1px 5px;
+    }
+
+      /* Masquer la grille mobile sur PC */
+      #mobile-grid {
+        display: none;
+      }
+    }
+  </style>
+
+  <!-- Insérez cette nouvelle grille mobile après la div .container existante -->
+  <div id="mobile-grid">
+    <!-- Projets Finis -->
+    <a class="project-mobile" href="../CV/index.html" style="color: #48D1CC;">
+      <img src="../Sources/Images/CV.png" alt="CV - Fever">
+      <span>CV - Fever</span>
+    </a>
+    <a class="project-mobile" href="../Setup/index.html" style="color: #d3e200;">
+      <img src="../Sources/Images/setup.png" alt="Mon setup">
+      <span>Mon setup</span>
+    </a>
+    <a class="project-mobile" href="../BHBST/index.html" style="color: #FF4500;">
+      <img src="../Sources/Images/BHBST.png" alt="BhBst">
+      <span>BhBst</span>
+    </a>
+    <a class="project-mobile" href="../Maison/index.html" style="color: #8f1671;">
+      <img src="../Sources/Images/maison.png" alt="Maison">
+      <span>Maison</span>
+    </a>
+    <a class="project-mobile" href="../Labyrinthe/index.html" style="color: #2b03b9;">
+      <img src="../Sources/Images/labyrinthe.png" alt="Labyrinthe">
+      <span>Labyrinthe</span>
+    </a>
+    <a class="project-mobile" href="../QR/index.html" style="color: #FF00FF;">
+      <img src="../Sources/Images/QR.png" alt="ColorQR">
+      <span>ColorQR</span>
+    </a>
+    <a class="project-mobile" href="../Excuses/index.html" style="color: #FF6F61;">
+      <img src="../Sources/Images/Vacances.png" alt="Boîte à excuses">
+      <span>Boîte à excuses</span>
+    </a>
+    <a class="project-mobile" href="../Fragments/index.html" style="color: #FFB347;">
+      <img src="../Sources/Images/Fragments.png" alt="Fragments">
+      <span>Fragments</span>
+    </a>
+    <a class="project-mobile" href="../Ocean/index.html" style="color: #004f63;">
+      <img src="../Sources/Images/Ocean.png" alt="Ocean">
+      <span>Ocean</span>
+    </a>
+    <a class="project-mobile" href="../203/index.html" style="color: #FFB6C1;">
+      <img src="../Sources/Images/203.png" alt="203">
+      <span>203</span>
+    </a>
+    <a class="project-mobile" href="../BlitzDraw/index.html" style="color: #006400;">
+      <img src="../Sources/Images/BlitzDraw.png" alt="BlitzDraw">
+      <span>BlitzDraw</span>
+    </a>
+
+    <!-- Projets Non Finis (affichés sans redirection) -->
+    <div class="project-mobile" style="color: #4caf50;">
+      <img src="../Sources/Images/logo-marley.png" alt="Marley And Me ⌛">
+      <span>Marley And Me</span>
+    </div>
+    <div class="project-mobile" style="color: #00FFFF;">
+      <img src="../Sources/Images/Vision.png" alt="Vision ⌛">
+      <span>Vision</span>
+    </div>
+    <div class="project-mobile" style="color: #8A2BE2;">
+      <img src="../Sources/Images/Crabe560.png" alt="Crabe 560 ⌛">
+      <span>Crabe 560</span>
+    </div>
+  </div>
+
 </body>
-
-<footer style="text-align: center; margin-top: 20px; padding: 10px; font-size: 0.8rem; color: #ffffff; background-color: #1b1b1b;">
-    <a href="../TDL/index.html" style="color: #ffa500; text-decoration: none;">Cette page est en reconstruction, clique ici pour en savoir plus.</a>
-</footer>
 
 </html>

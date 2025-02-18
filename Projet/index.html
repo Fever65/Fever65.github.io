@@ -2,10 +2,16 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <!-- On ajoute viewport-fit=cover + meta tags Apple -->
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <title>Les projets de Fever.</title>
   <link rel="icon" href="../Sources/Images/jerome.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg-primary: #0d0d0d;
@@ -17,17 +23,29 @@
       --transition-duration: 0.3s;
       --border-radius: 12px;
     }
-    * { box-sizing: border-box; }
-    body {
+
+    /* On applique le gradient à html pour éviter les bords blancs au "pull-to-refresh" */
+    html {
+      margin: 0;
+      padding: 0;
       background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+    }
+
+    body {
+      margin: 0;
+      /* On gère le padding avec les safe areas pour Safari iOS */
+      padding: 20px env(safe-area-inset-top, 20px)
+              env(safe-area-inset-bottom, 20px)
+              env(safe-area-inset-left, 20px)
+              env(safe-area-inset-right, 20px);
       color: var(--text-light);
       font-family: 'Source Code Pro', monospace;
-      margin: 0;
-      padding: 20px env(safe-area-inset-top, 20px) env(safe-area-inset-bottom, 20px) env(safe-area-inset-left, 20px) env(safe-area-inset-right, 20px);
       line-height: 1.6;
       overflow-x: hidden;
     }
+
     a { text-decoration: none; color: inherit; }
+
     header {
       display: flex;
       align-items: center;
@@ -51,7 +69,6 @@
       letter-spacing: 1px;
       margin: 0;
     }
-    /* Adaptation pour mobile */
     @media (max-width: 767px) {
       .page-title {
         font-size: 1.8rem;
@@ -60,6 +77,7 @@
         padding: 0 10px;
       }
     }
+
     .section-label {
       font-size: 1rem;
       margin: 30px 0 20px;
@@ -68,7 +86,12 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
-    main { max-width: 1200px; margin: 0 auto; }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -77,7 +100,10 @@
       opacity: 0;
       animation: fadeIn 0.8s forwards;
     }
-    @keyframes fadeIn { to { opacity: 1; } }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
     .project {
       background: var(--card-bg);
       padding: 20px;
@@ -99,7 +125,9 @@
       margin-bottom: 15px;
       transition: transform var(--transition-duration) ease;
     }
-    .project img:hover { transform: scale(1.05); }
+    .project img:hover {
+      transform: scale(1.05);
+    }
     .project-title {
       font-size: 1.4rem;
       margin: 10px 0;
@@ -115,6 +143,7 @@
       border: 2px dashed var(--accent);
       background: rgba(26,26,26,0.8);
     }
+
     footer {
       width: 100%;
       background: transparent;
@@ -126,6 +155,7 @@
     }
     footer p { margin: 5px 0; }
     footer a { color: var(--accent); }
+
     #scrollTop {
       position: fixed;
       bottom: 30px;
@@ -141,12 +171,24 @@
       opacity: 0.7;
       transition: opacity var(--transition-duration) ease;
     }
-    #scrollTop:hover { opacity: 1; }
+    #scrollTop:hover {
+      opacity: 1;
+    }
+
     @media (min-width: 768px) {
-      header img { width: 80px; height: 80px; }
-      .page-title { font-size: 3rem; }
-      .project-title { font-size: 1.6rem; }
-      .description { font-size: 1.2rem; }
+      header img {
+        width: 80px;
+        height: 80px;
+      }
+      .page-title {
+        font-size: 3rem;
+      }
+      .project-title {
+        font-size: 1.6rem;
+      }
+      .description {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
@@ -157,6 +199,7 @@
     </a>
     <div class="page-title">ArchiveFever.work</div>
   </header>
+
   <main>
     <!-- Présentation de Fever -->
     <p class="section-label">Présentation de Fever</p>
@@ -176,7 +219,7 @@
         </a>
       </div>
     </div>
-    
+
     <!-- Applications -->
     <p class="section-label">Applications</p>
     <div class="grid">
@@ -216,7 +259,7 @@
         </a>
       </div>
     </div>
-    
+
     <!-- Albums -->
     <p class="section-label">Albums</p>
     <div class="grid">
@@ -242,7 +285,7 @@
         </a>
       </div>
     </div>
-    
+
     <!-- Boost Brawlhalla -->
     <p class="section-label">Boost Brawlhalla</p>
     <div class="grid">
@@ -254,7 +297,7 @@
         </a>
       </div>
     </div>
-    
+
     <!-- Projets en Cours -->
     <p class="section-label">Projets en Cours</p>
     <div class="grid">
@@ -281,12 +324,13 @@
       </div>
     </div>
   </main>
+
   <footer>
     <p>&copy; 2025 ArchiveFever.work - Tous droits réservés</p>
     <p>
-      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> | 
-      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> | 
-      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> | 
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> |
+      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> |
+      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> |
       <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
     </p>
   </footer>

@@ -154,18 +154,16 @@
 
         /* GALLERY */
         .gallery {
-            padding: 3rem 1rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 1rem;
+            column-count: 3;
+            column-gap: 1rem;
+            margin-bottom: 2rem;
         }
 
         .gallery-item {
-            cursor: pointer;
-            border-radius: 8px;
-            overflow: hidden;
-            text-align: center;
+            break-inside: avoid;
+            margin-bottom: 1rem;
         }
+
 
         .gallery-item img {
             width: 80%;
@@ -341,7 +339,10 @@
         <!-- PRESENTATION -->
         <section id="presentation">
             <p>
-                Bonjour, je suis Pierre Lechat, graphiste freelance. Je conçois des logos, identités visuelles, flyers, dépliants, cartes de visite, flocages de véhicules, et bien plus encore. Mon objectif est de donner vie à vos idées et de vous aider à communiquer efficacement votre message grâce à des designs percutants et créatifs.
+                Bonjour, je suis Pierre Lechat, graphiste freelance. Je conçois des logos, identités visuelles, flyers,
+                dépliants, cartes de visite, flocages de véhicules, et bien plus encore. Mon objectif est de donner vie
+                à vos idées et de vous aider à communiquer efficacement votre message grâce à des designs percutants et
+                créatifs.
             </p>
         </section>
 
@@ -432,7 +433,7 @@
             projet8: ['ours-des-pyrenees.webp', 'Ours2.webp'],
             projet9: ['petit-chimiste.webp', 'Chimiste2.webp', 'Chimiste3.webp', 'Chimiste4.webp', 'Chimiste5.webp'],
             projet10: ['romulus-remus.webp', 'Romulus2.webp', 'Romulus3.webp'],
-            projet11: ['sushi-eat.webp', 'Sushi2.webp','Sushi3.webp'],
+            projet11: ['sushi-eat.webp', 'Sushi2.webp', 'Sushi3.webp'],
             projet12: ['tonton-burger.webp'],
             projet13: ['urbex.webp', 'Urbex2.webp', 'Urbex3.webp'],
             projet14: ['Star.webp', 'Star2.webp', 'Star3.webp', 'Star4.webp', 'Star5.webp']

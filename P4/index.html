@@ -4,10 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Puissance 4 Multijoueur</title>
-  <!-- Import des deux polices : Gloria Hallelujah pour le titre, Source Code Pro pour le reste -->
+  <!-- Import des polices : Gloria Hallelujah pour le titre, Source Code Pro pour le reste -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap" rel="stylesheet"/>
+  <link rel="icon" href="../Sources/Images/P4.png" type="image/png">
   <style>
     * {
       margin: 0;
@@ -110,7 +111,7 @@
     #connection-section button:hover {
       background-color: #ff4500;
     }
-    /* Augmentation de la largeur de l’input et centrage du texte */
+    /* Largeur de l’input augmentée et centrage */
     #connection-section input {
       background: transparent;
       outline: none;
@@ -140,6 +141,7 @@
       font-size: 1.2rem;
       margin: 10px 0;
       display: block;
+      transition: color 0.3s ease;
     }
     #connect4-board {
       margin: 20px auto;
@@ -147,12 +149,14 @@
       grid-template-columns: repeat(7, 60px);
       gap: 5px;
       justify-content: center;
+      transition: all 0.3s ease;
     }
     .connect4-cell {
       width: 60px;
       height: 60px;
       background: #fff;
       border-radius: 50%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .clickable {
       border: 2px solid #b45502;
@@ -161,9 +165,19 @@
     .non-clickable {
       cursor: default;
     }
+    /* Effet subtil sur la dernière pièce jouée */
+    .last-move {
+      box-shadow: 0 0 5px 2px rgba(255,255,0,0.5);
+    }
+    /* Effet lumineux subtil sur les jetons gagnants */
+    .winning-cell {
+      box-shadow: 0 0 8px 4px rgba(255,255,255,0.7);
+    }
     #connect4-result {
       margin-top: 15px;
       font-size: 1.2rem;
+      font-weight: bold;
+      transition: opacity 0.3s ease;
     }
     /* Bouton Rejouer en Source Code Pro */
     #connect4-restart {
@@ -180,16 +194,17 @@
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 1px;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.3s ease;
     }
     #connect4-restart:hover {
       background: linear-gradient(45deg, #1E90FF, #009ACD);
+      transform: scale(1.05);
     }
     button:disabled {
       background-color: #666;
       cursor: not-allowed;
     }
-    /* Adaptation pour mobile : réduction de la taille des cellules */
+    /* Responsive mobile : réduction de la taille des cellules */
     @media (max-width: 500px) {
       h1 { font-size: 2rem; }
       .connect4-cell {
@@ -235,10 +250,15 @@
     </div>
   </div>
   
+  <!-- Audio pour le son du jeton -->
+  <audio id="tokenSound" src="../Sources/Sons/Token.mp3"></audio>
+  <!-- Audio pour le son de victoire -->
+  <audio id="winSound" src="../Sources/Sons/Win.mp3"></audio>
+  
   <!-- PeerJS -->
   <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
   <script>
-    // Configuration avec serveur TURN gratuit
+    // Initialisation de PeerJS avec configuration ICE (STUN et TURN)
     let peer = new Peer({
       config: {
         iceServers: [
@@ -254,7 +274,7 @@
     
     // Variables globales
     let myPeerId = null;
-    let myColor = null; // rouge = hôte, jaune = client
+    let myColor = null; // 'red' pour hôte, 'yellow' pour client
     let currentColor = 'red';
     let connect4Board = Array(42).fill(null);
     let myTurn = false;
@@ -272,7 +292,7 @@
       console.error('Erreur PeerJS:', err);
     });
     
-    // Création de partie (hôte)
+    // Bouton "Créer une partie" (hôte)
     document.getElementById('createLink').onclick = () => {
       myColor = 'red';
       currentColor = 'red';
@@ -285,7 +305,7 @@
       console.log('Partie créée, ID copié:', myPeerId);
     };
     
-    // Rejoindre une partie (client)
+    // Bouton "Rejoindre" (client)
     document.getElementById('joinGame').onclick = () => {
       const inviteCode = document.getElementById('inviteCode').value.trim();
       if (!inviteCode) {
@@ -367,13 +387,23 @@
         const idx = row * 7 + col;
         if (!connect4Board[idx]) {
           connect4Board[idx] = myColor;
-          document.querySelectorAll('.connect4-cell')[idx].style.background = myColor;
+          // Retirer la classe "last-move" de toutes les cellules
+          document.querySelectorAll('.connect4-cell').forEach(cell => {
+            cell.classList.remove('last-move');
+          });
+          // Appliquer la classe "last-move" sur la cellule jouée
+          let cellElement = document.querySelectorAll('.connect4-cell')[idx];
+          cellElement.style.background = myColor;
+          cellElement.classList.add('last-move');
+          // Jouer le son du jeton
+          document.getElementById('tokenSound').play();
           currentColor = (currentColor === 'red') ? 'yellow' : 'red';
           myTurn = (myColor === currentColor);
           conn.send({
             type: 'move',
             board: [...connect4Board],
-            currentColor
+            currentColor: currentColor,
+            lastMoveIndex: idx
           });
           updateTurnDisplay();
           checkWinner();
@@ -412,7 +442,8 @@
               connect4Board[i] === connect4Board[i+1] &&
               connect4Board[i] === connect4Board[i+2] &&
               connect4Board[i] === connect4Board[i+3]) {
-            endGame(connect4Board[i]);
+            let winningIndices = [i, i+1, i+2, i+3];
+            endGame(connect4Board[i], winningIndices);
             return;
           }
         }
@@ -425,7 +456,8 @@
               connect4Board[i] === connect4Board[i+7] &&
               connect4Board[i] === connect4Board[i+14] &&
               connect4Board[i] === connect4Board[i+21]) {
-            endGame(connect4Board[i]);
+            let winningIndices = [i, i+7, i+14, i+21];
+            endGame(connect4Board[i], winningIndices);
             return;
           }
         }
@@ -438,7 +470,8 @@
               connect4Board[i] === connect4Board[i+8] &&
               connect4Board[i] === connect4Board[i+16] &&
               connect4Board[i] === connect4Board[i+24]) {
-            endGame(connect4Board[i]);
+            let winningIndices = [i, i+8, i+16, i+24];
+            endGame(connect4Board[i], winningIndices);
             return;
           }
         }
@@ -451,19 +484,23 @@
               connect4Board[i] === connect4Board[i+6] &&
               connect4Board[i] === connect4Board[i+12] &&
               connect4Board[i] === connect4Board[i+18]) {
-            endGame(connect4Board[i]);
+            let winningIndices = [i, i+6, i+12, i+18];
+            endGame(connect4Board[i], winningIndices);
             return;
           }
         }
       }
-      // Égalité
       if (!connect4Board.includes(null)) {
-        endGame(null);
+        endGame(null, []);
       }
     }
     
-    function endGame(winnerColor) {
+    function endGame(winnerColor, winningIndices) {
       gameActive = false;
+      // Retirer l'effet sur la dernière pièce placée
+      document.querySelectorAll('.connect4-cell').forEach(cell => {
+        cell.classList.remove('last-move');
+      });
       // Masquer l'indicateur de tour
       document.getElementById('connect4-turn').style.display = 'none';
       if (winnerColor === null) {
@@ -471,6 +508,14 @@
       } else {
         const colorName = (winnerColor === 'red') ? 'rouge' : 'jaune';
         document.getElementById('connect4-result').textContent = `Le joueur ${colorName} a gagné !`;
+        // Jouer le son de victoire
+        document.getElementById('winSound').play();
+        if (winningIndices && winningIndices.length) {
+          winningIndices.forEach(idx => {
+            let cell = document.querySelectorAll('.connect4-cell')[idx];
+            if (cell) cell.classList.add('winning-cell');
+          });
+        }
       }
       document.getElementById('connect4-restart').style.display = 'block';
     }
@@ -483,6 +528,13 @@
         updateBoardDisplay();
         updateTurnDisplay();
         checkWinner();
+        if (data.lastMoveIndex !== undefined) {
+          document.querySelectorAll('.connect4-cell').forEach(cell => {
+            cell.classList.remove('last-move');
+          });
+          let cellElement = document.querySelectorAll('.connect4-cell')[data.lastMoveIndex];
+          if (cellElement) cellElement.classList.add('last-move');
+        }
       } else if (data.type === 'restart') {
         startGame();
       } else if (data.type === 'syncState') {

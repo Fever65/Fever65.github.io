@@ -184,7 +184,10 @@
             border: 1px solid var(--accent);
         }
 
-        /* Séparation entre projets */
+        .project-item {
+            margin-bottom: 30px;
+        }
+
         .project-item:not(:last-child)::after {
             content: '';
             display: block;
@@ -192,6 +195,11 @@
             height: 1px;
             background: rgba(252, 163, 17, 0.2);
             margin: 20px auto;
+        }
+
+        .project-item a {
+            text-decoration: none;
+            color: inherit;
         }
 
         .portfolio-button {
@@ -297,87 +305,133 @@
                 <h2>Mes réalisations</h2>
 
                 <div class="project-item">
-                    <h3>Présentation - Fever</h3>
-                    <img src="../Sources/Images/CV.png" alt="Logo CV" class="project-img">
-                    <p>Un CV interactif au design soigné, pensé pour une navigation fluide et une présentation percutante.</p>
+                    <a href="../CV/index.html">
+                        <h3>Présentation - Fever</h3>
+                        <img src="../Sources/Images/CV.png" alt="Logo CV" class="project-img">
+                        <p>Un CV interactif au design soigné, pensé pour une navigation fluide et une présentation percutante.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>Mon Setup</h3>
-                    <img src="../Sources/Images/setup.png" alt="Logo Setup" class="project-img">
-                    <p>Une vue détaillée de ma configuration, optimisée pour répondre aux exigences du développement.</p>
+                    <a href="../Setup/index.html">
+                        <h3>Mon Setup</h3>
+                        <img src="../Sources/Images/setup.png" alt="Logo Setup" class="project-img">
+                        <p>Une vue détaillée de ma configuration, optimisée pour répondre aux exigences du développement.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>Maison</h3>
-                    <img src="../Sources/Images/maison.png" alt="Logo Maison" class="project-img">
-                    <p>Une maison entièrement réalisée en CSS, Attention il pleut beaucoup.</p>
+                    <a href="../Maison/index.html">
+                        <h3>Maison</h3>
+                        <img src="../Sources/Images/maison.png" alt="Logo Maison" class="project-img">
+                        <p>Une maison entièrement réalisée en CSS, Attention il pleut beaucoup.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>Labyrinthe</h3>
-                    <img src="../Sources/Images/labyrinthe.png" alt="Logo Labyrinthe" class="project-img">
-                    <p>Un générateur de labyrinthes.</p>
+                    <a href="../Labyrinthe/index.html">
+                        <h3>Labyrinthe</h3>
+                        <img src="../Sources/Images/labyrinthe.png" alt="Logo Labyrinthe" class="project-img">
+                        <p>Un générateur de labyrinthes.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>ColorQR</h3>
-                    <img src="../Sources/Images/QR.png" alt="Logo ColorQR" class="project-img">
-                    <p>Un outil pour créer des QR codes personnalisés, conjuguant style et utilité pratique.</p>
+                    <a href="../QR/index.html">
+                        <h3>ColorQR</h3>
+                        <img src="../Sources/Images/QR.png" alt="Logo ColorQR" class="project-img">
+                        <p>Un outil pour créer des QR codes personnalisés, conjuguant style et utilité pratique.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>Boîte à excuses</h3>
-                    <img src="../Sources/Images/Vacances.png" alt="Logo Boîte à excuses" class="project-img">
-                    <p>Un générateur d’excuses simple à utiliser et teinté d’une touche d’humour.</p>
+                    <a href="../Excuses/index.html">
+                        <h3>Boîte à excuses</h3>
+                        <img src="../Sources/Images/Vacances.png" alt="Logo Boîte à excuses" class="project-img">
+                        <p>Un générateur d’excuses simple à utiliser et teinté d’une touche d’humour.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>BlitzDraw</h3>
-                    <img src="../Sources/Images/BlitzDraw.png" alt="Logo BlitzDraw" class="project-img">
-                    <p>Un jeu de dessin rapide, conçu pour stimuler la créativité avec une interface fluide.</p>
+                    <a href="../BlitzDraw/index.html">
+                        <h3>BlitzDraw</h3>
+                        <img src="../Sources/Images/BlitzDraw.png" alt="Logo BlitzDraw" class="project-img">
+                        <p>Un jeu de dessin rapide, conçu pour stimuler la créativité avec une interface fluide.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>Fragments</h3>
-                    <img src="../Sources/Images/Fragments.png" alt="Logo Fragments" class="project-img">
-                    <p>Un album musical généré par IA</p>
+                    <a href="../Fragments/index.html">
+                        <h3>Fragments</h3>
+                        <img src="../Sources/Images/Fragments.png" alt="Logo Fragments" class="project-img">
+                        <p>Un album musical généré par IA</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>Océan</h3>
-                    <img src="../Sources/Images/Ocean.png" alt="Logo Océan" class="project-img">
-                    <p>Deuxième album crée par Suno et l'intelligence artificielle. Suivez l'aventure du pirate solitaire.</p>
+                    <a href="../Ocean/index.html">
+                        <h3>Océan</h3>
+                        <img src="../Sources/Images/Ocean.png" alt="Logo Océan" class="project-img">
+                        <p>Deuxième album crée par Suno et l'intelligence artificielle. Suivez l'aventure du pirate solitaire.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>203</h3>
-                    <img src="../Sources/Images/203.png" alt="Logo 203" class="project-img">
-                    <p>Le 3ème album généré par Suno et l'intélligence artificielle. (203 comme Jamais 2 sans 3.)</p>
+                    <a href="../203/index.html">
+                        <h3>203</h3>
+                        <img src="../Sources/Images/203.png" alt="Logo 203" class="project-img">
+                        <p>Le 3ème album généré par Suno et l'intélligence artificielle. (203 comme Jamais 2 sans 3.)</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>BHBST</h3>
-                    <img src="../Sources/Images/BHBST.png" alt="Logo BHBST" class="project-img">
-                    <p>Une plateforme de Boosting pour Brawlhalla, offrant des solutions précises aux joueurs.</p>
+                    <a href="../BHBST/index.html">
+                        <h3>BHBST</h3>
+                        <img src="../Sources/Images/BHBST.png" alt="Logo BHBST" class="project-img">
+                        <p>Une plateforme de Boosting pour Brawlhalla, offrant des solutions précises aux joueurs.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>Marley And Me</h3>
-                    <img src="../Sources/Images/logo-marley.png" alt="Logo Marley And Me" class="project-img">
-                    <p>Un portfolio destiné à mettre en valeur les créations du graphiste Pierre Lechat.</p>
+                    <a href="../marley_and_me/index.html">
+                        <h3>Marley And Me</h3>
+                        <img src="../Sources/Images/logo-marley.png" alt="Logo Marley And Me" class="project-img">
+                        <p>Un portfolio destiné à mettre en valeur les créations du graphiste Pierre Lechat.</p>
+                    </a>
+                </div>
+
+                <!-- Nouveaux projets avant les projets en cours -->
+                <div class="project-item">
+                    <a href="../P4/index.html">
+                        <h3>Puissance 4</h3>
+                        <img src="../Sources/Images/P4.png" alt="Logo Puissance 4" class="project-img">
+                        <p>Défie tes amis dans ce classique stratégique. Aligne 4 pions et deviens le champion !</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>Vision <span style="font-size: 0.9rem; color: var(--text-muted);">(en cours)</span></h3>
-                    <img src="../Sources/Images/Vision.png" alt="Logo Vision" class="project-img">
-                    <p>Ma vision.</p>
+                    <a href="../XO/index.html">
+                        <h3>TicTacToe</h3>
+                        <img src="../Sources/Images/TICTACTOE.png" alt="Logo TicTacToe" class="project-img">
+                        <p>Le morpion en multijoueur : place tes symboles avant l’autre et décroche la victoire !</p>
+                    </a>
+                </div>
+                <!-- Fin des nouveaux projets -->
+
+                <div class="project-item">
+                    <a href="#">
+                        <h3>Vision <span style="font-size: 0.9rem; color: var(--text-muted);">(en cours)</span></h3>
+                        <img src="../Sources/Images/Vision.png" alt="Logo Vision" class="project-img">
+                        <p>Ma vision.</p>
+                    </a>
                 </div>
 
                 <div class="project-item">
-                    <h3>Crabe 560 <span style="font-size: 0.9rem; color: var(--text-muted);">(en cours)</span></h3>
-                    <img src="../Sources/Images/Crabe560.png" alt="Logo Crabe 560" class="project-img">
-                    <p>Un jeu original en chantier, centré sur une expérience ludique et décalée.</p>
+                    <a href="#">
+                        <h3>Crabe 560 <span style="font-size: 0.9rem; color: var(--text-muted);">(en cours)</span></h3>
+                        <img src="../Sources/Images/Crabe560.png" alt="Logo Crabe 560" class="project-img">
+                        <p>Un jeu original en chantier, centré sur une expérience ludique et décalée.</p>
+                    </a>
                 </div>
             </section>
 

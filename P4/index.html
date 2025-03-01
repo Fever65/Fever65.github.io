@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puissance 4 Multijoueur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding-top: 70px;
+            background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
+            font-family: 'Gloria Hallelujah', cursive;
+            color: #fff;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #0e0e0e;
+            z-index: 10000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            height: 80px;
+        }
+
+        .header-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+
+        .return-button {
+            margin-left: auto;
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #b45502;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+        }
+
+        .return-button:hover {
+            background-color: #ff4500;
+        }
+
+        .game-container {
+            margin: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #b45502;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff4500;
+        }
+
+        button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+
+        #connect4-board {
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(7, 60px);
+            gap: 5px;
+        }
+
+        .connect4-cell {
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="../index.html">
+            <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+        </a>
+        <a href="../Projet/index.html" class="return-button">Mes projets</a>
+    </header>
+
+    <div class="game-container">
+        <h1>Puissance 4</h1>
+        
+        <div id="connection-section">
+            <button id="createLink">Créer un lien d'invitation</button>
+            <input id="inviteCode" placeholder="Entrer le code d'invitation">
+            <button id="joinGame">Rejoindre</button>
+            <p id="status">Statut: Non connecté</p>
+        </div>
+
+        <div id="connect4-game" style="display: none;">
+            <p id="connect4-turn">Tour: Joueur Rouge</p>
+            <div id="connect4-board"></div>
+            <p id="connect4-result"></p>
+            <button id="connect4-restart" style="display: none;">Rejouer</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script>
+        let peer = new Peer();
+        let conn = null;
+        let myTurn = false;
+        let myColor = null; // 'red' ou 'yellow'
+        let connect4Board = Array(42).fill(null);
+
+        peer.on('open', (id) => {
+            console.log('Mon ID Peer: ' + id);
+        });
+
+        // Créer un lien d'invitation
+        document.getElementById('createLink').onclick = () => {
+            const inviteLink = `${window.location.href}?invite=${peer.id}`;
+            navigator.clipboard.writeText(inviteLink);
+            alert('Lien copié dans le presse-papier: ' + inviteLink);
+            myTurn = true;
+            myColor = 'red'; // Créateur est Rouge
+            startGame();
+        };
+
+        // Rejoindre une partie
+        document.getElementById('joinGame').onclick = () => {
+            const inviteCode = document.getElementById('inviteCode').value;
+            conn = peer.connect(inviteCode);
+            myColor = 'yellow'; // Rejoignant est Jaune
+            setupConnection();
+        };
+
+        peer.on('connection', (connection) => {
+            conn = connection;
+            setupConnection();
+        });
+
+        function setupConnection() {
+            document.getElementById('status').textContent = 'Statut: Connecté';
+            document.getElementById('connection-section').style.display = 'none';
+            document.getElementById('connect4-game').style.display = 'block';
+            conn.on('data', handleGameData);
+            startGame();
+        }
+
+        function startGame() {
+            connect4Board = Array(42).fill(null);
+            const board = document.getElementById('connect4-board');
+            board.innerHTML = '';
+            for (let i = 0; i < 42; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'connect4-cell';
+                if (i < 7) {
+                    cell.style.cursor = myTurn ? 'pointer' : 'default';
+                    cell.onclick = () => {
+                        if (!myTurn) return;
+                        const col = i;
+                        for (let row = 5; row >= 0; row--) {
+                            const idx = row * 7 + col;
+                            if (!connect4Board[idx]) {
+                                connect4Board[idx] = myColor;
+                                document.querySelectorAll('.connect4-cell')[idx].style.background = myColor;
+                                conn.send({ type: 'move', column: col });
+                                myTurn = false;
+                                document.getElementById('connect4-turn').textContent = `Tour: Joueur ${myColor === 'red' ? 'Jaune' : 'Rouge'}`;
+                                checkWinner();
+                                break;
+                            }
+                        }
+                    };
+                }
+                board.appendChild(cell);
+            }
+            document.getElementById('connect4-result').textContent = '';
+            document.getElementById('connect4-restart').style.display = 'none';
+            document.getElementById('connect4-turn').textContent = `Tour: Joueur ${myTurn ? myColor === 'red' ? 'Rouge' : 'Jaune' : myColor === 'red' ? 'Jaune' : 'Rouge'}`;
+        }
+
+        document.getElementById('connect4-restart').onclick = () => {
+            conn.send({ type: 'restart' });
+            startGame();
+        };
+
+        function checkWinner() {
+            const rows = 6, cols = 7;
+            // Horizontal
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols - 3; c++) {
+                    const i = r * 7 + c;
+                    if (connect4Board[i] && connect4Board[i] === connect4Board[i+1] && connect4Board[i] === connect4Board[i+2] && connect4Board[i] === connect4Board[i+3]) {
+                        endGame(connect4Board[i]);
+                        return;
+                    }
+                }
+            }
+            // Vertical
+            for (let r = 0; r < rows - 3; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const i = r * 7 + c;
+                    if (connect4Board[i] && connect4Board[i] === connect4Board[i+7] && connect4Board[i] === connect4Board[i+14] && connect4Board[i] === connect4Board[i+21]) {
+                        endGame(connect4Board[i]);
+                        return;
+                    }
+                }
+            }
+            // Diagonale /
+            for (let r = 0; r < rows - 3; r++) {
+                for (let c = 0; c < cols - 3; c++) {
+                    const i = r * 7 + c;
+                    if (connect4Board[i] && connect4Board[i] === connect4Board[i+8] && connect4Board[i] === connect4Board[i+16] && connect4Board[i] === connect4Board[i+24]) {
+                        endGame(connect4Board[i]);
+                        return;
+                    }
+                }
+            }
+            // Diagonale \
+            for (let r = 0; r < rows - 3; r++) {
+                for (let c = 3; c < cols; c++) {
+                    const i = r * 7 + c;
+                    if (connect4Board[i] && connect4Board[i] === connect4Board[i+6] && connect4Board[i] === connect4Board[i+12] && connect4Board[i] === connect4Board[i+18]) {
+                        endGame(connect4Board[i]);
+                        return;
+                    }
+                }
+            }
+            if (!connect4Board.includes(null)) {
+                document.getElementById('connect4-result').textContent = 'Égalité !';
+                document.getElementById('connect4-restart').style.display = 'block';
+            }
+        }
+
+        function endGame(winner) {
+            document.getElementById('connect4-result').textContent = `Joueur ${winner === 'red' ? 'Rouge' : 'Jaune'} gagne !`;
+            document.getElementById('connect4-restart').style.display = 'block';
+            document.querySelectorAll('.connect4-cell').forEach(cell => cell.onclick = null);
+        }
+
+        function handleGameData(data) {
+            if (data.type === 'move') {
+                const col = data.column;
+                for (let row = 5; row >= 0; row--) {
+                    const idx = row * 7 + col;
+                    if (!connect4Board[idx]) {
+                        connect4Board[idx] = myColor === 'red' ? 'yellow' : 'red';
+                        document.querySelectorAll('.connect4-cell')[idx].style.background = connect4Board[idx];
+                        myTurn = true;
+                        document.getElementById('connect4-turn').textContent = `Tour: Joueur ${myColor === 'red' ? 'Rouge' : 'Jaune'}`;
+                        checkWinner();
+                        break;
+                    }
+                }
+            } else if (data.type === 'restart') {
+                startGame();
+            }
+        }
+    </script>
+</body>
+</html>

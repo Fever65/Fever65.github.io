@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Puissance 4 Multijoueur</title>
-  <!-- Import des deux polices : Gloria Hallelujah pour le titre, Source Code Pro pour le reste -->
+  <title>Tic Tac Toe Multijoueur</title>
+  <!-- Polices : Titre en Gloria Hallelujah, le reste en Source Code Pro -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap" rel="stylesheet"/>
@@ -69,7 +69,7 @@
       max-width: 600px;
       width: 100%;
     }
-    /* Titre en Gloria Hallelujah, avec dégradé animé */
+    /* Titre en Gloria Hallelujah, dégradé animé */
     h1 {
       font-family: 'Gloria Hallelujah', cursive;
       font-size: 3rem;
@@ -107,10 +107,7 @@
       transition: background 0.3s ease, border-color 0.3s ease;
       font-family: inherit;
     }
-    #connection-section button:hover {
-      background-color: #ff4500;
-    }
-    /* Augmentation de la largeur de l’input et centrage du texte */
+    /* Largeur augmentée et texte centré pour l'input */
     #connection-section input {
       background: transparent;
       outline: none;
@@ -129,44 +126,53 @@
       opacity: 0.8;
       line-height: 1.3;
     }
-    #connect4-game {
+    #tictactoe-game {
       margin-top: 20px;
     }
-    #player-color {
+    #player-mark {
       font-size: 1.2rem;
       margin-bottom: 10px;
     }
-    #connect4-turn {
+    #tictactoe-turn {
       font-size: 1.2rem;
       margin: 10px 0;
       display: block;
     }
-    #connect4-board {
+    /* Grille 3x3 */
+    #tictactoe-board {
       margin: 20px auto;
       display: grid;
-      grid-template-columns: repeat(7, 60px);
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
       gap: 5px;
       justify-content: center;
     }
-    .connect4-cell {
-      width: 60px;
-      height: 60px;
+    .tictactoe-cell {
+      width: 100px;
+      height: 100px;
       background: #fff;
-      border-radius: 50%;
+      color: #000;
+      font-size: 2.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
     }
     .clickable {
       border: 2px solid #b45502;
-      cursor: pointer;
     }
     .non-clickable {
       cursor: default;
+      opacity: 0.8;
     }
-    #connect4-result {
+    #tictactoe-result {
       margin-top: 15px;
       font-size: 1.2rem;
     }
-    /* Bouton Rejouer en Source Code Pro */
-    #connect4-restart {
+    /* Bouton Rejouer */
+    #tictactoe-restart {
       margin: 20px auto 0;
       display: block;
       padding: 12px 24px;
@@ -182,23 +188,24 @@
       letter-spacing: 1px;
       transition: background 0.3s ease;
     }
-    #connect4-restart:hover {
+    #tictactoe-restart:hover {
       background: linear-gradient(45deg, #1E90FF, #009ACD);
     }
     button:disabled {
       background-color: #666;
       cursor: not-allowed;
     }
-    /* Adaptation pour mobile : réduction de la taille des cellules */
+    /* Responsive mobile */
     @media (max-width: 500px) {
       h1 { font-size: 2rem; }
-      .connect4-cell {
-        width: 40px;
-        height: 40px;
+      #tictactoe-board {
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(3, 80px);
       }
-      #connect4-board {
-        grid-template-columns: repeat(7, 40px);
-        gap: 4px;
+      .tictactoe-cell {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
       }
     }
   </style>
@@ -210,9 +217,9 @@
     </a>
     <a href="../Projet/index.html" class="return-button">Mes projets</a>
   </header>
-  
+
   <div class="game-container">
-    <h1>Puissance 4</h1>
+    <h1>Tic Tac Toe</h1>
     
     <div id="connection-section">
       <button id="createLink">Créer une partie</button>
@@ -225,20 +232,22 @@
         l’hôte doit relancer la partie.
       </p>
     </div>
-    
-    <div id="connect4-game" style="display: none;">
-      <p id="player-color"></p>
-      <p id="connect4-turn">C'est le tour du rouge</p>
-      <div id="connect4-board"></div>
-      <p id="connect4-result"></p>
-      <button id="connect4-restart" style="display: none;">Rejouer</button>
+
+    <div id="tictactoe-game" style="display: none;">
+      <p id="player-mark"></p>
+      <p id="tictactoe-turn">C'est le tour de X</p>
+      <div id="tictactoe-board"></div>
+      <p id="tictactoe-result"></p>
+      <button id="tictactoe-restart" style="display: none;">Rejouer</button>
     </div>
   </div>
-  
+
   <!-- PeerJS -->
   <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
   <script>
-    // Configuration avec serveur TURN gratuit
+    /***************************************************
+     * Configuration PeerJS avec TURN openrelay.metered.ca
+     ***************************************************/
     let peer = new Peer({
       config: {
         iceServers: [
@@ -251,262 +260,271 @@
         ]
       }
     });
-    
+
     // Variables globales
     let myPeerId = null;
-    let myColor = null; // rouge = hôte, jaune = client
-    let currentColor = 'red';
-    let connect4Board = Array(42).fill(null);
+    let myMark = null;       // 'X' (hôte) ou 'O' (client)
+    let currentMark = 'X';   // Qui joue en ce moment
+    let tictactoeBoard = Array(9).fill(null);
     let myTurn = false;
     let gameActive = true;
     let conn = null;
-    
+
+    /***************************************************
+     * PeerJS : connexion ouverte
+     ***************************************************/
     peer.on('open', (id) => {
       myPeerId = id;
       document.getElementById('status').textContent = 'Statut : Prêt';
       console.log('Mon ID:', id);
     });
-    
+
+    /***************************************************
+     * PeerJS : erreur
+     ***************************************************/
     peer.on('error', (err) => {
       document.getElementById('status').textContent = `Erreur : ${err.type}`;
       console.error('Erreur PeerJS:', err);
     });
-    
-    // Création de partie (hôte)
+
+    /***************************************************
+     * Bouton "Créer une partie" (hôte = X)
+     ***************************************************/
     document.getElementById('createLink').onclick = () => {
-      myColor = 'red';
-      currentColor = 'red';
+      myMark = 'X';
+      currentMark = 'X';
       myTurn = true;
       navigator.clipboard.writeText(myPeerId);
       document.getElementById('status').textContent =
         `Statut : En attente d’un joueur - ID copié : ${myPeerId}`;
-      document.getElementById('player-color').textContent = 'Vous jouez avec le rouge.';
-      document.getElementById('player-color').style.color = 'red';
+      document.getElementById('player-mark').textContent = 'Vous jouez avec X.';
+      document.getElementById('player-mark').style.color = 'red';
       console.log('Partie créée, ID copié:', myPeerId);
     };
-    
-    // Rejoindre une partie (client)
+
+    /***************************************************
+     * Bouton "Rejoindre" (client = O)
+     ***************************************************/
     document.getElementById('joinGame').onclick = () => {
       const inviteCode = document.getElementById('inviteCode').value.trim();
       if (!inviteCode) {
         alert('Entrez l’ID de l’hôte !');
         return;
       }
-      myColor = 'yellow';
-      currentColor = 'red';
+      myMark = 'O';
+      currentMark = 'X';
       myTurn = false;
       document.getElementById('status').textContent = 'Statut : Tentative de connexion...';
-      document.getElementById('player-color').textContent = 'Vous jouez avec le jaune.';
-      document.getElementById('player-color').style.color = 'yellow';
+      document.getElementById('player-mark').textContent = 'Vous jouez avec O.';
+      document.getElementById('player-mark').style.color = 'yellow';
       conn = peer.connect(inviteCode);
       setupConnection();
     };
-    
-    // Lorsqu'une connexion arrive (cas de l'hôte)
+
+    /***************************************************
+     * PeerJS : quand quelqu’un se connecte à moi (hôte)
+     ***************************************************/
     peer.on('connection', (connection) => {
       conn = connection;
       document.getElementById('status').textContent =
         'Statut : Joueur connecté, jeu prêt !';
       setupConnection();
     });
-    
+
+    /***************************************************
+     * Configuration de la connexion
+     ***************************************************/
     function setupConnection() {
       conn.on('open', () => {
         document.getElementById('connection-section').style.display = 'none';
-        document.getElementById('connect4-game').style.display = 'block';
+        document.getElementById('tictactoe-game').style.display = 'block';
         startGame();
         syncState();
         console.log('Connexion établie avec:', conn.peer);
       });
-      conn.on('data', (data) => {
-        handleGameData(data);
-      });
+      conn.on('data', (data) => { handleGameData(data); });
       conn.on('error', (err) => {
         document.getElementById('status').textContent =
           `Erreur de connexion : ${err}`;
         document.getElementById('connection-section').style.display = 'block';
-        document.getElementById('connect4-game').style.display = 'none';
+        document.getElementById('tictactoe-game').style.display = 'none';
       });
       conn.on('close', () => {
         document.getElementById('status').textContent = 'Connexion perdue';
         document.getElementById('connection-section').style.display = 'block';
-        document.getElementById('connect4-game').style.display = 'none';
+        document.getElementById('tictactoe-game').style.display = 'none';
       });
     }
-    
+
+    /***************************************************
+     * startGame : initialise le plateau
+     ***************************************************/
     function startGame() {
-      connect4Board = Array(42).fill(null);
+      tictactoeBoard = Array(9).fill(null);
       gameActive = true;
-      const board = document.getElementById('connect4-board');
+      const board = document.getElementById('tictactoe-board');
       board.innerHTML = '';
-      // Afficher l'indicateur de tour au début
-      document.getElementById('connect4-turn').style.display = 'block';
-      for (let i = 0; i < 42; i++) {
+
+      // On crée 9 cases (3x3)
+      for (let i = 0; i < 9; i++) {
         const cell = document.createElement('div');
-        cell.className = 'connect4-cell';
-        if (i < 7) {
-          cell.classList.add('clickable');
-          cell.dataset.column = i;
-          cell.addEventListener('click', handleColumnClick);
-        }
+        cell.className = 'tictactoe-cell clickable';
+        cell.dataset.index = i;
+        cell.addEventListener('click', handleCellClick);
         board.appendChild(cell);
       }
-      document.getElementById('connect4-result').textContent = '';
-      document.getElementById('connect4-restart').style.display = 'none';
-      document.getElementById('connect4-turn').textContent =
-        `C'est le tour du ${currentColor === 'red' ? 'rouge' : 'jaune'}`;
-      myTurn = (myColor === currentColor);
+
+      document.getElementById('tictactoe-result').textContent = '';
+      document.getElementById('tictactoe-restart').style.display = 'none';
+
+      // Tour initial
+      document.getElementById('tictactoe-turn').style.display = 'block';
+      document.getElementById('tictactoe-turn').textContent =
+        `C'est le tour de ${currentMark}`;
+      myTurn = (myMark === currentMark);
       updateTurnDisplay();
       syncState();
     }
-    
-    function handleColumnClick(event) {
+
+    /***************************************************
+     * handleCellClick : gestion du clic sur une case
+     ***************************************************/
+    function handleCellClick(event) {
       if (!gameActive || !myTurn || !conn || conn.closed) return;
-      const col = parseInt(event.target.dataset.column);
-      for (let row = 5; row >= 0; row--) {
-        const idx = row * 7 + col;
-        if (!connect4Board[idx]) {
-          connect4Board[idx] = myColor;
-          document.querySelectorAll('.connect4-cell')[idx].style.background = myColor;
-          currentColor = (currentColor === 'red') ? 'yellow' : 'red';
-          myTurn = (myColor === currentColor);
-          conn.send({
-            type: 'move',
-            board: [...connect4Board],
-            currentColor
-          });
-          updateTurnDisplay();
-          checkWinner();
-          syncState();
-          break;
-        }
-      }
+      const idx = parseInt(event.target.dataset.index);
+
+      // Si la case est déjà occupée, on ne fait rien
+      if (tictactoeBoard[idx]) return;
+
+      // On place notre symbole (X ou O)
+      tictactoeBoard[idx] = myMark;
+      event.target.textContent = myMark;
+
+      // On passe la main au joueur suivant
+      currentMark = (currentMark === 'X') ? 'O' : 'X';
+      myTurn = (myMark === currentMark);
+
+      // On envoie l'état au partenaire
+      conn.send({
+        type: 'move',
+        board: [...tictactoeBoard],
+        currentMark
+      });
+
+      updateTurnDisplay();
+      checkWinner();
+      syncState();
     }
-    
+
+    /***************************************************
+     * updateTurnDisplay : met à jour "C'est le tour de..."
+     ***************************************************/
     function updateTurnDisplay() {
       if (!gameActive) return;
-      const colorName = (currentColor === 'red') ? 'rouge' : 'jaune';
-      document.getElementById('connect4-turn').textContent =
-        `C'est le tour du ${colorName}`;
-      document.querySelectorAll('.connect4-cell').forEach(cell => {
-        if (cell.dataset.column !== undefined) {
-          cell.classList.toggle('clickable', myTurn);
-          cell.classList.toggle('non-clickable', !myTurn);
-        }
+      document.getElementById('tictactoe-turn').textContent =
+        `C'est le tour de ${currentMark}`;
+      // Cases cliquables ou non
+      document.querySelectorAll('.tictactoe-cell').forEach(cell => {
+        const i = parseInt(cell.dataset.index);
+        const clickable = (myTurn && !tictactoeBoard[i]);
+        cell.classList.toggle('clickable', clickable);
+        cell.classList.toggle('non-clickable', !clickable);
       });
     }
-    
-    document.getElementById('connect4-restart').onclick = () => {
+
+    /***************************************************
+     * Bouton "Rejouer"
+     ***************************************************/
+    document.getElementById('tictactoe-restart').onclick = () => {
       if (!conn || conn.closed) return;
       conn.send({ type: 'restart' });
       startGame();
     };
-    
+
+    /***************************************************
+     * checkWinner : vérifie s'il y a un gagnant ou égalité
+     ***************************************************/
     function checkWinner() {
-      const rows = 6, cols = 7;
-      // Vérification horizontale
-      for (let r = 0; r < rows; r++) {
-        for (let c = 0; c < cols - 3; c++) {
-          const i = r * 7 + c;
-          if (connect4Board[i] &&
-              connect4Board[i] === connect4Board[i+1] &&
-              connect4Board[i] === connect4Board[i+2] &&
-              connect4Board[i] === connect4Board[i+3]) {
-            endGame(connect4Board[i]);
-            return;
-          }
+      // Les 8 combinaisons gagnantes
+      const winningCombos = [
+        [0,1,2], [3,4,5], [6,7,8],  // Lignes
+        [0,3,6], [1,4,7], [2,5,8],  // Colonnes
+        [0,4,8], [2,4,6]            // Diagonales
+      ];
+
+      for (let combo of winningCombos) {
+        const [a, b, c] = combo;
+        if (tictactoeBoard[a] &&
+            tictactoeBoard[a] === tictactoeBoard[b] &&
+            tictactoeBoard[a] === tictactoeBoard[c]) {
+          endGame(tictactoeBoard[a]); // 'X' ou 'O'
+          return;
         }
       }
-      // Vérification verticale
-      for (let r = 0; r < rows - 3; r++) {
-        for (let c = 0; c < cols; c++) {
-          const i = r * 7 + c;
-          if (connect4Board[i] &&
-              connect4Board[i] === connect4Board[i+7] &&
-              connect4Board[i] === connect4Board[i+14] &&
-              connect4Board[i] === connect4Board[i+21]) {
-            endGame(connect4Board[i]);
-            return;
-          }
-        }
-      }
-      // Vérification diagonale (bas droite)
-      for (let r = 0; r < rows - 3; r++) {
-        for (let c = 0; c < cols - 3; c++) {
-          const i = r * 7 + c;
-          if (connect4Board[i] &&
-              connect4Board[i] === connect4Board[i+8] &&
-              connect4Board[i] === connect4Board[i+16] &&
-              connect4Board[i] === connect4Board[i+24]) {
-            endGame(connect4Board[i]);
-            return;
-          }
-        }
-      }
-      // Vérification diagonale (bas gauche)
-      for (let r = 0; r < rows - 3; r++) {
-        for (let c = 3; c < cols; c++) {
-          const i = r * 7 + c;
-          if (connect4Board[i] &&
-              connect4Board[i] === connect4Board[i+6] &&
-              connect4Board[i] === connect4Board[i+12] &&
-              connect4Board[i] === connect4Board[i+18]) {
-            endGame(connect4Board[i]);
-            return;
-          }
-        }
-      }
-      // Égalité
-      if (!connect4Board.includes(null)) {
+
+      // Égalité si plus de case libre
+      if (!tictactoeBoard.includes(null)) {
         endGame(null);
       }
     }
-    
-    function endGame(winnerColor) {
+
+    /***************************************************
+     * endGame : affiche le résultat et bloque le jeu
+     ***************************************************/
+    function endGame(winnerMark) {
       gameActive = false;
-      // Masquer l'indicateur de tour
-      document.getElementById('connect4-turn').style.display = 'none';
-      if (winnerColor === null) {
-        document.getElementById('connect4-result').textContent = 'Égalité !';
+      document.getElementById('tictactoe-turn').style.display = 'none';
+
+      if (winnerMark === null) {
+        document.getElementById('tictactoe-result').textContent = 'Égalité !';
       } else {
-        const colorName = (winnerColor === 'red') ? 'rouge' : 'jaune';
-        document.getElementById('connect4-result').textContent = `Le joueur ${colorName} a gagné !`;
+        document.getElementById('tictactoe-result').textContent =
+          `Le joueur ${winnerMark} a gagné !`;
       }
-      document.getElementById('connect4-restart').style.display = 'block';
+      document.getElementById('tictactoe-restart').style.display = 'block';
     }
-    
+
+    /***************************************************
+     * handleGameData : reçoit les données du partenaire
+     ***************************************************/
     function handleGameData(data) {
       if (data.type === 'move') {
-        connect4Board = [...data.board];
-        currentColor = data.currentColor;
-        myTurn = (myColor === currentColor);
+        tictactoeBoard = [...data.board];
+        currentMark = data.currentMark;
+        myTurn = (myMark === currentMark);
         updateBoardDisplay();
         updateTurnDisplay();
         checkWinner();
       } else if (data.type === 'restart') {
         startGame();
       } else if (data.type === 'syncState') {
-        connect4Board = [...data.board];
-        currentColor = data.currentColor;
-        myTurn = (myColor === currentColor);
+        tictactoeBoard = [...data.board];
+        currentMark = data.currentMark;
+        myTurn = (myMark === currentMark);
         updateBoardDisplay();
         updateTurnDisplay();
       }
     }
-    
+
+    /***************************************************
+     * updateBoardDisplay : met à jour les cases
+     ***************************************************/
     function updateBoardDisplay() {
-      const cells = document.querySelectorAll('.connect4-cell');
-      connect4Board.forEach((color, idx) => {
-        cells[idx].style.background = color ? color : '#fff';
+      const cells = document.querySelectorAll('.tictactoe-cell');
+      tictactoeBoard.forEach((mark, idx) => {
+        cells[idx].textContent = mark ? mark : '';
       });
     }
-    
+
+    /***************************************************
+     * syncState : envoie l'état local au partenaire
+     ***************************************************/
     function syncState() {
       if (conn && !conn.closed) {
         conn.send({
           type: 'syncState',
-          board: [...connect4Board],
-          currentColor
+          board: [...tictactoeBoard],
+          currentMark
         });
       }
     }

@@ -464,6 +464,8 @@
      ***************************************************/
     function handleGameData(data) {
       if (data.type === 'move') {
+        // Ajout du son pour chaque coup (local ou adverse)
+        document.getElementById('tokenSound').play();
         tictactoeBoard = [...data.board];
         currentMark = data.currentMark;
         myTurn = (myMark === currentMark);

@@ -522,6 +522,8 @@
     
     function handleGameData(data) {
       if (data.type === 'move') {
+        // Ajout du son pour chaque coup (local ou adverse)
+        document.getElementById('tokenSound').play();
         connect4Board = [...data.board];
         currentColor = data.currentColor;
         myTurn = (myColor === currentColor);

@@ -1,735 +1,671 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BHBST</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="../Sources/Images/BHBST.png" type="image/png">
-    <style>
-        :root {
-            --bg-primary: #0d0d0d;
-            --bg-secondary: #1a1a1a;
-            --card-bg: rgba(26, 26, 26, 0.9);
-            --accent: #fca311;
-            --text-light: #d0d0d0;
-            --text-muted: #8a8a8a;
-            --transition-duration: 0.3s;
-            --border-radius: 8px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            min-height: 100vh;
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-light);
-            background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 40px;
-            background: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(5px);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .header-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            transition: transform var(--transition-duration) ease;
-        }
-
-        .header-logo:hover {
-            transform: scale(1.1);
-        }
-
-        .return-button {
-            background: none;
-            color: var(--accent);
-            padding: 8px 16px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border: 1px solid var(--accent);
-            border-radius: var(--border-radius);
-            transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
-        }
-
-        .return-button:hover {
-            background: var(--accent);
-            color: var(--bg-primary);
-        }
-
-        .tab-nav {
-            display: none;
-            padding: 10px 0;
-            text-align: center;
-            background: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(5px);
-        }
-
-        .tab-nav button {
-            background: none;
-            color: var(--text-light);
-            padding: 8px 20px;
-            margin: 0 5px;
-            border: none;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: color var(--transition-duration) ease, background var(--transition-duration) ease;
-        }
-
-        .tab-nav button:hover {
-            color: var(--accent);
-        }
-
-        .tab-nav button.active {
-            background: var(--accent);
-            color: var(--bg-primary);
-        }
-
-        @media (min-width: 769px) {
-            .tab-nav {
-                display: flex;
-                justify-content: center;
-                flex-grow: 1;
-                background: none;
-                padding: 0;
-            }
-
-            .tab-nav button {
-                flex: 1;
-                max-width: 150px;
-                text-align: center;
-            }
-
-            header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-
-            .header-center {
-                display: flex;
-                justify-content: center;
-                width: 100%;
-                max-width: 800px;
-            }
-
-            .header-right {
-                display: flex;
-                align-items: center;
-                gap: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .tab-nav {
-                display: block;
-            }
-
-            .tab-nav button {
-                display: block;
-                margin: 5px auto;
-                width: 70%;
-            }
-        }
-
-        main {
-            flex: 1 0 auto;
-            max-width: 1400px;
-            margin: 20px auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .tab-content {
-            display: none;
-            opacity: 0;
-            animation: fadeIn 0.5s forwards;
-            width: 100%;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        h2 {
-            font-size: 2rem;
-            color: var(--accent);
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        h3 {
-            font-size: 1.4rem;
-            color: var(--text-light);
-            margin: 15px 0;
-            font-weight: 500;
-            text-align: center;
-        }
-
-        p {
-            font-size: 1rem;
-            color: var(--text-light);
-            line-height: 1.5;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .responsive-image {
-            width: 100%;
-            max-width: 350px;
-            height: auto;
-            border-radius: var(--border-radius);
-            margin: 15px auto;
-            display: block;
-            transition: transform var(--transition-duration) ease;
-        }
-
-        .responsive-image:hover {
-            transform: scale(1.03);
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            backdrop-filter: blur(5px);
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .accordion {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            padding: 12px 20px;
-            margin: 10px auto;
-            border: 1px solid var(--accent);
-            border-radius: var(--border-radius);
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 600px;
-            transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
-        }
-
-        .accordion:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--accent);
-        }
-
-        .accordion.active {
-            background: var(--accent);
-            color: var(--bg-primary);
-        }
-
-        .accordion .arrow {
-            transition: transform var(--transition-duration) ease;
-        }
-
-        .accordion.active .arrow {
-            transform: rotate(180deg);
-        }
-
-        .panel {
-            display: none;
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: var(--border-radius);
-            max-width: 600px;
-            margin: 10px auto;
-            backdrop-filter: blur(5px);
-        }
-
-        .panel table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        .panel th, .panel td {
-            padding: 10px;
-            text-align: center;
-            color: var(--text-light);
-        }
-
-        .panel th {
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .panel tr:nth-child(even) {
-            background: rgba(0, 0, 0, 0.1);
-        }
-
-        .panel tr:hover {
-            background: var(--accent);
-            color: var(--bg-primary);
-        }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            margin: 15px 0;
-        }
-
-        .gallery img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: contain; /* Prevent cropping */
-            border-radius: var(--border-radius);
-            transition: transform var(--transition-duration) ease;
-            cursor: pointer;
-        }
-
-        .gallery img:hover {
-            transform: scale(1.03);
-        }
-
-        /* Larger images in Feedback tab */
-        #feedback .gallery {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        }
-
-        /* ----- SECTION VIDÉOS : Invariant, avec iframes en dimensions standards ----- */
-        .video-container-wrapper {
-            display: flex;        
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin: 20px auto;
-            max-width: 1200px;
-        }
-        .video-container {
-            width: 560px;
-            height: 315px;
-            position: relative;
-        }
-        .video-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        @media (max-width: 768px) {
-            .video-container {
-                width: 100%;
-                height: auto;
-                aspect-ratio: 16/9;
-            }
-            .video-container iframe {
-                width: 100%;
-                height: 100%;
-            }
-        }
-        /* ----- FIN SECTION VIDÉOS ----- */
-
-        /* Lightbox for gallery images */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: var(--border-radius);
-        }
-
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: var(--text-light);
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color var(--transition-duration) ease;
-        }
-
-        .lightbox-close:hover {
-            color: var(--accent);
-        }
-
-        footer {
-            flex-shrink: 0;
-            width: 100%;
-            background: transparent;
-            padding: 15px 0;
-            text-align: center;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        footer p {
-            margin: 5px 0;
-        }
-
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-            transition: color var(--transition-duration) ease;
-        }
-
-        footer a:hover {
-            color: var(--text-light);
-        }
-
-        @media (max-width: 768px) {
-            h2 {
-                font-size: 1.8rem;
-            }
-            h3 {
-                font-size: 1.2rem;
-            }
-            .accordion, .panel {
-                max-width: 100%;
-            }
-            .gallery img {
-                max-height: 350px;
-            }
-            .responsive-image {
-                max-width: 300px;
-            }
-            #feedback .gallery {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ----- AJOUT : Agrandir la première galerie (ELO) ----- */
-        .gallery-category:nth-of-type(1) .gallery {
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BHBST</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="../Sources/Images/BHBST.png" type="image/png">
+  <style>
+    :root {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #1a1a1a;
+      --card-bg: rgba(26, 26, 26, 0.9);
+      --accent: #fca311;
+      --text-light: #d0d0d0;
+      --text-muted: #8a8a8a;
+      --transition-duration: 0.3s;
+      --border-radius: 8px;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-light);
+      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+    /* Header PC */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 40px;
+      background: rgba(26, 26, 26, 0.7);
+      backdrop-filter: blur(5px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      transition: transform var(--transition-duration) ease;
+    }
+    .header-logo:hover {
+      transform: scale(1.1);
+    }
+    .return-button {
+      background: none;
+      color: var(--accent);
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--accent);
+      border-radius: var(--border-radius);
+      transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+    }
+    .return-button:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+    .tab-nav {
+      display: none;
+      padding: 10px 0;
+      text-align: center;
+      background: rgba(26, 26, 26, 0.7);
+      backdrop-filter: blur(5px);
+    }
+    .tab-nav button {
+      background: none;
+      color: var(--text-light);
+      padding: 8px 20px;
+      margin: 0 5px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 500;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: color var(--transition-duration) ease, background var(--transition-duration) ease;
+    }
+    .tab-nav button:hover {
+      color: var(--accent);
+    }
+    .tab-nav button.active {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+    /* Header responsive */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 20px;
+      }
+      .header-logo {
+        margin-bottom: 5px;
+      }
+      .header-center, .header-right {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+      }
+      .header-right {
+        order: 3;
+      }
+      .tab-nav {
+        display: block;
+        width: 100%;
+        margin: 5px 0;
+      }
+      .tab-nav button {
+        display: block;
+        margin: 5px auto;
+        width: 90%;
+      }
+    }
+    @media (min-width: 769px) {
+      .tab-nav {
+        display: flex;
+        justify-content: center;
+        flex-grow: 1;
+        background: none;
+        padding: 0;
+      }
+      .tab-nav button {
+        flex: 1;
+        max-width: 150px;
+        text-align: center;
+      }
+    }
+    main {
+      flex: 1 0 auto;
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .tab-content {
+      display: none;
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+      width: 100%;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    h2 {
+      font-size: 2rem;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+    h3 {
+      font-size: 1.4rem;
+      color: var(--text-light);
+      margin: 15px 0;
+      font-weight: 500;
+      text-align: center;
+    }
+    p {
+      font-size: 1rem;
+      color: var(--text-light);
+      line-height: 1.5;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .responsive-image {
+      width: 100%;
+      max-width: 350px;
+      height: auto;
+      border-radius: var(--border-radius);
+      margin: 15px auto;
+      display: block;
+      transition: transform var(--transition-duration) ease;
+    }
+    .responsive-image:hover {
+      transform: scale(1.03);
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: var(--border-radius);
+      backdrop-filter: blur(5px);
+      width: 100%;
+      max-width: 1200px;
+    }
+    .accordion {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+      padding: 12px 20px;
+      margin: 10px auto;
+      border: 1px solid var(--accent);
+      border-radius: var(--border-radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 600px;
+      transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+    }
+    .accordion:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: var(--accent);
+    }
+    .accordion.active {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+    .accordion .arrow {
+      transition: transform var(--transition-duration) ease;
+    }
+    .accordion.active .arrow {
+      transform: rotate(180deg);
+    }
+    .panel {
+      display: none;
+      background: var(--card-bg);
+      padding: 15px;
+      border-radius: var(--border-radius);
+      max-width: 600px;
+      margin: 10px auto;
+      backdrop-filter: blur(5px);
+    }
+    .panel table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .panel th, .panel td {
+      padding: 10px;
+      text-align: center;
+      color: var(--text-light);
+    }
+    .panel th {
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .panel tr:nth-child(even) {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    .panel tr:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+      margin: 15px 0;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: var(--border-radius);
+      transition: transform var(--transition-duration) ease;
+      cursor: pointer;
+    }
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+    /* Larger images in Feedback tab */
+    #feedback .gallery {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    /* Section vidéos (inchangée) */
+    .video-container-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin: 20px auto;
+      max-width: 1200px;
+    }
+    .video-container {
+      width: 560px;
+      height: 315px;
+      position: relative;
+    }
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    @media (max-width: 768px) {
+      .video-container {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+      }
+      .video-container iframe {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    /* Lightbox for gallery images */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: var(--border-radius);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: var(--text-light);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: color var(--transition-duration) ease;
+    }
+    .lightbox-close:hover {
+      color: var(--accent);
+    }
+    footer {
+      flex-shrink: 0;
+      width: 100%;
+      background: transparent;
+      padding: 15px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    footer p {
+      margin: 5px 0;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color var(--transition-duration) ease;
+    }
+    footer a:hover {
+      color: var(--text-light);
+    }
+    @media (max-width: 768px) {
+      h2 {
+        font-size: 1.8rem;
+      }
+      h3 {
+        font-size: 1.2rem;
+      }
+      .accordion, .panel {
+        max-width: 100%;
+      }
+      .gallery img {
+        max-height: 350px;
+      }
+      .responsive-image {
+        max-width: 300px;
+      }
+      #feedback .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* Agrandir la première galerie (ELO) */
+    .gallery-category:nth-of-type(1) .gallery {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <a href="../index.html">
-            <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
-        </a>
-        <div class="header-center">
-            <div class="tab-nav">
-                <button class="tab-button active" onclick="openTab('pricing')">Prix</button>
-                <button class="tab-button" onclick="openTab('videos')">Vidéos</button>
-                <button class="tab-button" onclick="openTab('photos')">Photos</button>
-                <button class="tab-button" onclick="openTab('levels')">Niveaux</button>
-                <button class="tab-button" onclick="openTab('feedback')">Feedback</button>
-            </div>
-        </div>
-        <div class="header-right">
-            <a href="../Projet/index.html" class="return-button">Projets</a>
-        </div>
-    </header>
-
-    <main>
-        <!-- Pricing Tab -->
-        <div id="pricing" class="tab-content active">
-            <section class="card">
-                <h2>Prix</h2>
-                <div>
-                    <h3>Boost de Rang 1v1</h3>
-                    <img src="../Sources/Images/elo.png" alt="Boost Rang" class="responsive-image">
-                    <p>Choisissez votre ELO cible, je m'occupe du reste.</p>
-                    <button class="accordion">Tarifs <span class="arrow">▼</span></button>
-                    <div class="panel">
-                        <table>
-                            <thead>
-                                <tr><th>ELO</th><th>Prix (€)</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>1800</td><td>45</td></tr>
-                                <tr><td>1900</td><td>50</td></tr>
-                                <tr><td>2000</td><td>55</td></tr>
-                                <tr><td>2100</td><td>60</td></tr>
-                                <tr><td>2200</td><td>70</td></tr>
-                                <tr><td>2300</td><td>80</td></tr>
-                                <tr><td>2400</td><td>90</td></tr>
-                                <tr><td>2500</td><td>100</td></tr>
-                                <tr><td>2600</td><td>125</td></tr>
-                                <tr><td>2700</td><td>200</td></tr>
-                                <tr><td>2800</td><td>400</td></tr>
-                                <tr><td>Autres</td><td>Discord: fever65</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div>
-                    <h3>Boost de Niveau</h3>
-                    <img src="../Sources/Images/level.png" alt="Boost Niveau" class="responsive-image">
-                    <p>Je monte votre légende au niveau souhaité.</p>
-                    <button class="accordion">Tarifs <span class="arrow">▼</span></button>
-                    <div class="panel">
-                        <table>
-                            <thead>
-                                <tr><th>Niveau</th><th>Prix (€)</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>25</td><td>30</td></tr>
-                                <tr><td>50</td><td>150</td></tr>
-                                <tr><td>100</td><td>750</td></tr>
-                                <tr><td>Autres</td><td>Discord: fever65</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div>
-                    <h3>Analyse de Parties</h3>
-                    <img src="../Sources/Images/adp.png" alt="Analyse" class="responsive-image">
-                    <p>Analyse détaillée pour améliorer votre jeu.</p>
-                    <button class="accordion">Tarifs <span class="arrow">▼</span></button>
-                    <div class="panel">
-                        <table>
-                            <thead>
-                                <tr><th>Parties</th><th>Prix (€)</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td>1</td><td>10</td></tr>
-                                <tr><td>2</td><td>15</td></tr>
-                                <tr><td>3</td><td>20</td></tr>
-                                <tr><td>Autres</td><td>Discord: fever65</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Videos Tab (modifié pour avoir 2 iframes plus grandes) -->
-        <div id="videos" class="tab-content">
-            <section class="card">
-                <h2>Galerie de Vidéos</h2>
-                <div class="video-container-wrapper">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/-Lb3vaNyGmE?rel=0&vq=hd1080" 
-                                allow="autoplay; encrypted-media" 
-                                allowfullscreen></iframe>
-                    </div>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/Z7fTeFNsDOw?si=Oom0GMLbst9t2VMe&rel=0&vq=hd1080" 
-                                allow="autoplay; encrypted-media" 
-                                allowfullscreen></iframe>
-                    </div>
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/82y4KdJXQ8k?rel=0&vq=hd1080" 
-                                allow="autoplay; encrypted-media" 
-                                allowfullscreen></iframe>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Photos Tab -->
-        <div id="photos" class="tab-content">
-            <section class="card">
-                <h2>Photos</h2>
-                <div class="gallery-category">
-                    <h3>ELO</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/1.png" alt="ELO 1">
-                        <img src="../Sources/Images/BHBST/moi/2.png" alt="ELO 2">
-                        <img src="../Sources/Images/BHBST/moi/3.png" alt="ELO 3">
-                        <img src="../Sources/Images/BHBST/moi/4.png" alt="ELO 4">
-                        <img src="../Sources/Images/BHBST/moi/5.jpg" alt="ELO 5">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>☠️</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/0.png" alt="Skull 1">
-                        <img src="../Sources/Images/BHBST/moi/+1.png" alt="Skull 2">
-                        <img src="../Sources/Images/BHBST/moi/+2.png" alt="Skull 3">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>Omega</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/Omega.png" alt="Omega 1">
-                        <img src="../Sources/Images/BHBST/moi/Omega2.png" alt="Omega 2">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>Destper</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/destper.png" alt="Destper 1">
-                        <img src="../Sources/Images/BHBST/moi/destper2.png" alt="Destper 2">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>Solarson</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/Solarson1.png" alt="Solarson 1">
-                        <img src="../Sources/Images/BHBST/moi/Solarson.png" alt="Solarson 2">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>LostLeo</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/LL.png" alt="LostLeo">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>SanMax</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/SanMax.png" alt="SanMax">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>Xefi</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/Xefi.png" alt="Xefi">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>Kumala Savesta</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/kumala.png" alt="Kumala Savesta">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>Ale</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/Ale.png" alt="Ale 1">
-                        <img src="../Sources/Images/BHBST/moi/Ale2.png" alt="Ale 2">
-                        <img src="../Sources/Images/BHBST/moi/Ale3.png" alt="Ale 3">
-                    </div>
-                </div>
-                <div class="gallery-category">
-                    <h3>Vocaly</h3>
-                    <div class="gallery">
-                        <img src="../Sources/Images/BHBST/moi/VocalyCloseGame.png" alt="Vocaly 1">
-                        <img src="../Sources/Images/BHBST/moi/Vocaly.png" alt="Vocaly 2">
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- Levels Tab (Mise à jour avec explication et liens) -->
-        <div id="levels" class="tab-content">
-            <section class="card">
-                <h2>Niveaux</h2>
-                <p>
-                    Black Valhalla est un site web qui te permet de connaître le niveau de tes légendes sur Brawlhalla. Bien meilleur que Corehalla (souvent en panne, dépassé et saturé de pubs) il offre une interface moderne et toujours à jour.                </p>
-                <p>
-                    Pour découvrir Black Valhalla, cliquez ici : 
-                    <a href="https://douwdy.github.io/BlackValhalla" target="_blank" style="color: var(--accent);">
-                        Visiter Black Valhalla
-                    </a>
-                </p>
-                <p>
-                    Pour en savoir plus sur D0uwdy et découvrir son portfolio, consultez ce lien : 
-                    <a href="https://slashend.ovh" target="_blank" style="color: var(--accent);">
-                        Portfolio de D0uwdy
-                    </a>
-                </p>
-            </section>
-        </div>
-
-        <!-- Feedback Tab -->
-        <div id="feedback" class="tab-content">
-            <section class="card">
-                <h2>Feedback</h2>
-                <div class="gallery">
-                    <img src="../Sources/Images/BHBST/clients/1.png" alt="Feedback 1">
-                    <img src="../Sources/Images/BHBST/clients/2.png" alt="Feedback 2">
-                    <img src="../Sources/Images/BHBST/clients/3.png" alt="Feedback 3">
-                    <img src="../Sources/Images/BHBST/clients/4.png" alt="Feedback 4">
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox">
-        <span class="lightbox-close" onclick="closeLightbox()">×</span>
-        <img id="lightbox-image" src="" alt="Lightbox Image">
+  <header>
+    <a href="../index.html">
+      <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+    </a>
+    <div class="header-center">
+      <div class="tab-nav">
+        <button class="tab-button active" onclick="openTab('pricing')">Prix</button>
+        <button class="tab-button" onclick="openTab('videos')">Vidéos</button>
+        <button class="tab-button" onclick="openTab('photos')">Photos</button>
+        <button class="tab-button" onclick="openTab('levels')">Niveaux</button>
+        <button class="tab-button" onclick="openTab('feedback')">Feedback</button>
+      </div>
     </div>
-
-    <footer>
-        <p>© 2025 ArchiveFever.work - Tous droits réservés</p>
+    <div class="header-right">
+      <a href="../Projet/index.html" class="return-button">Projets</a>
+    </div>
+  </header>
+  <main>
+    <!-- Pricing Tab -->
+    <div id="pricing" class="tab-content active">
+      <section class="card">
+        <h2>Prix</h2>
+        <div>
+          <h3>Boost de Rang 1v1</h3>
+          <img src="../Sources/Images/elo.png" alt="Boost Rang" class="responsive-image">
+          <p>Choisissez votre ELO cible, je m'occupe du reste.</p>
+          <button class="accordion">Tarifs <span class="arrow">▼</span></button>
+          <div class="panel">
+            <table>
+              <thead>
+                <tr><th>ELO</th><th>Prix (€)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1800</td><td>45</td></tr>
+                <tr><td>1900</td><td>50</td></tr>
+                <tr><td>2000</td><td>55</td></tr>
+                <tr><td>2100</td><td>60</td></tr>
+                <tr><td>2200</td><td>70</td></tr>
+                <tr><td>2300</td><td>80</td></tr>
+                <tr><td>2400</td><td>90</td></tr>
+                <tr><td>2500</td><td>100</td></tr>
+                <tr><td>2600</td><td>125</td></tr>
+                <tr><td>2700</td><td>200</td></tr>
+                <tr><td>2800</td><td>400</td></tr>
+                <tr><td>Autres</td><td>Discord: fever65</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h3>Boost de Niveau</h3>
+          <img src="../Sources/Images/level.png" alt="Boost Niveau" class="responsive-image">
+          <p>Je monte votre légende au niveau souhaité.</p>
+          <button class="accordion">Tarifs <span class="arrow">▼</span></button>
+          <div class="panel">
+            <table>
+              <thead>
+                <tr><th>Niveau</th><th>Prix (€)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>25</td><td>30</td></tr>
+                <tr><td>50</td><td>150</td></tr>
+                <tr><td>100</td><td>750</td></tr>
+                <tr><td>Autres</td><td>Discord: fever65</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <h3>Analyse de Parties</h3>
+          <img src="../Sources/Images/adp.png" alt="Analyse" class="responsive-image">
+          <p>Analyse détaillée pour améliorer votre jeu.</p>
+          <button class="accordion">Tarifs <span class="arrow">▼</span></button>
+          <div class="panel">
+            <table>
+              <thead>
+                <tr><th>Parties</th><th>Prix (€)</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>1</td><td>10</td></tr>
+                <tr><td>2</td><td>15</td></tr>
+                <tr><td>3</td><td>20</td></tr>
+                <tr><td>Autres</td><td>Discord: fever65</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Videos Tab -->
+    <div id="videos" class="tab-content">
+      <section class="card">
+        <h2>Galerie de Vidéos</h2>
+        <div class="video-container-wrapper">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/-Lb3vaNyGmE?rel=0&vq=hd1080" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen></iframe>
+          </div>
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/Z7fTeFNsDOw?si=Oom0GMLbst9t2VMe&rel=0&vq=hd1080" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen></iframe>
+          </div>
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/82y4KdJXQ8k?rel=0&vq=hd1080" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen></iframe>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Photos Tab -->
+    <div id="photos" class="tab-content">
+      <section class="card">
+        <h2>Photos</h2>
+        <div class="gallery-category">
+          <h3>ELO</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/1.png" alt="ELO 1">
+            <img src="../Sources/Images/BHBST/moi/2.png" alt="ELO 2">
+            <img src="../Sources/Images/BHBST/moi/3.png" alt="ELO 3">
+            <img src="../Sources/Images/BHBST/moi/4.png" alt="ELO 4">
+            <img src="../Sources/Images/BHBST/moi/5.jpg" alt="ELO 5">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>☠️</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/0.png" alt="Skull 1">
+            <img src="../Sources/Images/BHBST/moi/+1.png" alt="Skull 2">
+            <img src="../Sources/Images/BHBST/moi/+2.png" alt="Skull 3">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>Omega</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/Omega.png" alt="Omega 1">
+            <img src="../Sources/Images/BHBST/moi/Omega2.png" alt="Omega 2">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>Destper</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/destper.png" alt="Destper 1">
+            <img src="../Sources/Images/BHBST/moi/destper2.png" alt="Destper 2">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>Solarson</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/Solarson1.png" alt="Solarson 1">
+            <img src="../Sources/Images/BHBST/moi/Solarson.png" alt="Solarson 2">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>LostLeo</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/LL.png" alt="LostLeo">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>SanMax</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/SanMax.png" alt="SanMax">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>Xefi</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/Xefi.png" alt="Xefi">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>Kumala Savesta</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/kumala.png" alt="Kumala Savesta">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>Ale</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/Ale.png" alt="Ale 1">
+            <img src="../Sources/Images/BHBST/moi/Ale2.png" alt="Ale 2">
+            <img src="../Sources/Images/BHBST/moi/Ale3.png" alt="Ale 3">
+          </div>
+        </div>
+        <div class="gallery-category">
+          <h3>Vocaly</h3>
+          <div class="gallery">
+            <img src="../Sources/Images/BHBST/moi/VocalyCloseGame.png" alt="Vocaly 1">
+            <img src="../Sources/Images/BHBST/moi/Vocaly.png" alt="Vocaly 2">
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Levels Tab (mise à jour avec explication et liens) -->
+    <div id="levels" class="tab-content">
+      <section class="card">
+        <h2>Niveaux</h2>
         <p>
-            <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> |
-            <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> |
-            <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> |
-            <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
+          Black Valhalla est un site web qui te permet de connaître le niveau de tes légendes sur Brawlhalla. Bien meilleur que Corehalla (souvent en panne, dépassé et saturé de pubs), il offre une interface moderne et toujours à jour.
         </p>
-    </footer>
-
-    <script>
-        function openTab(tabName) {
-            const tabs = document.querySelectorAll('.tab-content');
-            const buttons = document.querySelectorAll('.tab-button');
-            
-            tabs.forEach(tab => tab.classList.remove('active'));
-            buttons.forEach(btn => btn.classList.remove('active'));
-            
-            document.getElementById(tabName).classList.add('active');
-            document.querySelector(`button[onclick="openTab('${tabName}')"]`).classList.add('active');
-        }
-
-        document.querySelectorAll('.accordion').forEach(acc => {
-            acc.addEventListener('click', () => {
-                acc.classList.toggle('active');
-                const panel = acc.nextElementSibling;
-                panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-            });
-        });
-
-        // Lightbox functionality
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImage = document.getElementById('lightbox-image');
-        document.querySelectorAll('.gallery img').forEach(img => {
-            img.addEventListener('click', () => {
-                lightboxImage.src = img.src;
-                lightbox.style.display = 'flex';
-            });
-        });
-
-        function closeLightbox() {
-            lightbox.style.display = 'none';
-        }
-
-        // Close lightbox when clicking outside the image
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                closeLightbox();
-            }
-        });
-    </script>
+        <p>
+          Pour découvrir Black Valhalla, clique ici : 
+          <a href="https://douwdy.github.io/BlackValhalla" target="_blank" style="color: var(--accent);">
+            Visiter Black Valhalla
+          </a>
+        </p>
+        <p>
+          Pour en savoir plus sur D0uwdy et découvrir son portfolio, consulte ce lien : 
+          <a href="https://slashend.ovh" target="_blank" style="color: var(--accent);">
+            Portfolio de D0uwdy
+          </a>
+        </p>
+      </section>
+    </div>
+    <!-- Feedback Tab -->
+    <div id="feedback" class="tab-content">
+      <section class="card">
+        <h2>Feedback</h2>
+        <div class="gallery">
+          <img src="../Sources/Images/BHBST/clients/1.png" alt="Feedback 1">
+          <img src="../Sources/Images/BHBST/clients/2.png" alt="Feedback 2">
+          <img src="../Sources/Images/BHBST/clients/3.png" alt="Feedback 3">
+          <img src="../Sources/Images/BHBST/clients/4.png" alt="Feedback 4">
+        </div>
+      </section>
+    </div>
+  </main>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" onclick="closeLightbox()">×</span>
+    <img id="lightbox-image" src="" alt="Lightbox Image">
+  </div>
+  <footer>
+    <p>© 2025 ArchiveFever.work - Tous droits réservés</p>
+    <p>
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> |
+      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> |
+      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> |
+      <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
+    </p>
+  </footer>
+  <script>
+    function openTab(tabName) {
+      const tabs = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-button');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      document.querySelector(`button[onclick="openTab('${tabName}')"]`).classList.add('active');
+    }
+    document.querySelectorAll('.accordion').forEach(acc => {
+      acc.addEventListener('click', () => {
+        acc.classList.toggle('active');
+        const panel = acc.nextElementSibling;
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+    // Lightbox functionality
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    document.querySelectorAll('.gallery img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImage.src = img.src;
+        lightbox.style.display = 'flex';
+      });
+    });
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+  </script>
 </body>
 </html>

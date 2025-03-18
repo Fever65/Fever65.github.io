@@ -1,403 +1,402 @@
 [
-    {
-      "question": "Quel équipement de sécurité est obligatoire dans tous les véhicules ?",
-      "options": [
-        "Gilet de haute visibilité",
-        "Triangle de signalisation",
-        "Gilet de haute visibilité et triangle de signalisation",
-        "Extincteur"
-      ],
-      "correctAnswer": "Gilet de haute visibilité et triangle de signalisation"
-    },
-    {
-      "question": "Quelle est la durée du permis probatoire pour un nouveau conducteur ?",
-      "options": [
-        "2 ans",
-        "3 ans",
-        "5 ans",
-        "10 ans"
-      ],
-      "correctAnswer": "3 ans"
-    },
-    {
-      "question": "En cas de panne sur une autoroute, que devez-vous faire ?",
-      "options": [
-        "Rester dans le véhicule",
-        "Se placer dans la zone d'urgence",
-        "Quitter immédiatement le véhicule",
-        "Allumer les feux de détresse et rejoindre la zone de sécurité"
-      ],
-      "correctAnswer": "Allumer les feux de détresse et rejoindre la zone de sécurité"
-    },
-    {
-      "question": "Quel est l'ordre de priorité en l'absence de signalisation à une intersection ?",
-      "options": [
-        "Priorité à droite",
-        "Priorité à gauche",
-        "Priorité aux piétons",
-        "Priorité aux véhicules venant de l'avant"
-      ],
-      "correctAnswer": "Priorité à droite"
-    },
-    {
-      "question": "Que signifie un feu clignotant jaune ?",
-      "options": [
-        "Cédez le passage",
-        "Ralentissez et soyez vigilant",
-        "Arrêtez-vous",
-        "Accélérez"
-      ],
-      "correctAnswer": "Ralentissez et soyez vigilant"
-    },
-    {
-      "question": "Quelle est la vitesse maximale autorisée pour un véhicule léger en dehors des agglomérations ?",
-      "options": [
-        "80 km/h",
-        "90 km/h",
-        "110 km/h",
-        "130 km/h"
-      ],
-      "correctAnswer": "130 km/h"
-    },
-    {
-      "question": "Que devez-vous faire lorsque vous voyez un panneau 'Stop' ?",
-      "options": [
-        "Ralentir",
-        "S'arrêter complètement",
-        "Accélérer pour ne pas gêner",
-        "Observer avant de continuer"
-      ],
-      "correctAnswer": "S'arrêter complètement"
-    },
-    {
-      "question": "Quel comportement adopter lors d'un dépassement sur une route étroite ?",
-      "options": [
-        "Doubler en toute sécurité",
-        "Attendre un passage sécurisé",
-        "Klaxonner avant de dépasser",
-        "Accélérer immédiatement"
-      ],
-      "correctAnswer": "Attendre un passage sécurisé"
-    },
-    {
-      "question": "Que signifie une ligne blanche discontinue au milieu de la route ?",
-      "options": [
-        "Dépassement autorisé",
-        "Dépassement interdit",
-        "Stationnement autorisé",
-        "Zone de danger"
-      ],
-      "correctAnswer": "Dépassement autorisé"
-    },
-    {
-      "question": "En agglomération, quelle est la vitesse maximale par défaut ?",
-      "options": [
-        "30 km/h",
-        "50 km/h",
-        "70 km/h",
-        "90 km/h"
-      ],
-      "correctAnswer": "50 km/h"
-    },
-    {
-      "question": "Que devez-vous faire si un piéton traverse en dehors d'un passage piéton ?",
-      "options": [
-        "Accélérer",
-        "S'arrêter pour le laisser passer",
-        "Klaxonner",
-        "Continuer prudemment"
-      ],
-      "correctAnswer": "S'arrêter pour le laisser passer"
-    },
-    {
-      "question": "Que signifie un panneau rond à fond blanc avec une bordure rouge ?",
-      "options": [
-        "Interdiction de tourner",
-        "Fin d'interdiction",
-        "Interdiction d'entrée",
-        "Obligation de suivre la direction indiquée"
-      ],
-      "correctAnswer": "Interdiction d'entrée"
-    },
-    {
-      "question": "Que signifie un panneau carré bleu ?",
-      "options": [
-        "Obligation",
-        "Interdiction",
-        "Indication",
-        "Danger"
-      ],
-      "correctAnswer": "Obligation"
-    },
-    {
-      "question": "Quel comportement adopter en cas de chaussée glissante ?",
-      "options": [
-        "Freiner brusquement",
-        "Relâcher l'accélérateur et redresser",
-        "Accélérer",
-        "Utiliser le frein moteur"
-      ],
-      "correctAnswer": "Relâcher l'accélérateur et redresser"
-    },
-    {
-      "question": "Que devez-vous faire lors d'une forte pluie ?",
-      "options": [
-        "Augmenter la distance de sécurité",
-        "Ralentir et utiliser les feux de croisement",
-        "Accélérer pour passer plus vite",
-        "Ignorer les conditions météo"
-      ],
-      "correctAnswer": "Ralentir et utiliser les feux de croisement"
-    },
-    {
-      "question": "Que signifie un marquage au sol en zigzag devant une école ?",
-      "options": [
-        "Interdiction de stationner",
-        "Zone de ralentissement",
-        "Interdiction de dépasser",
-        "Zone piétonne"
-      ],
-      "correctAnswer": "Interdiction de stationner"
-    },
-    {
-      "question": "Quel est l'effet principal de la consommation d'alcool sur la conduite ?",
-      "options": [
-        "Amélioration des réflexes",
-        "Réduction de la vigilance",
-        "Augmentation de la force",
-        "Diminution de la perception de la vitesse"
-      ],
-      "correctAnswer": "Réduction de la vigilance"
-    },
-    {
-      "question": "Que signifie un panneau indiquant 'Priorité aux piétons' ?",
-      "options": [
-        "Les piétons doivent céder",
-        "Les véhicules doivent ralentir",
-        "Les véhicules doivent s'arrêter pour laisser passer les piétons",
-        "Les piétons sont interdits de traverser"
-      ],
-      "correctAnswer": "Les véhicules doivent s'arrêter pour laisser passer les piétons"
-    },
-    {
-      "question": "Quel comportement adopter lors d'un dépassement ?",
-      "options": [
-        "Maintenir une vitesse constante",
-        "Doubler rapidement sans vérifier",
-        "S'assurer de la sécurité avant de dépasser",
-        "Utiliser les feux de route pour signaler"
-      ],
-      "correctAnswer": "S'assurer de la sécurité avant de dépasser"
-    },
-    {
-      "question": "Quel est l'âge minimum pour conduire un scooter 50cc en France ?",
-      "options": [
-        "14 ans",
-        "16 ans",
-        "18 ans",
-        "21 ans"
-      ],
-      "correctAnswer": "14 ans"
-    },
-    {
-      "question": "Que devez-vous faire en approchant d'un passage à niveau sans barrières ?",
-      "options": [
-        "Accélérer pour traverser rapidement",
-        "S'arrêter et regarder dans les deux sens",
-        "Continuer sans ralentir",
-        "Klaxonner avant de traverser"
-      ],
-      "correctAnswer": "S'arrêter et regarder dans les deux sens"
-    },
-    {
-      "question": "Que signifie un panneau avec une flèche verte sur fond bleu ?",
-      "options": [
-        "Indication de direction obligatoire",
-        "Fin d'interdiction",
-        "Dépassement autorisé",
-        "Zone de danger"
-      ],
-      "correctAnswer": "Indication de direction obligatoire"
-    },
-    {
-      "question": "Quel comportement adopter lorsqu'un véhicule d'urgence approche ?",
-      "options": [
-        "Continuer votre route",
-        "Ralentir et se ranger sur le côté",
-        "Accélérer pour ne pas gêner",
-        "Ignorer le véhicule"
-      ],
-      "correctAnswer": "Ralentir et se ranger sur le côté"
-    },
-    {
-      "question": "Que signifie une bande d'arrêt d'urgence sur autoroute ?",
-      "options": [
-        "Zone de stationnement",
-        "Voie de circulation normale",
-        "Voie réservée aux véhicules en panne",
-        "Zone de dépassement"
-      ],
-      "correctAnswer": "Voie réservée aux véhicules en panne"
-    },
-    {
-      "question": "Quel est le rôle principal du contrôle technique ?",
-      "options": [
-        "Garantir la sécurité du véhicule",
-        "Vérifier la couleur du véhicule",
-        "Contrôler le niveau de carburant",
-        "Évaluer la performance du moteur"
-      ],
-      "correctAnswer": "Garantir la sécurité du véhicule"
-    },
-    {
-      "question": "Que signifie un panneau triangulaire avec un bord rouge et un fond blanc ?",
-      "options": [
-        "Danger",
-        "Interdiction",
-        "Obligation",
-        "Fin de zone"
-      ],
-      "correctAnswer": "Danger"
-    },
-    {
-      "question": "Que représente le principe des 2 secondes en conduite ?",
-      "options": [
-        "La durée du freinage",
-        "La distance de sécurité",
-        "Le temps de réaction",
-        "Le temps d'attente"
-      ],
-      "correctAnswer": "La distance de sécurité"
-    },
-    {
-      "question": "Quel comportement adopter lors de l'approche d'un passage piéton ?",
-      "options": [
-        "Accélérer pour passer rapidement",
-        "Ralentir et être prêt à s'arrêter",
-        "Ignorer le passage",
-        "Klaxonner pour avertir"
-      ],
-      "correctAnswer": "Ralentir et être prêt à s'arrêter"
-    },
-    {
-      "question": "Que doit faire un conducteur en cas d'obstacle sur la route ?",
-      "options": [
-        "Le contourner prudemment",
-        "Freiner brusquement",
-        "Accélérer pour éviter",
-        "Ignorer l'obstacle"
-      ],
-      "correctAnswer": "Le contourner prudemment"
-    },
-    {
-      "question": "Que signifie un panneau indiquant 'Fin de limitation de vitesse' ?",
-      "options": [
-        "La vitesse maximale est supprimée",
-        "La limitation devient temporaire",
-        "La limitation est levée",
-        "Il faut ralentir"
-      ],
-      "correctAnswer": "La limitation est levée"
-    },
-    {
-      "question": "Quel est le but principal des contrôles routiers ?",
-      "options": [
-        "Vérifier l'état des véhicules",
-        "Améliorer la sécurité routière",
-        "Récompenser les bons conducteurs",
-        "Sanctionner uniquement les excès de vitesse"
-      ],
-      "correctAnswer": "Améliorer la sécurité routière"
-    },
-    {
-      "question": "Que signifie le clignotant de détresse ?",
-      "options": [
-        "Indique une urgence",
-        "Signale un dépassement",
-        "Marque une fin de limitation",
-        "Indique une direction"
-      ],
-      "correctAnswer": "Indique une urgence"
-    },
-    {
-      "question": "Quel est le principal risque lors d'un freinage brusque ?",
-      "options": [
-        "L'aquaplanage",
-        "La perte de contrôle du véhicule",
-        "Le renversement du véhicule",
-        "Le dérapage contrôlé"
-      ],
-      "correctAnswer": "La perte de contrôle du véhicule"
-    },
-    {
-      "question": "Quel est l'impact de la fatigue sur la conduite ?",
-      "options": [
-        "Amélioration de la concentration",
-        "Diminution des réflexes",
-        "Aucune influence",
-        "Augmentation de la vigilance"
-      ],
-      "correctAnswer": "Diminution des réflexes"
-    },
-    {
-      "question": "Quel est le rôle principal du radar embarqué ?",
-      "options": [
-        "Calculer la distance des autres véhicules",
-        "Alerter du dépassement de la vitesse autorisée",
-        "Gérer l'allumage des feux",
-        "Contrôler la température du moteur"
-      ],
-      "correctAnswer": "Alerter du dépassement de la vitesse autorisée"
-    },
-    {
-      "question": "Que doit faire un conducteur lorsqu'il constate une anomalie sur le véhicule ?",
-      "options": [
-        "Ignorer et continuer",
-        "S'arrêter immédiatement",
-        "Contacter un professionnel dès que possible",
-        "Continuer en espérant que ça s'améliore"
-      ],
-      "correctAnswer": "Contacter un professionnel dès que possible"
-    },
-    {
-      "question": "Que signifie une flèche blanche sur fond bleu ?",
-      "options": [
-        "Direction obligatoire",
-        "Fin d'interdiction",
-        "Sortie d'autoroute",
-        "Zone de stationnement"
-      ],
-      "correctAnswer": "Direction obligatoire"
-    },
-    {
-      "question": "Quel est le rôle des feux diurnes ?",
-      "options": [
-        "Éclairer la route la nuit",
-        "Améliorer la visibilité du véhicule pendant la journée",
-        "Servir de signal d'arrêt",
-        "Remplacer les feux de croisement"
-      ],
-      "correctAnswer": "Améliorer la visibilité du véhicule pendant la journée"
-    },
-    {
-      "question": "Que faire en cas de défaillance des freins ?",
-      "options": [
-        "Utiliser le frein moteur",
-        "Accélérer pour compenser",
-        "Utiliser le frein à main immédiatement",
-        "S'arrêter sur le côté de la route"
-      ],
-      "correctAnswer": "Utiliser le frein moteur"
-    },
-    {
-      "question": "Quel comportement adopter en cas de brouillard dense ?",
-      "options": [
-        "Utiliser les feux de route",
-        "Utiliser les feux de croisement et réduire la vitesse",
-        "Accélérer pour traverser rapidement",
-        "Allumer les feux de détresse"
-      ],
-      "correctAnswer": "Utiliser les feux de croisement et réduire la vitesse"
-    }
-  ]
-  
+  {
+    "question": "Quel équipement de sécurité est obligatoire dans tous les véhicules ?",
+    "options": [
+      "Gilet de haute visibilité",
+      "Triangle de signalisation",
+      "Gilet de haute visibilité et triangle de signalisation",
+      "Extincteur"
+    ],
+    "correctAnswer": "Gilet de haute visibilité et triangle de signalisation"
+  },
+  {
+    "question": "Quelle est la durée du permis probatoire pour un nouveau conducteur ?",
+    "options": [
+      "2 ans",
+      "3 ans",
+      "5 ans",
+      "10 ans"
+    ],
+    "correctAnswer": "3 ans"
+  },
+  {
+    "question": "En cas de panne sur une autoroute, que devez-vous faire ?",
+    "options": [
+      "Rester dans le véhicule",
+      "Se placer dans la zone d'urgence",
+      "Quitter immédiatement le véhicule",
+      "Allumer les feux de détresse et rejoindre la zone de sécurité"
+    ],
+    "correctAnswer": "Allumer les feux de détresse et rejoindre la zone de sécurité"
+  },
+  {
+    "question": "Quel est l'ordre de priorité en l'absence de signalisation à une intersection ?",
+    "options": [
+      "Priorité à droite",
+      "Priorité à gauche",
+      "Priorité aux piétons",
+      "Priorité aux véhicules venant de l'avant"
+    ],
+    "correctAnswer": "Priorité à droite"
+  },
+  {
+    "question": "Que signifie un feu clignotant jaune ?",
+    "options": [
+      "Cédez le passage",
+      "Ralentissez et soyez vigilant",
+      "Arrêtez-vous",
+      "Accélérez"
+    ],
+    "correctAnswer": "Ralentissez et soyez vigilant"
+  },
+  {
+    "question": "Quelle est la vitesse maximale autorisée pour un véhicule léger sur autoroute en France ?",
+    "options": [
+      "80 km/h",
+      "90 km/h",
+      "110 km/h",
+      "130 km/h"
+    ],
+    "correctAnswer": "130 km/h"
+  },
+  {
+    "question": "Que devez-vous faire lorsque vous voyez un panneau 'Stop' ?",
+    "options": [
+      "Ralentir",
+      "S'arrêter complètement",
+      "Accélérer pour ne pas gêner",
+      "Observer avant de continuer"
+    ],
+    "correctAnswer": "S'arrêter complètement"
+  },
+  {
+    "question": "Quel comportement adopter lors d'un dépassement sur une route étroite ?",
+    "options": [
+      "Doubler en toute sécurité",
+      "Attendre un passage sécurisé",
+      "Klaxonner avant de dépasser",
+      "Accélérer immédiatement"
+    ],
+    "correctAnswer": "Attendre un passage sécurisé"
+  },
+  {
+    "question": "Que signifie une ligne blanche discontinue au milieu de la route ?",
+    "options": [
+      "Dépassement autorisé",
+      "Dépassement interdit",
+      "Stationnement autorisé",
+      "Zone de danger"
+    ],
+    "correctAnswer": "Dépassement autorisé"
+  },
+  {
+    "question": "En agglomération, quelle est la vitesse maximale par défaut ?",
+    "options": [
+      "30 km/h",
+      "50 km/h",
+      "70 km/h",
+      "90 km/h"
+    ],
+    "correctAnswer": "50 km/h"
+  },
+  {
+    "question": "Que devez-vous faire si un piéton traverse en dehors d'un passage piéton ?",
+    "options": [
+      "Accélérer",
+      "S'arrêter pour le laisser passer",
+      "Klaxonner",
+      "Continuer prudemment"
+    ],
+    "correctAnswer": "S'arrêter pour le laisser passer"
+  },
+  {
+    "question": "Que signifie un panneau rond à fond blanc avec une bordure rouge ?",
+    "options": [
+      "Interdiction d'entrée",
+      "Fin d'interdiction",
+      "Obligation de suivre la direction indiquée",
+      "Panneau de danger"
+    ],
+    "correctAnswer": "Interdiction d'entrée"
+  },
+  {
+    "question": "Que signifie un panneau carré bleu ?",
+    "options": [
+      "Indication",
+      "Interdiction",
+      "Obligation",
+      "Danger"
+    ],
+    "correctAnswer": "Indication"
+  },
+  {
+    "question": "Quel comportement adopter en cas de chaussée glissante ?",
+    "options": [
+      "Freiner brusquement",
+      "Relâcher l'accélérateur et redresser",
+      "Accélérer",
+      "Utiliser le frein moteur"
+    ],
+    "correctAnswer": "Relâcher l'accélérateur et redresser"
+  },
+  {
+    "question": "Que devez-vous faire lors d'une forte pluie ?",
+    "options": [
+      "Augmenter la distance de sécurité",
+      "Ralentir et utiliser les feux de croisement",
+      "Accélérer pour passer plus vite",
+      "Ignorer les conditions météo"
+    ],
+    "correctAnswer": "Ralentir et utiliser les feux de croisement"
+  },
+  {
+    "question": "Que signifie un marquage au sol en zigzag devant une école ?",
+    "options": [
+      "Interdiction de stationner",
+      "Zone de ralentissement",
+      "Interdiction de dépasser",
+      "Zone piétonne"
+    ],
+    "correctAnswer": "Interdiction de stationner"
+  },
+  {
+    "question": "Quel est l'effet principal de la consommation d'alcool sur la conduite ?",
+    "options": [
+      "Amélioration des réflexes",
+      "Réduction de la vigilance",
+      "Augmentation de la force",
+      "Diminution de la perception de la vitesse"
+    ],
+    "correctAnswer": "Réduction de la vigilance"
+  },
+  {
+    "question": "Que signifie un panneau indiquant 'Priorité aux piétons' ?",
+    "options": [
+      "Les piétons doivent céder",
+      "Les véhicules doivent ralentir",
+      "Les véhicules doivent s'arrêter pour laisser passer les piétons",
+      "Les piétons sont interdits de traverser"
+    ],
+    "correctAnswer": "Les véhicules doivent s'arrêter pour laisser passer les piétons"
+  },
+  {
+    "question": "Quel comportement adopter lors d'un dépassement ?",
+    "options": [
+      "Maintenir une vitesse constante",
+      "Doubler rapidement sans vérifier",
+      "S'assurer de la sécurité avant de dépasser",
+      "Utiliser les feux de route pour signaler"
+    ],
+    "correctAnswer": "S'assurer de la sécurité avant de dépasser"
+  },
+  {
+    "question": "Quel est l'âge minimum pour conduire un scooter 50cc en France ?",
+    "options": [
+      "14 ans",
+      "16 ans",
+      "18 ans",
+      "21 ans"
+    ],
+    "correctAnswer": "14 ans"
+  },
+  {
+    "question": "Que devez-vous faire en approchant d'un passage à niveau sans barrières ?",
+    "options": [
+      "Accélérer pour traverser rapidement",
+      "S'arrêter et regarder dans les deux sens",
+      "Continuer sans ralentir",
+      "Klaxonner avant de traverser"
+    ],
+    "correctAnswer": "S'arrêter et regarder dans les deux sens"
+  },
+  {
+    "question": "Que signifie un panneau rond à fond bleu avec une flèche blanche vers la droite ?",
+    "options": [
+      "Obligation de tourner à droite",
+      "Fin d'interdiction",
+      "Dépassement autorisé",
+      "Zone de danger"
+    ],
+    "correctAnswer": "Obligation de tourner à droite"
+  },
+  {
+    "question": "Quel comportement adopter lorsqu'un véhicule d'urgence approche ?",
+    "options": [
+      "Continuer votre route",
+      "Ralentir et se ranger sur le côté",
+      "Accélérer pour ne pas gêner",
+      "Ignorer le véhicule"
+    ],
+    "correctAnswer": "Ralentir et se ranger sur le côté"
+  },
+  {
+    "question": "Que signifie une bande d'arrêt d'urgence sur autoroute ?",
+    "options": [
+      "Zone de stationnement",
+      "Voie de circulation normale",
+      "Voie réservée aux véhicules en panne",
+      "Zone de dépassement"
+    ],
+    "correctAnswer": "Voie réservée aux véhicules en panne"
+  },
+  {
+    "question": "Quel est le rôle principal du contrôle technique ?",
+    "options": [
+      "Garantir la sécurité du véhicule",
+      "Vérifier la couleur du véhicule",
+      "Contrôler le niveau de carburant",
+      "Évaluer la performance du moteur"
+    ],
+    "correctAnswer": "Garantir la sécurité du véhicule"
+  },
+  {
+    "question": "Que signifie un panneau triangulaire avec un bord rouge et un fond blanc ?",
+    "options": [
+      "Danger",
+      "Interdiction",
+      "Obligation",
+      "Fin de zone"
+    ],
+    "correctAnswer": "Danger"
+  },
+  {
+    "question": "Que représente le principe des 2 secondes en conduite ?",
+    "options": [
+      "La durée du freinage",
+      "La distance de sécurité",
+      "Le temps de réaction",
+      "Le temps d'attente"
+    ],
+    "correctAnswer": "La distance de sécurité"
+  },
+  {
+    "question": "Quel comportement adopter lors de l'approche d'un passage piéton ?",
+    "options": [
+      "Accélérer pour passer rapidement",
+      "Ralentir et être prêt à s'arrêter",
+      "Ignorer le passage",
+      "Klaxonner pour avertir"
+    ],
+    "correctAnswer": "Ralentir et être prêt à s'arrêter"
+  },
+  {
+    "question": "Que doit faire un conducteur en cas d'obstacle sur la route ?",
+    "options": [
+      "Le contourner prudemment",
+      "Freiner brusquement",
+      "Accélérer pour éviter",
+      "Ignorer l'obstacle"
+    ],
+    "correctAnswer": "Le contourner prudemment"
+  },
+  {
+    "question": "Que signifie un panneau indiquant 'Fin de limitation de vitesse' ?",
+    "options": [
+      "La vitesse maximale est supprimée",
+      "La limitation devient temporaire",
+      "La limitation est levée",
+      "Il faut ralentir"
+    ],
+    "correctAnswer": "La limitation est levée"
+  },
+  {
+    "question": "Quel est le but principal des contrôles routiers ?",
+    "options": [
+      "Vérifier l'état des véhicules",
+      "Améliorer la sécurité routière",
+      "Récompenser les bons conducteurs",
+      "Sanctionner uniquement les excès de vitesse"
+    ],
+    "correctAnswer": "Améliorer la sécurité routière"
+  },
+  {
+    "question": "Que signifie le clignotant de détresse ?",
+    "options": [
+      "Indique une urgence",
+      "Signale un dépassement",
+      "Marque une fin de limitation",
+      "Indique une direction"
+    ],
+    "correctAnswer": "Indique une urgence"
+  },
+  {
+    "question": "Quel est le principal risque lors d'un freinage brusque ?",
+    "options": [
+      "L'aquaplanage",
+      "La perte de contrôle du véhicule",
+      "Le renversement du véhicule",
+      "Le dérapage contrôlé"
+    ],
+    "correctAnswer": "La perte de contrôle du véhicule"
+  },
+  {
+    "question": "Quel est l'impact de la fatigue sur la conduite ?",
+    "options": [
+      "Amélioration de la concentration",
+      "Diminution des réflexes",
+      "Aucune influence",
+      "Augmentation de la vigilance"
+    ],
+    "correctAnswer": "Diminution des réflexes"
+  },
+  {
+    "question": "Quel est le rôle principal du radar embarqué ?",
+    "options": [
+      "Calculer la distance des autres véhicules",
+      "Alerter du dépassement de la vitesse autorisée",
+      "Gérer l'allumage des feux",
+      "Contrôler la température du moteur"
+    ],
+    "correctAnswer": "Alerter du dépassement de la vitesse autorisée"
+  },
+  {
+    "question": "Que doit faire un conducteur lorsqu'il constate une anomalie sur le véhicule ?",
+    "options": [
+      "Ignorer et continuer",
+      "S'arrêter immédiatement",
+      "Contacter un professionnel dès que possible",
+      "Continuer en espérant que ça s'améliore"
+    ],
+    "correctAnswer": "Contacter un professionnel dès que possible"
+  },
+  {
+    "question": "Quel est le rôle des feux diurnes ?",
+    "options": [
+      "Éclairer la route la nuit",
+      "Améliorer la visibilité du véhicule pendant la journée",
+      "Servir de signal d'arrêt",
+      "Remplacer les feux de croisement"
+    ],
+    "correctAnswer": "Améliorer la visibilité du véhicule pendant la journée"
+  },
+  {
+    "question": "Que faire en cas de défaillance des freins ?",
+    "options": [
+      "Utiliser le frein moteur",
+      "Accélérer pour compenser",
+      "Utiliser le frein à main immédiatement",
+      "S'arrêter sur le côté de la route"
+    ],
+    "correctAnswer": "Utiliser le frein moteur"
+  },
+  {
+    "question": "Quel comportement adopter en cas de brouillard dense ?",
+    "options": [
+      "Utiliser les feux de route",
+      "Utiliser les feux de croisement et réduire la vitesse",
+      "Accélérer pour traverser rapidement",
+      "Allumer les feux de détresse"
+    ],
+    "correctAnswer": "Utiliser les feux de croisement et réduire la vitesse"
+  },
+  {
+    "question": "Que faire en cas d'aquaplanage ?",
+    "options": [
+      "Freiner brusquement",
+      "Relâcher l'accélérateur et maintenir le volant",
+      "Accélérer pour regagner l'adhérence",
+      "Utiliser le frein à main"
+    ],
+    "correctAnswer": "Relâcher l'accélérateur et maintenir le volant"
+  }
+]

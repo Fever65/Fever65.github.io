@@ -6,7 +6,6 @@
   <meta name="theme-color" content="#000000">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
   <title>Les projets de Fever.</title>
   <link rel="icon" href="../Sources/Images/jerome.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap" rel="stylesheet">
@@ -15,7 +14,7 @@
     :root {
       --bg-primary: #0d0d0d;
       --bg-secondary: #1a1a1a;
-      --card-bg: rgba(26,26,26,0.85);
+      --card-bg: rgba(26, 26, 26, 0.85);
       --accent: #fca311;
       --text-light: #d0d0d0;
       --text-muted: #8a8a8a;
@@ -23,8 +22,7 @@
       --border-radius: 12px;
     }
     html {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
     }
     body {
@@ -37,8 +35,13 @@
       font-family: 'Source Code Pro', monospace;
       line-height: 1.6;
       overflow-x: hidden;
+      transition: all var(--transition-duration);
     }
-    a { text-decoration: none; color: inherit; }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    /* Header */
     header {
       display: flex;
       align-items: center;
@@ -46,12 +49,9 @@
       gap: 20px;
       margin-bottom: 40px;
     }
-    header a { display: inline-block; }
     header img {
-      width: 70px;
-      height: 70px;
-      object-fit: cover;
-      border-radius: 50%;
+      width: 70px; height: 70px;
+      object-fit: cover; border-radius: 50%;
       transition: transform var(--transition-duration) ease;
     }
     header img:hover { transform: scale(1.1); }
@@ -62,27 +62,33 @@
       letter-spacing: 1px;
       margin: 0;
     }
+    /* Titre plus petit sur mobile */
     @media (max-width: 767px) {
       .page-title {
         font-size: 1.8rem;
         text-align: center;
-        word-wrap: break-word;
         padding: 0 10px;
       }
     }
+
+    /* Section labels */
     .section-label {
       font-size: 1rem;
-      margin: 30px 0 20px;
       text-align: center;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 1px;
+      margin: 30px 0 20px;
+      width: 100%;
     }
+
     main {
       max-width: 1200px;
       margin: 0 auto;
     }
-    .grid {
+
+    /* Grid View */
+    #gridView .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 25px;
@@ -93,12 +99,19 @@
     @keyframes fadeIn {
       to { opacity: 1; }
     }
+    /* Sur PC large, réduit légèrement le gap */
+    @media (min-width: 1024px) {
+      #gridView .grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+      }
+    }
     .project {
       background: var(--card-bg);
       padding: 20px;
       border-radius: var(--border-radius);
       text-align: center;
-      transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+      transition: transform var(--transition-duration), box-shadow var(--transition-duration);
       backdrop-filter: blur(5px);
     }
     .project:hover {
@@ -106,17 +119,14 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.7);
     }
     .project img {
-      width: 100%;
-      height: auto;
+      width: 100%; height: auto;
       max-height: 150px;
       object-fit: contain;
       border-radius: 8px;
       margin-bottom: 15px;
-      transition: transform var(--transition-duration) ease;
+      transition: transform var(--transition-duration);
     }
-    .project img:hover {
-      transform: scale(1.05);
-    }
+    .project img:hover { transform: scale(1.05); }
     .project-title {
       font-size: 1.4rem;
       margin: 10px 0;
@@ -128,13 +138,38 @@
       color: var(--text-light);
       margin-bottom: 10px;
     }
-    .project.unfinished {
+    .unfinished {
       border: 2px dashed var(--accent);
-      background: rgba(26,26,26,0.8);
+      background: rgba(26, 26, 26, 0.8);
     }
+
+    /* List (Rat) View */
+    #listView { display: none; }
+    #listView ul {
+      list-style: none;
+      padding: 0; margin: 0 auto;
+      max-width: 600px; 
+    }
+    .rat-project {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+      border-bottom: 1px solid var(--text-muted);
+    }
+    .rat-project img {
+      width: 40px; height: 40px;
+      object-fit: contain; border-radius: 5px;
+    }
+    #listView a {
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    /* Footer */
     footer {
-      width: 100%;
-      background: transparent;
+      width: 100%; background: transparent;
       padding: 20px 0;
       text-align: center;
       margin-top: 40px;
@@ -143,105 +178,33 @@
     }
     footer p { margin: 5px 0; }
     footer a { color: var(--accent); }
-    #scrollTop {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: var(--accent);
-      color: var(--bg-primary);
-      border: none;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      opacity: 0.7;
-      transition: opacity var(--transition-duration) ease;
+    #toggleRat {
+      width: 40px; margin-left: 20px;
+      vertical-align: middle; cursor: pointer;
+      transition: transform var(--transition-duration);
     }
-    #scrollTop:hover {
-      opacity: 1;
-    }
-    @media (min-width: 768px) {
-      header img {
-        width: 80px;
-        height: 80px;
+    #toggleRat:hover { transform: scale(1.1); }
+
+    /* Optimisations mobiles supplémentaires */
+    @media (max-width: 767px) {
+      /* Réduit un peu les marges */
+      body { padding: 10px; }
+      header { margin-bottom: 20px; }
+      .project {
+        padding: 15px;
       }
-      .page-title {
-        font-size: 3rem;
+      .project img {
+        margin-bottom: 10px;
       }
-      .project-title {
-        font-size: 1.6rem;
-      }
-      .description {
-        font-size: 1.2rem;
+      .section-label {
+        margin: 20px 0 10px;
       }
     }
   </style>
 </head>
 
-<!-- Fenêtre modale noire -->
-<div id="modal" style="
-  display:none;
-  position:fixed; top:0; left:0;
-  width:100vw; height:100vh;
-  background:rgba(0,0,0,0.7);
-  align-items:center; justify-content:center;
-  z-index:9999;">
-  <div style="
-    background: var(--card-bg);
-    color: var(--text-light);
-    padding:20px; border-radius:var(--border-radius);
-    max-width:300px; width:90%;
-    text-align:center; position:relative;
-    border:1px solid var(--accent);">
-    <button id="closeModal" style="
-      position:absolute; top:10px; right:10px;
-      background:none; border:none;
-      font-size:18px; cursor:pointer;
-      color:var(--accent);">×</button>
-    <label for="codeInput" style="display:block; margin-bottom:10px;">Découvrez les 5 secrets :</label>
-    <input type="text" id="codeInput" style="
-      width:100%; margin-bottom:10px; padding:5px;
-      background:var(--bg-secondary);
-      border:1px solid var(--accent);
-      color:var(--text-light);
-      border-radius:var(--border-radius);">
-    <button id="submitCode" style="
-      background:var(--accent);
-      color:var(--bg-primary);
-      padding:6px 12px;
-      border:none; border-radius:var(--border-radius);
-      cursor:pointer;">Voyager</button>
-  </div>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const p = document.querySelector('footer p:first-of-type');
-  if (!p) return;
-
-  p.innerHTML = p.innerHTML.replace('©', '<span id="secretCode" style="cursor:pointer;">©</span>');
-
-  document.getElementById('secretCode').addEventListener('click', () => {
-    document.getElementById('modal').style.display = 'flex';
-  });
-
-  document.getElementById('closeModal').addEventListener('click', () => {
-    document.getElementById('modal').style.display = 'none';
-  });
-
-  document.getElementById('submitCode').addEventListener('click', () => {
-    const code = document.getElementById('codeInput').value;
-    if (["0000","203","560","2030","260499"].includes(code)) {
-      window.location.href = code + ".html";
-    }
-    document.getElementById('modal').style.display = 'none';
-    document.getElementById('codeInput').value = '';
-  });
-});
-</script>
-
 <body>
+  <!-- Header -->
   <header>
     <a href="../index.html">
       <img src="../Sources/Images/jerome.png" alt="Logo">
@@ -250,159 +213,249 @@ document.addEventListener('DOMContentLoaded', function() {
   </header>
 
   <main>
-    <!-- Présentation de Fever -->
-    <p class="section-label">Présentation de Fever</p>
-    <div class="grid">
-      <div class="project">
-        <a href="../CV/index.html">
-          <img src="../Sources/Images/CV.png" alt="CV - Fever">
-          <div class="project-title">Présentation - Fever</div>
-          <div class="description">Détails sur la page.</div>
-        </a>
+    <!-- Vue Grid -->
+    <div id="gridView">
+      <p class="section-label">Présentation de Fever</p>
+      <div class="grid">
+        <div class="project">
+          <a href="../CV/index.html">
+            <img src="../Sources/Images/CV.png" alt="CV - Fever">
+            <div class="project-title">Présentation - Fever</div>
+            <div class="description">Détails sur la page.</div>
+          </a>
+        </div>
+        <div class="project">
+          <a href="../Setup/index.html">
+            <img src="../Sources/Images/setup.png" alt="Mon setup">
+            <div class="project-title">Mon setup</div>
+            <div class="description">Détail de ma configuration matérielle moderne.</div>
+          </a>
+        </div>
       </div>
-      <div class="project">
-        <a href="../Setup/index.html">
-          <img src="../Sources/Images/setup.png" alt="Mon setup">
-          <div class="project-title">Mon setup</div>
-          <div class="description">Détail de ma configuration matérielle moderne.</div>
-        </a>
+
+      <p class="section-label">Applications</p>
+      <div class="grid">
+        <div class="project">
+          <a href="../Maison/index.html">
+            <img src="../Sources/Images/maison.png" alt="Maison">
+            <div class="project-title">Maison</div>
+            <div class="description">Démonstration CSS d'une maison interactive et stylisée.</div>
+          </a>
+        </div>
+        <div class="project">
+          <a href="../Labyrinthe/index.html">
+            <img src="../Sources/Images/labyrinthe.png" alt="Labyrinthe">
+            <div class="project-title">Labyrinthe</div>
+            <div class="description">Générateur aléatoire de parcours ludiques et innovants.</div>
+          </a>
+        </div>
+        <div class="project">
+          <a href="../QR/index.html">
+            <img src="../Sources/Images/QR.png" alt="ColorQR">
+            <div class="project-title">ColorQR</div>
+            <div class="description">Création de QR codes uniques et colorés.</div>
+          </a>
+        </div>
+        <div class="project">
+          <a href="../Excuses/index.html">
+            <img src="../Sources/Images/Vacances.png" alt="Boîte à excuses">
+            <div class="project-title">Boîte à excuses</div>
+            <div class="description">Générateur d'excuses originales et amusantes.</div>
+          </a>
+        </div>
+        <div class="project">
+          <a href="../Code/index.html">
+            <img src="../Sources/Images/Code.png" alt="Code">
+            <div class="project-title">Code Challenge</div>
+            <div class="description">Site en cours de dev.</div>
+          </a>
+        </div>
+      </div>
+
+      <p class="section-label">Jeux</p>
+      <div class="grid">
+        <div class="project">
+          <a href="../BlitzDraw/index.html">
+            <img src="../Sources/Images/BlitzDraw.png" alt="BlitzDraw">
+            <div class="project-title">BlitzDraw</div>
+            <div class="description">Jeu de dessin rapide pour stimuler la créativité.</div>
+          </a>
+        </div>
+        <div class="project">
+          <a href="../P4/index.html">
+            <img src="../Sources/Images/P4.png" alt="Puissance 4">
+            <div class="project-title">Puissance 4</div>
+            <div class="description">Phase test : fonctionne uniquement si l'hôte est sur PC.</div>
+          </a>
+        </div>
+        <div class="project">
+          <a href="../XO/index.html">
+            <img src="../Sources/Images/TICTACTOE.png" alt="TicTacToe">
+            <div class="project-title">TicTacToe</div>
+            <div class="description">Phase test : fonctionne uniquement si l'hôte est sur PC.</div>
+          </a>
+        </div>
+      </div>
+
+      <p class="section-label">Albums</p>
+      <div class="grid">
+        <div class="project">
+          <a href="../Fragments/index.html">
+            <img src="../Sources/Images/Fragments.png" alt="Fragments">
+            <div class="project-title">Fragments</div>
+            <div class="description">Collaboration artistique innovante générée avec IA.</div>
+          </a>
+        </div>
+        <div class="project">
+          <a href="../Ocean/index.html">
+            <img src="../Sources/Images/Ocean.png" alt="Océan">
+            <div class="project-title">Océan</div>
+            <div class="description">Album musical expérimental créé via IA.</div>
+          </a>
+        </div>
+        <div class="project">
+          <a href="../203/index.html">
+            <img src="../Sources/Images/203.png" alt="203">
+            <div class="project-title">203</div>
+            <div class="description">Troisième album conceptuel. (Jamais 2 sans 3)</div>
+          </a>
+        </div>
+      </div>
+
+      <p class="section-label">Boost Brawlhalla</p>
+      <div class="grid">
+        <div class="project">
+          <a href="../BHBST/index.html">
+            <img src="../Sources/Images/BHBST.png" alt="BHBST">
+            <div class="project-title">BHBST</div>
+            <div class="description">Service de boost sur Brawlhalla.</div>
+          </a>
+        </div>
+      </div>
+
+      <p class="section-label">Portfolio - Pierre Lechat</p>
+      <div class="grid">
+        <div class="project">
+          <a href="../marley_and_me/index.html">
+            <img src="../Sources/Images/logo-marley.png" alt="Marley And Me">
+            <div class="project-title">Marley And Me</div>
+            <div class="description">Portfolio du graphiste Pierre Lechat.</div>
+          </a>
+        </div>
+      </div>
+
+      <p class="section-label">Projets en Cours</p>
+      <div class="grid">
+        <div class="project unfinished">
+          <a href="#">
+            <img src="../Sources/Images/Crabe560.png" alt="Crabe 560">
+            <div class="project-title">Crabe 560</div>
+            <div class="description">Jeu interactif autour de multiples crabes.</div>
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- Applications -->
-    <p class="section-label">Applications</p>
-    <div class="grid">
-      <div class="project">
-        <a href="../Maison/index.html">
-          <img src="../Sources/Images/maison.png" alt="Maison">
-          <div class="project-title">Maison</div>
-          <div class="description">Démonstration CSS d'une maison interactive et stylisée.</div>
-        </a>
-      </div>
-      <div class="project">
-        <a href="../Labyrinthe/index.html">
-          <img src="../Sources/Images/labyrinthe.png" alt="Labyrinthe">
-          <div class="project-title">Labyrinthe</div>
-          <div class="description">Générateur aléatoire de parcours ludiques et innovants.</div>
-        </a>
-      </div>
-      <div class="project">
-        <a href="../QR/index.html">
-          <img src="../Sources/Images/QR.png" alt="ColorQR">
-          <div class="project-title">ColorQR</div>
-          <div class="description">Création de QR codes uniques et colorés.</div>
-        </a>
-      </div>
-      <div class="project">
-        <a href="../Excuses/index.html">
-          <img src="../Sources/Images/Vacances.png" alt="Boîte à excuses">
-          <div class="project-title">Boîte à excuses</div>
-          <div class="description">Générateur d'excuses originales et amusantes.</div>
-        </a>
-      </div>
-    </div>
-    <div class="project">
-      <a href="../Code/index.html">
-        <img src="../Sources/Images/Code.png" alt="Code">
-        <div class="project-title">Code Challenge</div>
-        <div class="description">Révisez le Code de la Route en un clic.</div>
-      </a>
-    </div>
-  </div>
-
-    <!-- Jeux -->
-    <p class="section-label">Jeux</p>
-    <div class="grid">
-      <div class="project">
-        <a href="../BlitzDraw/index.html">
-          <img src="../Sources/Images/BlitzDraw.png" alt="BlitzDraw">
-          <div class="project-title">BlitzDraw</div>
-          <div class="description">Jeu de dessin rapide pour stimuler la créativité.</div>
-        </a>
-      </div>
-      <div class="project">
-        <a href="../P4/index.html">
-          <img src="../Sources/Images/P4.png" alt="Puissance 4">
-          <div class="project-title">Puissance 4</div>
-          <div class="description">Défie tes amis dans ce classique stratégique. Aligne 4 pions et deviens le champion !</div>
-        </a>
-      </div>
-      <div class="project">
-        <a href="../XO/index.html">
-          <img src="../Sources/Images/TICTACTOE.png" alt="TicTacToe">
-          <div class="project-title">TicTacToe</div>
-          <div class="description">Le morpion en multijoueur : place tes symboles avant l’autre et décroche la victoire !</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Albums -->
-    <p class="section-label">Albums</p>
-    <div class="grid">
-      <div class="project">
-        <a href="../Fragments/index.html">
-          <img src="../Sources/Images/Fragments.png" alt="Fragments">
-          <div class="project-title">Fragments</div>
-          <div class="description">Collaboration artistique innovante générée avec IA.</div>
-        </a>
-      </div>
-      <div class="project">
-        <a href="../Ocean/index.html">
-          <img src="../Sources/Images/Ocean.png" alt="Océan">
-          <div class="project-title">Océan</div>
-          <div class="description">Album musical expérimental créé via IA.</div>
-        </a>
-      </div>
-      <div class="project">
-        <a href="../203/index.html">
-          <img src="../Sources/Images/203.png" alt="203">
-          <div class="project-title">203</div>
-          <div class="description">Troisième album conceptuel. (Jamais 2 sans 3)</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Boost Brawlhalla -->
-    <p class="section-label">Boost Brawlhalla</p>
-    <div class="grid">
-      <div class="project">
-        <a href="../BHBST/index.html">
-          <img src="../Sources/Images/BHBST.png" alt="BHBST">
-          <div class="project-title">BHBST</div>
-          <div class="description">Service de boost sur Brawlhalla.</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Portfolio - Pierre Lechat -->
-    <p class="section-label">Portfolio - Pierre Lechat</p>
-    <div class="grid">
-      <div class="project">
-        <a href="../marley_and_me/index.html">
-          <img src="../Sources/Images/logo-marley.png" alt="Marley And Me">
-          <div class="project-title">Marley And Me</div>
-          <div class="description">Portfolio du graphiste Pierre Lechat.</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Projets en Cours -->
-    <p class="section-label">Projets en Cours</p>
-    <div class="grid">
-      <div class="project unfinished">
-        <a href="#">
-          <img src="../Sources/Images/Vision.png" alt="Vision">
-          <div class="project-title">Vision</div>
-          <div class="description">Projet conceptuel innovant à venir.</div>
-        </a>
-      </div>
-      <div class="project unfinished">
-        <a href="#">
-          <img src="../Sources/Images/Crabe560.png" alt="Crabe 560">
-          <div class="project-title">Crabe 560</div>
-          <div class="description">Jeu interactif autour de multiples crabes.</div>
-        </a>
-      </div>
+    <!-- Vue Liste (Rat) -->
+    <div id="listView">
+      <ul>
+        <li class="rat-project">
+          <a href="../CV/index.html">
+            <img src="../Sources/Images/CV.png" alt="CV">
+            <span>Présentation - Fever</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../Setup/index.html">
+            <img src="../Sources/Images/setup.png" alt="Setup">
+            <span>Mon setup</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../Maison/index.html">
+            <img src="../Sources/Images/maison.png" alt="Maison">
+            <span>Maison</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../Labyrinthe/index.html">
+            <img src="../Sources/Images/labyrinthe.png" alt="Labyrinthe">
+            <span>Labyrinthe</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../QR/index.html">
+            <img src="../Sources/Images/QR.png" alt="ColorQR">
+            <span>ColorQR</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../Excuses/index.html">
+            <img src="../Sources/Images/Vacances.png" alt="Excuses">
+            <span>Boîte à excuses</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../Code/index.html">
+            <img src="../Sources/Images/Code.png" alt="Code Challenge">
+            <span>Code Challenge</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../BlitzDraw/index.html">
+            <img src="../Sources/Images/BlitzDraw.png" alt="BlitzDraw">
+            <span>BlitzDraw</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../P4/index.html">
+            <img src="../Sources/Images/P4.png" alt="Puissance 4">
+            <span>Puissance 4</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../XO/index.html">
+            <img src="../Sources/Images/TICTACTOE.png" alt="TicTacToe">
+            <span>TicTacToe</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../Fragments/index.html">
+            <img src="../Sources/Images/Fragments.png" alt="Fragments">
+            <span>Fragments</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../Ocean/index.html">
+            <img src="../Sources/Images/Ocean.png" alt="Océan">
+            <span>Océan</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../203/index.html">
+            <img src="../Sources/Images/203.png" alt="203">
+            <span>203</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../BHBST/index.html">
+            <img src="../Sources/Images/BHBST.png" alt="BHBST">
+            <span>BHBST</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="../marley_and_me/index.html">
+            <img src="../Sources/Images/logo-marley.png" alt="Marley And Me">
+            <span>Marley And Me</span>
+          </a>
+        </li>
+        <li class="rat-project">
+          <a href="#">
+            <img src="../Sources/Images/Crabe560.png" alt="Crabe 560">
+            <span>Crabe 560</span>
+          </a>
+        </li>
+      </ul>
     </div>
   </main>
 
@@ -413,7 +466,24 @@ document.addEventListener('DOMContentLoaded', function() {
       <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> |
       <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> |
       <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
+      <img src="../Sources/Images/rat.png" id="toggleRat" alt="Mode Rat">
     </p>
   </footer>
+
+  <script>
+    const gridView = document.getElementById('gridView');
+    const listView = document.getElementById('listView');
+    const toggleRat = document.getElementById('toggleRat');
+
+    toggleRat.addEventListener('click', () => {
+      if (listView.style.display === 'none' || listView.style.display === '') {
+        gridView.style.display = 'none';
+        listView.style.display = 'block';
+      } else {
+        listView.style.display = 'none';
+        gridView.style.display = 'block';
+      }
+    });
+  </script>
 </body>
 </html>

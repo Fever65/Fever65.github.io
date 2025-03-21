@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,12 +20,15 @@
       --transition-duration: 0.3s;
       --border-radius: 8px;
     }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    html, body {
+
+    html,
+    body {
       min-height: 100vh;
       font-family: 'Poppins', sans-serif;
       color: var(--text-light);
@@ -33,6 +37,7 @@
       flex-direction: column;
       overflow-x: hidden;
     }
+
     /* Header PC */
     header {
       display: flex;
@@ -45,15 +50,18 @@
       top: 0;
       z-index: 10;
     }
+
     .header-logo {
       width: 60px;
       height: 60px;
       border-radius: 50%;
       transition: transform var(--transition-duration) ease;
     }
+
     .header-logo:hover {
       transform: scale(1.1);
     }
+
     .return-button {
       background: none;
       color: var(--accent);
@@ -65,10 +73,12 @@
       border-radius: var(--border-radius);
       transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
     }
+
     .return-button:hover {
       background: var(--accent);
       color: var(--bg-primary);
     }
+
     .tab-nav {
       display: none;
       padding: 10px 0;
@@ -76,6 +86,7 @@
       background: rgba(26, 26, 26, 0.7);
       backdrop-filter: blur(5px);
     }
+
     .tab-nav button {
       background: none;
       color: var(--text-light);
@@ -88,13 +99,16 @@
       cursor: pointer;
       transition: color var(--transition-duration) ease, background var(--transition-duration) ease;
     }
+
     .tab-nav button:hover {
       color: var(--accent);
     }
+
     .tab-nav button.active {
       background: var(--accent);
       color: var(--bg-primary);
     }
+
     /* Header responsive */
     @media (max-width: 768px) {
       header {
@@ -102,28 +116,35 @@
         align-items: center;
         padding: 10px 20px;
       }
+
       .header-logo {
         margin-bottom: 5px;
       }
-      .header-center, .header-right {
+
+      .header-center,
+      .header-right {
         width: 100%;
         text-align: center;
         margin: 5px 0;
       }
+
       .header-right {
         order: 3;
       }
+
       .tab-nav {
         display: block;
         width: 100%;
         margin: 5px 0;
       }
+
       .tab-nav button {
         display: block;
         margin: 5px auto;
         width: 90%;
       }
     }
+
     @media (min-width: 769px) {
       .tab-nav {
         display: flex;
@@ -132,12 +153,14 @@
         background: none;
         padding: 0;
       }
+
       .tab-nav button {
         flex: 1;
         max-width: 150px;
         text-align: center;
       }
     }
+
     main {
       flex: 1 0 auto;
       max-width: 1400px;
@@ -147,18 +170,24 @@
       flex-direction: column;
       align-items: center;
     }
+
     .tab-content {
       display: none;
       opacity: 0;
       animation: fadeIn 0.5s forwards;
       width: 100%;
     }
+
     .tab-content.active {
       display: block;
     }
+
     @keyframes fadeIn {
-      to { opacity: 1; }
+      to {
+        opacity: 1;
+      }
     }
+
     h2 {
       font-size: 2rem;
       color: var(--accent);
@@ -166,6 +195,7 @@
       margin-bottom: 20px;
       font-weight: 600;
     }
+
     h3 {
       font-size: 1.4rem;
       color: var(--text-light);
@@ -173,6 +203,7 @@
       font-weight: 500;
       text-align: center;
     }
+
     p {
       font-size: 1rem;
       color: var(--text-light);
@@ -180,6 +211,7 @@
       margin-bottom: 15px;
       text-align: center;
     }
+
     .responsive-image {
       width: 100%;
       max-width: 350px;
@@ -189,9 +221,11 @@
       display: block;
       transition: transform var(--transition-duration) ease;
     }
+
     .responsive-image:hover {
       transform: scale(1.03);
     }
+
     .card {
       background: var(--card-bg);
       padding: 15px;
@@ -200,6 +234,7 @@
       width: 100%;
       max-width: 1200px;
     }
+
     .accordion {
       background: rgba(255, 255, 255, 0.1);
       color: var(--text-light);
@@ -216,20 +251,25 @@
       max-width: 600px;
       transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
     }
+
     .accordion:hover {
       background: rgba(255, 255, 255, 0.2);
       color: var(--accent);
     }
+
     .accordion.active {
       background: var(--accent);
       color: var(--bg-primary);
     }
+
     .accordion .arrow {
       transition: transform var(--transition-duration) ease;
     }
+
     .accordion.active .arrow {
       transform: rotate(180deg);
     }
+
     .panel {
       display: none;
       background: var(--card-bg);
@@ -239,32 +279,40 @@
       margin: 10px auto;
       backdrop-filter: blur(5px);
     }
+
     .panel table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.9rem;
     }
-    .panel th, .panel td {
+
+    .panel th,
+    .panel td {
       padding: 10px;
       text-align: center;
       color: var(--text-light);
     }
+
     .panel th {
       background: rgba(0, 0, 0, 0.2);
     }
+
     .panel tr:nth-child(even) {
       background: rgba(0, 0, 0, 0.1);
     }
+
     .panel tr:hover {
       background: var(--accent);
       color: var(--bg-primary);
     }
+
     .gallery {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 15px;
       margin: 15px 0;
     }
+
     .gallery img {
       width: 100%;
       height: auto;
@@ -274,13 +322,16 @@
       transition: transform var(--transition-duration) ease;
       cursor: pointer;
     }
+
     .gallery img:hover {
       transform: scale(1.03);
     }
+
     /* Larger images in Feedback tab */
     #feedback .gallery {
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
+
     /* Section vidéos (inchangée) */
     .video-container-wrapper {
       display: flex;
@@ -290,27 +341,32 @@
       margin: 20px auto;
       max-width: 1200px;
     }
+
     .video-container {
       width: 560px;
       height: 315px;
       position: relative;
     }
+
     .video-container iframe {
       width: 100%;
       height: 100%;
       border: none;
     }
+
     @media (max-width: 768px) {
       .video-container {
         width: 100%;
         height: auto;
         aspect-ratio: 16/9;
       }
+
       .video-container iframe {
         width: 100%;
         height: 100%;
       }
     }
+
     /* Lightbox for gallery images */
     .lightbox {
       display: none;
@@ -324,11 +380,13 @@
       justify-content: center;
       align-items: center;
     }
+
     .lightbox img {
       max-width: 90%;
       max-height: 90%;
       border-radius: var(--border-radius);
     }
+
     .lightbox-close {
       position: absolute;
       top: 20px;
@@ -338,9 +396,11 @@
       cursor: pointer;
       transition: color var(--transition-duration) ease;
     }
+
     .lightbox-close:hover {
       color: var(--accent);
     }
+
     footer {
       flex-shrink: 0;
       width: 100%;
@@ -350,43 +410,55 @@
       font-size: 0.9rem;
       color: var(--text-muted);
     }
+
     footer p {
       margin: 5px 0;
     }
+
     footer a {
       color: var(--accent);
       text-decoration: none;
       transition: color var(--transition-duration) ease;
     }
+
     footer a:hover {
       color: var(--text-light);
     }
+
     @media (max-width: 768px) {
       h2 {
         font-size: 1.8rem;
       }
+
       h3 {
         font-size: 1.2rem;
       }
-      .accordion, .panel {
+
+      .accordion,
+      .panel {
         max-width: 100%;
       }
+
       .gallery img {
         max-height: 350px;
       }
+
       .responsive-image {
         max-width: 300px;
       }
+
       #feedback .gallery {
         grid-template-columns: 1fr;
       }
     }
+
     /* Agrandir la première galerie (ELO) */
     .gallery-category:nth-of-type(1) .gallery {
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
   </style>
 </head>
+
 <body>
   <header>
     <a href="../index.html">
@@ -402,7 +474,7 @@
       </div>
     </div>
     <div class="header-right">
-      <a href="../Projet/index.html" class="return-button">Projets</a>
+      <a href="../Projet/index.html" class="return-button">Mes projets</a>
     </div>
   </header>
   <main>
@@ -418,21 +490,60 @@
           <div class="panel">
             <table>
               <thead>
-                <tr><th>ELO</th><th>Prix (€)</th></tr>
+                <tr>
+                  <th>ELO</th>
+                  <th>Prix (€)</th>
+                </tr>
               </thead>
               <tbody>
-                <tr><td>1800</td><td>45</td></tr>
-                <tr><td>1900</td><td>50</td></tr>
-                <tr><td>2000</td><td>55</td></tr>
-                <tr><td>2100</td><td>60</td></tr>
-                <tr><td>2200</td><td>70</td></tr>
-                <tr><td>2300</td><td>80</td></tr>
-                <tr><td>2400</td><td>90</td></tr>
-                <tr><td>2500</td><td>100</td></tr>
-                <tr><td>2600</td><td>125</td></tr>
-                <tr><td>2700</td><td>200</td></tr>
-                <tr><td>2800</td><td>400</td></tr>
-                <tr><td>Autres</td><td>Discord: fever65</td></tr>
+                <tr>
+                  <td>1800</td>
+                  <td>45</td>
+                </tr>
+                <tr>
+                  <td>1900</td>
+                  <td>50</td>
+                </tr>
+                <tr>
+                  <td>2000</td>
+                  <td>55</td>
+                </tr>
+                <tr>
+                  <td>2100</td>
+                  <td>60</td>
+                </tr>
+                <tr>
+                  <td>2200</td>
+                  <td>70</td>
+                </tr>
+                <tr>
+                  <td>2300</td>
+                  <td>80</td>
+                </tr>
+                <tr>
+                  <td>2400</td>
+                  <td>90</td>
+                </tr>
+                <tr>
+                  <td>2500</td>
+                  <td>100</td>
+                </tr>
+                <tr>
+                  <td>2600</td>
+                  <td>125</td>
+                </tr>
+                <tr>
+                  <td>2700</td>
+                  <td>200</td>
+                </tr>
+                <tr>
+                  <td>2800</td>
+                  <td>400</td>
+                </tr>
+                <tr>
+                  <td>Autres</td>
+                  <td>Discord: fever65</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -445,13 +556,28 @@
           <div class="panel">
             <table>
               <thead>
-                <tr><th>Niveau</th><th>Prix (€)</th></tr>
+                <tr>
+                  <th>Niveau</th>
+                  <th>Prix (€)</th>
+                </tr>
               </thead>
               <tbody>
-                <tr><td>25</td><td>30</td></tr>
-                <tr><td>50</td><td>150</td></tr>
-                <tr><td>100</td><td>750</td></tr>
-                <tr><td>Autres</td><td>Discord: fever65</td></tr>
+                <tr>
+                  <td>25</td>
+                  <td>30</td>
+                </tr>
+                <tr>
+                  <td>50</td>
+                  <td>150</td>
+                </tr>
+                <tr>
+                  <td>100</td>
+                  <td>750</td>
+                </tr>
+                <tr>
+                  <td>Autres</td>
+                  <td>Discord: fever65</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -464,13 +590,28 @@
           <div class="panel">
             <table>
               <thead>
-                <tr><th>Parties</th><th>Prix (€)</th></tr>
+                <tr>
+                  <th>Parties</th>
+                  <th>Prix (€)</th>
+                </tr>
               </thead>
               <tbody>
-                <tr><td>1</td><td>10</td></tr>
-                <tr><td>2</td><td>15</td></tr>
-                <tr><td>3</td><td>20</td></tr>
-                <tr><td>Autres</td><td>Discord: fever65</td></tr>
+                <tr>
+                  <td>1</td>
+                  <td>10</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>15</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>20</td>
+                </tr>
+                <tr>
+                  <td>Autres</td>
+                  <td>Discord: fever65</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -483,19 +624,16 @@
         <h2>Galerie de Vidéos</h2>
         <div class="video-container-wrapper">
           <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/-Lb3vaNyGmE?rel=0&vq=hd1080" 
-                    allow="autoplay; encrypted-media" 
-                    allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/-Lb3vaNyGmE?rel=0&vq=hd1080" allow="autoplay; encrypted-media"
+              allowfullscreen></iframe>
           </div>
           <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/Z7fTeFNsDOw?si=Oom0GMLbst9t2VMe&rel=0&vq=hd1080" 
-                    allow="autoplay; encrypted-media" 
-                    allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/Z7fTeFNsDOw?si=Oom0GMLbst9t2VMe&rel=0&vq=hd1080"
+              allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
           <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/82y4KdJXQ8k?rel=0&vq=hd1080" 
-                    allow="autoplay; encrypted-media" 
-                    allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/82y4KdJXQ8k?rel=0&vq=hd1080" allow="autoplay; encrypted-media"
+              allowfullscreen></iframe>
           </div>
         </div>
       </section>
@@ -589,16 +727,18 @@
       <section class="card">
         <h2>Niveaux</h2>
         <p>
-          Black Valhalla est un site web qui te permet de connaître le niveau de tes légendes sur Brawlhalla. Bien meilleur que Corehalla (souvent en panne, dépassé et saturé de pubs), il offre une interface moderne et toujours à jour.
+          Black Valhalla est un site web qui te permet de connaître le niveau de tes légendes sur Brawlhalla. Bien
+          meilleur que Corehalla (souvent en panne, dépassé et saturé de pubs), il offre une interface moderne et
+          toujours à jour.
         </p>
         <p>
-          Pour découvrir Black Valhalla, clique ici : 
+          Pour découvrir Black Valhalla, clique ici :
           <a href="https://douwdy.github.io/BlackValhalla" target="_blank" style="color: var(--accent);">
             Visiter Black Valhalla
           </a>
         </p>
         <p>
-          Pour en savoir plus sur D0uwdy et découvrir son portfolio, consulte ce lien : 
+          Pour en savoir plus sur D0uwdy et découvrir son portfolio, consulte ce lien :
           <a href="https://slashend.ovh" target="_blank" style="color: var(--accent);">
             Portfolio de D0uwdy
           </a>
@@ -668,4 +808,5 @@
     });
   </script>
 </body>
+
 </html>

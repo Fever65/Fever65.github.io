@@ -1,20 +1,80 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Puissance 4 Multijoueur</title>
   <!-- Import des polices : Gloria Hallelujah pour le titre, Source Code Pro pour le reste -->
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap"
+    rel="stylesheet" />
   <link rel="icon" href="../Sources/Images/P4.png" type="image/png">
   <style>
+    :root {
+      --accent: #fca311;
+      --bg-primary: #0d0d0d;
+      --transition-duration: 0.3s;
+      --border-radius: 12px;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background: transparent;
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+      z-index: 10000;
+    }
+
+    .header-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .header-logo:hover {
+      transform: scale(1.1);
+    }
+
+    .return-button {
+      background: none;
+      color: var(--accent);
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--accent);
+      border-radius: var(--border-radius);
+      transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+    }
+
+    .return-button:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     /* Corps du site en Source Code Pro */
     body {
       display: flex;
@@ -26,50 +86,17 @@
       font-family: 'Source Code Pro', monospace;
       color: #fff;
     }
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      padding: 20px;
-      background-color: #0e0e0e;
-      z-index: 10000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      height: 80px;
-    }
-    .header-logo {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-    }
-    .return-button {
-      margin-left: auto;
-      padding: 10px 20px;
-      font-size: 1rem;
-      background-color: #b45502;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      text-decoration: none;
-    }
-    .return-button:hover {
-      background-color: #ff4500;
-    }
+
     .game-container {
       margin: 20px;
       padding: 20px;
-      background-color: rgba(255,255,255,0.1);
+      background-color: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       text-align: center;
       max-width: 600px;
       width: 100%;
     }
+
     /* Titre en Gloria Hallelujah, avec dégradé animé */
     h1 {
       font-family: 'Gloria Hallelujah', cursive;
@@ -83,10 +110,17 @@
       animation: gradientShift 3s infinite alternate;
       margin-bottom: 10px;
     }
+
     @keyframes gradientShift {
-      0% { background-position: 0% 0; }
-      100% { background-position: 100% 0; }
+      0% {
+        background-position: 0% 0;
+      }
+
+      100% {
+        background-position: 100% 0;
+      }
     }
+
     #connection-section {
       display: flex;
       flex-direction: column;
@@ -94,9 +128,10 @@
       gap: 10px;
       margin-bottom: 20px;
       padding: 20px;
-      background-color: rgba(255,255,255,0.1);
+      background-color: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
     }
+
     #connection-section button,
     #connection-section input {
       padding: 10px 20px;
@@ -108,9 +143,11 @@
       transition: background 0.3s ease, border-color 0.3s ease;
       font-family: inherit;
     }
+
     #connection-section button:hover {
       background-color: #ff4500;
     }
+
     /* Largeur de l’input augmentée et centrage */
     #connection-section input {
       background: transparent;
@@ -118,31 +155,38 @@
       width: 250px;
       text-align: center;
     }
+
     #connection-section input:focus {
       border-color: #ff4500;
     }
+
     #status {
       margin-top: 10px;
     }
+
     #server-info {
       margin-top: 10px;
       font-size: 0.9rem;
       opacity: 0.8;
       line-height: 1.3;
     }
+
     #connect4-game {
       margin-top: 20px;
     }
+
     #player-color {
       font-size: 1.2rem;
       margin-bottom: 10px;
     }
+
     #connect4-turn {
       font-size: 1.2rem;
       margin: 10px 0;
       display: block;
       transition: color 0.3s ease;
     }
+
     #connect4-board {
       margin: 20px auto;
       display: grid;
@@ -151,6 +195,7 @@
       justify-content: center;
       transition: all 0.3s ease;
     }
+
     .connect4-cell {
       width: 60px;
       height: 60px;
@@ -158,27 +203,33 @@
       border-radius: 50%;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
+
     .clickable {
       border: 2px solid #b45502;
       cursor: pointer;
     }
+
     .non-clickable {
       cursor: default;
     }
+
     /* Effet subtil sur la dernière pièce jouée */
     .last-move {
-      box-shadow: 0 0 5px 2px rgba(255,255,0,0.5);
+      box-shadow: 0 0 5px 2px rgba(255, 255, 0, 0.5);
     }
+
     /* Effet lumineux subtil sur les jetons gagnants */
     .winning-cell {
-      box-shadow: 0 0 8px 4px rgba(255,255,255,0.7);
+      box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.7);
     }
+
     #connect4-result {
       margin-top: 15px;
       font-size: 1.2rem;
       font-weight: bold;
       transition: opacity 0.3s ease;
     }
+
     /* Bouton Rejouer en Source Code Pro */
     #connect4-restart {
       margin: 20px auto 0;
@@ -196,21 +247,46 @@
       letter-spacing: 1px;
       transition: background 0.3s ease, transform 0.3s ease;
     }
+
     #connect4-restart:hover {
       background: linear-gradient(45deg, #1E90FF, #009ACD);
       transform: scale(1.05);
     }
+
     button:disabled {
       background-color: #666;
       cursor: not-allowed;
     }
+
+    footer {
+      margin-top: auto;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
     /* Responsive mobile : réduction de la taille des cellules */
     @media (max-width: 500px) {
-      h1 { font-size: 2rem; }
+      h1 {
+        font-size: 2rem;
+      }
+
       .connect4-cell {
         width: 40px;
         height: 40px;
       }
+
       #connect4-board {
         grid-template-columns: repeat(7, 40px);
         gap: 4px;
@@ -218,17 +294,18 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <a href="../index.html">
-      <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo"/>
+      <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo" />
     </a>
     <a href="../Projet/index.html" class="return-button">Mes projets</a>
   </header>
-  
+
   <div class="game-container">
     <h1>Puissance 4</h1>
-    
+
     <div id="connection-section">
       <button id="createLink">Créer une partie</button>
       <input id="inviteCode" placeholder="Entrer l'ID de l'hôte">
@@ -240,7 +317,7 @@
         l’hôte doit relancer la partie.
       </p>
     </div>
-    
+
     <div id="connect4-game" style="display: none;">
       <p id="player-color"></p>
       <p id="connect4-turn">C'est le tour du rouge</p>
@@ -249,12 +326,21 @@
       <button id="connect4-restart" style="display: none;">Rejouer</button>
     </div>
   </div>
-  
+  <footer>
+    <p>© 2025 ArchiveFever.work - Tous droits réservés</p>
+    <p>
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> |
+      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> |
+      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> |
+      <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
+    </p>
+  </footer>
+
   <!-- Audio pour le son du jeton -->
   <audio id="tokenSound" src="../Sources/Sons/Token.mp3"></audio>
   <!-- Audio pour le son de victoire -->
   <audio id="winSound" src="../Sources/Sons/Win.mp3"></audio>
-  
+
   <!-- PeerJS -->
   <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
   <script>
@@ -271,7 +357,7 @@
         ]
       }
     });
-    
+
     // Variables globales
     let myPeerId = null;
     let myColor = null; // 'red' pour hôte, 'yellow' pour client
@@ -280,18 +366,18 @@
     let myTurn = false;
     let gameActive = true;
     let conn = null;
-    
+
     peer.on('open', (id) => {
       myPeerId = id;
       document.getElementById('status').textContent = 'Statut : Prêt';
       console.log('Mon ID:', id);
     });
-    
+
     peer.on('error', (err) => {
       document.getElementById('status').textContent = `Erreur : ${err.type}`;
       console.error('Erreur PeerJS:', err);
     });
-    
+
     // Bouton "Créer une partie" (hôte)
     document.getElementById('createLink').onclick = () => {
       myColor = 'red';
@@ -304,7 +390,7 @@
       document.getElementById('player-color').style.color = 'red';
       console.log('Partie créée, ID copié:', myPeerId);
     };
-    
+
     // Bouton "Rejoindre" (client)
     document.getElementById('joinGame').onclick = () => {
       const inviteCode = document.getElementById('inviteCode').value.trim();
@@ -321,7 +407,7 @@
       conn = peer.connect(inviteCode);
       setupConnection();
     };
-    
+
     // Lorsqu'une connexion arrive (cas de l'hôte)
     peer.on('connection', (connection) => {
       conn = connection;
@@ -329,7 +415,7 @@
         'Statut : Joueur connecté, jeu prêt !';
       setupConnection();
     });
-    
+
     function setupConnection() {
       conn.on('open', () => {
         document.getElementById('connection-section').style.display = 'none';
@@ -353,7 +439,7 @@
         document.getElementById('connect4-game').style.display = 'none';
       });
     }
-    
+
     function startGame() {
       connect4Board = Array(42).fill(null);
       gameActive = true;
@@ -379,7 +465,7 @@
       updateTurnDisplay();
       syncState();
     }
-    
+
     function handleColumnClick(event) {
       if (!gameActive || !myTurn || !conn || conn.closed) return;
       const col = parseInt(event.target.dataset.column);
@@ -412,7 +498,7 @@
         }
       }
     }
-    
+
     function updateTurnDisplay() {
       if (!gameActive) return;
       const colorName = (currentColor === 'red') ? 'rouge' : 'jaune';
@@ -425,13 +511,13 @@
         }
       });
     }
-    
+
     document.getElementById('connect4-restart').onclick = () => {
       if (!conn || conn.closed) return;
       conn.send({ type: 'restart' });
       startGame();
     };
-    
+
     function checkWinner() {
       const rows = 6, cols = 7;
       // Vérification horizontale
@@ -439,10 +525,10 @@
         for (let c = 0; c < cols - 3; c++) {
           const i = r * 7 + c;
           if (connect4Board[i] &&
-              connect4Board[i] === connect4Board[i+1] &&
-              connect4Board[i] === connect4Board[i+2] &&
-              connect4Board[i] === connect4Board[i+3]) {
-            let winningIndices = [i, i+1, i+2, i+3];
+            connect4Board[i] === connect4Board[i + 1] &&
+            connect4Board[i] === connect4Board[i + 2] &&
+            connect4Board[i] === connect4Board[i + 3]) {
+            let winningIndices = [i, i + 1, i + 2, i + 3];
             endGame(connect4Board[i], winningIndices);
             return;
           }
@@ -453,10 +539,10 @@
         for (let c = 0; c < cols; c++) {
           const i = r * 7 + c;
           if (connect4Board[i] &&
-              connect4Board[i] === connect4Board[i+7] &&
-              connect4Board[i] === connect4Board[i+14] &&
-              connect4Board[i] === connect4Board[i+21]) {
-            let winningIndices = [i, i+7, i+14, i+21];
+            connect4Board[i] === connect4Board[i + 7] &&
+            connect4Board[i] === connect4Board[i + 14] &&
+            connect4Board[i] === connect4Board[i + 21]) {
+            let winningIndices = [i, i + 7, i + 14, i + 21];
             endGame(connect4Board[i], winningIndices);
             return;
           }
@@ -467,10 +553,10 @@
         for (let c = 0; c < cols - 3; c++) {
           const i = r * 7 + c;
           if (connect4Board[i] &&
-              connect4Board[i] === connect4Board[i+8] &&
-              connect4Board[i] === connect4Board[i+16] &&
-              connect4Board[i] === connect4Board[i+24]) {
-            let winningIndices = [i, i+8, i+16, i+24];
+            connect4Board[i] === connect4Board[i + 8] &&
+            connect4Board[i] === connect4Board[i + 16] &&
+            connect4Board[i] === connect4Board[i + 24]) {
+            let winningIndices = [i, i + 8, i + 16, i + 24];
             endGame(connect4Board[i], winningIndices);
             return;
           }
@@ -481,10 +567,10 @@
         for (let c = 3; c < cols; c++) {
           const i = r * 7 + c;
           if (connect4Board[i] &&
-              connect4Board[i] === connect4Board[i+6] &&
-              connect4Board[i] === connect4Board[i+12] &&
-              connect4Board[i] === connect4Board[i+18]) {
-            let winningIndices = [i, i+6, i+12, i+18];
+            connect4Board[i] === connect4Board[i + 6] &&
+            connect4Board[i] === connect4Board[i + 12] &&
+            connect4Board[i] === connect4Board[i + 18]) {
+            let winningIndices = [i, i + 6, i + 12, i + 18];
             endGame(connect4Board[i], winningIndices);
             return;
           }
@@ -494,7 +580,7 @@
         endGame(null, []);
       }
     }
-    
+
     function endGame(winnerColor, winningIndices) {
       gameActive = false;
       // Retirer l'effet sur la dernière pièce placée
@@ -519,7 +605,7 @@
       }
       document.getElementById('connect4-restart').style.display = 'block';
     }
-    
+
     function handleGameData(data) {
       if (data.type === 'move') {
         // Ajout du son pour chaque coup (local ou adverse)
@@ -547,14 +633,14 @@
         updateTurnDisplay();
       }
     }
-    
+
     function updateBoardDisplay() {
       const cells = document.querySelectorAll('.connect4-cell');
       connect4Board.forEach((color, idx) => {
         cells[idx].style.background = color ? color : '#fff';
       });
     }
-    
+
     function syncState() {
       if (conn && !conn.closed) {
         conn.send({
@@ -566,4 +652,5 @@
     }
   </script>
 </body>
+
 </html>

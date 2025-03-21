@@ -2,107 +2,165 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Blitz Draw - ArchiveFever.work</title>
   <link rel="icon" href="../Sources/Images/BlitzDraw.png" type="image/png">
-  <!-- Google Fonts & CSS externes (NE PAS TOUCHER) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- On utilisera Gloria Hallelujah pour le titre et Source Code Pro pour le reste -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200;1,400&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;600&display=swap"
     rel="stylesheet">
-  <link href="../Sources/CSS/header.css" rel="stylesheet" />
-  <link href="../Sources/CSS/fond.css" rel="stylesheet" />
   <style>
-    /* Global Reset */
+    :root {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #1a1a1a;
+      --accent: #fca311;
+      --text-light: #e2e2e2;
+      --text-muted: #a0a0a0;
+      --transition-duration: 0.3s;
+      --border-radius: 12px;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* Global Dark Theme & Layout */
+    html {
+      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+      background-attachment: fixed;
+    }
+
     body {
-      background: linear-gradient(135deg, #1f1f1f, #333);
+      min-height: 100vh;
       font-family: 'Source Code Pro', monospace;
-      color: #eee;
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background: transparent;
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+      z-index: 10000;
+    }
+
+    .header-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .header-logo:hover {
+      transform: scale(1.1);
+    }
+
+    .return-button {
+      background: none;
+      color: var(--accent);
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--accent);
+      border-radius: var(--border-radius);
+      transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+    }
+
+    .return-button:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    main {
+      flex: 1 0 auto;
+      max-width: 1000px;
+      margin: 50px auto 20px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 20px;
-      /* Laisser de l'espace pour le header fixe */
-      padding-top: 100px;
-      min-height: 100vh;
+      text-align: center;
     }
 
-    /* Titre personnalisé */
     h1 {
       font-family: 'Gloria Hallelujah', cursive;
-      font-size: 2.5rem;
+      font-size: 2.3rem;
       text-align: center;
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      color: #fff;
     }
 
     #info {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
+      font-weight: 400;
     }
 
-    /* Conteneur global du challenge */
     #challenge-container {
       width: min(90vw, 800px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
     }
 
-    /* Section de Contrôles */
     #controls {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
     }
 
-    /* Boutons de temps (couleurs selon difficulté) */
     .time-btn {
-      padding: 8px 12px;
+      padding: 6px 10px;
       border: none;
       border-radius: 5px;
       color: #fff;
       cursor: pointer;
       transition: opacity 0.3s;
+      font-weight: 400;
     }
 
     .time-btn[data-time="30"] {
       background: #e74c3c;
     }
 
-    /* Rouge pour 30 s */
     .time-btn[data-time="300"] {
       background: #e67e22;
     }
 
-    /* Orange pour 5 min */
     .time-btn[data-time="600"] {
       background: #27ae60;
     }
 
-    /* Vert pour 10 min */
     .time-btn.active {
       opacity: 0.85;
     }
 
-    /* Boutons d'action */
     button.control-btn {
-      padding: 8px 12px;
-      font-size: 1rem;
+      padding: 6px 10px;
+      font-size: 0.95rem;
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -111,12 +169,10 @@
       transition: background 0.3s;
     }
 
-    /* Démarrer en bleu */
     #startBtn {
       background: #2980b9;
     }
 
-    /* Finir en rouge, Reset en bleu-gris, Save en violet */
     #finishBtn {
       background: #c0392b;
       display: none;
@@ -132,19 +188,17 @@
       display: none;
     }
 
-    /* Palette de Couleurs */
     #palette {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
-      margin-top: 10px;
     }
 
     .color-btn {
-      width: 36px;
-      height: 36px;
+      width: 30px;
+      height: 30px;
       border: 2px solid #fff;
       border-radius: 50%;
       cursor: pointer;
@@ -159,12 +213,10 @@
       border: 2px solid #000;
     }
 
-    /* Zone de Dessin : Le conteneur est un rectangle adapté à un écran 16:9 (et aux mobiles) */
     #drawing-container {
       width: 100%;
       max-width: 800px;
-      /* Utilisation d'un aspect-ratio de 16/9 */
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 16/9;
       background: #fff;
       border: 5px solid #444;
       border-radius: 15px;
@@ -173,7 +225,6 @@
       position: relative;
     }
 
-    /* Le canvas occupe toute la zone du conteneur */
     #drawingCanvas {
       width: 100%;
       height: 100%;
@@ -181,55 +232,152 @@
       background: #fff;
       border-radius: 15px;
     }
+
+    footer {
+      background: transparent;
+      padding: 15px 0;
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: auto;
+      font-family: 'Source Code Pro', monospace;
+    }
+
+    footer p {
+      margin: 4px 0;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color var(--transition-duration) ease;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    @media (max-width:600px) {
+      main {
+        margin: 50px auto 20px;
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+
+      #info {
+        font-size: 1rem;
+        margin-bottom: 10px;
+      }
+
+      .time-btn,
+      button.control-btn {
+        font-size: 0.85rem;
+      }
+
+      #palette {
+        gap: 6px;
+      }
+
+      .color-btn {
+        width: 26px;
+        height: 26px;
+      }
+
+      #drawing-container {
+        max-width: 95vw;
+        aspect-ratio: 16/9;
+      }
+    }
+
+    @media (max-width:767px) {
+      header {
+        padding: 10px;
+        height: auto;
+      }
+
+      .header-logo {
+        width: 50px;
+        height: 50px;
+      }
+
+      .return-button {
+        font-size: 0.85rem;
+        padding: 8px 15px;
+      }
+    }
+
+    @media (max-width:480px) {
+      main {
+        max-width: 400px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 
 <body>
-  <!-- Header (NE PAS TOUCHER) -->
   <header>
     <a href="../index.html">
       <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
     </a>
     <a href="../Projet/index.html" class="return-button">Mes projets</a>
   </header>
-
-  <!-- Conteneur du Challenge -->
-  <div id="challenge-container">
-    <h1>Blitz Draw</h1>
-    <div id="info">Sélectionnez la durée, puis appuyez sur "Démarrer".</div>
-
-    <!-- Contrôles : Temps et Boutons d'Action -->
-    <div id="controls">
-      <button class="time-btn active" data-time="30">30 s</button>
-      <button class="time-btn" data-time="300">5 min</button>
-      <button class="time-btn" data-time="600">10 min</button>
-      <button id="startBtn" class="control-btn">Démarrer</button>
-      <button id="finishBtn" class="control-btn">Finir</button>
-      <button id="resetBtn" class="control-btn">Reset</button>
-      <button id="saveBtn" class="control-btn">Enregistrer l'image</button>
+  <main>
+    <div id="challenge-container">
+      <h1>Blitz Draw</h1>
+      <div id="info">Sélectionnez la durée, puis appuyez sur "Démarrer".</div>
+      <div id="controls">
+        <button class="time-btn active" data-time="30">30 s</button>
+        <button class="time-btn" data-time="300">5 min</button>
+        <button class="time-btn" data-time="600">10 min</button>
+        <button id="startBtn" class="control-btn">Démarrer</button>
+        <button id="finishBtn" class="control-btn">Finir</button>
+        <button id="resetBtn" class="control-btn">Reset</button>
+        <button id="saveBtn" class="control-btn">Enregistrer l'image</button>
+      </div>
+      <div id="palette">
+        <button class="color-btn active" data-color="#000000" style="background:#000000;"></button>
+        <button class="color-btn" data-color="#ffffff" style="background:#ffffff; border:2px solid #000;"></button>
+        <button class="color-btn" data-color="#e74c3c" style="background:#e74c3c;"></button>
+        <button class="color-btn" data-color="#3498db" style="background:#3498db;"></button>
+        <button class="color-btn" data-color="#27ae60" style="background:#27ae60;"></button>
+        <button class="color-btn" data-color="#f1c40f" style="background:#f1c40f;"></button>
+        <button class="color-btn" data-color="#9b59b6" style="background:#9b59b6;"></button>
+        <button class="color-btn" data-color="#e67e22" style="background:#e67e22;"></button>
+        <button class="color-btn" data-color="#8B4513" style="background:#8B4513;"></button>
+        <button class="color-btn" data-color="#1abc9c" style="background:#1abc9c;"></button>
+        <button class="color-btn" data-color="#D2B48C" style="background:#D2B48C; border:2px solid #000;"></button>
+      </div>
+      <div id="drawing-container">
+        <canvas id="drawingCanvas"></canvas>
+      </div>
     </div>
-
-    <!-- Palette de Couleurs -->
-    <div id="palette">
-      <button class="color-btn active" data-color="#000000" style="background:#000000;"></button>
-      <button class="color-btn" data-color="#ffffff" style="background:#ffffff; border:2px solid #000;"></button>
-      <button class="color-btn" data-color="#e74c3c" style="background:#e74c3c;"></button>
-      <button class="color-btn" data-color="#3498db" style="background:#3498db;"></button>
-      <button class="color-btn" data-color="#27ae60" style="background:#27ae60;"></button>
-      <button class="color-btn" data-color="#f1c40f" style="background:#f1c40f;"></button>
-      <button class="color-btn" data-color="#9b59b6" style="background:#9b59b6;"></button>
-      <button class="color-btn" data-color="#e67e22" style="background:#e67e22;"></button>
-      <button class="color-btn" data-color="#8B4513" style="background:#8B4513;"></button>
-      <button class="color-btn" data-color="#1abc9c" style="background:#1abc9c;"></button>
-      <button class="color-btn" data-color="#D2B48C" style="background:#D2B48C; border:2px solid #000;"></button>
-    </div>
-
-    <!-- Zone de Dessin -->
-    <div id="drawing-container">
-      <canvas id="drawingCanvas"></canvas>
-    </div>
-  </div>
-
+  </main>
+  <footer>
+    <p>© 2025 ArchiveFever.work - Tous droits réservés</p>
+    <p>
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> |
+      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> |
+      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> |
+      <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
+    </p>
+  </footer>
   <script>
     const canvas = document.getElementById('drawingCanvas');
     const ctx = canvas.getContext('2d');
@@ -241,16 +389,8 @@
     const saveBtn = document.getElementById('saveBtn');
     const timeButtons = document.querySelectorAll('.time-btn');
     const colorButtons = document.querySelectorAll('.color-btn');
-
-    let challengeDuration = 30; // Durée par défaut en secondes
-    let drawingEnabled = false;
-    let timerInterval;
-    let timeLeft = challengeDuration;
-    let isDrawing = false;
-    let lastX = 0, lastY = 0;
-    let currentColor = "#000000";
-
-    // Initialisation du canvas en conservant le dessin existant
+    let challengeDuration = 30, drawingEnabled = false, timerInterval, timeLeft = challengeDuration;
+    let isDrawing = false, lastX = 0, lastY = 0, currentColor = "#000000";
     function setupCanvas() {
       const dataURL = canvas.toDataURL();
       canvas.width = container.clientWidth;
@@ -266,12 +406,9 @@
     }
     setupCanvas();
     window.addEventListener('resize', setupCanvas);
-
     function formatTime(seconds) {
       return seconds < 60 ? `${seconds} s` : `${Math.floor(seconds / 60)} min`;
     }
-
-    // Sélection du temps
     timeButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         timeButtons.forEach(b => b.classList.remove('active'));
@@ -281,8 +418,6 @@
         infoDiv.textContent = `Temps restant : ${formatTime(timeLeft)}`;
       });
     });
-
-    // Bouton Démarrer : démarre le challenge et masque les boutons de temps
     startBtn.addEventListener('click', () => {
       drawingEnabled = true;
       startBtn.style.display = 'none';
@@ -301,83 +436,45 @@
         }
       }, 1000);
     });
-
-    // Bouton Finir : arrête le chrono et désactive le dessin
     finishBtn.addEventListener('click', () => {
       clearInterval(timerInterval);
       drawingEnabled = false;
       infoDiv.textContent = "Challenge terminé.";
       finishBtn.style.display = 'none';
     });
-
-    // Bouton Reset : recharge la page pour revenir à l'état initial
-    resetBtn.addEventListener('click', () => {
-      location.reload();
-    });
-
-    // Bouton Enregistrer : ajoute une bande en bas avec le watermark et télécharge l'image
-    function formatTime(seconds) {
-      return seconds < 60 ? `${seconds} s` : `${Math.floor(seconds / 60)} min`;
-    }
-
+    resetBtn.addEventListener('click', () => { location.reload(); });
     saveBtn.addEventListener('click', () => {
-      // Définir des dimensions minimales pour la sauvegarde
-      const minWidth = 300;
-      const minHeight = 200;
+      const minWidth = 300, minHeight = 200;
       const savedWidth = Math.max(canvas.width, minWidth);
       const savedHeight = Math.max(canvas.height, minHeight);
-
-      // Définir la hauteur de la bande (ici 10% de la hauteur sauvegardée)
       const bandHeight = savedHeight * 0.1;
-
-      // Créez un canvas offscreen avec une hauteur supplémentaire pour la bande
       const offscreen = document.createElement('canvas');
       offscreen.width = savedWidth;
       offscreen.height = savedHeight + bandHeight;
       const offCtx = offscreen.getContext('2d');
-
-      // Copiez le dessin existant en redimensionnant si nécessaire
       offCtx.drawImage(canvas, 0, 0, savedWidth, savedHeight);
-
-      // Dessinez la bande de watermark en bas (fond semi-transparent)
       offCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
       offCtx.fillRect(0, savedHeight, savedWidth, bandHeight);
-
-      // Déterminez le type d'appareil
       let deviceType = window.innerWidth < 600 ? "Mobile" : "PC";
       let watermarkText = `BlitzDraw – archivefever.work [${deviceType}] ${formatTime(challengeDuration)}`;
-
-      // Choisissez une taille de police de départ
       let fontSize = savedWidth < 600 ? 20 : 16;
       offCtx.font = `${fontSize}px sans-serif`;
-
-      // Ajustez la taille de la police pour que le texte rentre (avec une marge)
-      const margin = 20; // marge totale (10px de chaque côté)
+      const margin = 20;
       let textWidth = offCtx.measureText(watermarkText).width;
       while (textWidth > savedWidth - margin && fontSize > 10) {
         fontSize--;
         offCtx.font = `${fontSize}px sans-serif`;
         textWidth = offCtx.measureText(watermarkText).width;
       }
-
       offCtx.fillStyle = "#000";
       offCtx.textAlign = "center";
-      // Positionnez le texte verticalement centré dans la bande
-      offCtx.fillText(
-        watermarkText,
-        savedWidth / 2,
-        savedHeight + bandHeight / 2 + fontSize / 3
-      );
-
-      // Génère le PNG et télécharge l'image
+      offCtx.fillText(watermarkText, savedWidth / 2, savedHeight + bandHeight / 2 + fontSize / 3);
       const dataURL = offscreen.toDataURL("image/png");
       const a = document.createElement('a');
       a.href = dataURL;
       a.download = "chef_doeuvre.png";
       a.click();
     });
-
-    // Gestion des événements de dessin
     canvas.addEventListener('mousedown', (e) => {
       if (!drawingEnabled) return;
       isDrawing = true;
@@ -402,8 +499,6 @@
     });
     canvas.addEventListener('mouseup', () => isDrawing = false);
     canvas.addEventListener('mouseleave', () => isDrawing = false);
-
-    // Pour les écrans tactiles
     canvas.addEventListener('touchstart', (e) => {
       if (!drawingEnabled) return;
       isDrawing = true;
@@ -431,8 +526,6 @@
       e.preventDefault();
     });
     canvas.addEventListener('touchend', () => isDrawing = false);
-
-    // Gestion de la palette de couleurs
     colorButtons.forEach(btn => {
       btn.addEventListener('click', () => {
         currentColor = btn.getAttribute('data-color');

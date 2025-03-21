@@ -6,12 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecture du Livre</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Qwitcher+Grypen:wght@400;700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
-    <link href="../Sources/CSS/header.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Qwitcher+Grypen:wght@400;700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+        rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="icon" href="../Sources/Images/maison.png" type="image/png">
     <style>
+        :root {
+            --accent: #fca311;
+            --bg-primary: #0d0d0d;
+            --transition-duration: 0.3s;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: transparent;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+        }
+
+        .header-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            transition: transform var(--transition-duration) ease;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.1);
+        }
+
+        .return-button {
+            background: none;
+            color: var(--accent);
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--accent);
+            border-radius: var(--border-radius);
+            transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+        }
+
+        .return-button:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -169,7 +227,8 @@
             <div class="page" id="page3">Elle lisait attentivement, découvrant les secrets du projet MAISON.</div>
             <div class="page" id="page4">Il y a plusieurs détails cachés dans ce projet.</div>
             <div class="page" id="page5">Premièrement, on ne peut entrer dans cette maison que les jours de pluie.</div>
-            <div class="page" id="page6">Deuxièmement, on peut cliquer sur le soleil et la lune pour faire passer le temps (littéralement).</div>
+            <div class="page" id="page6">Deuxièmement, on peut cliquer sur le soleil et la lune pour faire passer le
+                temps (littéralement).</div>
             <div class="page" id="page7">On peut faire tomber la pluie en touchant les nuages.</div>
             <div class="page" id="page8">TOC TOC TOC. Si tu essaies d'entrer alors qu'il ne pleut pas...</div>
             <div class="page" id="page9">Sois attentif aux étoiles la nuit.</div>
@@ -179,12 +238,14 @@
             <div class="page" id="page13">Tu peux arrêter de tourner les pages, il n'y a plus rien.</div>
             <div class="page" id="page14">Je t'avais prévenu.</div>
             <div class="page" id="page15">STOP !!!</div>
-            <div class="page" id="page16">Bon, vu que tu es curieux, j'ai un cadeau pour toi à la véritable dernière page du livre.</div>
+            <div class="page" id="page16">Bon, vu que tu es curieux, j'ai un cadeau pour toi à la véritable dernière
+                page du livre.</div>
             <div class="page" id="page17">
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" style="text-decoration: none; color: #ff4500; font-weight: bold;">
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"
+                    style="text-decoration: none; color: #ff4500; font-weight: bold;">
                     CADEAU ❤️‍🔥
                 </a>
-            </div>            
+            </div>
             <div class="book-buttons">
                 <button class="book-button" onclick="prevPage()">Précédent</button>
                 <button class="book-button" onclick="nextPage()">Suivant</button>
@@ -198,9 +259,9 @@
 
     <script>
         let currentPage = 0;
-    
+
         function playPageTurnSound() {
-            const sound = document.getElementById('page-turn-sound'); 
+            const sound = document.getElementById('page-turn-sound');
             if (sound) {
                 sound.currentTime = 0;
                 sound.play().catch((error) => {
@@ -212,10 +273,10 @@
         function updatePages() {
             const pages = document.querySelectorAll('.page');
             pages.forEach((page, index) => {
-                page.classList.toggle('active', index === currentPage); 
+                page.classList.toggle('active', index === currentPage);
             });
         }
-    
+
         function nextPage() {
             const pages = document.querySelectorAll('.page');
             if (currentPage < pages.length - 1) {
@@ -224,7 +285,7 @@
                 playPageTurnSound();
             }
         }
-    
+
         function prevPage() {
             if (currentPage > 0) {
                 currentPage--;
@@ -235,7 +296,7 @@
 
         updatePages();
     </script>
-    
+
 </body>
 
 </html>

@@ -2,48 +2,307 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de Labyrinthe</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
-    <link href="../Sources/CSS/labyrinthe.css" rel="stylesheet">
-    <link href="../Sources/CSS/header.css" rel="stylesheet">
-    <link href="../Sources/CSS/fond.css" rel="stylesheet">
-    <link rel="icon" href="../Sources/Images/labyrinthe.png" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Générateur de Labyrinthe</title>
+  <link rel="icon" href="../Sources/Images/labyrinthe.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #1a1a1a;
+      --accent: #fca311;
+      --text-light: #e2e2e2;
+      --text-muted: #a0a0a0;
+      --transition-duration: 0.3s;
+      --border-radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+      background-attachment: fixed;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Source Code Pro', monospace;
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background: transparent;
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+      z-index: 10000;
+    }
+
+    .header-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .header-logo:hover {
+      transform: scale(1.1);
+    }
+
+    .return-button {
+      background: none;
+      color: var(--accent);
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--accent);
+      border-radius: var(--border-radius);
+      transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+    }
+
+    .return-button:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    main {
+      flex: 1 0 auto;
+      max-width: 1000px;
+      margin: 60px auto 40px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      color: #fff;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    #button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    #button-container label {
+      font-weight: 600;
+      margin: 0 5px;
+    }
+
+    #button-container select {
+      padding: 5px 8px;
+      font-size: 0.9rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background: #fff;
+      color: #000;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    #button-container button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      background: #2980b9;
+      transition: background var(--transition-duration);
+    }
+
+    #button-container button:hover {
+      background: #3498db;
+    }
+
+    #button-container #solve {
+      background: #c0392b;
+    }
+
+    #button-container #solve:hover {
+      background: #e74c3c;
+    }
+
+    #maze-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    #maze {
+      border: 3px solid #444;
+      background: #fff;
+      display: block;
+      max-width: 80vw;
+      max-height: 50vh;
+    }
+
+    footer {
+      background: transparent;
+      padding: 15px 0;
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: auto;
+      font-family: 'Source Code Pro', monospace;
+    }
+
+    footer p {
+      margin: 4px 0;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color var(--transition-duration) ease;
+      font-weight: 500;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+
+    @media (max-width:600px) {
+      main {
+        margin: 50px auto 40px;
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+      }
+
+      #button-container {
+        gap: 6px;
+      }
+
+      #button-container select {
+        font-size: 0.85rem;
+        padding: 4px 6px;
+      }
+
+      #button-container button {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+      }
+
+      #maze {
+        max-width: 95vw;
+        max-height: 55vh;
+      }
+    }
+
+    @media (max-width:767px) {
+      header {
+        padding: 10px;
+        height: auto;
+      }
+
+      .header-logo {
+        width: 50px;
+        height: 50px;
+      }
+
+      .return-button {
+        font-size: 0.85rem;
+        padding: 8px 15px;
+      }
+    }
+
+    @media (max-width:480px) {
+      main {
+        max-width: 400px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <a href="../index.html">
-            <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
-        </a>
-        <a href="../Projet/index.html" class="return-button">Mes projets</a>
-    </header>
+  <header>
+    <a href="../index.html">
+      <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+    </a>
+    <a href="../Projet/index.html" class="return-button">Mes projets</a>
+  </header>
+  <main>
+    <h1>Générateur de Labyrinthe</h1>
     <div id="button-container">
-        <label for="width">Largeur :</label>
-        <select id="width">
-            <option value="5">5</option>
-            <option value="10" selected>10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-        </select>
-        <label for="height">Hauteur :</label>
-        <select id="height">
-            <option value="5">5</option>
-            <option value="10" selected>10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-        </select>
-        <button id="generate">Générer</button>
-        <button id="solve" disabled>Trouver la solution</button>
+      <label for="width">Largeur :</label>
+      <select id="width">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+      </select>
+      <label for="height">Hauteur :</label>
+      <select id="height">
+        <option value="5">5</option>
+        <option value="10" selected>10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+      </select>
+      <button id="generate">Générer</button>
+      <button id="solve" disabled>Trouver la solution</button>
     </div>
     <div id="maze-container">
-        <canvas id="maze"></canvas>
+      <canvas id="maze"></canvas>
     </div>
-    
-    <script src="../Sources/JS/lab.js"></script>
+  </main>
+  <footer>
+    <p>© 2025 ArchiveFever.work - Tous droits réservés</p>
+    <p>
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> |
+      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> |
+      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> |
+      <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
+    </p>
+  </footer>
+  <script src="../Sources/JS/lab.js" defer></script>
 </body>
 
 </html>

@@ -2,42 +2,290 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d’excuses</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
-        rel="stylesheet">
-    <link href="../Sources/CSS/excuses.css" rel="stylesheet" />
-    <link href="../Sources/CSS/header.css" rel="stylesheet" />
-    <link href="../Sources/CSS/fond.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="icon" href="../Sources/Images/Vacances.png" type="image/png">   
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Générateur d’excuses</title>
+  <link rel="icon" href="../Sources/Images/Vacances.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0d0d0d;
+      --bg-secondary: #1a1a1a;
+      --accent: #fca311;
+      --text-light: #d0d0d0;
+      --text-muted: #8a8a8a;
+      --transition-duration: 0.3s;
+      --border-radius: 12px;
+      --font-size-base: 0.9rem;
+      --spacing-unit: 1rem
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
+
+    html {
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 80%);
+      background-attachment: fixed
+    }
+
+    body {
+      padding-top: 80px;
+      margin: 0;
+      font-family: 'Source Code Pro', monospace;
+      color: var(--text-light);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      background: transparent;
+      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(5px);
+      z-index: 10000;
+    }
+
+    .header-logo {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .header-logo:hover {
+      transform: scale(1.1);
+    }
+
+    .return-button {
+      background: none;
+      color: var(--accent);
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: 1px solid var(--accent);
+      border-radius: var(--border-radius);
+      transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+    }
+
+    .return-button:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      margin: 0 20px
+    }
+
+    main {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      text-align: center
+    }
+
+    h1 {
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 40px;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 20px
+    }
+
+    #description {
+      font-size: 18px;
+      text-align: center;
+      margin: 20px 0
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 20px 0
+    }
+
+    .button-container button {
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: #b46d01;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background var(--transition-duration) ease
+    }
+
+    .button-container button:hover {
+      background-color: #804d00
+    }
+
+    .excuse-box {
+      margin: 20px auto;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.05);
+      max-width: 600px;
+      text-align: center;
+      font-size: 18px
+    }
+
+    #funImage {
+      display: block;
+      max-width: 50%;
+      height: auto;
+      margin: 20px auto
+    }
+
+    footer {
+      background: transparent;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-family: 'Source Code Pro', monospace;
+      margin-top: auto
+    }
+
+    footer p {
+      margin: 5px 0
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color var(--transition-duration) ease
+    }
+
+    footer a:hover {
+      color: #fff
+    }
+
+    @media (max-width:600px) {
+      h1 {
+        font-size: 32px
+      }
+
+      #description {
+        font-size: 16px;
+        margin: 10px
+      }
+
+      .button-container button {
+        font-size: 14px;
+        padding: 8px 12px
+      }
+    }
+
+    @media (max-width:767px) {
+      body {
+        padding-top: 80px
+      }
+
+      header {
+        padding: 10px;
+        height: auto
+      }
+
+      .header-logo {
+        width: 50px;
+        height: 50px
+      }
+
+      .return-button {
+        font-size: 0.85rem;
+        padding: 8px 15px
+      }
+    }
+
+    @media (max-width:480px) {
+      main {
+        max-width: 400px
+      }
+
+      h1 {
+        font-size: 1.6rem
+      }
+
+      h2 {
+        font-size: 1.2rem
+      }
+
+      h3 {
+        font-size: 1rem
+      }
+
+      p {
+        font-size: 0.9rem
+      }
+    }
+  </style>
+  <script src="../Sources/JS/excuses.js"></script>
 </head>
+
 <body>
-    <header>
-        <a href="../index.html">
-            <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
-        </a>
-        <a href="../Projet/index.html" class="return-button">Mes projets</a>
-    </header>
-    <h1>Générateur d’excuses</h1>
-    <p id="description">
+  <header>
+    <a href="../index.html" class="logo-link">
+      <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
+    </a>
+    <a href="../Projet/index.html" class="return-button">Mes projets</a>
+  </header>
+  <div class="wrapper">
+    <main>
+      <h1>Générateur d’excuses</h1>
+      <p id="description">
         Ce générateur d'excuses est avant tout conçu pour vous divertir.
         Si toutefois il vous est utile, tant mieux !
         Profitez-en pleinement et amusez-vous !
-    </p>
-    <div class="button-container">
+      </p>
+      <div class="button-container">
         <button onclick="generateExcuse('serieuse')">Sérieuse</button>
         <button onclick="generateExcuse('drole')">Drôle</button>
         <button onclick="generateExcuse('aleatoire')">Aléatoire</button>
-    </div>
-    <div class="excuse-box" id="excuseDisplay">
+      </div>
+      <div class="excuse-box" id="excuseDisplay">
         Cliquez sur un bouton pour générer une excuse !
-    </div>
-    <script src="../Sources/JS/excuses.js"></script>
-    <img id="funImage" src="../Sources/Images/excuses.png" alt="Image amusante" />
+      </div>
+      <img id="funImage" src="../Sources/Images/excuses.png" alt="Image amusante">
+    </main>
+  </div>
+  <footer>
+    <p>© 2025 ArchiveFever.work - Tous droits réservés</p>
+    <p>
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> |
+      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> |
+      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> |
+      <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
+    </p>
+  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => { const d = document.getElementById('dark-color'), dh = document.getElementById('dark-color-hex'), l = document.getElementById('light-color'), lh = document.getElementById('light-color-hex'); const defD = "#970000", defL = "#00ff00"; if (d) { d.value = defD; dh.value = defD } if (l) { l.value = defL; lh.value = defL } });
+  </script>
 </body>
+
 </html>

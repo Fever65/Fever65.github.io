@@ -12,11 +12,74 @@
         href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
         rel="stylesheet">
 
-    <link href="../Sources/CSS/header.css" rel="stylesheet">
     <link href="../Sources/CSS/fond.css" rel="stylesheet">
     <link href="../Sources/CSS/fragments.css" rel="stylesheet">
     <link rel="icon" href="../Sources/Images/Fragments.png" type="image/png">
 </head>
+<style>
+    :root {
+        --accent: #fca311;
+        --bg-primary: #0d0d0d;
+        --transition-duration: 0.3s;
+        --border-radius: 12px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+        background: transparent;
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+        z-index: 10000;
+    }
+
+    .header-logo {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        transition: transform var(--transition-duration) ease;
+    }
+
+    .header-logo:hover {
+        transform: scale(1.1);
+    }
+
+    .return-button {
+        background: none;
+        color: var(--accent);
+        padding: 8px 16px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        border: 1px solid var(--accent);
+        border-radius: var(--border-radius);
+        transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+    }
+
+    .return-button:hover {
+        background: var(--accent);
+        color: var(--bg-primary);
+    }
+
+    @media (max-width: 767px) {
+        main {
+            margin-top: 100px !important;
+        }
+    }
+</style>
 
 <body>
     <header>

@@ -1,24 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BHBST</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>BHBST - Boost Brawlhalla</title>
+  <link rel="icon" href="../Sources/Images/BHBST.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="icon" href="../Sources/Images/BHBST.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Gloria+Hallelujah&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-primary: #0d0d0d;
       --bg-secondary: #1a1a1a;
       --card-bg: rgba(26, 26, 26, 0.9);
       --accent: #fca311;
-      --text-light: #d0d0d0;
-      --text-muted: #8a8a8a;
+      --text-light: #e2e2e2;
+      --text-muted: #a0a0a0;
       --transition-duration: 0.3s;
-      --border-radius: 8px;
+      --border-radius: 12px;
+      --spacing-unit: 1.5rem;
     }
 
     * {
@@ -27,33 +30,42 @@
       box-sizing: border-box;
     }
 
-    html,
+    html {
+      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+      background-attachment: fixed;
+    }
+
     body {
       min-height: 100vh;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Source Code Pro', monospace;
       color: var(--text-light);
-      background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
     }
 
-    /* Header PC */
     header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 40px;
-      background: rgba(26, 26, 26, 0.7);
-      backdrop-filter: blur(5px);
-      position: sticky;
-      top: 0;
-      z-index: 10;
+      padding: 0 20px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      transition: background var(--transition-duration) ease;
+    }
+
+    header.scrolled {
+      background: rgba(0, 0, 0, 0.5);
     }
 
     .header-logo {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       transition: transform var(--transition-duration) ease;
     }
@@ -62,120 +74,138 @@
       transform: scale(1.1);
     }
 
+    .tab-nav {
+      display: flex;
+      gap: 10px;
+      flex-grow: 1;
+      justify-content: center;
+    }
+
+    .tab-button {
+      background: none;
+      color: var(--text-light);
+      padding: 8px 20px;
+      border: 1px solid transparent;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-duration) ease;
+    }
+
+    .tab-button:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .tab-button.active {
+      background: var(--accent);
+      color: var(--bg-primary);
+      border-color: var(--accent);
+    }
+
+    .tab-nav-mobile {
+      display: none;
+      flex-grow: 1;
+      max-width: 180px;
+      position: relative;
+    }
+
+    .tab-nav-mobile .dropdown-toggle {
+      background: rgba(26, 26, 26, 0.8);
+      color: var(--text-light);
+      padding: 8px 12px;
+      border: 1px solid var(--accent);
+      border-radius: var(--border-radius);
+      font-size: 0.9rem;
+      font-family: 'Source Code Pro', monospace;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all var(--transition-duration) ease;
+    }
+
+    .tab-nav-mobile .dropdown-toggle:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    .tab-nav-mobile .dropdown-toggle .arrow {
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .tab-nav-mobile .dropdown-toggle.active .arrow {
+      transform: rotate(180deg);
+    }
+
+    .tab-nav-mobile .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border: 1px solid var(--accent);
+      border-radius: var(--border-radius);
+      z-index: 1000;
+      margin-top: 5px;
+    }
+
+    .tab-nav-mobile .dropdown-menu.active {
+      display: block;
+    }
+
+    .tab-nav-mobile .dropdown-menu li {
+      list-style: none;
+    }
+
+    .tab-nav-mobile .dropdown-menu a {
+      display: block;
+      padding: 10px 15px;
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-family: 'Source Code Pro', monospace;
+      transition: all var(--transition-duration) ease;
+    }
+
+    .tab-nav-mobile .dropdown-menu a:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+
     .return-button {
       background: none;
       color: var(--accent);
       padding: 8px 16px;
       text-decoration: none;
       font-size: 0.9rem;
-      font-weight: 500;
+      font-weight: 600;
       border: 1px solid var(--accent);
       border-radius: var(--border-radius);
-      transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+      transition: all var(--transition-duration) ease;
     }
 
     .return-button:hover {
       background: var(--accent);
       color: var(--bg-primary);
-    }
-
-    .tab-nav {
-      display: none;
-      padding: 10px 0;
-      text-align: center;
-      background: rgba(26, 26, 26, 0.7);
-      backdrop-filter: blur(5px);
-    }
-
-    .tab-nav button {
-      background: none;
-      color: var(--text-light);
-      padding: 8px 20px;
-      margin: 0 5px;
-      border: none;
-      font-size: 1rem;
-      font-weight: 500;
-      border-radius: var(--border-radius);
-      cursor: pointer;
-      transition: color var(--transition-duration) ease, background var(--transition-duration) ease;
-    }
-
-    .tab-nav button:hover {
-      color: var(--accent);
-    }
-
-    .tab-nav button.active {
-      background: var(--accent);
-      color: var(--bg-primary);
-    }
-
-    /* Header responsive */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        align-items: center;
-        padding: 10px 20px;
-      }
-
-      .header-logo {
-        margin-bottom: 5px;
-      }
-
-      .header-center,
-      .header-right {
-        width: 100%;
-        text-align: center;
-        margin: 5px 0;
-      }
-
-      .header-right {
-        order: 3;
-      }
-
-      .tab-nav {
-        display: block;
-        width: 100%;
-        margin: 5px 0;
-      }
-
-      .tab-nav button {
-        display: block;
-        margin: 5px auto;
-        width: 90%;
-      }
-    }
-
-    @media (min-width: 769px) {
-      .tab-nav {
-        display: flex;
-        justify-content: center;
-        flex-grow: 1;
-        background: none;
-        padding: 0;
-      }
-
-      .tab-nav button {
-        flex: 1;
-        max-width: 150px;
-        text-align: center;
-      }
+      transform: translateY(-2px);
     }
 
     main {
-      flex: 1 0 auto;
-      max-width: 1400px;
-      margin: 20px auto;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex: 1;
+      max-width: 1600px;
+      margin: 80px auto 40px;
+      padding: 0 var(--spacing-unit);
     }
 
     .tab-content {
       display: none;
       opacity: 0;
       animation: fadeIn 0.5s forwards;
-      width: 100%;
     }
 
     .tab-content.active {
@@ -183,33 +213,64 @@
     }
 
     @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
+      to { opacity: 1; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      padding: var(--spacing-unit);
+      border-radius: var(--border-radius);
+      margin-bottom: var(--spacing-unit);
+      backdrop-filter: blur(5px);
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     }
 
     h2 {
-      font-size: 2rem;
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 2.5rem;
       color: var(--accent);
       text-align: center;
-      margin-bottom: 20px;
-      font-weight: 600;
+      margin-bottom: var(--spacing-unit);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     h3 {
       font-size: 1.4rem;
       color: var(--text-light);
       margin: 15px 0;
-      font-weight: 500;
+      font-weight: 600;
       text-align: center;
     }
 
     p {
       font-size: 1rem;
       color: var(--text-light);
-      line-height: 1.5;
-      margin-bottom: 15px;
+      line-height: 1.6;
       text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: var(--spacing-unit);
+      margin: 0 auto;
+    }
+
+    .pricing-grid > div {
+      background: rgba(255, 255, 255, 0.05);
+      padding: var(--spacing-unit);
+      border-radius: var(--border-radius);
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .pricing-grid > div:hover {
+      transform: scale(1.03);
     }
 
     .responsive-image {
@@ -217,26 +278,17 @@
       max-width: 350px;
       height: auto;
       border-radius: var(--border-radius);
-      margin: 15px auto;
       display: block;
+      margin: 15px auto;
       transition: transform var(--transition-duration) ease;
     }
 
     .responsive-image:hover {
-      transform: scale(1.03);
-    }
-
-    .card {
-      background: var(--card-bg);
-      padding: 15px;
-      border-radius: var(--border-radius);
-      backdrop-filter: blur(5px);
-      width: 100%;
-      max-width: 1200px;
+      transform: scale(1.05);
     }
 
     .accordion {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
       color: var(--text-light);
       padding: 12px 20px;
       margin: 10px auto;
@@ -249,12 +301,13 @@
       justify-content: space-between;
       align-items: center;
       max-width: 600px;
-      transition: background var(--transition-duration) ease, color var(--transition-duration) ease;
+      transition: all var(--transition-duration) ease;
     }
 
     .accordion:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.1);
       color: var(--accent);
+      transform: translateY(-2px);
     }
 
     .accordion.active {
@@ -277,7 +330,6 @@
       border-radius: var(--border-radius);
       max-width: 600px;
       margin: 10px auto;
-      backdrop-filter: blur(5px);
     }
 
     .panel table {
@@ -286,8 +338,7 @@
       font-size: 0.9rem;
     }
 
-    .panel th,
-    .panel td {
+    .panel th, .panel td {
       padding: 10px;
       text-align: center;
       color: var(--text-light);
@@ -297,10 +348,6 @@
       background: rgba(0, 0, 0, 0.2);
     }
 
-    .panel tr:nth-child(even) {
-      background: rgba(0, 0, 0, 0.1);
-    }
-
     .panel tr:hover {
       background: var(--accent);
       color: var(--bg-primary);
@@ -308,9 +355,9 @@
 
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-      margin: 15px 0;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
     }
 
     .gallery img {
@@ -319,55 +366,67 @@
       max-height: 400px;
       object-fit: contain;
       border-radius: var(--border-radius);
-      transition: transform var(--transition-duration) ease;
+      transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
       cursor: pointer;
     }
 
     .gallery img:hover {
-      transform: scale(1.03);
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-    /* Larger images in Feedback tab */
     #feedback .gallery {
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     }
 
-    /* Section vidéos (inchangée) */
+    .gallery-category:nth-of-type(1) .gallery {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+
     .video-container-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      margin: 20px auto;
-      max-width: 1200px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+      gap: 30px;
+      justify-items: center;
+      margin: 30px 0;
     }
 
     .video-container {
-      width: 560px;
-      height: 315px;
+      width: 100%;
+      max-width: 600px;
+      height: 338px;
       position: relative;
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .video-container:hover {
+      transform: scale(1.02);
     }
 
     .video-container iframe {
       width: 100%;
       height: 100%;
       border: none;
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
-    @media (max-width: 768px) {
-      .video-container {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16/9;
-      }
-
-      .video-container iframe {
-        width: 100%;
-        height: 100%;
-      }
+    .levels-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
     }
 
-    /* Lightbox for gallery images */
+    .levels-content a {
+      color: var(--accent);
+      text-decoration: underline;
+      transition: color var(--transition-duration) ease;
+    }
+
+    .levels-content a:hover {
+      color: var(--text-light);
+    }
+
     .lightbox {
       display: none;
       position: fixed;
@@ -376,7 +435,7 @@
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.9);
-      z-index: 100;
+      z-index: 1000;
       justify-content: center;
       align-items: center;
     }
@@ -402,22 +461,16 @@
     }
 
     footer {
-      flex-shrink: 0;
-      width: 100%;
-      background: transparent;
-      padding: 15px 0;
+      padding: 20px 0;
       text-align: center;
       font-size: 0.9rem;
       color: var(--text-muted);
     }
 
-    footer p {
-      margin: 5px 0;
-    }
-
     footer a {
       color: var(--accent);
       text-decoration: none;
+      margin: 0 5px;
       transition: color var(--transition-duration) ease;
     }
 
@@ -426,218 +479,204 @@
     }
 
     @media (max-width: 768px) {
+      header {
+        height: 60px;
+        padding: 10px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+
+      .header-logo {
+        width: 40px;
+        height: 40px;
+      }
+
+      .tab-nav {
+        display: none;
+      }
+
+      .tab-nav-mobile {
+        display: block;
+        margin: 0 10px;
+      }
+
+      .return-button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      #feedback .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .video-container {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+      }
+
+      .video-container-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+
       h2 {
-        font-size: 1.8rem;
+        font-size: 2rem;
       }
 
       h3 {
         font-size: 1.2rem;
       }
 
-      .accordion,
-      .panel {
+      .accordion, .panel {
         max-width: 100%;
-      }
-
-      .gallery img {
-        max-height: 350px;
       }
 
       .responsive-image {
         max-width: 300px;
       }
-
-      #feedback .gallery {
-        grid-template-columns: 1fr;
-      }
     }
 
-    /* Agrandir la première galerie (ELO) */
-    .gallery-category:nth-of-type(1) .gallery {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    @media (min-width: 769px) {
+      header {
+        height: 70px;
+      }
+
+      .tab-nav {
+        background: none;
+        padding: 0;
+      }
+
+      .tab-button {
+        flex: 1;
+        max-width: 180px;
+        text-align: center;
+      }
     }
   </style>
 </head>
-
 <body>
   <header>
     <a href="../index.html">
       <img src="../Sources/Images/jerome.png" alt="Logo" class="header-logo">
     </a>
-    <div class="header-center">
-      <div class="tab-nav">
-        <button class="tab-button active" onclick="openTab('pricing')">Prix</button>
-        <button class="tab-button" onclick="openTab('videos')">Vidéos</button>
-        <button class="tab-button" onclick="openTab('photos')">Photos</button>
-        <button class="tab-button" onclick="openTab('levels')">Niveaux</button>
-        <button class="tab-button" onclick="openTab('feedback')">Feedback</button>
+    <nav class="tab-nav">
+      <button class="tab-button active" onclick="openTab('pricing')">Prix</button>
+      <button class="tab-button" onclick="openTab('videos')">Vidéos</button>
+      <button class="tab-button" onclick="openTab('photos')">Photos</button>
+      <button class="tab-button" onclick="openTab('levels')">Niveaux</button>
+      <button class="tab-button" onclick="openTab('feedback')">Feedback</button>
+    </nav>
+    <div class="tab-nav-mobile">
+      <div class="dropdown-toggle" onclick="toggleDropdown()">
+        <span id="dropdown-label">Prix</span>
+        <span class="arrow">▼</span>
       </div>
+      <ul class="dropdown-menu" id="dropdown-menu">
+        <li><a href="#" onclick="openTab('pricing'); toggleDropdown()">Prix</a></li>
+        <li><a href="#" onclick="openTab('videos'); toggleDropdown()">Vidéos</a></li>
+        <li><a href="#" onclick="openTab('photos'); toggleDropdown()">Photos</a></li>
+        <li><a href="#" onclick="openTab('levels'); toggleDropdown()">Niveaux</a></li>
+        <li><a href="#" onclick="openTab('feedback'); toggleDropdown()">Feedback</a></li>
+      </ul>
     </div>
-    <div class="header-right">
-      <a href="../Projet/index.html" class="return-button">Mes projets</a>
-    </div>
+    <a href="../Projet/index.html" class="return-button">Mes projets</a>
   </header>
+
   <main>
     <!-- Pricing Tab -->
     <div id="pricing" class="tab-content active">
       <section class="card">
         <h2>Prix</h2>
-        <div>
-          <h3>Boost de Rang 1v1</h3>
-          <img src="../Sources/Images/elo.png" alt="Boost Rang" class="responsive-image">
-          <p>Choisissez votre ELO cible, je m'occupe du reste.</p>
-          <button class="accordion">Tarifs <span class="arrow">▼</span></button>
-          <div class="panel">
-            <table>
-              <thead>
-                <tr>
-                  <th>ELO</th>
-                  <th>Prix (€)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1800</td>
-                  <td>45</td>
-                </tr>
-                <tr>
-                  <td>1900</td>
-                  <td>50</td>
-                </tr>
-                <tr>
-                  <td>2000</td>
-                  <td>55</td>
-                </tr>
-                <tr>
-                  <td>2100</td>
-                  <td>60</td>
-                </tr>
-                <tr>
-                  <td>2200</td>
-                  <td>70</td>
-                </tr>
-                <tr>
-                  <td>2300</td>
-                  <td>80</td>
-                </tr>
-                <tr>
-                  <td>2400</td>
-                  <td>90</td>
-                </tr>
-                <tr>
-                  <td>2500</td>
-                  <td>100</td>
-                </tr>
-                <tr>
-                  <td>2600</td>
-                  <td>125</td>
-                </tr>
-                <tr>
-                  <td>2700</td>
-                  <td>200</td>
-                </tr>
-                <tr>
-                  <td>2800</td>
-                  <td>400</td>
-                </tr>
-                <tr>
-                  <td>Autres</td>
-                  <td>Discord: fever65</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="pricing-grid">
+          <div>
+            <h3>Boost de Rang 1v1</h3>
+            <img src="../Sources/Images/elo.png" alt="Boost Rang" class="responsive-image">
+            <p>Choisissez votre ELO cible, je m'occupe du reste.</p>
+            <button class="accordion">Tarifs <span class="arrow">▼</span></button>
+            <div class="panel">
+              <table>
+                <thead><tr><th>ELO</th><th>Prix (€)</th></tr></thead>
+                <tbody>
+                  <tr><td>1800</td><td>45</td></tr>
+                  <tr><td>1900</td><td>50</td></tr>
+                  <tr><td>2000</td><td>55</td></tr>
+                  <tr><td>2100</td><td>60</td></tr>
+                  <tr><td>2200</td><td>70</td></tr>
+                  <tr><td>2300</td><td>80</td></tr>
+                  <tr><td>2400</td><td>90</td></tr>
+                  <tr><td>2500</td><td>100</td></tr>
+                  <tr><td>2600</td><td>125</td></tr>
+                  <tr><td>2700</td><td>200</td></tr>
+                  <tr><td>2800</td><td>400</td></tr>
+                  <tr><td>Autres</td><td>Discord: fever65</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div>
-          <h3>Boost de Niveau</h3>
-          <img src="../Sources/Images/level.png" alt="Boost Niveau" class="responsive-image">
-          <p>Je monte votre légende au niveau souhaité.</p>
-          <button class="accordion">Tarifs <span class="arrow">▼</span></button>
-          <div class="panel">
-            <table>
-              <thead>
-                <tr>
-                  <th>Niveau</th>
-                  <th>Prix (€)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>25</td>
-                  <td>30</td>
-                </tr>
-                <tr>
-                  <td>50</td>
-                  <td>150</td>
-                </tr>
-                <tr>
-                  <td>100</td>
-                  <td>750</td>
-                </tr>
-                <tr>
-                  <td>Autres</td>
-                  <td>Discord: fever65</td>
-                </tr>
-              </tbody>
-            </table>
+          <div>
+            <h3>Boost de Niveau</h3>
+            <img src="../Sources/Images/level.png" alt="Boost Niveau" class="responsive-image">
+            <p>Je monte votre légende au niveau souhaité.</p>
+            <button class="accordion">Tarifs <span class="arrow">▼</span></button>
+            <div class="panel">
+              <table>
+                <thead><tr><th>Niveau</th><th>Prix (€)</th></tr></thead>
+                <tbody>
+                  <tr><td>25</td><td>30</td></tr>
+                  <tr><td>50</td><td>150</td></tr>
+                  <tr><td>100</td><td>750</td></tr>
+                  <tr><td>Autres</td><td>Discord: fever65</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div>
-          <h3>Analyse de Parties</h3>
-          <img src="../Sources/Images/adp.png" alt="Analyse" class="responsive-image">
-          <p>Analyse détaillée pour améliorer votre jeu.</p>
-          <button class="accordion">Tarifs <span class="arrow">▼</span></button>
-          <div class="panel">
-            <table>
-              <thead>
-                <tr>
-                  <th>Parties</th>
-                  <th>Prix (€)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>10</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>15</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>20</td>
-                </tr>
-                <tr>
-                  <td>Autres</td>
-                  <td>Discord: fever65</td>
-                </tr>
-              </tbody>
-            </table>
+          <div>
+            <h3>Analyse de Parties</h3>
+            <img src="../Sources/Images/adp.png" alt="Analyse" class="responsive-image">
+            <p>Analyse détaillée pour améliorer votre jeu.</p>
+            <button class="accordion">Tarifs <span class="arrow">▼</span></button>
+            <div class="panel">
+              <table>
+                <thead><tr><th>Parties</th><th>Prix (€)</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>10</td></tr>
+                  <tr><td>2</td><td>15</td></tr>
+                  <tr><td>3</td><td>20</td></tr>
+                  <tr><td>Autres</td><td>Discord: fever65</td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>
     </div>
+
     <!-- Videos Tab -->
     <div id="videos" class="tab-content">
       <section class="card">
         <h2>Galerie de Vidéos</h2>
         <div class="video-container-wrapper">
           <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/-Lb3vaNyGmE?rel=0&vq=hd1080" allow="autoplay; encrypted-media"
-              allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/-Lb3vaNyGmE?rel=0&vq=hd1080" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
           <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/Z7fTeFNsDOw?si=Oom0GMLbst9t2VMe&rel=0&vq=hd1080"
-              allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/Z7fTeFNsDOw?si=Oom0GMLbst9t2VMe&rel=0&vq=hd1080" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
           <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/82y4KdJXQ8k?rel=0&vq=hd1080" allow="autoplay; encrypted-media"
-              allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/82y4KdJXQ8k?rel=0&vq=hd1080" allow="autoplay; encrypted-media" allowfullscreen></iframe>
           </div>
         </div>
       </section>
     </div>
+
     <!-- Photos Tab -->
     <div id="photos" class="tab-content">
       <section class="card">
@@ -722,29 +761,19 @@
         </div>
       </section>
     </div>
-    <!-- Levels Tab (mise à jour avec explication et liens) -->
+
+    <!-- Levels Tab -->
     <div id="levels" class="tab-content">
       <section class="card">
         <h2>Niveaux</h2>
-        <p>
-          Black Valhalla est un site web qui te permet de connaître le niveau de tes légendes sur Brawlhalla. Bien
-          meilleur que Corehalla (souvent en panne, dépassé et saturé de pubs), il offre une interface moderne et
-          toujours à jour.
-        </p>
-        <p>
-          Pour découvrir Black Valhalla, clique ici :
-          <a href="https://douwdy.github.io/BlackValhalla" target="_blank" style="color: var(--accent);">
-            Visiter Black Valhalla
-          </a>
-        </p>
-        <p>
-          Pour en savoir plus sur D0uwdy et découvrir son portfolio, consulte ce lien :
-          <a href="https://slashend.ovh" target="_blank" style="color: var(--accent);">
-            Portfolio de D0uwdy
-          </a>
-        </p>
+        <div class="levels-content">
+          <p>Black Valhalla est un site web qui te permet de connaître le niveau de tes légendes sur Brawlhalla. Bien meilleur que Corehalla (souvent en panne, dépassé et saturé de pubs), il offre une interface moderne et toujours à jour.</p>
+          <p>Pour découvrir Black Valhalla, clique ici : <a href="https://douwdy.github.io/BlackValhalla" target="_blank">Visiter Black Valhalla</a></p>
+          <p>Pour en savoir plus sur D0uwdy et découvrir son portfolio, consulte ce lien : <a href="https://slashend.ovh" target="_blank">Portfolio de D0uwdy</a></p>
+        </div>
       </section>
     </div>
+
     <!-- Feedback Tab -->
     <div id="feedback" class="tab-content">
       <section class="card">
@@ -758,11 +787,12 @@
       </section>
     </div>
   </main>
-  <!-- Lightbox -->
+
   <div class="lightbox" id="lightbox">
     <span class="lightbox-close" onclick="closeLightbox()">×</span>
     <img id="lightbox-image" src="" alt="Lightbox Image">
   </div>
+
   <footer>
     <p>© 2025 ArchiveFever.work - Tous droits réservés</p>
     <p>
@@ -772,15 +802,26 @@
       <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
     </p>
   </footer>
+
   <script>
     function openTab(tabName) {
-      const tabs = document.querySelectorAll('.tab-content');
-      const buttons = document.querySelectorAll('.tab-button');
-      tabs.forEach(tab => tab.classList.remove('active'));
-      buttons.forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
       document.getElementById(tabName).classList.add('active');
       document.querySelector(`button[onclick="openTab('${tabName}')"]`).classList.add('active');
+      const dropdownLabel = document.getElementById('dropdown-label');
+      if (dropdownLabel) {
+        dropdownLabel.textContent = tabName.charAt(0).toUpperCase() + tabName.slice(1);
+      }
     }
+
+    function toggleDropdown() {
+      const dropdownToggle = document.querySelector('.dropdown-toggle');
+      const dropdownMenu = document.getElementById('dropdown-menu');
+      dropdownToggle.classList.toggle('active');
+      dropdownMenu.classList.toggle('active');
+    }
+
     document.querySelectorAll('.accordion').forEach(acc => {
       acc.addEventListener('click', () => {
         acc.classList.toggle('active');
@@ -788,7 +829,7 @@
         panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
       });
     });
-    // Lightbox functionality
+
     const lightbox = document.getElementById('lightbox');
     const lightboxImage = document.getElementById('lightbox-image');
     document.querySelectorAll('.gallery img').forEach(img => {
@@ -797,16 +838,23 @@
         lightbox.style.display = 'flex';
       });
     });
+
     function closeLightbox() {
       lightbox.style.display = 'none';
     }
-    // Close lightbox when clicking outside the image
+
     lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        closeLightbox();
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
       }
     });
   </script>
 </body>
-
 </html>

@@ -167,9 +167,6 @@ document.addEventListener("DOMContentLoaded", function () {
   firstLoading = false;
 });
 
-audioSelector.addEventListener("input", () => {
-  audio.volume = audioSelector.value / 100;
-});
 
 const infoButton = document.getElementById("info-button");
 const infoWindow = document.getElementById("info-window");

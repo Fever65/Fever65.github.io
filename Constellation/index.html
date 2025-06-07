@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Connexion – Constellation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #ffffff;
+      font-family: 'Source Code Pro', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      min-height: 100vh;
+    }
+    input[type="email"] {
+      padding: 10px;
+      margin: 15px 0;
+      width: 100%;
+      max-width: 350px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #fca311;
+      color: #000;
+      padding: 10px 20px;
+      border: none;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #ffb933;
+    }
+    #message {
+      margin-top: 20px;
+      max-width: 400px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Connexion à Constellation</h1>
+  <p>Entre ton e-mail pour recevoir un lien magique sécurisé</p>
+
+  <input type="email" id="email" placeholder="Adresse e-mail">
+  <button onclick="sendMagicLink()">Recevoir le lien</button>
+
+  <p id="message"></p>
+
+  <script>
+    // ✅ CONFIG FIREBASE – remplis avec TES vraies infos !
+    const firebaseConfig = {
+      apiKey: "AIzaSyAH2SjTxg5MLCjNpjT1rjM62QK6iJ98-bU",
+      authDomain: "constellation-fever.firebaseapp.com",
+      projectId: "constellation-fever",
+      appId: "1:988871299589:web:f48496122b1ca5b766026c"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    function sendMagicLink() {
+      const email = document.getElementById("email").value;
+      const actionCodeSettings = {
+        url: "https://archivefever.work/Constellation/index.html",
+        handleCodeInApp: true
+      };
+
+      firebase.auth().sendSignInLinkToEmail(email, actionCodeSettings)
+        .then(() => {
+          window.localStorage.setItem('emailForSignIn', email);
+          document.getElementById("message").innerText = "Lien envoyé à " + email;
+        })
+        .catch((error) => {
+          document.getElementById("message").innerText = "Erreur : " + error.message;
+          console.error(error);
+        });
+    }
+
+    window.addEventListener('load', () => {
+      if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+        let email = window.localStorage.getItem('emailForSignIn');
+        if (!email) {
+          email = window.prompt("Entre à nouveau ton e-mail");
+        }
+
+        firebase.auth().signInWithEmailLink(email, window.location.href)
+          .then(() => {
+            document.getElementById("message").innerText = "Connexion réussie ! Bienvenue ✨";
+          })
+          .catch((error) => {
+            document.getElementById("message").innerText = "Erreur : " + error.message;
+            console.error(error);
+          });
+      }
+    });
+  </script>
+</body>
+</html>

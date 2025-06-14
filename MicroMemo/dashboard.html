@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MicroMemo</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../Sources/Images/MicroMemo.png">
+  <link rel="shortcut icon" href="../Sources/Images/MicroMemo.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="script.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div id="logo">
+      <a href="../index.html" title="MicroMemo">
+        <img src="../Sources/Images/jerome.png" alt="Logo MicroMemo">
+      </a>
+    </div>
+    <h2>Mon message secret (500 caractères max)</h2>
+    <form id="secretForm">
+      <textarea id="secret" rows="5" maxlength="500" placeholder="Ton message..."></textarea>
+      <p id="error" class="form-error"></p>
+      <p id="success" class="form-success"></p>
+      <button type="submit">Enregistrer</button>
+    </form>
+    <div class="nav-links">
+      <a href="change_password.html">Changer mot de passe</a><span class="sep">|</span><a href="delete_account.html">Supprimer le compte</a><span class="sep">|</span><a href="#" onclick="logout()">Déconnexion</a>
+    </div>
+  </div>
+</body>
+</html>

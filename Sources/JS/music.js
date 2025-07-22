@@ -19,9 +19,9 @@ const songs = [
 
 let firstLoading = true;
 let currentSongIndex = 0;
-let isRandom = false; // mode random activé ou non
-let shuffleQueue = []; // liste des indices restants à jouer en mode random
-let shuffleHistory = []; // historique pour le bouton précédent en mode random
+let isRandom = false; 
+let shuffleQueue = []; 
+let shuffleHistory = []; 
 
 const cardWrapper = document.querySelector(".card-wrapper");
 const audio = new Audio();
@@ -56,10 +56,8 @@ function updatePlayer(index) {
   }
 }
 
-// Génère une file de lecture random sans répéter la chanson en cours
 function generateShuffleQueue() {
   let indices = songs.map((_, i) => i).filter(i => i !== currentSongIndex);
-  // Fisher-Yates pour mélanger
   for (let i = indices.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [indices[i], indices[j]] = [indices[j], indices[i]];
@@ -92,7 +90,6 @@ nextButton.addEventListener("click", () => {
 prevButton.addEventListener("click", () => {
   if (isRandom) {
     if (shuffleHistory.length > 0) {
-      // Remet la chanson courante dans la file pour la rejouer plus tard
       shuffleQueue.unshift(currentSongIndex);
       currentSongIndex = shuffleHistory.pop();
     }
@@ -102,13 +99,11 @@ prevButton.addEventListener("click", () => {
   updatePlayer(currentSongIndex);
 });
 
-// Bascule le mode random et génère la file de lecture
 randomButton.addEventListener("click", () => {
   isRandom = !isRandom;
   randomButton.style.color = isRandom ? "red" : "";
   if (isRandom) {
     generateShuffleQueue();
-    // Optionnel : jouer immédiatement une musique aléatoire
     shuffleHistory.push(currentSongIndex);
     currentSongIndex = shuffleQueue.shift();
     updatePlayer(currentSongIndex);

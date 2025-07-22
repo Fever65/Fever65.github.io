@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merci pour ton soutien</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap"
+    rel="stylesheet">
+  <link rel="icon" href="../../Sources/Images/Fever.png" type="image/png">
+
+  <style>
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --accent: #ff8c00;
+      --muted: #999;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Source Code Pro', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 10px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 30px 0 20px;
+    }
+
+    header img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    h1 {
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 2.4rem;
+      color: var(--accent);
+      text-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
+    }
+
+    main.presentation {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      text-align: center;
+      gap: 30px;
+      flex-grow: 1;
+    }
+
+    .fever-img {
+      width: 225px;
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+    }
+
+    .intro-texte {
+      font-size: 1.1rem;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .support-button {
+      display: inline-block;
+      margin-top: 20px;
+      background: #ff8c00;
+      color: #000;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+
+    .support-button:hover {
+      background: #ffaa33;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 30px 10px 10px;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin-bottom: 6px;
+    }
+
+    .links a {
+      color: var(--fg);
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    .links a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      footer {
+        font-size: 0.85rem;
+        padding: 20px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="../../index.html">
+      <img src="../../Sources/Images/jerome.png" alt="Logo Jérôme" />
+    </a>
+    <h1>Merci !</h1>
+  </header>
+
+  <main class="presentation">
+    <p class="intro-texte">
+      Merci du fond du cœur pour ton soutien 💛<br /><br />
+      Chaque geste compte et me motive à continuer à créer des projets simples, beaux et utiles.<br /><br />
+      Si tu veux aller plus loin, tu peux me soutenir directement sur PayPal :
+    </p>
+    <a href="https://www.paypal.com/paypalme/Fever65" target="_blank" class="support-button">Soutenir sur PayPal</a>
+  </main>
+
+  <footer>
+    <p>Mes réseaux</p>
+    <div class="links">
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> ·
+      <a href="https://instagram.com/infinity_lbrtr" target="_blank">Instagram</a> ·
+      <a href="https://twitch.tv/feveeeer" target="_blank">Twitch</a> ·
+      <a href="https://youtube.com/@Fever65" target="_blank">YouTube</a> ·
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
+    </div>
+  </footer>
+</body>
+
+</html>

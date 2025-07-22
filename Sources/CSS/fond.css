@@ -1,9 +1,0 @@
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    background: #0e0e0e url('https://www.transparenttextures.com/patterns/black-linen.png');
-    font-family: 'Gloria Hallelujah', cursive;
-    color: #fff;
-}

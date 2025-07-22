@@ -1,0 +1,160 @@
+:root {
+  --bg: #000;
+  --fg: #fff;
+  --accent: #ff8c00;
+  --muted: #999;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Source Code Pro', monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body {
+  padding: 0;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 30px 0 20px;
+}
+
+header img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+h1 {
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 2.4rem;
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 1300px;
+}
+
+.content {
+  width: 100%;
+}
+
+.config-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .config-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .config-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .config-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 400px) {
+  .config-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.config-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 14px;
+  transition: 0.3s ease;
+  min-height: 90px;
+}
+
+.config-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.config-item strong {
+  color: var(--accent);
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.config-item span {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Footer clean et cohérent */
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  margin-top: auto;
+  padding: 30px 10px 10px;
+  width: 100%;
+}
+
+footer p {
+  margin-bottom: 6px;
+}
+
+footer .links a {
+  color: var(--fg);
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+footer .links a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  footer {
+    font-size: 0.85rem;
+    padding: 20px 10px;
+  }
+}

@@ -1,261 +1,108 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#000000">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Portfolio - Fever</title>
-  <link rel="icon" href="../Sources/Images/jerome.png" type="image/png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&family=Gloria+Hallelujah&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      background: #000000;
-      min-height: 100vh;
-    }
-
-    body {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-family: 'Source Code Pro', monospace;
-      color: #f5f5f5;
-      padding: 10px env(safe-area-inset-top) env(safe-area-inset-bottom) env(safe-area-inset-left) env(safe-area-inset-right);
-    }
-
-    .wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 800px;
-      width: 100%;
-      margin-top: 50px;
-      flex-grow: 1;
-    }
-
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 15px;
-      margin: 20px 0;
-    }
-
-    .logo-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.3s ease, filter 0.3s ease;
-    }
-
-    .logo-button img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-    }
-
-    .logo-button:hover {
-      transform: scale(1.1);
-      filter: drop-shadow(0 0 8px #ff8c00);
-    }
-
-    .page-title {
-      font-family: 'Gloria Hallelujah', cursive;
-      font-size: 2.8rem;
-      color: #ff8c00;
-      text-shadow: 0 0 8px rgba(255, 140, 0, 0.6);
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      padding: 20px;
-    }
-
-    main section {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 25px;
-      width: 100%;
-    }
-
-    main h1,
-    main h2 {
-      font-family: 'Gloria Hallelujah', cursive;
-      color: #ff4444;
-      margin-bottom: 12px;
-      text-shadow: 0 0 8px rgba(255, 68, 68, 0.5);
-    }
-
-    main h1 {
-      font-size: 2.2rem;
-    }
-
-    main h2 {
-      font-size: 1.8rem;
-    }
-
-    main p {
-      font-size: 1.2rem;
-      line-height: 1.6;
-      margin-bottom: 12px;
-      text-align: center;
-      max-width: 600px;
-      color: #f5f5f5;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
-    }
-
-    .project-link {
-      display: inline-block;
-      padding: 10px 20px;
-      text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-top: 12px;
-      border-radius: 8px;
-      background: #ff8c00;
-      color: #ffffff;
-      border: 2px solid transparent;
-      transition: all 0.3s ease;
-      text-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .project-link:hover {
-      background: #000000;
-      border: 2px solid #ff8c00;
-      color: #ff8c00;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(255, 140, 0, 0.4);
-    }
-
-    .highlight {
-      color: #ffcc00;
-      font-weight: 600;
-      text-shadow: 0 0 4px rgba(255, 204, 0, 0.5);
-    }
-
-    footer {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 15px 0;
-      font-size: 0.9rem;
-      color: #b0b0b0;
-      font-family: 'Source Code Pro', monospace;
-    }
-
-    footer p {
-      margin: 2px 0;
-      text-align: center;
-    }
-
-    footer a {
-      color: #ffcc00;
-      text-decoration: none;
-      transition: color 0.3s ease;
-      text-shadow: 0 0 4px rgba(255, 204, 0, 0.5);
-    }
-
-    footer a:hover {
-      color: #ff8c00;
-      text-shadow: 0 0 4px rgba(255, 140, 0, 0.5);
-    }
-
-    @media (max-width: 767px) {
-      .wrapper {
-        margin-top: 30px;
-      }
-
-      .top-bar {
-        gap: 10px;
-        margin: 15px 0;
-      }
-
-      .logo-button img {
-        width: 60px;
-        height: 60px;
-      }
-
-      .page-title {
-        font-size: 2.2rem;
-      }
-
-      main h1 {
-        font-size: 2rem;
-      }
-
-      main h2 {
-        font-size: 1.6rem;
-      }
-
-      main p {
-        font-size: 1rem;
-      }
-
-      .project-link {
-        padding: 8px 16px;
-        font-size: 1rem;
-      }
-
-      footer {
-        font-size: 0.8rem;
-      }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="Sources/Images/jerome.png" type="image/png">
+  <title>ArchiveFever.Work ∙ Accueil</title>
+  <link rel="stylesheet" href="Sources/CSS/style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap"
+    rel="stylesheet" />
 </head>
-<body>
-  <div class="wrapper">
-    <div class="top-bar">
-      <button class="logo-button" onclick="playSound()" aria-label="Jouer le son du logo">
-        <img src="../Sources/Images/jerome.png" alt="Logo">
-      </button>
-      <div class="page-title">ArchiveFever.work</div>
-    </div>
 
-    <main>
-      <section>
-        <h1>Bienvenue !</h1>
-        <p>Je suis <span class="highlight">Sylvain Hirtz</span>, un passionné de développement web. Cette page est conçue pour présenter mes <span class="highlight">projets</span> et proposer des contenus <span class="highlight">utiles</span> ou <span class="highlight">divertissants</span>.</p>
-      </section>
-      <section>
-        <h2>Mes Projets</h2>
-        <p>Découvrez mes créations, des applications web aux outils pratiques, conçus avec passion et créativité.</p>
-        <a href="Projet/index.html" class="project-link" aria-label="Voir mes projets">Explorer mes projets</a>
-      </section>
-    </main>
+<body>
+  <header>
+    <img src="Sources/Images/jerome.png" alt="Logo" onclick="playMiaou()" />
+    <h1>ArchiveFever.Work</h1>
+  </header>
+
+  <div class="intro-section">
+    <h2>Bienvenue !</h2>
+    <p>
+      Je suis <a href="Projets/Fever/index.html" class="no-underline"><strong>Sylvain Hirtz</strong></a>. Je crée mes propres projets web tout en développant des sites pour des
+      personnes qui, selon moi, méritent de gagner en visibilité. Cette page présente mes projets utiles ou artistiques.
+    </p>
+    <h2>Mes Projets</h2>
+    <p>
+      Je présente ici mes outils, mes créations personnelles, ainsi que les projets, personnes et clients que je
+      soutiens.
+    </p>
+  </div>
+
+  <div class="project-section">
+    <section class="section">
+      <div class="section-label" onclick="toggleSection('Mes outils pratiques')">
+        Mes outils pratiques <span class="toggle-icon" id="icon-Mes outils pratiques">➕</span>
+      </div>
+      <div class="project-list" id="Mes outils pratiques">
+        <a href="Projets/QR/index.html" class="project"><img src="Sources/Images/QR.png" alt="QR"></a>
+        <a href="Projets/WQR/index.html" class="project"><img src="Sources/Images/WQR.png" alt="WQR"></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label" onclick="toggleSection('Mes albums crées par IA')">
+        Mes albums crées par IA <span class="toggle-icon" id="icon-Mes albums crées par IA">➕</span>
+      </div>
+      <div class="project-list" id="Mes albums crées par IA">
+        <a href="Albums/Fragments/index.html" class="project"><img src="Sources/Images/Fragments.png" alt="Fragments"></a>
+        <a href="Albums/Ocean/index.html" class="project"><img src="Sources/Images/Ocean.png" alt="Ocean"></a>
+        <a href="Albums/203/index.html" class="project"><img src="Sources/Images/203.png" alt="203"></a>
+        <a href="Albums/MementoMori/index.html" class="project"><img src="Sources/Images/MementoMori.png" alt="Memento Mori"></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label" onclick="toggleSection('À propos de moi')">
+        À propos de moi <span class="toggle-icon" id="icon-À propos de moi">➕</span>
+      </div>
+      <div class="project-list" id="À propos de moi">
+        <a href="/projets/Fever/index.html" class="project"><img src="Sources/Images/Fever.png" alt="Fever"></a>
+        <a href="/projets/Setup/index.html" class="project"><img src="Sources/Images/setup.png" alt="Setup"></a>
+        <a href="/projets/Merci/index.html" class="project"><img src="Sources/Images/merci.png" alt="Merci"></a>
+      </div>
+
+    </section>
+    <section class="section">
+      <div class="section-label" onclick="toggleSection('Ils ont mon soutien')">
+        Ils ont mon soutien <span class="toggle-icon" id="icon-Ils ont mon soutien">➕</span>
+      </div>
+      <div class="project-list" id="Ils ont mon soutien">
+        <a href="MarleyAndMe/index.html" class="project"><img src="Sources/Images/Marley.png"
+            alt="Marley And Me"></a>
+      </div>
+    </section>
   </div>
 
   <footer>
-    <p>© 2025 ArchiveFever.work - Tous droits réservés</p>
+    <p><strong>Mes réseaux</strong></p>
     <p>
-      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> |
-      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> |
-      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> |
-      <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a>
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> ·
+      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> ·
+      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> ·
+      <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a> ·
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
     </p>
   </footer>
 
-  <audio id="click-sound" src="../Sources/Sons/miaou.mp3"></audio>
+  <audio id="miaou" src="Sources/Sons/miaou.mp3" preload="auto"></audio>
+
   <script>
-    function playSound() {
-      const sound = document.getElementById('click-sound');
-      sound.currentTime = 0;
-      sound.play();
+    function toggleSection(id) {
+      const section = document.getElementById(id);
+      const icon = document.getElementById("icon-" + id);
+      const open = section.classList.toggle('open');
+      icon.textContent = open ? '➖' : '➕';
+    }
+
+    function playMiaou() {
+      const audio = document.getElementById("miaou");
+      audio.currentTime = 0;
+      audio.play();
     }
   </script>
 </body>
+
 </html>

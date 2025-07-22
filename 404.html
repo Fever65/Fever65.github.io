@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Erreur 404</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="Sources/Images/rat.png" type="image/png" />
+
+  <!-- Police -->
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --fg: #ffffff;
+      --accent: #ff8c00;
+      --muted: #888;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Source Code Pro', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .terminal {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      max-width: 90vw;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .header-404 {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .header-404 img {
+      height: 75px;
+      width: auto;
+    }
+
+    .header-404 h1 {
+      color: var(--accent);
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .line {
+      color: var(--muted);
+      white-space: pre-wrap;
+    }
+
+    .prompt {
+      display: flex;
+      align-items: center;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      height: 18px;
+      background: var(--fg);
+      margin-left: 6px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .return-button {
+      margin-top: 1.5rem;
+      align-self: center;
+    }
+
+    .return-button a {
+      color: var(--fg);
+      border: 1px solid var(--fg);
+      padding: 0.6rem 1.5rem;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .return-button a:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .header-404 h1 {
+        font-size: 3rem;
+      }
+
+      .header-404 img {
+        height: 40px;
+      }
+
+      .return-button a {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="terminal">
+    <div class="header-404">
+      <img src="Sources/Images/rat.png" alt="rat" />
+      <h1>Il n'y a rien ici.</h1>
+    </div>
+    <div class="line">&gt; Page introuvable.</div>
+    <div class="line">&gt; Une erreur s’est produite lors de la tentative d’accès.</div>
+    <div class="line">&gt; Le fichier demandé est absent ou a été déplacé.</div>
+    <div class="line">&gt; Cliquez sur “Retour à l’accueil” pour continuer...</div>
+
+    <div class="return-button">
+      <a href="index.html">Retour à l’accueil</a>
+    </div>
+  </div>
+
+</body>
+</html>

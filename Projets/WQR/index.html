@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Wi-Fi ∙ Fever Tools</title>
+  <link rel="stylesheet" href="../../Sources/CSS/ColorQR.css" />
+  <link rel="icon" type="image/png" href="../../Sources/Images/QR.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <a href="../../index.html"><img src="../../Sources/Images/jerome.png" alt="Logo Jérôme" class="jerome-logo"></a>
+    <h1>Wi-Fi QR</h1>
+  </header>
+
+  <main>
+    <form id="qrForm">
+      <div class="form-row">
+        <label for="ssidInput">Nom du réseau (SSID) :</label>
+        <input type="text" id="ssidInput" required>
+      </div>
+
+      <div class="form-row">
+        <label for="passwordInput">Mot de passe :</label>
+        <input type="text" id="passwordInput">
+      </div>
+
+      <div class="form-row">
+        <label for="securitySelect">Sécurité :</label>
+        <select id="securitySelect">
+          <option value="WPA">WPA/WPA2</option>
+          <option value="WEP">WEP</option>
+          <option value="nopass">Aucune</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="primaryColor">Couleur principale :</label>
+        <input type="color" id="primaryColor" value="#ff8c00">
+        <input type="text" id="primaryText" value="#ff8c00" class="color-value">
+      </div>
+
+      <div class="form-row">
+        <label for="secondaryColor">Couleur secondaire :</label>
+        <input type="color" id="secondaryColor" value="#970000">
+        <input type="text" id="secondaryText" value="#970000" class="color-value">
+      </div>
+
+      <div class="form-row checkbox">
+        <label for="borderToggle">Créer une bordure</label>
+        <input type="checkbox" id="borderToggle">
+      </div>
+
+      <button type="button" id="generateBtn">Générer le QR Code Wi-Fi</button>
+    </form>
+
+    <div id="qrContainer" class="hidden">
+      <canvas id="qrCode"></canvas>
+      <a id="downloadBtn" class="hidden" download="wifi-qr.png">Télécharger le QR Code</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>Mes réseaux</p>
+    <div class="links">
+      <a href="https://twitter.com/infinity_lbrtr" target="_blank">X</a> ·
+      <a href="https://www.instagram.com/infinity_lbrtr/" target="_blank">Instagram</a> ·
+      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> ·
+      <a href="https://www.youtube.com/@Fever65" target="_blank">YouTube</a> ·
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script src="../../Sources/JS/wifi-qr.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="../../Sources/Images/Oneiiq.png" type="image/png" />
+  <title>ArchiveFever.Work • Oneiiq</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background-color: #000;
+      color: #f9f9f9;
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+      padding: 4rem 1.5rem;
+    }
+
+    .section.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .title-3d {
+      color: #f9fafb;
+      text-shadow:
+        1px 1px 0 #8b5cf6,
+        2px 2px 0 #ec4899,
+        3px 3px 0 #6b21a8;
+    }
+
+    .subtitle {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .paragraph {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto 2.5rem auto;
+      padding: 0 1rem;
+      color: #cbd5e1;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 220px;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      text-decoration: none;
+      background: linear-gradient(to right, #5a2ea6, #9146FF);
+      box-shadow: 0 4px 15px rgba(145, 70, 255, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .social-btn i {
+      font-size: 1.2rem;
+    }
+
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(145, 70, 255, 0.5);
+    }
+
+    footer {
+      font-size: 0.75rem;
+      color: #7b7f88;
+      text-align: center;
+      padding: 2rem 0 1rem 0;
+      margin-top: 3rem;
+    }
+
+    footer a {
+      color: #8b5cf6;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO avec effet 3D + fond doux -->
+  <section class="min-h-screen flex items-center justify-center text-center px-4">
+    <div class="bg-gradient-to-br from-[#1e1b4b] via-[#312e81] to-[#111827] p-6 rounded-xl shadow-xl">
+      <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[8rem] font-extrabold uppercase leading-tight text-white title-3d">
+        Oneiiq
+      </h1>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section class="section">
+    <div>
+      <h2 class="subtitle">Qui je suis</h2>
+      <p class="paragraph">
+        Moi c’est <span class="text-purple-400 font-semibold">Oneiiq</span>. J’ai <span class="text-indigo-300 font-semibold">29 ans</span>, et je suis un mec simple avec une <span class="text-green-400 font-semibold">volonté en béton</span>.  
+        J’ai commencé avec une connexion à <span class="text-yellow-400 font-semibold">75Mo</span> et zéro centime, dans une période <span class="text-pink-400 font-semibold">très compliquée</span>.  
+        Aujourd’hui, j’avance à la <span class="text-green-400 font-semibold">fibre</span>, avec un seul objectif : devenir le <span class="text-red-400 font-semibold">"n°1"</span> des streamers les moins "smart" de Twitch.  
+        Pas par auto-dérision, mais pour prouver que même <span class="text-blue-400 font-semibold">sans être parfait</span>, avec de la <span class="text-pink-300 font-semibold">passion</span> et de la <span class="text-purple-300 font-semibold">persévérance</span>, on peut tout accomplir.
+      </p>
+    </div>
+  </section>
+
+  <!-- MON PROJET -->
+  <section class="section">
+    <div>
+      <h2 class="subtitle">Mon projet</h2>
+      <p class="paragraph">
+        Ce que je construis, c’est bien plus qu’un simple stream.  
+        C’est une <span class="text-green-400 font-semibold">aventure humaine</span>, un défi personnel.  
+        Je veux que chacun se sente <span class="text-yellow-400 font-semibold">inclus</span>, qu’il puisse rire, s’évader, croire de nouveau.  
+        Parce qu’un <span class="text-pink-400 font-semibold">roi sans son royaume</span>, c’est juste un gars avec une couronne.  
+        Et un projet sans sa communauté ? C’est rien. Ici, <span class="text-blue-400 font-semibold">on avance ensemble</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- POURQUOI C'EST UTILE -->
+  <section class="section">
+    <div>
+      <h2 class="subtitle">Pourquoi c’est utile</h2>
+      <p class="paragraph">
+        Ce projet existe parce qu’il est devenu <span class="text-indigo-400 font-semibold">nécessaire</span>.  
+        Dans un monde saturé de <span class="text-red-400 font-semibold">stress</span>, de <span class="text-yellow-400 font-semibold">peur</span> et de <span class="text-pink-400 font-semibold">mauvaises nouvelles</span>,  
+        je veux offrir une <span class="text-green-400 font-semibold">bouffée d’air</span>.  
+        Un espace sincère, sans pression, où on peut <span class="text-blue-400 font-semibold">respirer</span>, <span class="text-indigo-300 font-semibold">rêver</span>, <span class="text-pink-300 font-semibold">recharger</span>.  
+        Là où certains ferment les portes, moi je veux créer des <span class="text-purple-300 font-semibold">ponts</span>.
+      </p>
+    </div>
+  </section>
+
+  <!-- REJOINS L'AVENTURE -->
+  <section class="section">
+    <div>
+      <h2 class="subtitle">Rejoins l’Aventure</h2>
+      <p class="paragraph">
+        Ce n’est pas juste “mon” projet. C’est <span class="text-green-400 font-semibold">le nôtre</span>.  
+        Si tu veux être là depuis le début, faire partie de quelque chose de <span class="text-yellow-400 font-semibold">vrai</span>,  
+        avec des hauts, des bas, mais toujours <span class="text-blue-400 font-semibold">le cœur devant</span> — alors t’es au bon endroit.  
+        Rejoins cette <span class="text-pink-400 font-semibold">communauté légendaire</span> qui croit encore aux projets fous.  
+        Parce que <span class="text-purple-400 font-semibold">seul on va vite</span>, mais <span class="text-indigo-400 font-semibold">ensemble on va loin</span>.
+      </p>
+      <div class="flex flex-col items-center gap-4 mt-4">
+        <a href="https://www.twitch.tv/oneiiq" target="_blank" class="social-btn">
+          <i class="fab fa-twitch"></i> Twitch
+        </a>
+        <a href="https://discord.gg/RJZRm2xD" target="_blank" class="social-btn" style="background: linear-gradient(to right, #404eed, #5865F2);">
+          <i class="fab fa-discord"></i> Discord
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    Site propulsé avec ❤️ par <a href="../index.html">Sylvain Hirtz</a>
+  </footer>
+
+  <!-- JS SCROLL -->
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.4 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../Sources/Images/Atroks.png" type="image/png" />
+    <title>ArchiveFever.Work • Atroks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #ff6a1f;
+            --accent-light: #ffa366;
+            --bg-dark: #0d0d0d;
+            --text: #f0f0f0;
+            --muted: #aaaaaa;
+            --glass: rgba(255, 255, 255, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+            background: var(--bg-dark);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        section:first-of-type {
+            background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, #ff5c00, #ffa500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeZoom 1.2s ease-out forwards;
+            opacity: 0;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        p {
+            max-width: 720px;
+            line-height: 1.7;
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: 0.7rem 1.6rem;
+            background: #1a1a1a;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-weight: 500;
+            border-radius: 40px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(255, 92, 0, 0.1);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .services-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            width: 280px;
+            text-align: left;
+            color: var(--text);
+            box-shadow: 0 0 12px rgba(255, 92, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .glass-card strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent-light);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .glass-card span {
+            display: block;
+            margin-top: 0.3rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #fff;
+        }
+
+        /* CONTACT */
+        #contact {
+            padding: 6rem 2rem;
+            background: linear-gradient(to bottom, #0d0d0d, #111);
+            min-height: 90vh;
+        }
+
+        .contact-card {
+            background: var(--glass);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            max-width: 480px;
+            margin: auto;
+            box-shadow: 0 0 12px rgba(255, 92, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            font-size: 1.1rem;
+            text-align: left;
+        }
+
+        .contact-card span {
+            color: #aaa;
+            font-weight: 500;
+            margin-right: 0.4rem;
+        }
+
+        .contact-card a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            font-size: 0.9rem;
+            color: var(--muted);
+            background: linear-gradient(to top, #0d0d0d, #1a1a1a);
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--accent);
+        }
+
+        @keyframes fadeZoom {
+            from {
+                opacity: 0;
+                transform: scale(1.2);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.4rem;
+            }
+
+            .glass-card,
+            .contact-card {
+                width: 90%;
+            }
+
+            .btn {
+                font-size: 0.95rem;
+                padding: 0.6rem 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <section>
+            <h1>ATROKS WORKSHOP</h1>
+            <p>Montage vidéo <span class="highlight">cinématique</span> & <span class="highlight">créatif</span> pour
+                les créateurs exigeants.</p>
+            <a class="btn" href="#presentation">🚀 Découvrir</a>
+        </section>
+
+        <section id="presentation">
+            <h2>🎬 Présentation</h2>
+            <p>
+                Moi c’est <span class="highlight">Atroks</span>, 28 ans, monteur vidéo <span
+                    class="highlight">autodidacte</span> passionné depuis plus de 2 ans. J’ai appris seul, avec rigueur
+                et curiosité, en m’inspirant des meilleurs contenus en ligne. Aujourd’hui, je travaille avec des
+                créateurs de tous horizons pour les aider à transformer leurs idées en vidéos puissantes, dynamiques et
+                engageantes.
+            </p>
+            <p>
+                Mon objectif ? Mettre en valeur <span class="highlight">ta personnalité</span> à travers chaque montage.
+                Que tu sois streamer, youtubeur, artiste ou entrepreneur, je prends le temps de comprendre ton univers
+                pour créer des contenus sur mesure. Mon style est <span class="highlight">éclectique</span>, ma méthode
+                <span class="highlight">rigoureuse</span> et mon ambition claire : te faire briller à l’écran.
+            </p>
+        </section>
+
+        <section id="services">
+            <h2>💼 Services</h2>
+            <div class="services-grid">
+                <div class="glass-card">
+                    <strong>🎥 Montage Long</strong>
+                    <span>Simple : 1€/min</span>
+                    <span>Complexe : 2,5€/min</span>
+                </div>
+                <div class="glass-card">
+                    <strong>📱 Shorts TikTok / YT</strong>
+                    <span>7€ par vidéo (effets inclus)</span>
+                </div>
+                <div class="glass-card">
+                    <strong>🎨 Créa Graphique</strong>
+                    <span>Miniature, logo, bannière : 5€</span>
+                    <span>Overlay statique : 15€</span>
+                    <span>Dynamique : 35€</span>
+                </div>
+                <div class="glass-card">
+                    <strong>⚙️ Options</strong>
+                    <span>Sous-titres : 5€/30min</span>
+                    <span>Anglais : +10€</span>
+                    <span>Express : +50%</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>📬 Contact</h2>
+            <div class="contact-card">
+                <p><span>💬 Discord :</span> <strong>atrooks</strong></p>
+                <p><span>📸 Instagram :</span> <a href="https://www.instagram.com/atroksworkshop"
+                        target="_blank">@atroksworkshop</a></p>
+                <p><span>💼 LinkedIn :</span> <a href="https://www.linkedin.com/in/atroks-workshop-8449b2376/"
+                        target="_blank">Atroks Workshop</a></p>
+                <p><span>📧 Email :</span> <a href="mailto:atroksatroks7@gmail.com">atroksatroks7@gmail.com</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Site propulsé avec ❤️ par <a href="../index.html">Sylvain Hirtz</a>
+    </footer>
+
+</body>
+
+</html>

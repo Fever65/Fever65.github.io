@@ -9,26 +9,31 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
       background-color: #000;
       color: #f9f9f9;
-      font-family: 'Poppins', sans-serif;
       overflow: hidden;
-      margin: 0;
     }
 
     .page {
       position: absolute;
       top: 0; left: 0;
       width: 100%;
-      height: 100vh;
-      padding: 4rem 1.5rem;
+      min-height: 100vh;
+      padding: 2rem 1rem 6rem;
       display: none;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
       opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.5s ease;
     }
 
     .page.active {
@@ -46,42 +51,52 @@
     }
 
     .chapter-label {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: #8b5cf6;
-      letter-spacing: 0.1em;
       text-transform: uppercase;
+      letter-spacing: 0.1em;
       margin-bottom: 1rem;
     }
 
     .subtitle {
-      font-size: 2rem;
+      font-size: 1.75rem;
       font-weight: 700;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       background: linear-gradient(to right, #8b5cf6, #ec4899);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .paragraph {
-      font-size: 1.125rem;
-      line-height: 1.8;
-      max-width: 800px;
-      margin: 0 auto;
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 750px;
       color: #cbd5e1;
+      margin-bottom: 3rem;
+    }
+
+    .nav-controls {
+      position: absolute;
+      bottom: 4rem;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-around;
+      gap: 2rem;
+      padding: 0 1rem;
+      flex-wrap: wrap;
     }
 
     .nav-btn {
-      position: absolute;
-      bottom: 2rem;
       background: linear-gradient(to right, #5a2ea6, #9146FF);
       color: white;
       padding: 0.6rem 1.5rem;
       border-radius: 0.5rem;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 1rem;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(145, 70, 255, 0.3);
       border: none;
+      box-shadow: 0 4px 15px rgba(145, 70, 255, 0.3);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
@@ -89,9 +104,6 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(145, 70, 255, 0.5);
     }
-
-    .prev-btn { left: 2rem; }
-    .next-btn { right: 2rem; }
 
     .social-btn {
       display: inline-flex;
@@ -126,36 +138,27 @@
       color: #8b5cf6;
       font-weight: 600;
       text-decoration: none;
-      transition: color 0.3s ease;
     }
 
     footer a:hover {
       color: #f9f9f9;
     }
-
-    #page-4 .paragraph {
-      margin-bottom: 4rem;
-    }
-
-    @media (min-width: 768px) {
-      .prev-btn {
-        left: 20%;
-      }
-      .next-btn {
-        right: 20%;
-      }
-    }
   </style>
 </head>
 <body>
 
+  <!-- PAGE 0 -->
   <div class="page active" id="page-0">
     <div>
-      <h1 class="text-6xl sm:text-7xl md:text-8xl font-extrabold uppercase title-3d mb-6">Oneiiq</h1>
+      <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold uppercase title-3d mb-6">Oneiiq</h1>
+      <p class="text-gray-400 text-lg">Bienvenue dans l’univers.</p>
     </div>
-    <button class="nav-btn next-btn" onclick="changePage(1)">Commencer →</button>
+    <div class="nav-controls">
+      <button class="nav-btn" onclick="changePage(1)">Commencer →</button>
+    </div>
   </div>
 
+  <!-- PAGE 1 -->
   <div class="page" id="page-1">
     <div>
       <div class="chapter-label">Chapitre 1</div>
@@ -163,14 +166,16 @@
       <p class="paragraph">
         Moi c’est <span class="text-purple-400 font-semibold">Oneiiq</span>. J’ai <span class="text-indigo-300 font-semibold">29 ans</span>, et je suis un mec simple avec une <span class="text-green-400 font-semibold">volonté en béton</span>.<br>
         J’ai commencé avec une connexion à <span class="text-yellow-400 font-semibold">75Mo</span> et zéro centime, dans une période <span class="text-pink-400 font-semibold">très compliquée</span>.<br>
-        Aujourd’hui, j’avance à la <span class="text-green-400 font-semibold">fibre</span>, avec un seul objectif : devenir le <span class="text-red-400 font-semibold">"n°1"</span> des streamers les moins "smart" de Twitch.<br>
-        Pas par auto-dérision, mais pour prouver que même <span class="text-blue-400 font-semibold">sans être parfait</span>, avec de la <span class="text-pink-300 font-semibold">passion</span> et de la <span class="text-purple-300 font-semibold">persévérance</span>, on peut tout accomplir.
+        Aujourd’hui, j’avance à la <span class="text-green-400 font-semibold">fibre</span>, avec un seul objectif : devenir le <span class="text-red-400 font-semibold">"n°1"</span> des streamers les moins "smart" de Twitch.
       </p>
     </div>
-    <button class="nav-btn prev-btn" onclick="changePage(0)">← Retour</button>
-    <button class="nav-btn next-btn" onclick="changePage(2)">Suivant →</button>
+    <div class="nav-controls">
+      <button class="nav-btn" onclick="changePage(0)">← Retour</button>
+      <button class="nav-btn" onclick="changePage(2)">Suivant →</button>
+    </div>
   </div>
 
+  <!-- PAGE 2 -->
   <div class="page" id="page-2">
     <div>
       <div class="chapter-label">Chapitre 2</div>
@@ -179,14 +184,16 @@
         Ce que je construis, c’est bien plus qu’un simple stream.<br>
         C’est une <span class="text-green-400 font-semibold">aventure humaine</span>, un défi personnel.<br>
         Je veux que chacun se sente <span class="text-yellow-400 font-semibold">inclus</span>, qu’il puisse rire, s’évader, croire de nouveau.<br>
-        Parce qu’un <span class="text-pink-400 font-semibold">roi sans son royaume</span>, c’est juste un gars avec une couronne.<br>
-        Et un projet sans sa communauté ? C’est rien. Ici, <span class="text-blue-400 font-semibold">on avance ensemble</span>.
+        Un projet sans sa communauté ? C’est rien. Ici, <span class="text-blue-400 font-semibold">on avance ensemble</span>.
       </p>
     </div>
-    <button class="nav-btn prev-btn" onclick="changePage(1)">← Retour</button>
-    <button class="nav-btn next-btn" onclick="changePage(3)">Suivant →</button>
+    <div class="nav-controls">
+      <button class="nav-btn" onclick="changePage(1)">← Retour</button>
+      <button class="nav-btn" onclick="changePage(3)">Suivant →</button>
+    </div>
   </div>
 
+  <!-- PAGE 3 -->
   <div class="page" id="page-3">
     <div>
       <div class="chapter-label">Chapitre 3</div>
@@ -194,27 +201,26 @@
       <p class="paragraph">
         Ce projet existe parce qu’il est devenu <span class="text-indigo-400 font-semibold">nécessaire</span>.<br>
         Dans un monde saturé de <span class="text-red-400 font-semibold">stress</span>, de <span class="text-yellow-400 font-semibold">peur</span> et de <span class="text-pink-400 font-semibold">mauvaises nouvelles</span>,<br>
-        je veux offrir une <span class="text-green-400 font-semibold">bouffée d’air</span>.<br>
-        Un espace sincère, sans pression, où on peut <span class="text-blue-400 font-semibold">respirer</span>, <span class="text-indigo-300 font-semibold">rêver</span>, <span class="text-pink-300 font-semibold">recharger</span>.<br>
-        Là où certains ferment les portes, moi je veux créer des <span class="text-purple-300 font-semibold">ponts</span>.
+        je veux offrir une <span class="text-green-400 font-semibold">bouffée d’air</span> pour <span class="text-blue-400 font-semibold">respirer</span>, <span class="text-pink-300 font-semibold">rêver</span>, <span class="text-purple-300 font-semibold">recharger</span>.
       </p>
     </div>
-    <button class="nav-btn prev-btn" onclick="changePage(2)">← Retour</button>
-    <button class="nav-btn next-btn" onclick="changePage(4)">Suivant →</button>
+    <div class="nav-controls">
+      <button class="nav-btn" onclick="changePage(2)">← Retour</button>
+      <button class="nav-btn" onclick="changePage(4)">Suivant →</button>
+    </div>
   </div>
 
+  <!-- PAGE 4 -->
   <div class="page" id="page-4">
     <div>
       <div class="chapter-label">Chapitre 4</div>
       <h2 class="subtitle">Rejoins l’aventure</h2>
       <p class="paragraph">
         Ce n’est pas juste “mon” projet. C’est <span class="text-green-400 font-semibold">le nôtre</span>.<br>
-        Si tu veux être là depuis le début, faire partie de quelque chose de <span class="text-yellow-400 font-semibold">vrai</span>,<br>
-        avec des hauts, des bas, mais toujours <span class="text-blue-400 font-semibold">le cœur devant</span> — alors t’es au bon endroit.<br>
         Rejoins cette <span class="text-pink-400 font-semibold">communauté légendaire</span> qui croit encore aux projets fous.<br>
         Parce que <span class="text-purple-400 font-semibold">seul on va vite</span>, mais <span class="text-indigo-400 font-semibold">ensemble on va loin</span>.
       </p>
-      <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
+      <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
         <a href="https://www.twitch.tv/oneiiq" target="_blank" class="social-btn">
           <i class="fab fa-twitch"></i> Twitch
         </a>
@@ -223,7 +229,9 @@
         </a>
       </div>
     </div>
-    <button class="nav-btn prev-btn" onclick="changePage(3)">← Retour</button>
+    <div class="nav-controls">
+      <button class="nav-btn" onclick="changePage(3)">← Retour</button>
+    </div>
     <footer>
       Site propulsé avec ❤️ par <a href="../index.html">Sylvain Hirtz</a>
     </footer>

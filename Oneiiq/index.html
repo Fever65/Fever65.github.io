@@ -37,6 +37,17 @@
       display: flex;
     }
 
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      max-width: 900px;
+      width: 100%;
+      padding: 0 1rem;
+      margin: 0 auto;
+    }
+
     .title-3d {
       color: #f9fafb;
       text-shadow:
@@ -46,7 +57,7 @@
     }
 
     .chapter-label {
-      font-size: 0.875rem;
+      font-size: 0.9rem;
       color: #8b5cf6;
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -54,26 +65,33 @@
     }
 
     .subtitle {
-      font-size: 1.75rem;
+      font-size: 2rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       background: linear-gradient(to right, #8b5cf6, #ec4899);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .paragraph {
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 750px;
-      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+      line-height: 1.8;
       color: #cbd5e1;
+      margin-bottom: 2.5rem;
+    }
+
+    .nav-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1.5rem;
     }
 
     .nav-btn {
       background: linear-gradient(to right, #5a2ea6, #9146FF);
       color: white;
-      padding: 0.6rem 1.5rem;
+      padding: 0.7rem 1.7rem;
       border-radius: 0.5rem;
       font-weight: 600;
       font-size: 1rem;
@@ -81,19 +99,11 @@
       border: none;
       box-shadow: 0 4px 15px rgba(145, 70, 255, 0.3);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      margin: 0.5rem;
     }
 
     .nav-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(145, 70, 255, 0.5);
-    }
-
-    .nav-controls {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 1rem;
     }
 
     .social-btn {
@@ -132,24 +142,38 @@
     footer a:hover {
       color: #f9f9f9;
     }
+
+    @media (min-width: 768px) {
+      .subtitle {
+        font-size: 2.5rem;
+      }
+      .paragraph {
+        font-size: 1.2rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .nav-controls {
+        gap: 2rem;
+      }
+    }
   </style>
 </head>
 <body>
 
   <!-- PAGE 0 -->
   <div class="page active" id="page-0">
-    <div>
+    <div class="content">
       <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold uppercase title-3d mb-6">Oneiiq</h1>
-      <p class="text-gray-400 text-lg">Bienvenue dans l’univers.</p>
-    </div>
-    <div class="nav-controls">
-      <button class="nav-btn" onclick="changePage(1)">Commencer →</button>
+      <div class="nav-controls">
+        <button class="nav-btn" onclick="changePage(1)">Commencer →</button>
+      </div>
     </div>
   </div>
 
   <!-- PAGE 1 -->
   <div class="page" id="page-1">
-    <div>
+    <div class="content">
       <div class="chapter-label">Chapitre 1</div>
       <h2 class="subtitle">Qui je suis</h2>
       <p class="paragraph">
@@ -157,16 +181,16 @@
         J’ai commencé avec une connexion à <span class="text-yellow-400 font-semibold">75Mo</span> et zéro centime, dans une période <span class="text-pink-400 font-semibold">très compliquée</span>.<br>
         Aujourd’hui, j’avance à la <span class="text-green-400 font-semibold">fibre</span>, avec un seul objectif : devenir le <span class="text-red-400 font-semibold">"n°1"</span> des streamers les moins "smart" de Twitch.
       </p>
-    </div>
-    <div class="nav-controls">
-      <button class="nav-btn" onclick="changePage(0)">← Retour</button>
-      <button class="nav-btn" onclick="changePage(2)">Suivant →</button>
+      <div class="nav-controls">
+        <button class="nav-btn" onclick="changePage(0)">← Retour</button>
+        <button class="nav-btn" onclick="changePage(2)">Suivant →</button>
+      </div>
     </div>
   </div>
 
   <!-- PAGE 2 -->
   <div class="page" id="page-2">
-    <div>
+    <div class="content">
       <div class="chapter-label">Chapitre 2</div>
       <h2 class="subtitle">Mon projet</h2>
       <p class="paragraph">
@@ -175,16 +199,16 @@
         Je veux que chacun se sente <span class="text-yellow-400 font-semibold">inclus</span>, qu’il puisse rire, s’évader, croire de nouveau.<br>
         Un projet sans sa communauté ? C’est rien. Ici, <span class="text-blue-400 font-semibold">on avance ensemble</span>.
       </p>
-    </div>
-    <div class="nav-controls">
-      <button class="nav-btn" onclick="changePage(1)">← Retour</button>
-      <button class="nav-btn" onclick="changePage(3)">Suivant →</button>
+      <div class="nav-controls">
+        <button class="nav-btn" onclick="changePage(1)">← Retour</button>
+        <button class="nav-btn" onclick="changePage(3)">Suivant →</button>
+      </div>
     </div>
   </div>
 
   <!-- PAGE 3 -->
   <div class="page" id="page-3">
-    <div>
+    <div class="content">
       <div class="chapter-label">Chapitre 3</div>
       <h2 class="subtitle">Pourquoi c’est utile</h2>
       <p class="paragraph">
@@ -192,16 +216,16 @@
         Dans un monde saturé de <span class="text-red-400 font-semibold">stress</span>, de <span class="text-yellow-400 font-semibold">peur</span> et de <span class="text-pink-400 font-semibold">mauvaises nouvelles</span>,<br>
         je veux offrir une <span class="text-green-400 font-semibold">bouffée d’air</span> pour <span class="text-blue-400 font-semibold">respirer</span>, <span class="text-pink-300 font-semibold">rêver</span>, <span class="text-purple-300 font-semibold">recharger</span>.
       </p>
-    </div>
-    <div class="nav-controls">
-      <button class="nav-btn" onclick="changePage(2)">← Retour</button>
-      <button class="nav-btn" onclick="changePage(4)">Suivant →</button>
+      <div class="nav-controls">
+        <button class="nav-btn" onclick="changePage(2)">← Retour</button>
+        <button class="nav-btn" onclick="changePage(4)">Suivant →</button>
+      </div>
     </div>
   </div>
 
   <!-- PAGE 4 -->
   <div class="page" id="page-4">
-    <div>
+    <div class="content">
       <div class="chapter-label">Chapitre 4</div>
       <h2 class="subtitle">Rejoins l’aventure</h2>
       <p class="paragraph">
@@ -220,9 +244,9 @@
       <footer>
         Site propulsé avec ❤️ par <a href="../index.html">Sylvain Hirtz</a>
       </footer>
-    </div>
-    <div class="nav-controls">
-      <button class="nav-btn" onclick="changePage(3)">← Retour</button>
+      <div class="nav-controls">
+        <button class="nav-btn" onclick="changePage(3)">← Retour</button>
+      </div>
     </div>
   </div>
 

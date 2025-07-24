@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="../../Sources/Images/Khoti.png" type="image/png" />
+  <title>ArchiveFever.Work • KhotiCeres</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --text: #00ffcc;
+            --accent: #ff00ff;
+            --border: #00ffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+        }
+
+        header h1 {
+            font-family: 'VT323', monospace;
+            font-size: 3.5rem;
+            color: var(--text);
+            text-shadow: 0 0 8px var(--border);
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #888;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        h2 {
+            font-family: 'VT323', monospace;
+            font-size: 1.8rem;
+            color: var(--text);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 5px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #333;
+            margin-top: 1rem;
+        }
+
+        .caption {
+            font-size: 0.85rem;
+            color: #777;
+            font-style: italic;
+            margin-bottom: 2rem;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 1rem;
+            background-color: transparent;
+            border: 2px solid #0f0;
+            color: #0f0;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #002200;
+            color: white;
+            border-color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem 1rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        footer a {
+            color: var(--border);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2.5rem;
+            }
+
+            .navbar a {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>KHOTICERES</h1>
+        <p>After Hours(Nom temporaire)</p>
+    </header>
+
+    <main class="container">
+
+        <h2>📼 Moi c'est Khoti</h2>
+        <p> Je n’ai jamais travaillé dans un studio, c’est vrai. Mais j’ai toujours été attiré par les jeux qui prennent
+            leur temps, ceux qui installent une ambiance un peu étrange, un peu rugueuse. Alors je me suis dit :
+            pourquoi ne pas en créer un moi-même ? </p>
+        <h2>🕹️ After Hours (titre provisoire)</h2>
+        <p> C’est un jeu narratif. Tu incarnes quelqu’un resté tard dans un bureau, quelque part dans les années 90.
+            Tout est calme, presque trop. Les néons bourdonnent, les machines tournent sans raison. Et peu à peu,
+            quelque chose commence à te déranger. </p>
+
+        <img src="../Sources/Images/Khoti1.png" alt="Bureau (WIP)">
+        <div class="caption">Le bureau (visuel non définitif)</div>
+
+        <img src="../Sources/Images/Khoti2.png" alt="Cuisine (WIP)">
+        <div class="caption">La cuisine — ambiance neutre... en apparence (visuel non définitif)</div>
+
+        <h2>📡 En direct sur Twitch</h2>
+        <p>
+            Je code le jeu en stream. Rien d’incroyable, juste mes erreurs et mes avancements.
+            Tu peux passer jeter un œil ou juste dire bonsoir.
+        </p>
+
+        <div style="text-align: center;">
+            <a href="https://www.twitch.tv/khoticeres" class="button" target="_blank">🔴 Suivre sur Twitch</a>
+        </div>
+
+
+    </main>
+
+    <footer>
+        Site propulsé avec ❤️ par <a href="../index.html">Sylvain Hirtz</a>
+    </footer>
+
+</body>
+
+</html>

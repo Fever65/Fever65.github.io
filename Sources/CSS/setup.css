@@ -118,8 +118,6 @@ main {
   line-height: 1.4;
 }
 
-/* Footer clean et cohérent */
-
 footer {
   text-align: center;
   color: var(--muted);

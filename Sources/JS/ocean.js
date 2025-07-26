@@ -1,11 +1,11 @@
 const songs = [
-  { title: "Journey", image: "1.png", audio: "Journey.flac" },
-  { title: "Nostalgic house", image: "2.png", audio: "Nostalgic house.flac" },
-  { title: "トルネード", image: "3.png", audio: "トルネード.flac" },
-  { title: "Ocean love", image: "4.png", audio: "Ocean love.flac" },
-  { title: "Sous les étoiles", image: "5.png", audio: "Sous les étoiles.flac" },
-  { title: "Another crab lullaby", image: "6.png", audio: "Another crab lullaby.flac" },
-  { title: "Terra firma", image: "7.png", audio: "Terra firma.flac"},
+  { title: "Journey", image: "1.webp", audio: "Journey.flac" },
+  { title: "Nostalgic house", image: "2.webp", audio: "Nostalgic house.flac" },
+  { title: "トルネード", image: "3.webp", audio: "トルネード.flac" },
+  { title: "Ocean love", image: "4.webp", audio: "Ocean love.flac" },
+  { title: "Sous les étoiles", image: "5.webp", audio: "Sous les étoiles.flac" },
+  { title: "Another crab lullaby", image: "6.webp", audio: "Another crab lullaby.flac" },
+  { title: "Terra firma", image: "7.webp", audio: "Terra firma.flac"},
 ];
 
 let firstLoading = true;

@@ -1,13 +1,13 @@
 const songs = [
-  { title: "ACM", image: "1.png", audio: "ACM.flac" },
-  { title: "ADBDMTS", image: "2.png", audio: "ADBDMTS.flac" },
-  { title: "CTVQTP", image: "4.png", audio: "CTVQTP.flac" },
-  { title: "FA", image: "5.png", audio: "FA.flac" },
-  { title: "FTC", image: "6.png", audio: "FTC.flac" },
-  { title: "GTHU", image: "7.png", audio: "GTHU.flac" },
-  { title: "LIBIWLIB", image: "8.png", audio: "LIBIWLIB.flac" },
-  { title: "MFH", image: "9.png", audio: "MFH.flac" },
-  { title: "Mm", image: "10.png", audio: "Mm.flac" }
+  { title: "ACM", image: "1.webp", audio: "ACM.flac" },
+  { title: "ADBDMTS", image: "2.webp", audio: "ADBDMTS.flac" },
+  { title: "CTVQTP", image: "4.webp", audio: "CTVQTP.flac" },
+  { title: "FA", image: "5.webp", audio: "FA.flac" },
+  { title: "FTC", image: "6.webp", audio: "FTC.flac" },
+  { title: "GTHU", image: "7.webp", audio: "GTHU.flac" },
+  { title: "LIBIWLIB", image: "8.webp", audio: "LIBIWLIB.flac" },
+  { title: "MFH", image: "9.webp", audio: "MFH.flac" },
+  { title: "Mm", image: "10.webp", audio: "Mm.flac" }
 ];
 
 let firstLoading = true;

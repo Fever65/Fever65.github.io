@@ -152,23 +152,3 @@ updatePlayer(currentSongIndex);
 document.addEventListener("DOMContentLoaded", function () {
   firstLoading = false;
 });
-
-const infoButton = document.getElementById("info-button");
-const infoWindow = document.getElementById("info-window");
-const closeInfoButton = document.getElementById("close-info");
-const infoText = document.getElementById("info-text");
-
-function showInfoWindow(text) {
-  infoText.textContent = text;
-  infoWindow.classList.remove("hidden");
-}
-
-function hideInfoWindow() {
-  infoWindow.classList.add("hidden");
-}
-
-infoButton.addEventListener("click", () => {
-  showInfoWindow("J’ai écrit cet album en collaboration avec ChatGPT. Les instrumentales et les voix des chanteurs ont été générées grâce à l’IA SUNO, et les pochettes ont été créées avec MIDJOURNEY. J’espère que ce projet te plaira. Bonne écoute !");
-});
-
-closeInfoButton.addEventListener("click", hideInfoWindow);

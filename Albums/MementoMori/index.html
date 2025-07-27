@@ -1,126 +1,77 @@
 <!DOCTYPE html>
-<html lang="fr">
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ArchiveFever.Work ∙ Memento Mori</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
-    rel="stylesheet" />
-
-  <link href="../../Sources/CSS/fond.css" rel="stylesheet" />
-  <link href="../../Sources/CSS/Mm.css" rel="stylesheet" />
-  <link rel="icon" href="../../Sources/Images/MementoMori.webp" type="image/webp" />
-
-  <style>
-    :root {
-      --accent: #96918d;
-      --bg-primary: #0d0d0d;
-      --transition-duration: 0.3s;
-      --border-radius: 12px;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 20px;
-      background: transparent;
-      -webkit-backdrop-filter: blur(5px);
-      backdrop-filter: blur(5px);
-      z-index: 10000;
-    }
-
-    .header-logo {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      transition: transform var(--transition-duration) ease;
-    }
-
-    .header-logo:hover {
-      transform: scale(1.1);
-    }
-
-    h1 {
-      font-family: 'Gloria Hallelujah', cursive;
-      font-size: 2.4rem;
-      color: var(--accent);
-      text-shadow: 0 0 8px rgba(3, 1, 0, 0.7);
-    }
-
-    @media (max-width: 767px) {
-      main {
-        margin-top: 100px !important;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      .header-logo {
-        width: 50px;
-        height: 50px;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ArchiveFever.Work ∙ MementoMori</title>
+  <link rel="icon" type="image/webp" href="../../Sources/Images/MementoMori.webp" />
+  <link rel="stylesheet" href="../../Sources/CSS/Mm.css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
-  <header>
-    <a href="../../index.html">
-      <img src="../../Sources/Images/jerome.webp" alt="Logo" class="header-logo" />
-    </a>
-    <h1>Memento Mori</h1>
-  </header>
-
   <div class="festive-background"></div>
-
+  <header>
+<a href="/" class="back-logo">
+  <img src="../../Sources/Images/jerome.webp" alt="Retour" width="70" height="70">
+</a>
+    <h1 class="site-title">MementoMori</h1>
+  </header>
   <main>
-    <aside class="card-wrapper"></aside>
-
-    <section class="player">
+    <div class="card-wrapper"></div>
+    <div class="player">
       <div class="current-track">
-        <img id="current-img" src="" alt="Pochette" />
-        <h2 id="current-title"></h2>
+        <img id="current-img" src="../../Albums/MementoMori/1.webp" alt="Current track">
+        <h2 id="current-title">En avant</h2>
       </div>
       <div class="controls">
-        <button id="prev">⏮️</button>
-        <button id="play-pause">▶️</button>
-        <button id="next">⏭️</button>
-        <button id="random">🔀</button>
-
-        <div class="volume-box">
-          <span class="volume-icon">🔊</span>
-          <input type="range" id="audio-slider" min="0" max="100" value="30" class="volume-slider" />
-        </div>
+        <button id="prev" class="control-btn" title="Previous">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="19 20 9 12 19 4 19 20"></polygon>
+            <line x1="5" y1="19" x2="5" y2="5"></line>
+          </svg>
+        </button>
+        <button id="play-pause" class="control-btn" title="Play/Pause">
+          <svg class="play-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <svg class="pause-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y1="4" width="4" height="16"></rect>
+            <rect x="14" y1="4" width="4" height="16"></rect>
+          </svg>
+        </button>
+        <button id="next" class="control-btn" title="Next">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 4 15 12 5 20 5 4"></polygon>
+            <line x1="19" y1="5" x2="19" y2="19"></line>
+          </svg>
+        </button>
+        <button id="random" class="control-btn" title="Random">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"></polyline>
+            <line x1="4" y1="20" x2="21" y2="3"></line>
+            <polyline points="21 16 21 21 16 21"></polyline>
+            <line x1="15" y1="15" x2="21" y2="21"></line>
+            <line x1="4" y1="4" x2="9" y2="9"></line>
+          </svg>
+        </button>
       </div>
       <div class="slider">
-        <input type="range" id="time-slider" min="0" max="100" value="0" />
-        <span id="current-time">0:23</span>
-        <span> / </span>
-        <span id="total-time">3:36</span>
+        <span id="current-time">0:00</span>
+        <input type="range" id="time-slider" min="0" max="100" value="0">
+        <span id="total-time">0:00</span>
       </div>
-    </section>
+      <div class="volume-box">
+        <span class="volume-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+        </span>
+        <input type="range" id="audio-slider" class="volume-slider" min="0" max="100" value="30">
+      </div>
+    </div>
   </main>
-
   <script src="../../Sources/JS/Mm.js"></script>
 </body>
-
 </html>

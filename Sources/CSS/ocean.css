@@ -1,8 +1,10 @@
 body {
-    font-family: 'Source Code Pro', monospace;
+    font-family: 'Gloria Hallelujah', cursive;
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
     background: #000000;
+    margin: 0;
+    padding: 0;
 }
 
 .festive-background {
@@ -13,28 +15,51 @@ body {
     height: 100%;
     pointer-events: none;
     z-index: -1;
-    background: radial-gradient(circle, rgba(65, 19, 71, 0.219) 10%, transparent 80%),
-        radial-gradient(circle, rgba(70, 2, 49, 0.103) 10%, transparent 80%);
+    background: radial-gradient(circle, rgba(121, 12, 12, 0.288) 10%, transparent 80%),
+        radial-gradient(circle, rgba(0, 105, 148, 0.26) 10%, transparent 80%);
     background-size: 200% 200%;
     animation: subtleLights 20s infinite alternate;
 }
 
 @keyframes subtleLights {
-    0% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
 
-    100% {
-        background-position: 100% 50%;
-    }
+header {
+    height: 80px;
+    padding: 5px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.back-logo {
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.back-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.site-title {
+    font-size: 32px;
+    color: #006994;
+    margin: 0;
+    font-weight: 400; /* 'Gloria Hallelujah' n'a pas de bold naturel, on garde normal */
 }
 
 main {
+    margin-top: 80px;
+    padding: 20px;
     display: flex;
     flex-direction: row;
-    margin-top: 0;
-    padding: 20px;
-    height: calc(100vh - 25px);
     overflow: hidden;
 }
 
@@ -42,13 +67,12 @@ main {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    align-content: center;
+    align-content: flex-start;
     justify-content: center;
     width: 60%;
     gap: 15px;
     overflow-y: auto;
     padding: 10px;
-    border-right: 2px solid #333;
 }
 
 .card {
@@ -61,8 +85,8 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s;
-    height: auto;
-    width: 20%;
+    width: 15%;
+    aspect-ratio: 1 / 1.3;
 }
 
 .card img {
@@ -73,7 +97,7 @@ main {
 }
 
 .card h2 {
-    font-family: 'Source Code Pro', monospace;
+    font-family: 'Gloria Hallelujah', cursive;
     font-size: 14px;
     margin: 0;
     padding: 0 5px;
@@ -81,11 +105,11 @@ main {
     color: #fff;
     white-space: normal;
     overflow: hidden;
-    word-wrap: break-word;
+    text-overflow: ellipsis;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
+    height: 25%;
 }
 
 .card:hover {
@@ -130,17 +154,25 @@ main {
 }
 
 .current-track img {
-    width: 100%;
-    max-width: 350px;
-    height: auto;
+    width: 256px;
+    height: 256px;
+    object-fit: cover;
+    border-radius: 15px;
+    border: 3px solid #444;
     margin-bottom: 10px;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
 }
 
 .current-track h2 {
+    font-family: 'Gloria Hallelujah', cursive;
     font-size: 26px;
     margin: 0;
     text-align: center;
     color: #ffffffa1;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .controls {
@@ -150,17 +182,50 @@ main {
 }
 
 .controls button {
-    background-color: #35023623;
+    background-color: #0044664f;
     border: none;
     padding: 15px 30px;
-    font-size: 20px;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, border 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .controls button:hover {
-    background-color: #351805a9;
+    background-color: #003f5c;
+}
+
+#random.random-active {
+    background-color: #003f5c;
+    border: 2px solid red;
+}
+
+#random.random-active svg {
+    stroke: red;
+}
+
+.control-btn svg {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+#play-pause .play-icon {
+    display: inline;
+}
+
+#play-pause .pause-icon {
+    display: none;
+}
+
+#play-pause.playing .play-icon {
+    display: none;
+}
+
+#play-pause.playing .pause-icon {
+    display: inline;
 }
 
 .slider {
@@ -180,7 +245,7 @@ main {
     appearance: none;
     width: 100%;
     height: 8px;
-    background: linear-gradient(90deg, #355db3 0%, #444 100%);
+    background: linear-gradient(90deg, #006994 0%, #444 100%);
     border-radius: 5px;
     outline: none;
     overflow: hidden;
@@ -193,7 +258,7 @@ main {
     width: 20px;
     height: 20px;
     background: #fff;
-    border: 2px solid #1040a8;
+    border: 2px solid #006994;
     border-radius: 50%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     cursor: pointer;
@@ -204,20 +269,21 @@ main {
     display: flex;
     align-items: center;
     gap: 5px;
+    background-color: #0044664f;
     border-radius: 8px;
     padding: 5px 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.volume-icon {
-    font-size: 18px;
-    color: #1745db;
+.volume-icon svg {
+    width: 18px;
+    height: 18px;
 }
 
 .volume-slider {
     width: 100px;
     height: 6px;
-    background: linear-gradient(90deg, #1040a8 0%, #444 100%);
+    background: linear-gradient(90deg, #006994 0%, #444 100%);
     border-radius: 5px;
     outline: none;
     -webkit-appearance: none;
@@ -230,7 +296,7 @@ main {
     width: 15px;
     height: 15px;
     background: #fff;
-    border: 2px solid #7c3e082f;
+    border: 2px solid #0044664f;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -239,27 +305,15 @@ main {
     width: 15px;
     height: 15px;
     background: #fff;
-    border: 2px solid #35023623;
+    border: 2px solid #0044664f;
     border-radius: 50%;
     cursor: pointer;
-}
-
-.current-track img {
-    width: 100%;
-    max-width: 350px;
-    height: auto;
-    border-radius: 15px;
-    border: 3px solid #35023623;
-    margin-bottom: 10px;
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-    position: relative;
-    z-index: 1;
 }
 
 .current-track img:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(255, 255, 255, 0.116);
-    background: linear-gradient(145deg, #35023623, #4c4c4c);
+    background: linear-gradient(145deg, #3a3a3a, #4c4c4c);
 }
 
 .current-track img::before {
@@ -282,164 +336,253 @@ main {
     opacity: 1;
 }
 
-.info-button {
-    position: fixed;
-    top: 90px;
-    right: 20px;
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #1040a8;
-    border: 1px solid rgba(255, 255, 255, 0.062);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    z-index: 1000;
+@media (max-width: 1200px) {
+    header {
+        height: 70px;
+    }
+
+    .back-logo {
+        width: 60px;
+        height: 60px;
+        margin-right: 15px;
+    }
+
+    .site-title {
+        font-size: 28px;
+    }
+
+    .card-wrapper {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        padding: 10px;
+    }
+
+    .card {
+        width: 100%;
+        aspect-ratio: 1 / 1.3;
+    }
+
+    .player {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .current-track img {
+        width: 256px;
+        height: 256px;
+    }
+
+    .controls button {
+        padding: 12px 25px;
+    }
+
+    .controls .control-btn svg {
+        width: 22px;
+        height: 22px;
+    }
 }
 
-.info-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
-    transform: scale(1.1);
+@media (max-width: 900px) {
+    header {
+        height: 65px;
+    }
+
+    .back-logo {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
+
+    .site-title {
+        font-size: 24px;
+    }
+
+    .card-wrapper {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .card h2 {
+        font-size: 12px;
+    }
+
+    .current-track h2 {
+        font-size: 26px;
+        height: 40px;
+    }
+
+    .controls button {
+        padding: 10px 20px;
+    }
+
+    .controls .control-btn svg {
+        width: 20px;
+        height: 20px;
+    }
 }
 
-.info-window {
-    position: fixed;
-    top: 85px;
-    left: 78%;
-    transform: translateX(-50%);
-    background-color: rgba(0, 0, 0, 0.9);
-    color: #fff;
-    border-radius: 5px;
-    padding: 20px;
-    width: 700px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+@media (max-width: 600px) {
+    header {
+        height: 60px;
+    }
 
-.info-window.hidden {
-    display: none;
-}
+    .back-logo {
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
+    }
 
-.close-button {
-    margin-top: 15px;
-    background: none;
-    color: #fff;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close-button:hover {
-    color: #f00;
-}
-
-@media (max-width: 1024px) {
-
-    html,
-    body {
-        height: 100%;
-        overflow-y: auto;
+    .site-title {
+        font-size: 20px;
     }
 
     main {
         flex-direction: column;
         padding: 10px;
-        height: auto;
     }
 
     .card-wrapper {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
         width: 100%;
-        padding: 10px 5px;
-        max-height: auto;
-        overflow-y: visible;
+        padding: 5px;
     }
 
     .card {
         width: 100%;
-        height: auto;
-        aspect-ratio: 1;
+        aspect-ratio: 1 / 1.3;
     }
 
     .card h2 {
-        font-size: 12px;
-        padding: 5px;
-        text-align: center;
-        height: auto;
+        font-size: 11px;
+        padding: 3px;
     }
 
     .player {
         width: 100%;
         padding: 10px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .current-track img {
-        max-width: 300px;
-        height: auto;
+        width: 256px;
+        height: 256px;
+    }
+
+    .current-track h2 {
+        font-size: 26px;
+        height: 40px;
+    }
+
+    .controls {
+        gap: 10px;
     }
 
     .controls button {
-        padding: 10px 15px;
-        font-size: 16px;
+        padding: 8px 15px;
+    }
+
+    .controls .control-btn svg {
+        width: 18px;
+        height: 18px;
     }
 
     .slider {
-        gap: 15px;
-        justify-content: center;
+        gap: 6px;
+        max-width: 300px;
     }
-    
-    .volume-slider {
-        display: none;
-    }
-    
-    .volume-icon {
-        display: none;
-    }
-    
+
     .volume-box {
         display: none;
     }
 }
 
+@media (max-width: 400px) {
+    header {
+        height: 55px;
+    }
+
+    .back-logo {
+        width: 35px;
+        height: 35px;
+        margin-right: 6px;
+    }
+
+    .site-title {
+        font-size: 18px;
+    }
+
+    .card-wrapper {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .card h2 {
+        font-size: 10px;
+    }
+
+    .current-track img {
+        width: 256px;
+        height: 256px;
+    }
+
+    .current-track h2 {
+        font-size: 26px;
+        height: 40px;
+    }
+
+    .controls {
+        gap: 8px;
+    }
+
+    .controls button {
+        padding: 6px 10px;
+    }
+
+    .controls .control-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
 @media (max-width: 768px) {
+    header {
+        height: 60px;
+    }
+
+    .back-logo {
+        width: 40px;
+        height: 40px;
+        margin-right: 8px;
+    }
+
+    .site-title {
+        font-size: 20px;
+    }
 
     main {
         display: flex;
         flex-direction: column;
-        margin-top: 0;
         padding: 10px;
-        height: auto;
         overflow: visible;
     }
 
     .player {
         width: 100%;
         padding: 10px;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        order: -1;
     }
 
     .card {
         width: 100%;
-        height: auto;
-        aspect-ratio: 1;
+        aspect-ratio: 1 / 1.3;
     }
 
     .card img {
@@ -454,88 +597,19 @@ main {
         padding: 3px;
         text-align: center;
     }
-}
 
-@media (max-width: 768px) {
-    .info-window {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(0, 0, 0, 0.9);
-        color: #fff;
-        border-radius: 10px;
-        padding: 15px;
-        width: 90%;
-        max-height: 80%;
-        overflow-y: auto;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        text-align: center;
-        z-index: 1000;
+    .current-track img {
+        width: 256px;
+        height: 256px;
     }
 
-    .info-window.hidden {
-        display: none;
-    }
-
-    .info-window::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .info-window::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-    }
-
-    .info-button {
-        position: fixed;
-        top: 90px;
-        right: 20px;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #e67e22;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 50%;
-        width: 40px;
+    .current-track h2 {
+        font-size: 26px;
         height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        cursor: pointer;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        z-index: 1100;
-        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .info-button:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-        transform: scale(1.1);
+    .controls .control-btn svg {
+        width: 18px;
+        height: 18px;
     }
-
-    .player {
-        order: -1;
-    }
-}
-
-.card-wrapper {
-    border-right: none;
-}
-
-.card {
-    height: auto;
-    aspect-ratio: unset;
-}
-
-.card img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border-radius: 10px 10px 0 0;
-}
-
-.card h2 {
-    font-size: 12px;
-    padding: 5px;
-    overflow: hidden;
-    text-align: center;
 }

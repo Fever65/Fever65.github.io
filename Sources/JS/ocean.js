@@ -10,9 +10,9 @@ const songs = [
 
 let firstLoading = true;
 let currentSongIndex = 0;
-let isRandom = false; 
-let shuffleQueue = []; 
-let shuffleHistory = []; 
+let isRandom = false;
+let shuffleQueue = [];
+let shuffleHistory = [];
 
 const cardWrapper = document.querySelector(".card-wrapper");
 const audio = new Audio();
@@ -40,10 +40,11 @@ function updatePlayer(index) {
   currentTrackTitle.textContent = song.title;
   if (!firstLoading) {
     audio.play();
-    playPauseButton.textContent = "⏸️";
+    playPauseButton.classList.add("playing");
   } else {
     audio.volume = 0.3;
     audioSelector.value = audio.volume * 100;
+    playPauseButton.classList.remove("playing");
   }
 }
 
@@ -60,10 +61,10 @@ function generateShuffleQueue() {
 playPauseButton.addEventListener("click", () => {
   if (audio.paused) {
     audio.play();
-    playPauseButton.textContent = "⏸️";
+    playPauseButton.classList.add("playing");
   } else {
     audio.pause();
-    playPauseButton.textContent = "▶️";
+    playPauseButton.classList.remove("playing");
   }
 });
 
@@ -92,7 +93,7 @@ prevButton.addEventListener("click", () => {
 
 randomButton.addEventListener("click", () => {
   isRandom = !isRandom;
-  randomButton.style.color = isRandom ? "red" : "";
+  randomButton.classList.toggle("random-active", isRandom);
   if (isRandom) {
     generateShuffleQueue();
     shuffleHistory.push(currentSongIndex);

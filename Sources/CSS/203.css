@@ -52,7 +52,7 @@ header {
     font-size: 32px;
     color: #ff477e;
     margin: 0;
-    font-weight: 400; /* 'Gloria Hallelujah' n'a pas de bold naturel, on garde normal */
+    font-weight: 400; 
 }
 
 main {
@@ -516,7 +516,6 @@ main {
 
     .card-wrapper {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-columns: 1fr;
         gap: 8px;
     }
 

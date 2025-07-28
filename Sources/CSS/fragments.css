@@ -103,7 +103,6 @@ main {
 }
 
 .card h2 {
-    font-family: 'Gloria Hallelujah', cursive;
     font-size: 16px;
     margin: 0;
     padding: 0 5px;
@@ -171,7 +170,6 @@ main {
 }
 
 .current-track h2 {
-    font-family: 'Gloria Hallelujah', cursive;
     font-size: 28px;
     margin: 0;
     text-align: center;

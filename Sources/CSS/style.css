@@ -13,7 +13,8 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -40,6 +41,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px 10px;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* HEADER */

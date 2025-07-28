@@ -12,36 +12,11 @@
 }
 
 html, body {
-  height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-body {
+  height: auto;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--fg);
   font-family: 'Source Code Pro', monospace;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Partie fixe (header + intro) */
-.fixed-top {
-  flex-shrink: 0;
-  background: black;
-  z-index: 10;
-  padding: 20px 10px 0;
-}
-
-.scrollable-content {
-  flex-grow: 1;
-  overflow-y: auto;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px 10px;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* HEADER */
@@ -50,6 +25,7 @@ header {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  padding: 20px 10px 0;
 }
 
 header img {
@@ -71,6 +47,7 @@ h1 {
   max-width: 800px;
   margin: auto;
   text-align: center;
+  padding: 20px 10px 0;
 }
 
 .intro-section h2 {
@@ -94,11 +71,8 @@ h1 {
 .project-section {
   width: 100%;
   max-width: 900px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-bottom: 20px;
+  margin: 30px auto;
+  padding: 0 10px;
 }
 
 /* ACCORDÉONS */
@@ -150,7 +124,7 @@ h1 {
 
 /* FOOTER */
 footer {
-  margin-top: auto;
+  margin-top: 40px;
   padding: 40px 0 20px;
   font-size: 0.9rem;
   color: var(--muted);
@@ -175,7 +149,7 @@ footer a:hover {
   text-decoration: none;
 }
 
-/* RESPONSIVE MOBILE */
+/* RESPONSIVE */
 @media (max-width: 768px) {
   header {
     flex-direction: column;

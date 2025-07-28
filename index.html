@@ -9,82 +9,78 @@
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <div class="fixed-top">
-    <header>
-      <img src="Sources/Images/jerome.webp" alt="Logo" onclick="playMiaou()" />
-      <h1>ArchiveFever.Work</h1>
-    </header>
 
-    <div class="intro-section">
-      <h2>Bienvenue !</h2>
-      <p>Je suis <a href="Projets/Fever/index.html" class="no-underline"><strong>Sylvain Hirtz</strong></a>. Je crée mes propres projets web tout en développant des sites pour des personnes qui, selon moi, méritent de gagner en visibilité.</p>
-      <h2>Mes Projets</h2>
-      <p>Je présente ici mes outils, mes créations personnelles, ainsi que les projets, personnes et clients que je soutiens.</p>
-    </div>
+  <header>
+    <img src="Sources/Images/jerome.webp" alt="Logo" onclick="playMiaou()" />
+    <h1>ArchiveFever.Work</h1>
+  </header>
+
+  <div class="intro-section">
+    <h2>Bienvenue !</h2>
+    <p>Je suis <a href="Projets/Fever/index.html" class="no-underline"><strong>Sylvain Hirtz</strong></a>. Je crée mes propres projets web tout en développant des sites pour des personnes qui, selon moi, méritent de gagner en visibilité.</p>
+    <h2>Mes Projets</h2>
+    <p>Je présente ici mes outils, mes créations personnelles, ainsi que les projets, personnes et clients que je soutiens.</p>
   </div>
 
-  <div class="scrollable-content">
-    <div class="project-section">
+  <div class="project-section">
 
-      <!-- ACCORDÉONS -->
-      <section class="section">
-        <div class="section-label" onclick="toggleSection('Mes outils pratiques')">
-          Mes outils pratiques <span class="toggle-icon" id="icon-Mes outils pratiques">➕</span>
-        </div>
-        <div class="project-list" id="Mes outils pratiques">
-          <a href="Projets/QR/index.html" class="project"><img src="Sources/Images/QR.webp" alt="QR"></a>
-          <a href="Projets/WQR/index.html" class="project"><img src="Sources/Images/WQR.webp" alt="WQR"></a>
-        </div>
-      </section>
+    <!-- ACCORDÉONS -->
+    <section class="section">
+      <div class="section-label" onclick="toggleSection('Mes outils pratiques')">
+        Mes outils pratiques <span class="toggle-icon" id="icon-Mes outils pratiques">➕</span>
+      </div>
+      <div class="project-list" id="Mes outils pratiques">
+        <a href="Projets/QR/index.html" class="project"><img src="Sources/Images/QR.webp" alt="QR"></a>
+        <a href="Projets/WQR/index.html" class="project"><img src="Sources/Images/WQR.webp" alt="WQR"></a>
+      </div>
+    </section>
 
-      <section class="section">
-        <div class="section-label" onclick="toggleSection('Mes albums crées par IA')">
-          Mes albums crées par IA <span class="toggle-icon" id="icon-Mes albums crées par IA">➕</span>
-        </div>
-        <div class="project-list" id="Mes albums crées par IA">
-          <a href="Albums/Fragments/index.html" class="project"><img src="Sources/Images/Fragments.webp" alt="Fragments"></a>
-          <a href="Albums/Ocean/index.html" class="project"><img src="Sources/Images/Ocean.webp" alt="Ocean"></a>
-          <a href="Albums/203/index.html" class="project"><img src="Sources/Images/203.webp" alt="203"></a>
-          <a href="Albums/MementoMori/index.html" class="project"><img src="Sources/Images/MementoMori.webp" alt="Memento Mori"></a>
-        </div>
-      </section>
+    <section class="section">
+      <div class="section-label" onclick="toggleSection('Mes albums crées par IA')">
+        Mes albums crées par IA <span class="toggle-icon" id="icon-Mes albums crées par IA">➕</span>
+      </div>
+      <div class="project-list" id="Mes albums crées par IA">
+        <a href="Albums/Fragments/index.html" class="project"><img src="Sources/Images/Fragments.webp" alt="Fragments"></a>
+        <a href="Albums/Ocean/index.html" class="project"><img src="Sources/Images/Ocean.webp" alt="Ocean"></a>
+        <a href="Albums/203/index.html" class="project"><img src="Sources/Images/203.webp" alt="203"></a>
+        <a href="Albums/MementoMori/index.html" class="project"><img src="Sources/Images/MementoMori.webp" alt="Memento Mori"></a>
+      </div>
+    </section>
 
-      <section class="section">
-        <div class="section-label" onclick="toggleSection('À propos de moi')">
-          À propos de moi <span class="toggle-icon" id="icon-À propos de moi">➕</span>
-        </div>
-        <div class="project-list" id="À propos de moi">
-          <a href="Projets/Fever/index.html" class="project"><img src="Sources/Images/Fever.webp" alt="Fever"></a>
-          <a href="Projets/Setup/index.html" class="project"><img src="Sources/Images/setup.webp" alt="Setup"></a>
-          <a href="Projets/Merci/index.html" class="project"><img src="Sources/Images/merci.webp" alt="Merci"></a>
-        </div>
-      </section>
+    <section class="section">
+      <div class="section-label" onclick="toggleSection('À propos de moi')">
+        À propos de moi <span class="toggle-icon" id="icon-À propos de moi">➕</span>
+      </div>
+      <div class="project-list" id="À propos de moi">
+        <a href="Projets/Fever/index.html" class="project"><img src="Sources/Images/Fever.webp" alt="Fever"></a>
+        <a href="Projets/Setup/index.html" class="project"><img src="Sources/Images/setup.webp" alt="Setup"></a>
+        <a href="Projets/Merci/index.html" class="project"><img src="Sources/Images/merci.webp" alt="Merci"></a>
+      </div>
+    </section>
 
-      <section class="section">
-        <div class="section-label" onclick="toggleSection('Ils ont mon soutien')">
-          Ils ont mon soutien <span class="toggle-icon" id="icon-Ils ont mon soutien">➕</span>
-        </div>
-        <div class="project-list" id="Ils ont mon soutien">
-          <a href="MarleyAndMe/index.html" class="project"><img src="Sources/Images/Marley.webp" alt="Marley And Me"></a>
-          <a href="Oneiiq/index.html" class="project"><img src="Sources/Images/Oneiiq2.webp" alt="Oneiiq"></a>
-          <a href="Khoti/index.html" class="project"><img src="Sources/Images/Khoti.webp" alt="Khoti"></a>
-          <a href="Atroks/index.html" class="project"><img src="Sources/Images/Atroks.webp" alt="Atroks"></a>
-        </div>
-      </section>
-
-      <footer>
-        <p><strong>Mes réseaux</strong></p>
-        <p>
-          <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> ·
-          <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> ·
-          <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> ·
-          <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a> ·
-          <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
-        </p>
-      </footer>
-
-    </div>
+    <section class="section">
+      <div class="section-label" onclick="toggleSection('Ils ont mon soutien')">
+        Ils ont mon soutien <span class="toggle-icon" id="icon-Ils ont mon soutien">➕</span>
+      </div>
+      <div class="project-list" id="Ils ont mon soutien">
+        <a href="MarleyAndMe/index.html" class="project"><img src="Sources/Images/Marley.webp" alt="Marley And Me"></a>
+        <a href="Oneiiq/index.html" class="project"><img src="Sources/Images/Oneiiq2.webp" alt="Oneiiq"></a>
+        <a href="Khoti/index.html" class="project"><img src="Sources/Images/Khoti.webp" alt="Khoti"></a>
+        <a href="Atroks/index.html" class="project"><img src="Sources/Images/Atroks.webp" alt="Atroks"></a>
+      </div>
+    </section>
   </div>
+
+  <footer>
+    <p><strong>Mes réseaux</strong></p>
+    <p>
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> ·
+      <a href="https://www.instagram.com/infinity_lbrtr" target="_blank">Instagram</a> ·
+      <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> ·
+      <a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a> ·
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
+    </p>
+  </footer>
 
   <audio id="miaou" src="Sources/Sons/miaou.mp3" preload="auto"></audio>
 

@@ -1,7 +1,7 @@
 body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Roboto', 'Open Sans', 'Arial', sans-serif;
     position: relative;
     overflow-y: auto;
     background: #000000;
@@ -29,18 +29,21 @@ body {
 }
 
 header {
-    height: 80px;
-    padding: 5px 20px;
+    height: 100px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    width: 100%;
+    margin: 0;
+    border: none;
 }
 
 .back-logo {
-    width: 70px;
-    height: 70px;
-    margin-right: 20px;
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
     text-decoration: none;
 }
 
@@ -51,14 +54,15 @@ header {
 }
 
 .site-title {
-    font-size: 32px;
+    font-size: 40px;
     color: #e67e22;
     margin: 0;
-    font-weight: 400; 
+    font-weight: normal;
+    font-family: 'Gloria Hallelujah', cursive;
 }
 
 main {
-    margin-top: 80px;
+    margin-top: 5px;
     padding: 20px;
     display: flex;
     flex-direction: row;
@@ -100,7 +104,7 @@ main {
 
 .card h2 {
     font-family: 'Gloria Hallelujah', cursive;
-    font-size: 14px;
+    font-size: 16px;
     margin: 0;
     padding: 0 5px;
     text-align: center;
@@ -112,6 +116,7 @@ main {
     align-items: center;
     justify-content: center;
     height: 25%;
+    font-weight: normal;
 }
 
 .card:hover {
@@ -143,9 +148,9 @@ main {
     width: 40%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .current-track {
@@ -167,7 +172,7 @@ main {
 
 .current-track h2 {
     font-family: 'Gloria Hallelujah', cursive;
-    font-size: 26px;
+    font-size: 28px;
     margin: 0;
     text-align: center;
     color: #ffffffa1;
@@ -175,6 +180,7 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: normal;
 }
 
 .controls {
@@ -193,6 +199,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Roboto', 'Open Sans', 'Arial', sans-serif;
+    font-weight: normal;
 }
 
 .controls button:hover {
@@ -240,6 +248,8 @@ main {
     margin-bottom: 20px;
     color: #fff;
     position: relative;
+    font-family: 'Roboto', 'Open Sans', 'Arial', sans-serif;
+    font-weight: normal;
 }
 
 .slider input[type="range"] {
@@ -340,17 +350,20 @@ main {
 
 @media (max-width: 1200px) {
     header {
-        height: 70px;
+        height: 110px;
+        padding: 0;
+        width: 100%;
+        margin: 0;
     }
 
     .back-logo {
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
         margin-right: 15px;
     }
 
     .site-title {
-        font-size: 28px;
+        font-size: 36px;
     }
 
     .card-wrapper {
@@ -366,14 +379,22 @@ main {
         aspect-ratio: 1 / 1.3;
     }
 
+    .card h2 {
+        font-size: 14px;
+    }
+
     .player {
         width: 100%;
-        padding: 15px;
+        padding: 10px;
     }
 
     .current-track img {
         width: 256px;
         height: 256px;
+    }
+
+    .current-track h2 {
+        font-size: 24px;
     }
 
     .controls button {
@@ -388,17 +409,20 @@ main {
 
 @media (max-width: 900px) {
     header {
-        height: 65px;
+        height: 105px;
+        padding: 0;
+        width: 100%;
+        margin: 0;
     }
 
     .back-logo {
-        width: 50px;
-        height: 50px;
-        margin-right: 10px;
+        width: 65px;
+        height: 65px;
+        margin-right: 12px;
     }
 
     .site-title {
-        font-size: 24px;
+        font-size: 34px;
     }
 
     .card-wrapper {
@@ -407,12 +431,12 @@ main {
     }
 
     .card h2 {
-        font-size: 12px;
+        font-size: 13px;
     }
 
     .current-track h2 {
-        font-size: 26px;
-        height: 40px;
+        font-size: 22px;
+        height: 36px;
     }
 
     .controls button {
@@ -427,59 +451,64 @@ main {
 
 @media (max-width: 600px) {
     header {
-        height: 60px;
+        height: 90px;
+        padding: 0;
+        width: 100%;
+        margin: 0;
     }
 
     .back-logo {
-        width: 40px;
-        height: 40px;
-        margin-right: 8px;
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
     }
 
     .site-title {
-        font-size: 20px;
+        font-size: 28px;
     }
 
     main {
+        margin-top: 5px;
         flex-direction: column;
-        padding: 10px;
+        padding: 5px;
     }
 
     .card-wrapper {
+        width: 100%;
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
-        width: 100%;
         padding: 5px;
     }
 
     .card {
-        width: 100%;
+        width: 95%;
         aspect-ratio: 1 / 1.3;
     }
 
     .card h2 {
-        font-size: 11px;
+        font-size: 12px;
         padding: 3px;
     }
 
     .player {
         width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
+        padding: 5px;
+        margin-bottom: 5px;
     }
 
     .current-track img {
-        width: 256px;
-        height: 256px;
+        width: 200px;
+        height: 200px;
     }
 
     .current-track h2 {
-        font-size: 26px;
-        height: 40px;
+        font-size: 20px;
+        height: 32px;
     }
 
     .controls {
-        gap: 10px;
+        gap: 8px;
     }
 
     .controls button {
@@ -503,40 +532,48 @@ main {
 
 @media (max-width: 400px) {
     header {
-        height: 55px;
+        height: 85px;
+        padding: 0;
+        width: 100%;
+        margin: 0;
     }
 
     .back-logo {
-        width: 35px;
-        height: 35px;
-        margin-right: 6px;
+        width: 45px;
+        height: 45px;
+        margin-right: 8px;
     }
 
     .site-title {
-        font-size: 18px;
+        font-size: 26px;
     }
 
     .card-wrapper {
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        gap: 6px;
+    }
+
+    .card {
+        width: 95%;
+        aspect-ratio: 1 / 1.3;
     }
 
     .card h2 {
-        font-size: 10px;
+        font-size: 11px;
     }
 
     .current-track img {
-        width: 256px;
-        height: 256px;
+        width: 180px;
+        height: 180px;
     }
 
     .current-track h2 {
-        font-size: 26px;
-        height: 40px;
+        font-size: 18px;
+        height: 30px;
     }
 
     .controls {
-        gap: 8px;
+        gap: 6px;
     }
 
     .controls button {
@@ -551,39 +588,43 @@ main {
 
 @media (max-width: 768px) {
     header {
-        height: 60px;
+        height: 95px;
+        padding: 0;
+        width: 100%;
+        margin: 0;
     }
 
     .back-logo {
-        width: 40px;
-        height: 40px;
-        margin-right: 8px;
+        width: 55px;
+        height: 55px;
+        margin-right: 10px;
     }
 
     .site-title {
-        font-size: 20px;
+        font-size: 28px;
     }
 
     main {
         display: flex;
         flex-direction: column;
-        padding: 10px;
+        padding: 5px;
+        margin-top: 5px;
         overflow: visible;
     }
 
     .player {
         width: 100%;
-        padding: 10px;
-        margin-bottom: 10px;
+        padding: 5px;
+        margin-bottom: 5px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         order: -1;
     }
 
     .card {
-        width: 100%;
+        width: 95%;
         aspect-ratio: 1 / 1.3;
     }
 
@@ -595,23 +636,30 @@ main {
     }
 
     .card h2 {
-        font-size: 10px;
+        font-size: 12px;
         padding: 3px;
         text-align: center;
     }
 
     .current-track img {
-        width: 256px;
-        height: 256px;
+        width: 200px;
+        height: 200px;
     }
 
     .current-track h2 {
-        font-size: 26px;
-        height: 40px;
+        font-size: 20px;
+        height: 32px;
     }
 
     .controls .control-btn svg {
         width: 18px;
         height: 18px;
+    }
+
+    .card-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        width: 100%;
+        padding: 5px;
     }
 }

@@ -12,7 +12,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   background: var(--bg);
   color: var(--fg);
@@ -45,7 +46,7 @@ h1 {
   font-family: 'Gloria Hallelujah', cursive;
   font-size: 2.6rem;
   color: var(--accent);
-  text-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
+  text-shadow: none;
 }
 
 main {
@@ -182,20 +183,24 @@ footer .links a:hover {
 }
 
 @media (max-width: 768px) {
-  html, body {
+
+  html,
+  body {
     padding: 0 16px;
     font-size: 16px;
   }
 
   header {
-    flex-direction: column;
+    flex-direction: row;
     gap: 10px;
-    text-align: center;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
   }
 
   h1 {
     font-size: 2.1rem;
-    text-align: center;
+    text-align: left;
   }
 
   .form-row {
@@ -257,4 +262,3 @@ footer .links a:hover {
     margin: 0 4px;
   }
 }
-

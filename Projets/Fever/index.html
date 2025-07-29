@@ -54,7 +54,7 @@
       font-family: 'Gloria Hallelujah', cursive;
       font-size: 2.4rem;
       color: var(--accent);
-      text-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
+      text-shadow: none;
     }
 
     main.presentation {
@@ -114,7 +114,10 @@
 
     @media (max-width: 768px) {
       header {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
         gap: 10px;
         text-align: center;
       }
@@ -139,18 +142,19 @@
     <h1>Fever</h1>
   </header>
 
-<main class="presentation">
-  <p class="intro-texte">
-    Salut, moi c’est Sylvain Hirtz (Fever).<br /><br />
-    <img src="../../Sources/Images/Fev.webp" alt="Portrait de Fever" class="fever-img" /><br /><br />
-    Je crée des pages web vitrines : claires, simples et efficaces.<br />
-    Mon objectif ? Donner de la visibilité à des projets qui en valent la peine.<br />
-    Si le tien a du sens, je peux m’en occuper. <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" target="_blank" class="base-link">Remplis ta candidature ici</a>.<br /><br />
-    Pour me contacter, utilise les liens en bas de page<br />
-    ou écris-moi sur Discord : <strong>fever65</strong><br /><br />
-    Bonne visite sur <a href="../../index.html" class="base-link">ArchiveFever.Work</a>
-  </p>
-</main>
+  <main class="presentation">
+    <p class="intro-texte">
+      Salut, moi c’est Sylvain Hirtz (Fever).<br /><br />
+      <img src="../../Sources/Images/Fev.webp" alt="Portrait de Fever" class="fever-img" /><br /><br />
+      Je crée des pages web vitrines : claires, simples et efficaces.<br />
+      Mon objectif ? Donner de la visibilité à des projets qui en valent la peine.<br />
+      Si le tien a du sens, je peux m’en occuper. <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" target="_blank"
+        class="base-link">Remplis ta candidature ici</a>.<br /><br />
+      Pour me contacter, utilise les liens en bas de page<br />
+      ou écris-moi sur Discord : <strong>fever65</strong><br /><br />
+      Bonne visite sur <a href="../../index.html" class="base-link">ArchiveFever.Work</a>
+    </p>
+  </main>
 
 
   <footer>

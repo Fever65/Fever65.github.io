@@ -25,7 +25,8 @@
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
       height: 100%;
     }
 
@@ -59,7 +60,7 @@
       font-family: 'Gloria Hallelujah', cursive;
       font-size: 2.4rem;
       color: var(--accent);
-      text-shadow: 0 0 8px rgba(255, 140, 0, 0.7);
+      text-shadow: none;
     }
 
     main.presentation {
@@ -126,9 +127,12 @@
 
     @media (max-width: 768px) {
       header {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
         gap: 10px;
         text-align: center;
+        flex-wrap: wrap;
       }
 
       h1 {

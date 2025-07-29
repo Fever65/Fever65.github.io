@@ -5,7 +5,7 @@ const songs = [
   { title: "Ocean love", image: "4.webp", audio: "Ocean love.flac" },
   { title: "Sous les étoiles", image: "5.webp", audio: "Sous les étoiles.flac" },
   { title: "Another crab lullaby", image: "6.webp", audio: "Another crab lullaby.flac" },
-  { title: "Terra firma", image: "7.webp", audio: "Terra firma.flac"},
+  { title: "Terra firma", image: "7.webp", audio: "Terra firma.flac" },
 ];
 
 let firstLoading = true;

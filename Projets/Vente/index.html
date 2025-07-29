@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tu veux ton site ?</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap" rel="stylesheet" />
   <link rel="icon" href="../../Sources/Images/projet.webp" type="image/webp" />
 
   <style>
@@ -82,19 +80,12 @@
       margin-bottom: 16px;
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 14px;
-    }
-
-    ul li {
-      margin: 6px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+    .liste {
       font-size: 1rem;
+      line-height: 1.6;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .cta-group {
@@ -129,6 +120,7 @@
       padding: 20px 10px 10px;
       width: 100%;
       font-size: 0.9rem;
+      margin-top: auto;
     }
 
     .links a {
@@ -152,17 +144,8 @@
         gap: 10px;
       }
 
-      ul {
-        text-align: left;
-        padding-left: 18px;
-      }
-
-      ul li {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: flex-start;
-        gap: 6px;
-        line-height: 1.4;
+      .liste {
+        padding-left: 4px;
       }
     }
   </style>
@@ -179,21 +162,20 @@
   <main class="presentation">
     <div class="section">
       <h2>🔥 Un site simple, stylé, efficace</h2>
-      <p>Tu veux une page web qui <span style="color:#ffaa33;">présente ton projet</span> de façon claire et soignée ?
-      </p>
+      <p>Tu veux une page web qui <span style="color:#ffaa33;">présente ton projet</span> de façon claire et soignée ?</p>
       <p>Je crée pour toi un site vitrine rapide, responsive et sans prise de tête.</p>
       <p>Tu m’envoies les infos, je m’occupe du reste.</p>
     </div>
 
     <div class="section">
       <h2>🧰 Ce que tu obtiens</h2>
-      <ul>
-        <li>✅ Site <span style="color:#9cf;">adapté mobile + PC</span></li>
-        <li>🎨 Design <span style="color:#ffaa33;">sur mesure</span>, selon ton style</li>
-        <li>🔗 Liens vers tes <span style="color:#6cf;">réseaux, CV ou boutique</span></li>
-        <li>🚀 Livraison <span style="color:#9f9;">en 2 à 4 jours</span></li>
-        <li>📍 <span style="color:#f8f;">Hébergement inclus</span> sur ArchiveFever.Work</li>
-      </ul>
+      <div class="liste">
+        ✅ Site <span style="color:#9cf;">adapté mobile + PC</span><br>
+        🎨 Design <span style="color:#ffaa33;">sur mesure</span>, selon ton style<br>
+        🔗 Liens vers tes <span style="color:#6cf;">réseaux, CV ou boutique</span><br>
+        🚀 Livraison <span style="color:#9f9;">en 2 à 4 jours</span><br>
+        📍 <span style="color:#f8f;">Hébergement inclus</span> sur ArchiveFever.Work
+      </div>
     </div>
 
     <div class="section">
@@ -218,5 +200,4 @@
     </div>
   </footer>
 </body>
-
 </html>

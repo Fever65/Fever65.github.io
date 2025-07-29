@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tu veux ton site ?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../../Sources/Images/projet.webp" type="image/webp" />
+
+  <style>
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --accent: #ff8c00;
+      --muted: #999;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Source Code Pro', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 16px 0 8px;
+    }
+
+    header img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    h1 {
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    main.presentation {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 20px 16px 30px;
+      text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section {
+      margin: 18px 0;
+    }
+
+    .section h2 {
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      margin-bottom: 16px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 14px;
+    }
+
+    ul li {
+      margin: 6px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 1rem;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 10px 18px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .cta-button:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px 10px 10px;
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    .links a {
+      color: var(--fg);
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    .links a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .cta-button {
+        width: 100%;
+        text-align: center;
+      }
+
+      .cta-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      ul li {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="../../index.html">
+      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme" />
+    </a>
+    <h1>Fever</h1>
+  </header>
+
+  <main class="presentation">
+    <div class="section">
+      <h2>🔥 Un site simple, stylé, efficace</h2>
+      <p>Tu veux une page web qui <span style="color:#ffaa33;">présente ton projet</span> de façon claire et soignée ?</p>
+      <p>Je crée pour toi un site vitrine rapide, responsive et sans prise de tête.</p>
+      <p>Tu m’envoies les infos, je m’occupe du reste.</p>
+    </div>
+
+    <div class="section">
+      <h2>🧰 Ce que tu obtiens</h2>
+      <ul>
+        <li>✅ Site <span style="color:#9cf;">adapté mobile + PC</span></li>
+        <li>🎨 Design <span style="color:#ffaa33;">sur mesure</span>, selon ton style</li>
+        <li>🔗 Liens vers tes <span style="color:#6cf;">réseaux, CV ou boutique</span></li>
+        <li>🚀 Livraison <span style="color:#9f9;">en 2 à 4 jours</span></li>
+        <li>📍 <span style="color:#f8f;">Hébergement inclus</span> sur ArchiveFever.Work</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>💰 Tarif unique</h2>
+      <p><strong style="font-size: 1.3rem;">50€</strong> — site complet, prêt à l’emploi</p>
+
+      <div class="cta-group">
+        <a class="cta-button" href="https://forms.gle/zAe5NUdtq1CzqeV8A" target="_blank">Demander mon site</a>
+        <a class="cta-button" href="../Clients/index.html">Ils m'ont fait confiance</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Mes réseaux</p>
+    <div class="links">
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> ·
+      <a href="https://instagram.com/infinity_lbrtr" target="_blank">Instagram</a> ·
+      <a href="https://twitch.tv/feveeeer" target="_blank">Twitch</a> ·
+      <a href="https://youtube.com/@Fever65" target="_blank">YouTube</a> ·
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
+    </div>
+  </footer>
+</body>
+</html>

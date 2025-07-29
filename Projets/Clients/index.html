@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ils m'ont fait confiance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../../Sources/Images/Fever.webp" type="image/webp" />
+
+  <style>
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --accent: #ff8c00;
+      --muted: #888;
+      --card-bg: #111;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Source Code Pro', monospace;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 20px 0 10px;
+    }
+
+    header img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    h1 {
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: 2rem;
+      color: var(--accent);
+    }
+
+    main {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      flex-grow: 1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid #222;
+      padding: 30px 20px;
+      border-radius: 12px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 10px rgba(255, 140, 0, 0.3);
+    }
+
+    .card img {
+      max-width: 175px;
+      max-height: 175px;
+      margin-bottom: 16px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--fg);
+      margin-bottom: 18px;
+      line-height: 1.5;
+      min-height: 48px;
+    }
+
+    .card a {
+      display: inline-block;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      color: var(--accent);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .card a:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px 10px 10px;
+      width: 100%;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    .links a {
+      color: var(--fg);
+      text-decoration: none;
+      margin: 0 5px;
+    }
+
+    .links a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="../../index.html">
+      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme" />
+    </a>
+    <h1>Fever</h1>
+  </header>
+
+  <main>
+    <h2 style="text-align: center; font-size: 1.6rem; margin-bottom: 10px; color: var(--accent);">
+      ⭐ Ils m’ont fait confiance
+    </h2>
+    <p style="text-align: center; color: var(--muted); margin-bottom: 30px;">
+      Voici quelques exemples de projets réalisés
+    </p>
+
+    <div class="grid">
+      <!-- Marley and Me -->
+      <div class="card">
+        <img src="../../Sources/Images/Marley.webp" alt="Marley and Me" />
+        <p>Graphiste indépendant à l’univers singulier.</p>
+        <a href="../../MarleyAndMe/index.html">Voir le site</a>
+      </div>
+
+      <!-- Oneiiq -->
+      <div class="card">
+        <img src="../../Sources/Images/Oneiiq2.webp" alt="Oneiiq" />
+        <p>Streamer passionné mêlant humour, résilience et communauté engagée.</p>
+        <a href="../../Oneiiq/index.html">Voir le site</a>
+      </div>
+
+      <!-- KhotiCeres -->
+      <div class="card">
+        <img src="../../Sources/Images/Khoti.webp" alt="KhotiCeres" />
+        <p>Streamer créatif qui développe seul son propre jeu vidéo.</p>
+        <a href="../../Khoti/index.html">Voir le site</a>
+      </div>
+
+      <!-- Atroks Workshop -->
+      <div class="card">
+        <img src="../../Sources/Images/Atroks.webp" alt="Atroks Workshop" />
+        <p>Monteur vidéo spécialisé dans les effets dynamiques.</p>
+        <a href="../../Atroks/index.html">Voir le site</a>
+      </div>
+
+      <!-- Ton projet -->
+      <div class="card">
+        <img src="../../Sources/Images/projet.webp" alt="Ton projet ici" />
+        <p>Et si ta page était ici ? Site vitrine pro, rapide, visible partout.</p>
+        <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" target="_blank">Commander mon site</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Mes réseaux</p>
+    <div class="links">
+      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> ·
+      <a href="https://instagram.com/infinity_lbrtr" target="_blank">Instagram</a> ·
+      <a href="https://twitch.tv/feveeeer" target="_blank">Twitch</a> ·
+      <a href="https://youtube.com/@Fever65" target="_blank">YouTube</a> ·
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
+    </div>
+  </footer>
+</body>
+</html>

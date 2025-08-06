@@ -4,11 +4,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Page de remerciement pour le soutien à ArchiveFever.Work" />
+  <meta name="robots" content="index, follow" />
   <title>ArchiveFever.Work ∙ Merci</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="icon" href="../../Sources/Images/rat.webp" type="image/webp">
 
   <style>
@@ -16,6 +19,7 @@
       --bg: #000;
       --fg: #fff;
       --accent: #ff8c00;
+      --accent-dark: #cc6e00;
       --muted: #999;
     }
 
@@ -60,7 +64,7 @@
       font-family: 'Gloria Hallelujah', cursive;
       font-size: 2.4rem;
       color: var(--accent);
-      text-shadow: none;
+      text-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
     }
 
     main.presentation {
@@ -71,13 +75,14 @@
       text-align: center;
       gap: 30px;
       flex-grow: 1;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-in forwards;
     }
 
-    .fever-img {
-      width: 225px;
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
 
     .intro-texte {
@@ -89,18 +94,25 @@
     .support-button {
       display: inline-block;
       margin-top: 20px;
-      background: #ff8c00;
-      color: #000;
-      font-weight: bold;
-      padding: 12px 24px;
-      border-radius: 6px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+      color: var(--fg);
+      font-weight: 500;
+      padding: 12px 28px;
+      border-radius: 8px;
       font-size: 1rem;
       text-decoration: none;
-      transition: background 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .support-button:hover {
-      background: #ffaa33;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
+    }
+
+    .support-button:focus,
+    .links a:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     footer {
@@ -112,31 +124,82 @@
     }
 
     footer p {
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
 
     .links a {
-      color: var(--fg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent);
       text-decoration: none;
-      margin: 0 5px;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
     }
 
     .links a:hover {
-      color: var(--accent);
+      background: rgba(255, 140, 0, 0.2);
+      color: var(--fg);
+      transform: scale(1.1);
+      box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
+    }
+
+    .links a i {
+      font-size: 20px;
+    }
+
+    .links a svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--accent);
+    }
+
+    .links a:hover svg {
+      fill: var(--fg);
     }
 
     @media (max-width: 768px) {
       header {
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        text-align: center;
-        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      header img {
+        width: 50px;
+        height: 50px;
       }
 
       h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+      }
+
+      .intro-texte {
+        font-size: 1rem;
+      }
+
+      .support-button {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+
+      .links a {
+        width: 28px;
+        height: 28px;
+      }
+
+      .links a i,
+      .links a svg {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
       }
 
       footer {
@@ -167,11 +230,15 @@
   <footer>
     <p>Mes réseaux</p>
     <div class="links">
-      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> ·
-      <a href="https://instagram.com/infinity_lbrtr" target="_blank">Instagram</a> ·
-      <a href="https://twitch.tv/feveeeer" target="_blank">Twitch</a> ·
-      <a href="https://youtube.com/@Fever65" target="_blank">YouTube</a> ·
-      <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
+      <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z" />
+        </svg>
+      </a>
+      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+      <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
     </div>
   </footer>
 </body>

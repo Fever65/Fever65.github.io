@@ -7,7 +7,7 @@ const songs = [
   { title: "GTHU", image: "7.webp", audio: "GTHU.flac" },
   { title: "LIBIWLIB", image: "8.webp", audio: "LIBIWLIB.flac" },
   { title: "MFH", image: "9.webp", audio: "MFH.flac" },
-  { title: "Mm", image: "10.webp", audio: "Mm.flac" },
+  { title: "MM", image: "10.webp", audio: "Mm.flac" },
   { title: "OL", image: "11.webp", audio: "OL.flac" }
 ];
 

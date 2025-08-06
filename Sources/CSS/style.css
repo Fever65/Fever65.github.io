@@ -93,7 +93,7 @@ h1 {
   font-weight: bold;
   cursor: pointer;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   margin-bottom: 6px;
   transition: background 0.2s ease;
@@ -138,17 +138,47 @@ footer {
 }
 
 footer p {
-  margin: 6px 0;
+  margin-bottom: 8px;
 }
 
-footer a {
-  color: var(--fg);
-  text-decoration: none;
-  font-weight: 500;
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
-footer a:hover {
+.links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
   color: var(--accent);
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.links a:hover {
+  background: rgba(255, 140, 0, 0.2);
+  color: var(--fg);
+  transform: scale(1.1);
+  box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
+}
+
+.links a i {
+  font-size: 20px;
+}
+
+.links a svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--accent);
+}
+
+.links a:hover svg {
+  fill: var(--fg);
 }
 
 .no-underline {
@@ -186,5 +216,17 @@ footer a:hover {
   footer {
     font-size: 0.8rem;
     padding-bottom: 20px;
+  }
+
+  .links a {
+    width: 28px;
+    height: 28px;
+  }
+
+  .links a i,
+  .links a svg {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
   }
 }

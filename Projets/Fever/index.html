@@ -7,8 +7,9 @@
   <title>Fever</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;600&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="icon" href="../../Sources/Images/Fever.webp" type="image/webp">
 
   <style>
@@ -33,6 +34,12 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     header {
@@ -40,7 +47,13 @@
       align-items: center;
       justify-content: center;
       gap: 14px;
-      margin: 30px 0 20px;
+      margin: 40px 0 30px;
+      animation: slideIn 0.8s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     header img {
@@ -48,13 +61,20 @@
       height: 70px;
       border-radius: 50%;
       cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    header img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px rgba(255, 140, 0, 0.7);
     }
 
     h1 {
       font-family: 'Gloria Hallelujah', cursive;
       font-size: 2.4rem;
       color: var(--accent);
-      text-shadow: none;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     main.presentation {
@@ -65,19 +85,27 @@
       text-align: center;
       gap: 30px;
       flex-grow: 1;
+      max-width: 800px;
     }
 
     .fever-img {
       width: 225px;
       max-width: 100%;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+      box-shadow: 0 0 15px rgba(255, 140, 0, 0.6);
+      transition: transform 0.3s ease;
+    }
+
+    .fever-img:hover {
+      transform: scale(1.05);
     }
 
     .intro-texte {
       font-size: 1.1rem;
       max-width: 600px;
-      line-height: 1.6;
+      line-height: 1.7;
+      font-weight: 400;
+      letter-spacing: 0.5px;
     }
 
     footer {
@@ -88,28 +116,59 @@
     }
 
     footer p {
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+    }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
 
     .links a {
-      color: var(--fg);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--accent);
       text-decoration: none;
-      margin: 0 5px;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
     }
 
     .links a:hover {
-      color: var(--accent);
+      background: rgba(255, 140, 0, 0.2);
+      color: var(--fg);
+      transform: scale(1.1);
+      box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
+    }
+
+    .links a i {
+      font-size: 20px;
+    }
+
+    .links a svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--accent);
+    }
+
+    .links a:hover svg {
+      fill: var(--fg);
     }
 
     .base-link {
-      color: #ff8c00;
+      color: var(--accent);
       text-decoration: none;
-      font-weight: bold;
-      transition: color 0.2s ease;
+      font-weight: 600;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
     }
 
     .base-link:hover {
       color: #ffaa33;
+      text-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
     }
 
     @media (max-width: 768px) {
@@ -120,15 +179,37 @@
         align-items: center;
         gap: 10px;
         text-align: center;
+        margin: 30px 0 20px;
       }
 
       h1 {
         font-size: 2rem;
       }
 
+      .fever-img {
+        width: 200px;
+      }
+
+      .intro-texte {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
+
       footer {
         font-size: 0.85rem;
         padding: 20px 10px;
+      }
+
+      .links a {
+        width: 28px;
+        height: 28px;
+      }
+
+      .links a i,
+      .links a svg {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
       }
     }
   </style>
@@ -144,27 +225,27 @@
 
   <main class="presentation">
     <p class="intro-texte">
-      Salut, moi c’est Sylvain Hirtz (Fever).<br /><br />
+      Salut, je suis Sylvain Hirtz (Fever).<br /><br />
       <img src="../../Sources/Images/Fev.webp" alt="Portrait de Fever" class="fever-img" /><br /><br />
-      Je crée des pages web vitrines : claires, simples et efficaces.<br />
-      Mon objectif ? Donner de la visibilité à des projets qui en valent la peine.<br />
-      Si le tien a du sens, je peux m’en occuper. <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" target="_blank"
-        class="base-link">Remplis ta candidature ici</a>.<br /><br />
-      Pour me contacter, utilise les liens en bas de page<br />
-      ou écris-moi sur Discord : <strong>fever65</strong><br /><br />
-      Bonne visite sur <a href="../../index.html" class="base-link">ArchiveFever.Work</a>
+      Je crée des pages web vitrines claires et efficaces pour donner de la visibilité à des projets qui comptent.<br />
+      Intéressé ? <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" target="_blank" class="base-link">Soumets ton projet</a>.<br />
+      Contacte-moi via Discord (<strong>fever65</strong>) ou les liens ci-dessous.<br /><br />
+      Bienvenue sur <a href="../../index.html" class="base-link">ArchiveFever.Work</a> !
     </p>
   </main>
-
 
   <footer>
     <p>Mes réseaux</p>
     <div class="links">
-      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> ·
-      <a href="https://instagram.com/infinity_lbrtr" target="_blank">Instagram</a> ·
-      <a href="https://twitch.tv/feveeeer" target="_blank">Twitch</a> ·
-      <a href="https://youtube.com/@Fever65" target="_blank">YouTube</a> ·
-      <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
+      <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z" />
+        </svg>
+      </a>
+      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+      <a href="https://youtube.com/@Fever65" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
     </div>
   </footer>
 </body>

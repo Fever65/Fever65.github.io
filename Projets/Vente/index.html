@@ -4,19 +4,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tu veux ton site ?</title>
+  <title>Créez Votre Site avec Fever</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;600&display=swap"
     rel="stylesheet" />
   <link rel="icon" href="../../Sources/Images/projet.webp" type="image/webp" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   <style>
     :root {
       --bg: #000;
       --fg: #fff;
       --accent: #ff8c00;
-      --muted: #999;
+      --accent-light: #ffaa33;
+      --highlight-blue: #00d4ff;
+      --highlight-green: #00ff9f;
+      --highlight-purple: #cc66ff;
+      --highlight-pink: #ff66cc;
+      --highlight-yellow: #f8f;
+      --muted: #b0b0b0;
     }
 
     * {
@@ -40,7 +47,7 @@
       align-items: center;
       justify-content: center;
       gap: 14px;
-      margin: 16px 0 8px;
+      margin: 8px 0 4px;
     }
 
     header img {
@@ -57,9 +64,9 @@
     }
 
     main.presentation {
-      max-width: 760px;
+      max-width: 800px;
       margin: 0 auto;
-      padding: 20px 16px 30px;
+      padding: 0px 20px;
       text-align: center;
       flex-grow: 1;
       display: flex;
@@ -69,51 +76,84 @@
     }
 
     .section {
-      margin: 18px 0;
+      margin: 25px 0;
     }
 
     .section h2 {
-      font-size: 1.8rem;
-      color: var(--accent);
-      margin-bottom: 10px;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
     }
 
+    .section h2:nth-child(1) { color: var(--highlight-blue); }
+    .section h2:nth-child(2) { color: var(--highlight-green); }
+    .section h2:nth-child(3) { color: var(--highlight-purple); }
+
     .section p {
-      margin-bottom: 16px;
+      margin-bottom: 18px;
+      line-height: 1.7;
+      font-size: 0.95rem;
     }
 
     .liste {
       font-size: 1rem;
-      line-height: 1.6;
+      line-height: 1.8;
       text-align: left;
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto;
     }
 
+    .liste i {
+      margin-right: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .liste i:hover {
+      color: var(--accent-light);
+    }
+
+    .liste .icon-responsive { color: var(--highlight-blue); }
+    .liste .icon-design { color: var(--highlight-green); }
+    .liste .icon-links { color: var(--highlight-purple); }
+    .liste .icon-delivery { color: var(--highlight-pink); }
+    .liste .icon-hosting { color: var(--highlight-yellow); }
+    .liste .icon-maintenance { color: var(--accent-light); }
+
     .cta-group {
       display: flex;
-      gap: 10px;
+      gap: 20px;
       flex-wrap: wrap;
       justify-content: center;
-      margin-top: 16px;
+      margin-top: 20px;
     }
 
-    .cta-button {
-      display: inline-block;
-      padding: 10px 18px;
+    .cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-size: 1rem;
-      font-weight: bold;
+      font-weight: 600;
       text-decoration: none;
-      border-radius: 6px;
-      border: 1px solid var(--accent);
-      background: transparent;
       color: var(--accent);
-      transition: background 0.2s ease, color 0.2s ease;
+      transition: color 0.3s ease, transform 0.2s ease;
     }
 
-    .cta-button:hover {
-      background: var(--accent);
-      color: #000;
+    .cta-link i {
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+    }
+
+    .cta-link:hover {
+      color: var(--accent-light);
+      transform: translateX(5px);
+    }
+
+    .cta-link:hover i {
+      transform: translateX(3px);
     }
 
     footer {
@@ -125,29 +165,55 @@
       margin-top: auto;
     }
 
-    .links a {
-      color: var(--fg);
-      text-decoration: none;
-      margin: 0 5px;
+    footer .links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
     }
 
-    .links a:hover {
+    footer .links a {
       color: var(--accent);
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: color 0.2s ease;
+    }
+
+    footer .links a:hover {
+      color: var(--fg);
+    }
+
+    footer .links svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--accent);
+    }
+
+    footer .links a:hover svg {
+      fill: var(--fg);
     }
 
     @media (max-width: 600px) {
-      .cta-button {
-        width: 100%;
-        text-align: center;
-      }
-
       .cta-group {
         flex-direction: column;
         gap: 10px;
       }
 
+      .cta-link {
+        width: 100%;
+        justify-content: center;
+      }
+
       .liste {
-        padding-left: 4px;
+        padding-left: 8px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .section h2 {
+        font-size: 1.6rem;
       }
     }
   </style>
@@ -163,31 +229,31 @@
 
   <main class="presentation">
     <div class="section">
-      <h2>🔥 Un site simple, stylé, efficace</h2>
-      <p>Tu veux une page web qui <span style="color:#ffaa33;">présente ton projet</span> de façon claire et soignée ?
-      </p>
-      <p>Je crée pour toi un site vitrine rapide, responsive et sans prise de tête.</p>
-      <p>Tu m’envoies les infos, je m’occupe du reste.</p>
+      <h2><i class="fas fa-fire"></i> Votre site, unique et percutant</h2>
+      <p>Votre projet mérite une vitrine web qui <span style="color: var(--accent-light);">capte l’attention</span> et reflète votre vision.</p>
+      <p>Je conçois des sites vitrines modernes, responsive et optimisés, sans complications.</p>
+      <p>Envoyez-moi vos idées, je transforme votre vision en réalité.</p>
     </div>
 
     <div class="section">
-      <h2>🧰 Ce que tu obtiens</h2>
+      <h2><i class="fas fa-toolbox"></i> Ce que je vous offre</h2>
       <div class="liste">
-        ✅ Site <span style="color:#9cf;">adapté mobile + PC</span><br>
-        🎨 Design <span style="color:#ffaa33;">sur mesure</span>, selon ton style<br>
-        🔗 Liens vers tes <span style="color:#6cf;">réseaux, CV ou boutique</span><br>
-        🚀 Livraison <span style="color:#9f9;">en 2 à 4 jours</span><br>
-        📍 <span style="color:#f8f;">Hébergement inclus</span> sur ArchiveFever.Work
+        <i class="fas fa-check icon-responsive"></i> Site <span style="color: var(--highlight-blue);">responsive</span> pour mobile et PC<br>
+        <i class="fas fa-paint-brush icon-design"></i> Design <span style="color: var(--accent-light);">personnalisé</span> selon votre identité<br>
+        <i class="fas fa-link icon-links"></i> Intégration de vos <span style="color: var(--highlight-purple);">réseaux sociaux, CV ou boutique</span><br>
+        <i class="fas fa-rocket icon-delivery"></i> Livraison rapide <span style="color: var(--highlight-pink);">sous 2 à 4 jours</span><br>
+        <i class="fas fa-server icon-hosting"></i> <span style="color: var(--highlight-yellow);">Hébergement inclus</span> sur ArchiveFever.Work<br>
+        <i class="fas fa-wrench icon-maintenance"></i> <span style="color: var(--accent-light);">Maintenance facile</span> pour vos mises à jour
       </div>
     </div>
 
     <div class="section">
-      <h2>💰 Tarif unique</h2>
-      <p><strong style="font-size: 1.3rem;">50€</strong> — site complet, prêt à l’emploi</p>
+      <h2><i class="fas fa-euro-sign"></i> Tarif unique et accessible</h2>
+      <p><strong style="font-size: 1.3rem;">50€</strong> — un site professionnel, prêt à briller</p>
 
       <div class="cta-group">
-        <a class="cta-button" href="https://forms.gle/zAe5NUdtq1CzqeV8A" target="_blank">Demander mon site</a>
-        <a class="cta-button" href="../Clients/index.html">Ils m'ont fait confiance</a>
+        <a class="cta-link" href="https://forms.gle/zAe5NUdtq1CzqeV8A" target="_blank"><i class="fas fa-arrow-right"></i> Faire une demande</a>
+        <a class="cta-link" href="../Clients/index.html"><i class="fas fa-arrow-right"></i> Découvrir mes réalisations</a>
       </div>
     </div>
   </main>
@@ -195,11 +261,15 @@
   <footer>
     <p>Mes réseaux</p>
     <div class="links">
-      <a href="https://x.com/infinity_lbrtr" target="_blank">X</a> ·
-      <a href="https://instagram.com/infinity_lbrtr" target="_blank">Instagram</a> ·
-      <a href="https://twitch.tv/feveeeer" target="_blank">Twitch</a> ·
-      <a href="https://youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a> ·
-      <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
+      <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z" />
+        </svg>
+      </a>
+      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+      <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
     </div>
   </footer>
 </body>

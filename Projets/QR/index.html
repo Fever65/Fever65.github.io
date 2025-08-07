@@ -9,6 +9,7 @@
     <link rel="icon" type="image/png" href="../../Sources/Images/QR.webp" />
     <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
 <body>
@@ -42,7 +43,6 @@
                 <input type="checkbox" id="borderToggle">
             </div>
 
-
             <button type="button" id="generateBtn">Générer le QR Code</button>
         </form>
 
@@ -55,13 +55,56 @@
     <footer>
         <p>Mes réseaux</p>
         <div class="links">
-            <a href="https://twitter.com/infinity_lbrtr" target="_blank">X</a> ·
-            <a href="https://www.instagram.com/infinity_lbrtr/" target="_blank">Instagram</a> ·
-            <a href="https://www.twitch.tv/feveeeer" target="_blank">Twitch</a> ·
-            <a href="https://youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a> ·
-            <a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a>
+            <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z" />
+                </svg>
+            </a>
+            <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+            <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
         </div>
     </footer>
+
+    <style>
+        footer {
+            text-align: center;
+            color: #b0b0b0;
+            padding: 20px 10px 10px;
+            width: 100%;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        footer .links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        footer .links a {
+            color: #ff8c00;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.2s ease;
+        }
+
+        footer .links a:hover {
+            color: #fff;
+        }
+
+        footer .links svg {
+            width: 24px;
+            height: 24px;
+            fill: #ff8c00;
+        }
+
+        footer .links a:hover svg {
+            fill: #fff;
+        }
+    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <script src="../../Sources/JS/ColorQR.js"></script>

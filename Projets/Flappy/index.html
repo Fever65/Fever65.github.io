@@ -101,19 +101,6 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;display:block}
   color:#9aa0a6;font-weight:700;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:6px 8px
 }
 
-/* Rick overlay (si popup bloquée) */
-.rick{
-  position:absolute;inset:0;display:none;align-items:center;justify-content:center;
-  background:radial-gradient(1200px 500px at 50% 40%, rgba(0,0,0,.55), rgba(0,0,0,.78));
-  backdrop-filter: blur(3px);
-}
-.rick .panel{
-  pointer-events:auto; text-align:center; padding:16px 18px;
-  background:linear-gradient(180deg,#131313,#0d0d0d);
-  border:1px solid #262626; border-radius:14px; box-shadow:0 10px 40px rgba(0,0,0,.45)
-}
-.rick h3{font-size:1.1rem;margin-bottom:8px}
-.rick .actions{display:flex;gap:10px;justify-content:center}
 @media (prefers-reduced-motion:reduce){ *{transition:none!important;animation:none!important} }
 </style>
 </head>
@@ -141,19 +128,6 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;display:block}
       <div class="centerMsg" id="centerMsg" style="display:none">
         <div class="box" id="centerText">Tape / Clic / Espace pour voler</div>
       </div>
-
-      <!-- Rick overlay -->
-      <div class="rick" id="rick">
-        <div class="panel">
-          <h3>😼 20 points — time to Rick !</h3>
-          <p style="margin:6px 0 12px;color:#cfcfcf">Le navigateur a bloqué l’onglet. Clique pour lancer.</p>
-          <div class="actions">
-            <button class="btn primary" id="rickBtn">Lancer la musique</button>
-            <button class="btn" id="closeRick">Continuer</button>
-          </div>
-        </div>
-      </div>
-
     </section>
   </main>
 
@@ -235,7 +209,7 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;display:block}
   let tLast = performance.now();
   let game = 'ready'; // 'ready' | 'playing' | 'paused' | 'celebrate' | 'over'
   let score=0, best=parseInt(localStorage.getItem('flappy_jerome_best')||'0',10)||0;
-  let rickSent=false;
+  let milestone=false; // remplace rickSent
 
   const UI = {
     score: document.getElementById('score'),
@@ -243,10 +217,7 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;display:block}
     msg:   document.getElementById('centerMsg'),
     text:  document.getElementById('centerText'),
     pause: document.getElementById('pauseBtn'),
-    reset: document.getElementById('resetBtn'),
-    rick:  document.getElementById('rick'),
-    rickBtn: document.getElementById('rickBtn'),
-    closeRick: document.getElementById('closeRick')
+    reset: document.getElementById('resetBtn')
   };
   UI.best.textContent = String(best);
 
@@ -267,17 +238,6 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;display:block}
   }
   function scoreSfx(n=0){ beep(740+ n*12, 0.07, 0.07, 'triangle'); setTimeout(()=>beep(980+ n*14, 0.06, 0.06, 'sine'), 40); }
   function overSfx(){ beep(220, 0.14, 0.08, 'sawtooth'); setTimeout(()=>beep(160, 0.18, 0.07, 'sawtooth'), 80); }
-
-  // ===== Rick roll (nouvel onglet, overlay si bloqué)
-  function rickRoll(){
-    const url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-    let win; try{ win = window.open(url, '_blank'); }catch(e){}
-    if(!win || win.closed === undefined){
-      UI.rick.style.display='flex';
-    }
-  }
-  UI.rickBtn.addEventListener('click', ()=>{ window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ','_blank'); });
-  UI.closeRick.addEventListener('click', ()=>{ UI.rick.style.display='none'; });
 
   // ===== Fireworks (pour la célébration)
   const rockets=[], sparks=[];
@@ -324,7 +284,7 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;display:block}
   }
 
   function start(){
-    score=0; UI.score.textContent='0'; rickSent=false;
+    score=0; UI.score.textContent='0'; milestone=false;
     pipes.length=0; rockets.length=0; sparks.length=0;
     calcUnits();
     bird.x = Math.floor(W*0.32); bird.y = Math.floor(H*0.45);
@@ -392,7 +352,7 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;display:block}
     const gy = H - GROUND_H;
     const gg = ctx.createLinearGradient(0, gy, 0, H);
     gg.addColorStop(0, '#0f1216'); gg.addColorStop(1, '#0b0d11');
-    ctx.fillStyle = gg; ctx.fillRect(0, gy, W, GROUND_H);
+    ctx.fillStyle = gg; ctx.fillRect(0, gy, GROUND_H ? W : 0, GROUND_H);
 
     const gh=6, g2 = ctx.createLinearGradient(0, gy, 0, gy+gh);
     g2.addColorStop(0, '#487c3a'); g2.addColorStop(1, '#2f5e2a');
@@ -454,19 +414,19 @@ canvas#game{position:absolute;inset:0;width:100%;height:100%;display:block}
       capBot.addColorStop(0, '#2f5e2a'); capBot.addColorStop(1, '#4a7c3b');
       ctx.fillStyle=capBot; ctx.fillRect(p.x-4, botY, PIPE_W+8, 8);
 
-      // score & CÉLÉBRATION à 20
+      // score & CÉLÉBRATION à 20 (plus aucun Rick Roll)
       if(!p.passed && p.x + PIPE_W < bird.x - bird.r){
         p.passed = true;
         score++; UI.score.textContent=String(score);
         SPEED += SPEED_GAIN;
         scoreSfx(score);
 
-        if(score===20 && !rickSent){
-          rickSent = true;
+        if(score===20 && !milestone){
+          milestone = true;
           game = 'celebrate';            // stop du jeu
           rockets.length=0; sparks.length=0;
           for(let k=0;k<4;k++) setTimeout(launchRocket, k*350);
-          rickRoll();                    // nouvel onglet
+          // Pas d'ouverture d'onglet, pas d'overlay.
         }
       }
 

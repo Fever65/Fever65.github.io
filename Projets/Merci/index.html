@@ -1,238 +1,188 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Page de remerciement pour le soutien à ArchiveFever.Work" />
   <meta name="robots" content="index, follow" />
   <title>ArchiveFever.Work ∙ Merci</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="../../Sources/Images/rat.webp" type="image/webp">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
-    :root {
-      --bg: #000;
-      --fg: #fff;
-      --accent: #ff8c00;
-      --accent-dark: #cc6e00;
-      --muted: #999;
+    :root{
+      --bg:#000;
+      --text:#f5f5f5;
+      --muted:#bdbdbd;
+      --accent:#ff8c00;
+      --blue:#3aa6ff;
+      --green:#4cd486;
+      --violet:#b086ff;
+      --rose:#ff7aa8;
+      --surface:#0f0f0f;
+      --surface2:#141414;
+      --line:rgba(255,255,255,.08);
+      --radius:16px;
+      --maxw:940px;
+      --pp1:#009cde;
+      --pp2:#003087;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:"Source Code Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      display:flex; flex-direction:column; min-height:100vh;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+    img{display:block; max-width:100%; height:auto}
+
+    header{ display:flex; justify-content:center; align-items:center; gap:.8rem; padding:20px 12px }
+    header img{ width:64px; height:64px; border-radius:50% }
+    header h1{ margin:0; font-weight:700; line-height:1; font-family:"Gloria Hallelujah", cursive; font-size:clamp(22px,3.8vw,32px); color:#fff }
+
+    main{ flex:1; display:flex; justify-content:center; padding:26px 16px }
+    .wrap{ width:100%; max-width:var(--maxw); display:grid; gap:22px }
+
+    .card{
+      background:linear-gradient(180deg, var(--surface), var(--surface2));
+      border:1px solid var(--line); border-radius:var(--radius); padding:20px;
+    }
+    .hero{
+      display:grid; gap:18px; align-items:center;
+      grid-template-columns: 120px 1fr;
+    }
+    .avatar{
+      width:120px; height:120px; border-radius:14px; object-fit:cover;
+      background:#111; outline:1px solid var(--line)
+    }
+    .hero h2{
+      margin:0 0 8px; font-size:clamp(20px,3vw,26px); font-weight:900
+    }
+    .hero h2 .a{ color:var(--accent) }
+    .lead{ margin:0; color:var(--muted); font-size:clamp(14px,2.2vw,16px); line-height:1.6 }
+
+    .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px }
+    .chip{
+      padding:6px 10px; border-radius:999px; font-weight:800; font-size:12px;
+      border:1px solid var(--line); background:#0f0f0f
+    }
+    .chip.blue{ background:color-mix(in srgb, var(--blue) 20%, #0f0f0f) }
+    .chip.green{ background:color-mix(in srgb, var(--green) 22%, #0f0f0f) }
+    .chip.violet{ background:color-mix(in srgb, var(--violet) 22%, #0f0f0f) }
+    .chip.rose{ background:color-mix(in srgb, var(--rose) 22%, #0f0f0f) }
+
+    .blocks{ display:grid; gap:16px; grid-template-columns: 1fr 1fr }
+    .thanks .title, .support .title{
+      margin:0 0 8px; font-size:clamp(16px,2.4vw,20px); font-weight:900
+    }
+    .thanks p{ margin:0; line-height:1.6 }
+    .highlight{
+      display:inline-block; padding:2px 8px; border-radius:8px; font-weight:900;
+      background:color-mix(in srgb, var(--accent) 18%, #1a1a1a)
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    .btns{ display:flex; flex-wrap:wrap; gap:10px; margin-top:10px }
+    .btn{
+      display:inline-flex; align-items:center; gap:8px; padding:11px 18px;
+      border-radius:12px; border:1px solid var(--line); background:#111; font-weight:900; font-size:14px
     }
+    .btn i{ font-size:16px }
+    .btn:hover{ color:var(--accent); background:#171717 }
 
-    html,
-    body {
-      height: 100%;
+    .btn-paypal{
+      display:inline-flex; align-items:center; gap:10px; padding:12px 20px;
+      border-radius:999px; color:#fff; font-weight:900; font-size:15px;
+      background:linear-gradient(180deg, var(--pp1), var(--pp2));
+      box-shadow:0 6px 20px rgba(0,0,0,.35)
     }
+    .btn-paypal svg{ width:18px; height:18px; fill:#fff }
 
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: 'Source Code Pro', monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px 10px;
+    .mini-grid{ display:grid; gap:10px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); margin-top:12px }
+    .mini{
+      display:flex; align-items:center; gap:10px; padding:10px 12px;
+      border:1px solid var(--line); border-radius:12px; background:#101010
     }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin: 30px 0 20px;
+    .mini .dot{
+      width:18px; height:18px; border-radius:50%
     }
+    .dot.blue{ background:var(--blue) } .dot.green{ background:var(--green) }
+    .dot.violet{ background:var(--violet) } .dot.rose{ background:var(--rose) }
+    .mini span{ font-size:13px; color:var(--muted) }
 
-    header img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      cursor: pointer;
+    footer{ padding:20px 12px; display:flex; justify-content:center }
+    .links{ display:flex; gap:18px; align-items:center; justify-content:center }
+    .links a{ width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; transition:color .2s }
+    .links a:hover{ color:var(--accent) }
+
+    @media (max-width:760px){
+      .hero{ grid-template-columns: 1fr; text-align:center }
+      .avatar{ margin:0 auto }
+      .blocks{ grid-template-columns: 1fr }
     }
-
-    h1 {
-      font-family: 'Gloria Hallelujah', cursive;
-      font-size: 2.4rem;
-      color: var(--accent);
-      text-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
-    }
-
-    main.presentation {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-      text-align: center;
-      gap: 30px;
-      flex-grow: 1;
-      opacity: 0;
-      animation: fadeIn 0.5s ease-in forwards;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    .intro-texte {
-      font-size: 1.1rem;
-      max-width: 600px;
-      line-height: 1.6;
-    }
-
-    .support-button {
-      display: inline-block;
-      margin-top: 20px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
-      color: var(--fg);
-      font-weight: 500;
-      padding: 12px 28px;
-      border-radius: 8px;
-      font-size: 1rem;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .support-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
-    }
-
-    .support-button:focus,
-    .links a:focus {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 30px 10px 10px;
-      width: 100%;
-      font-size: 0.9rem;
-    }
-
-    footer p {
-      margin-bottom: 8px;
-    }
-
-    .links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--accent);
-      text-decoration: none;
-      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-    }
-
-    .links a:hover {
-      background: rgba(255, 140, 0, 0.2);
-      color: var(--fg);
-      transform: scale(1.1);
-      box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
-    }
-
-    .links a i {
-      font-size: 20px;
-    }
-
-    .links a svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--accent);
-    }
-
-    .links a:hover svg {
-      fill: var(--fg);
-    }
-
-    @media (max-width: 768px) {
-      header {
-        gap: 5px;
-      }
-
-      header img {
-        width: 50px;
-        height: 50px;
-      }
-
-      h1 {
-        font-size: 1.8rem;
-      }
-
-      .intro-texte {
-        font-size: 1rem;
-      }
-
-      .support-button {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-      }
-
-      .links a {
-        width: 28px;
-        height: 28px;
-      }
-
-      .links a i,
-      .links a svg {
-        font-size: 18px;
-        width: 18px;
-        height: 18px;
-      }
-
-      footer {
-        font-size: 0.85rem;
-        padding: 20px 10px;
-      }
+    @media (max-width:560px){
+      header img{ width:54px; height:54px }
+      .btn-paypal{ padding:10px 18px; font-size:14px }
     }
   </style>
 </head>
-
 <body>
   <header>
-    <a href="../../index.html">
-      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme" />
+    <a href="../../index.html" aria-label="Retour à l’accueil">
+      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme">
     </a>
-    <h1>Merci !</h1>
+    <h1>Merci</h1>
   </header>
 
-  <main class="presentation">
-    <p class="intro-texte">
-      Merci du fond du cœur pour ton soutien 💛<br /><br />
-      Chaque geste compte et me motive à continuer à créer des projets simples, beaux et utiles.<br /><br />
-      Si tu veux aller plus loin, tu peux me soutenir directement sur PayPal :
-    </p>
-    <a href="https://www.paypal.com/paypalme/Fever65" target="_blank" class="support-button">Soutenir sur PayPal</a>
+  <main>
+    <div class="wrap">
+      <section class="card hero">
+        <img src="../../Sources/Images/Fever.webp" alt="Mascotte" class="avatar">
+        <div>
+          <h2>Merci pour ton soutien <span class="a">sincère</span> 💛</h2>
+          <p class="lead">Chaque geste m’aide à continuer des projets <span style="color:#ffcc80;font-weight:900">simples</span>, <span style="color:#b3e5fc;font-weight:900">clairs</span> et <span style="color:#c5e1a5;font-weight:900">utiles</span>.</p>
+          <div class="chips">
+            <span class="chip blue">Qualité</span>
+            <span class="chip green">Transparence</span>
+            <span class="chip violet">Rigueur</span>
+            <span class="chip rose">Créativité</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="blocks">
+        <div class="card thanks">
+          <p class="title">Tu fais avancer <span class="highlight">ArchiveFever.Work</span></p>
+          <p>Le soutien permet d’héberger mes outils, d’aider des projets qui méritent d’être vus et de garder le site rapide et propre.</p>
+          <div class="mini-grid">
+            <div class="mini"><span class="dot blue"></span><span>Hébergement et domaine</span></div>
+            <div class="mini"><span class="dot green"></span><span>Améliorations et maintenance</span></div>
+            <div class="mini"><span class="dot violet"></span><span>Temps pour créer</span></div>
+            <div class="mini"><span class="dot rose"></span><span>Support des projets soutenus</span></div>
+          </div>
+        </div>
+
+        <div class="card support">
+          <p class="title">Envie d’aller plus loin ?</p>
+          <a href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener" class="btn-paypal" aria-label="Soutenir sur PayPal">
+            Soutenir sur PayPal
+          </a>
+          <div class="btns">
+            <a class="btn" href="../../index.html#clients" target="_blank" rel="noopener"><i class="fas fa-user-friends"></i>Voir mes clients</a>
+            <a class="btn" href="../../index.html#outils" target="_blank" rel="noopener"><i class="fas fa-tools"></i>Mes outils</a>
+            <a class="btn" href="../../index.html#albums" target="_blank" rel="noopener"><i class="fas fa-music"></i>Albums IA</a>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <footer>
-    <p>Mes réseaux</p>
+  <footer aria-label="Réseaux">
     <div class="links">
       <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z" />
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z"/>
         </svg>
       </a>
       <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -242,5 +192,4 @@
     </div>
   </footer>
 </body>
-
 </html>

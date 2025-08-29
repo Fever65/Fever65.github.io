@@ -1,248 +1,271 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fever</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;600&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ArchiveFever.Work ∙ Fever</title>
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="../../Sources/Images/Fever.webp" type="image/webp">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   <style>
-    :root {
-      --bg: #000;
-      --fg: #fff;
-      --accent: #ff8c00;
-      --muted: #999;
+    :root{
+      --bg:#000;
+      --text:#f5f5f5;
+      --muted:#bdbdbd;
+      --accent:#ff8c00;
+
+      --blue:#3aa6ff;
+      --green:#4cd486;
+      --violet:#b086ff;
+      --rose:#ff7aa8;
+
+      --surface:#0f0f0f;
+      --surface2:#141414;
+      --line:rgba(255,255,255,.08);
+      --radius:14px;
+      --maxw:1060px;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:"Source Code Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      min-height:100vh; display:flex; flex-direction:column;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
+    a{color:inherit; text-decoration:none}
+    img{display:block; max-width:100%; height:auto}
 
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: 'Source Code Pro', monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      animation: fadeIn 1s ease-in;
+    header{ display:flex; justify-content:center; align-items:center; gap:.8rem; padding:20px 12px }
+    header img{ width:64px; height:64px; border-radius:50% }
+    header h1{ margin:0; line-height:1; font-weight:700; font-family:"Gloria Hallelujah", cursive; font-size:clamp(22px,3.8vw,32px); color:#fff; white-space:nowrap }
+
+    main{ flex:1; display:flex; justify-content:center; padding:24px 16px }
+    .wrap{ width:100%; max-width:var(--maxw); display:grid; gap:28px }
+
+    .hero{ display:grid; gap:18px; background:linear-gradient(180deg, var(--surface), var(--surface2)); border:1px solid var(--line); border-radius:var(--radius); padding:18px }
+    .hero-top{ display:grid; gap:16px; align-items:center; grid-template-columns: 110px 1fr }
+    .portrait{ width:110px; height:110px; border-radius:12px; object-fit:cover; background:#111; outline:1px solid var(--line) }
+    .title{ margin:0 0 6px; font-size:clamp(18px,3vw,22px); font-weight:800 }
+    .title .a{ color:var(--accent) }
+    .subtitle{ margin:0; color:var(--muted); font-size:clamp(14px,2.4vw,16px) }
+
+    .cta{ display:flex; gap:12px; flex-wrap:wrap; margin-top:10px }
+    .btn{ display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:10px; background:#111; border:1px solid var(--line); font-weight:800; font-size:14px }
+    .btn:hover{ background:#1a1a1a; color:var(--accent) }
+    .btn i{ font-size:16px }
+
+    .badges{ display:flex; gap:10px; flex-wrap:wrap }
+    .badge{ display:inline-flex; align-items:center; gap:8px; padding:8px 10px; background:#101010; border:1px solid var(--line); border-radius:10px; font-weight:700; font-size:13px }
+    .badge i{ color:var(--accent) }
+
+    .grid-3{ display:grid; gap:18px; grid-template-columns: 1fr }
+    .card{ background:linear-gradient(180deg, var(--surface), var(--surface2)); border:1px solid var(--line); border-radius:var(--radius); padding:18px }
+    .h2{ margin:0 0 12px; font-size:clamp(16px,2.6vw,20px); font-weight:900; letter-spacing:.2px; color:#fff }
+    .h2::after{ content:""; display:block; width:46px; height:3px; margin-top:6px; border-radius:3px; background:linear-gradient(90deg,var(--accent),var(--blue)) }
+
+    .about p{ margin:0 0 12px; line-height:1.6; font-size:clamp(15px,2.4vw,16px) }
+    .about .key{ display:flex; flex-wrap:wrap; gap:8px }
+    .chip{
+      padding:6px 10px; border-radius:999px; font-weight:800; font-size:12px;
+      border:1px solid var(--line); background:#0f0f0f;
     }
+    .chip.blue{ background:color-mix(in srgb, var(--blue) 20%, #0f0f0f); }
+    .chip.green{ background:color-mix(in srgb, var(--green) 20%, #0f0f0f); }
+    .chip.violet{ background:color-mix(in srgb, var(--violet) 20%, #0f0f0f); }
+    .chip.rose{ background:color-mix(in srgb, var(--rose) 20%, #0f0f0f); }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .services--grid .svc-grid{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) }
+    .svc{ display:flex; align-items:center; gap:12px; background:#101010; border:1px solid var(--line); border-radius:12px; padding:12px }
+    .svc .icon{
+      width:34px; height:34px; border-radius:8px; display:grid; place-items:center; color:#000; font-size:16px; font-weight:900;
     }
+    .svc .icon.blue{ background:var(--blue) }
+    .svc .icon.green{ background:var(--green) }
+    .svc .icon.violet{ background:var(--violet) }
+    .svc .icon.rose{ background:var(--rose) }
+    .svc .txt strong{ display:block; font-size:14px }
+    .svc .txt span{ display:block; color:var(--muted); font-size:12.5px; margin-top:2px }
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin: 40px 0 30px;
-      animation: slideIn 0.8s ease-out;
+    .parcours .stack{ display:grid; gap:8px }
+    .edu{ display:flex; gap:10px; align-items:center; background:#101010; border:1px solid var(--line); border-radius:12px; padding:10px 12px }
+    .edu i{ color:var(--accent) }
+    .edu .when{ color:#fff; font-weight:800; font-size:13px; margin-right:8px }
+    .edu .what{ font-size:13px; color:var(--muted) }
+
+    .showcase{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) }
+    .tile{ display:flex; align-items:center; gap:12px; padding:14px; background:#0f0f0f; border:1px solid var(--line); border-radius:12px }
+    .tile img{ width:44px; height:44px; object-fit:cover; border-radius:8px; background:#111; outline:1px solid var(--line) }
+    .tile strong{ font-size:14px }
+    .tile span{ color:var(--muted); font-size:13px }
+    .tile:hover{ background:#151515; color:var(--accent) }
+
+    .contact{ display:grid; gap:10px; justify-items:center; text-align:center; background:#0f0f0f; border:1px solid var(--line); border-radius:12px; padding:16px }
+    .contact p{ margin:0; color:var(--muted); font-size:14px }
+    .handles{ display:flex; gap:12px; flex-wrap:wrap }
+    .handle{ background:#111; border:1px solid var(--line); border-radius:10px; padding:8px 12px; font-weight:800; font-size:13px }
+    .handle:hover{ background:#1a1a1a; color:var(--accent) }
+
+    footer{ padding:20px 12px; display:flex; justify-content:center }
+    .links{ display:flex; gap:18px; align-items:center; justify-content:center }
+    .links a{ width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; transition:color .2s }
+    .links a:hover{ color:var(--accent) }
+
+    @media (min-width:980px){
+      .grid-3{ grid-template-columns: 1.2fr 1fr 1fr }
     }
-
-    @keyframes slideIn {
-      from { transform: translateY(-20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @media (min-width:920px){
+      .hero{ grid-template-columns: 1.15fr .85fr }
     }
-
-    header img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    h1 {
-      font-family: 'Gloria Hallelujah', cursive;
-      font-size: 2.4rem;
-      color: var(--accent);
-      letter-spacing: 1px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-
-    main.presentation {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 20px;
-      text-align: center;
-      gap: 30px;
-      flex-grow: 1;
-      max-width: 800px;
-    }
-
-    .fever-img {
-      width: 225px;
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(255, 140, 0, 0.6);
-      transition: transform 0.3s ease;
-    }
-
-    .fever-img:hover {
-      transform: scale(1.05);
-    }
-
-    .intro-texte {
-      font-size: 1.1rem;
-      max-width: 600px;
-      line-height: 1.7;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 30px 10px 10px;
-      width: 100%;
-    }
-
-    footer p {
-      margin-bottom: 8px;
-    }
-
-    .links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--accent);
-      text-decoration: none;
-      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-    }
-
-    .links a:hover {
-      background: rgba(255, 140, 0, 0.2);
-      color: var(--fg);
-      transform: scale(1.1);
-      box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
-    }
-
-    .links a i {
-      font-size: 20px;
-    }
-
-    .links a svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--accent);
-    }
-
-    .links a:hover svg {
-      fill: var(--fg);
-    }
-
-    .base-link {
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
-
-    .base-link:hover {
-      color: #ffaa33;
-      text-shadow: 0 0 5px rgba(255, 140, 0, 0.5);
-    }
-
-    @media (max-width: 768px) {
-      header {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        text-align: center;
-        margin: 30px 0 20px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
-
-      .fever-img {
-        width: 200px;
-      }
-
-      .intro-texte {
-        font-size: 1rem;
-        padding: 0 15px;
-      }
-
-      footer {
-        font-size: 0.85rem;
-        padding: 20px 10px;
-      }
-
-      .links a {
-        width: 28px;
-        height: 28px;
-      }
-
-      .links a i,
-      .links a svg {
-        font-size: 18px;
-        width: 18px;
-        height: 18px;
-      }
+    @media (max-width:560px){
+      header img{ width:54px; height:54px }
+      .hero-top{ grid-template-columns: 84px 1fr }
+      .portrait{ width:84px; height:84px }
     }
   </style>
 </head>
-
 <body>
   <header>
-    <a href="../../index.html">
-      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme" />
+    <a href="../../index.html" aria-label="Retour à l’accueil">
+      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme">
     </a>
     <h1>Fever</h1>
   </header>
 
-  <main class="presentation">
-    <p class="intro-texte">
-      Salut, je suis Sylvain Hirtz (Fever).<br /><br />
-      <img src="../../Sources/Images/Fev.webp" alt="Portrait de Fever" class="fever-img" /><br /><br />
-      Je crée des pages web vitrines claires et efficaces pour donner de la visibilité à des projets qui comptent.<br />
-      Intéressé ? <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" target="_blank" class="base-link">Soumets ton projet</a>.<br />
-      Contacte-moi via Discord (<strong>fever65</strong>) ou les liens ci-dessous.<br /><br />
-      Bienvenue sur <a href="../../index.html" class="base-link">ArchiveFever.Work</a> !
-    </p>
+  <main>
+    <div class="wrap">
+
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-top">
+          <img src="../../Sources/Images/Fev.webp" alt="Portrait de Fever" class="portrait">
+          <div>
+            <h2 id="hero-title" class="title">Je conçois des sites vitrines <span class="a">clairs</span>, <span style="color:#fff;font-weight:800;">rapides</span> et <span class="a">crédibles</span>.</h2>
+            <p class="subtitle">Pour des personnes et des projets qui méritent d’être vus.</p>
+            <div class="cta">
+              <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" class="btn"><i class="fas fa-paper-plane"></i>Soumettre un projet</a>
+              <a href="../../index.html#clients" class="btn"><i class="fas fa-user-friends"></i>Voir mes clients</a>
+            </div>
+          </div>
+        </div>
+        <div class="badges" aria-label="Qualités">
+          <span class="badge"><i class="fas fa-bolt"></i> Chargement rapide</span>
+          <span class="badge"><i class="fas fa-mobile-alt"></i> Mobile-first</span>
+          <span class="badge"><i class="fas fa-shield-alt"></i> Lisible & fiable</span>
+        </div>
+      </section>
+
+      <section class="grid-3" aria-label="À propos, services et parcours">
+        <div class="card about">
+          <h3 class="h2">À propos</h3>
+          <p>Je suis <strong>Sylvain Hirtz</strong> (<strong>Fever</strong>). Mon truc : des sites vitrines qui vont droit au but. Une idée forte, une lecture fluide, des actions évidentes.</p>
+          <p>Je travaille vite et propre, avec un design simple, des mots courts et tout ce qu’il faut pour inspirer confiance.</p>
+          <div class="key">
+            <span class="chip blue">UX simple</span>
+            <span class="chip green">Design net</span>
+            <span class="chip violet">Performance</span>
+            <span class="chip rose">Accessibilité</span>
+          </div>
+        </div>
+
+        <section class="card services services--grid">
+          <h3 class="h2">Mes services</h3>
+          <div class="svc-grid">
+            <div class="svc">
+              <div class="icon blue"><i class="fas fa-window-restore"></i></div>
+              <div class="txt">
+                <strong>Site vitrine</strong>
+                <span>1–5 pages, clair et efficace</span>
+              </div>
+            </div>
+            <div class="svc">
+              <div class="icon green"><i class="fas fa-brush"></i></div>
+              <div class="txt">
+                <strong>Identité visuelle</strong>
+                <span>Couleurs, typo, mise en page</span>
+              </div>
+            </div>
+            <div class="svc">
+              <div class="icon violet"><i class="fas fa-rocket"></i></div>
+              <div class="txt">
+                <strong>Performance</strong>
+                <span>Chargement rapide, code léger</span>
+              </div>
+            </div>
+            <div class="svc">
+              <div class="icon rose"><i class="fas fa-tools"></i></div>
+              <div class="txt">
+                <strong>Fonctionnalités</strong>
+                <span>Contact, réseaux, hébergement</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="card parcours">
+          <h3 class="h2">Parcours</h3>
+          <div class="stack">
+            <div class="edu"><i class="fas fa-graduation-cap"></i><span class="when">2024</span><span class="what">Développeur Web & Web Mobile</span></div>
+            <div class="edu"><i class="fas fa-shield-alt"></i><span class="when">2022</span><span class="what">Certification SecNumacadémie</span></div>
+            <div class="edu"><i class="fas fa-network-wired"></i><span class="when">2022</span><span class="what">Technicien Supérieur Systèmes & Réseaux</span></div>
+            <div class="edu"><i class="fas fa-laptop-code"></i><span class="when">2020</span><span class="what">Bac Pro SN — Option RISC</span></div>
+            <div class="edu"><i class="fas fa-plug"></i><span class="when">2017</span><span class="what">CAP Électricité</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" aria-label="Découvrir">
+        <h3 class="h2">Découvrir</h3>
+        <div class="showcase">
+          <a class="tile" href="../../index.html#clients">
+            <img src="../../Sources/Images/Marley.webp" alt="Clients">
+            <div><strong>Clients</strong><br><span>Mes sites vitrines pour mes clients. (Fait avec passion)</span></div>
+          </a>
+          <a class="tile" href="../../index.html#outils">
+            <img src="../../Sources/Images/GAAP.webp" alt="Outils">
+            <div><strong>Outils</strong><br><span>Mes utilitaires simples. (Fun et utile)</span></div>
+          </a>
+          <a class="tile" href="../../index.html#albums">
+            <img src="../../Sources/Images/Fragments.webp" alt="Albums IA">
+            <div><strong>Albums IA</strong><br><span>Mes sons générés par IA. (Suno)</span></div>
+          </a>
+        </div>
+      </section>
+
+      <section class="contact" aria-label="Contact">
+        <h3 class="h2" style="margin:0;">Contact</h3>
+        <p>Discutons de ton projet.</p>
+        <div class="handles">
+          <span class="handle"><i class="fab fa-discord"></i> fever65</span>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-  <footer>
-    <p>Mes réseaux</p>
+  <footer aria-label="Réseaux">
     <div class="links">
-      <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z" />
+      <a href="https://x.com/infinity_lbrtr" aria-label="X">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z"/>
         </svg>
       </a>
-      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-      <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
+      <a href="https://instagram.com/infinity_lbrtr" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://twitch.tv/feveeeer" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+      <a href="https://youtube.com/@Infinity_lbrtr" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://steamcommunity.com/id/Fever65/" aria-label="Steam"><i class="fab fa-steam"></i></a>
     </div>
   </footer>
-</body>
 
+  <script>
+    (function(){
+      document.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if(href.trim().startsWith('#')) return;
+        a.setAttribute('target','_blank');
+        a.setAttribute('rel','noopener');
+      });
+    })();
+  </script>
+</body>
 </html>

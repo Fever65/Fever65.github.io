@@ -1,252 +1,187 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Présentation du setup matériel et périphériques d'ArchiveFever.Work" />
   <meta name="robots" content="index, follow" />
   <title>ArchiveFever.Work ∙ Mon Setup</title>
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/webp" href="../../Sources/Images/setup.webp" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: 'Open Sans', sans-serif;
-      background-color: #121212;
-      color: #f5f5f5;
+    :root{
+      --bg:#000;
+      --text:#f5f5f5;
+      --muted:#cfcfcf;
+      --surface:#0f0f0f;
+      --surface2:#151515;
+      --line:rgba(255,255,255,.08);
+      --accent:#ff8c00;
+      --teal:#2ec9b9;
+      --violet:#9d7cf3;
+      --blue:#4aa3ff;
+      --green:#58d38c;
+      --radius:16px;
+      --col-min:300px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background:var(--bg); color:var(--text);
+      font-family:"Source Code Pro", monospace;
+      min-height:100vh; display:flex; flex-direction:column;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{color:inherit; text-decoration:none}
+
+    header{
+      display:flex; justify-content:center; align-items:center; gap:.9rem;
+      padding:22px 14px;
+    }
+    header img{width:64px;height:64px;border-radius:50%}
+    header h1{
+      margin:0; font-weight:700; line-height:1;
+      font-family:"Gloria Hallelujah", cursive;
+      font-size:clamp(22px,3.6vw,32px); color:#fff;
+      white-space:nowrap;
     }
 
-    body {
-      display: flex;
-      flex-direction: column;
+    main{flex:1; display:flex; justify-content:center; padding:26px 16px}
+    .container{width:100%; max-width:1100px; display:grid; gap:28px}
+
+    .intro{
+      background:linear-gradient(180deg,var(--surface),var(--surface2));
+      border:1px solid var(--line); border-radius:var(--radius);
+      padding:18px 18px 16px;
+      display:grid; gap:10px; text-align:center;
+    }
+    .intro h2{
+      font-family:"Gloria Hallelujah", cursive;
+      font-size:clamp(18px,2.6vw,22px); color:var(--accent);
+      letter-spacing:.2px; font-weight:700;
+    }
+    .chips{display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+    .chip{
+      padding:8px 12px; border-radius:999px; font-weight:800; font-size:13px;
+      background:#111; border:1px solid var(--line); color:#fff;
     }
 
-    header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px 0 10px;
+    .section{display:grid; gap:16px}
+    .section h3{
+      margin:0; text-align:center; font-weight:800; letter-spacing:.2px;
+      font-size:clamp(16px,2.2vw,20px);
+    }
+    .tone-orange h3{color:var(--accent)}
+    .tone-teal h3{color:var(--teal)}
+    .tone-violet h3{color:var(--violet)}
+
+    .grid{
+      display:grid; gap:14px;
+      grid-template-columns:repeat(auto-fit, minmax(var(--col-min),1fr));
     }
 
-    header img {
-      height: 70px;
-      margin-right: 12px;
+    .card{
+      display:flex; align-items:center; gap:14px;
+      background:linear-gradient(180deg,var(--surface),var(--surface2));
+      border:1px solid var(--line); border-radius:14px;
+      padding:14px 16px;
     }
-
-    header h1 {
-      font-family: 'Gloria Hallelujah', cursive;
-      font-size: 2.6rem; 
-      color: #ffa733;
-      margin: 0;
-      text-align: center;
+    .icon{
+      flex:0 0 40px; height:40px; border-radius:12px;
+      display:grid; place-items:center; color:#0b0b0b; font-size:18px;
     }
+    .icon.orange{background:var(--accent)}
+    .icon.teal{background:var(--teal)}
+    .icon.violet{background:var(--violet)}
+    .icon.blue{background:var(--blue)}
+    .icon.green{background:var(--green)}
+    .text{display:flex; gap:8px; flex-wrap:wrap; align-items:baseline}
+    .label{font-weight:900; color:#fff}
+    .value{color:var(--muted)}
 
-    main {
-      flex: 1;
-      display: flex;
-      justify-content: center;
+    .group{
+      background:linear-gradient(180deg,var(--surface),var(--surface2));
+      border:1px solid var(--line); border-radius:14px; padding:16px;
+      display:grid; gap:14px;
     }
+    .group .row{display:grid; gap:10px}
+    .group .row.cols-2{grid-template-columns:1fr 1fr}
+    @media(max-width:700px){.group .row.cols-2{grid-template-columns:1fr}}
 
-    .container {
-      max-width: 1200px;
-      width: 100%;
-      padding: 0 20px;
-    }
-
-    section {
-      margin-bottom: 30px;
-    }
-
-    h2 {
-      color: #c27e26;
-      font-size: 1.5rem;
-      margin: 12px auto 18px;
-      text-align: center;
-    }
-
-    .config-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 12px;
-    }
-
-    .config-item {
-      background-color: #1e1e1e;
-      border: 1px solid #c27e26;
-      border-radius: 6px;
-      padding: 10px; 
-      display: flex;
-      align-items: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .config-item:hover {
-      transform: scale(1.02);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    .config-item i {
-      font-size: 20px; 
-      margin-right: 12px;
-      color: #c27e26;
-      min-width: 22px;
-    }
-
-    .config-item div {
-      flex: 1;
-      font-size: 1rem;
-    }
-
-    .config-item strong {
-      color: #fff;
-    }
-
-    .config-item span {
-      color: #f5f5f5;
-    }
-
-    footer {
-      background-color: transparent;
-      padding: 16px 10px 12px;
-      text-align: center;
-    }
-
-    footer p {
-      color: #fff;
-      margin-bottom: 8px;
-      font-size: 0.90rem; 
-    }
-
-    .links {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .links a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-      color: #c27e26;
-      text-decoration: none;
-      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
-    }
-
-    .links a:hover {
-      background: rgba(255, 140, 0, 0.2);
-      color: #f5f5f5;
-      transform: scale(1.1);
-      box-shadow: 0 0 8px rgba(255, 140, 0, 0.5);
-    }
-
-    .links a i {
-      font-size: 20px;
-    }
-
-    .links a svg {
-      width: 20px;
-      height: 20px;
-      fill: #c27e26;
-    }
-
-    .links a:hover svg {
-      fill: #f5f5f5;
-    }
-
-    @media (max-width: 768px) {
-      header img {
-        height: 50px;
-        margin-right: 10px;
-      }
-
-      header h1 {
-        font-size: 2rem;
-      }
-
-      h2 {
-        font-size: 1.2rem;
-      }
-
-      .config-item div {
-        font-size: 0.9rem;
-      }
-
-      .links a {
-        width: 28px;
-        height: 28px;
-      }
-
-      .links a i,
-      .links a svg {
-        font-size: 18px;
-        width: 18px;
-        height: 18px;
-      }
-    }
+    footer{padding:20px 12px; display:flex; justify-content:center}
+    .links{display:flex; gap:18px; align-items:center}
+    .links a{width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; transition:color .2s}
+    .links a:hover{color:var(--accent)}
   </style>
 </head>
 <body>
   <header>
-    <a href="../../index.html"><img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme"></a>
+    <a href="../../index.html" aria-label="Retour à l’accueil">
+      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme">
+    </a>
     <h1>Mon Setup</h1>
   </header>
 
   <main>
     <div class="container">
-      <section class="hardware">
-        <h2>La bête</h2>
-        <div class="config-grid">
-          <div class="config-item"><i class="fas fa-microchip"></i><div><strong>Processeur :</strong> <span>AMD Ryzen 5 3600X</span></div></div>
-          <div class="config-item"><i class="fas fa-fan"></i><div><strong>Refroidissement :</strong> <span>Cooler Master ML240L V2 RGB</span></div></div>
-          <div class="config-item"><i class="fas fa-microchip"></i><div><strong>Carte Mère :</strong> <span>Asus ROG STRIX B550-F GAMING</span></div></div>
-          <div class="config-item"><i class="fas fa-memory"></i><div><strong>Mémoire Vive :</strong> <span>HyperX Predator RGB 32GB 3600MHz</span></div></div>
-          <div class="config-item"><i class="fas fa-th"></i><div><strong>Carte Graphique :</strong> <span>Asus GeForce RTX 2080 ROG STRIX A8G</span></div></div>
-          <div class="config-item"><i class="fas fa-box"></i><div><strong>Boîtier :</strong> <span>In Win 103 Phantom</span></div></div>
-          <div class="config-item"><i class="fas fa-plug"></i><div><strong>Alimentation :</strong> <span>Be Quiet! Dark Power 12 750W</span></div></div>
-          <div class="config-item"><i class="fab fa-windows"></i><div><strong>OS :</strong> <span>Windows 11 Pro 64-bit</span></div></div>
-          <div class="config-item"><i class="fas fa-hdd"></i><div><strong>Stockage :</strong> <span>WD Green 240GB, HyperX Fury 120GB, Aorus Gen4 500GB, 2x 1TB</span></div></div>
+
+      <section class="intro" aria-label="Résumé rapide">
+        <h2>Configuration soignée, pensée pour la clarté</h2>
+        <div class="chips">
+          <span class="chip">Performance</span>
+          <span class="chip">Silence</span>
+          <span class="chip">Stabilité</span>
+          <span class="chip">Prod & Gaming</span>
         </div>
       </section>
 
-      <section class="peripherals">
-        <h2>Périphériques</h2>
-        <div class="config-grid">
-          <div class="config-item"><i class="fas fa-desktop"></i><div><strong>Moniteurs :</strong> <span>LG-24GN600, HP 22vx</span></div></div>
-          <div class="config-item"><i class="fas fa-microphone"></i><div><strong>Microphone :</strong> <span>Razer Sieren X</span></div></div>
-          <div class="config-item"><i class="fas fa-headphones"></i><div><strong>Casque :</strong> <span>Beyerdynamic DT 770 PRO</span></div></div>
-          <div class="config-item"><i class="fas fa-mouse"></i><div><strong>Souris :</strong> <span>Logitech G502 HERO</span></div></div>
-          <div class="config-item"><i class="fas fa-keyboard"></i><div><strong>Clavier :</strong> <span>Wooting 80HE</span></div></div>
-          <div class="config-item"><i class="fas fa-video"></i><div><strong>Webcam :</strong> <span>Razer Kiyo X</span></div></div>
+      <section class="section tone-orange" aria-label="La bête">
+        <h3>La bête</h3>
+        <div class="grid">
+          <div class="card"><div class="icon orange"><i class="fas fa-microchip"></i></div><div class="text"><span class="label">Processeur :</span><span class="value">AMD Ryzen 5 3600X</span></div></div>
+          <div class="card"><div class="icon orange"><i class="fas fa-fan"></i></div><div class="text"><span class="label">Refroidissement :</span><span class="value">Cooler Master ML240L V2 RGB</span></div></div>
+          <div class="card"><div class="icon orange"><i class="fas fa-microchip"></i></div><div class="text"><span class="label">Carte mère :</span><span class="value">Asus ROG STRIX B550-F GAMING</span></div></div>
+          <div class="card"><div class="icon orange"><i class="fas fa-memory"></i></div><div class="text"><span class="label">Mémoire vive :</span><span class="value">HyperX Predator RGB 32 GB 3600 MHz</span></div></div>
+          <div class="card"><div class="icon orange"><i class="fas fa-th"></i></div><div class="text"><span class="label">Carte graphique :</span><span class="value">Asus GeForce RTX 2080 ROG STRIX A8G</span></div></div>
+          <div class="card"><div class="icon orange"><i class="fas fa-box"></i></div><div class="text"><span class="label">Boîtier :</span><span class="value">In Win 103 Phantom</span></div></div>
+          <div class="card"><div class="icon orange"><i class="fas fa-plug"></i></div><div class="text"><span class="label">Alimentation :</span><span class="value">Be Quiet! Dark Power 12 750 W</span></div></div>
+          <div class="card"><div class="icon blue"><i class="fab fa-windows"></i></div><div class="text"><span class="label">OS :</span><span class="value">Windows 11 Pro 64-bit</span></div></div>
+          <div class="card"><div class="icon green"><i class="fas fa-hdd"></i></div><div class="text"><span class="label">Stockage :</span><span class="value">WD Green 240 GB, HyperX Fury 120 GB, Aorus Gen4 500 GB, 2× 1 TB</span></div></div>
         </div>
       </section>
 
-      <section class="mobile-devices">
-        <h2>Autres Appareils</h2>
-        <div class="config-grid">
-          <div class="config-item"><i class="fas fa-laptop"></i><div><strong>PC Portable :</strong> <span>MacBook Air M2 15" 256 Go</span></div></div>
-          <div class="config-item"><i class="fas fa-mobile-alt"></i><div><strong>Téléphone :</strong> <span>iPhone 16 128 Go</span></div></div>
+      <section class="section tone-teal" aria-label="Périphériques">
+        <h3>Périphériques</h3>
+        <div class="grid">
+          <div class="card"><div class="icon teal"><i class="fas fa-desktop"></i></div><div class="text"><span class="label">Moniteurs :</span><span class="value">LG-24GN600, HP 22vx</span></div></div>
+          <div class="card"><div class="icon teal"><i class="fas fa-microphone"></i></div><div class="text"><span class="label">Microphone :</span><span class="value">Razer Seiren X</span></div></div>
+          <div class="card"><div class="icon teal"><i class="fas fa-headphones"></i></div><div class="text"><span class="label">Casque :</span><span class="value">Beyerdynamic DT 770 PRO</span></div></div>
+          <div class="card"><div class="icon teal"><i class="fas fa-mouse"></i></div><div class="text"><span class="label">Souris :</span><span class="value">Logitech G502 HERO</span></div></div>
+          <div class="card"><div class="icon teal"><i class="fas fa-keyboard"></i></div><div class="text"><span class="label">Clavier :</span><span class="value">Wooting 80HE</span></div></div>
+          <div class="card"><div class="icon teal"><i class="fas fa-video"></i></div><div class="text"><span class="label">Webcam :</span><span class="value">Razer Kiyo X</span></div></div>
         </div>
       </section>
+
+      <section class="section tone-violet" aria-label="Autres appareils">
+        <h3>Autres appareils</h3>
+        <div class="grid">
+          <div class="card"><div class="icon violet"><i class="fas fa-laptop"></i></div><div class="text"><span class="label">PC portable :</span><span class="value">MacBook Air M2 15″ 256 Go</span></div></div>
+          <div class="card"><div class="icon violet"><i class="fas fa-mobile-alt"></i></div><div class="text"><span class="label">Téléphone :</span><span class="value">iPhone 16 128 Go</span></div></div>
+        </div>
+      </section>
+
     </div>
   </main>
 
-  <footer>
-    <p>Mes réseaux</p>
+  <footer aria-label="Réseaux">
     <div class="links">
       <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z" />
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933z"/>
         </svg>
       </a>
-      <a href="https://instagram.com/infinity_lbrtr/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
       <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
       <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
       <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>

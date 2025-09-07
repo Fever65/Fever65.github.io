@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="/Sources/Images/jerome.webp" type="image/webp">
+<title>JOURNAL DE BORD</title>
+<link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+:root{--bg:#000;--fg:#f3f6ff;--muted:#cdd3e3;--line:#3b4662;--panel:#1b2030;--panel2:#171d2a;--accent:#ff8c00;--radius:14px}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Source Code Pro",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%;height:auto}
+header{position:fixed;top:14px;left:0;right:0;z-index:20;display:flex;justify-content:center;align-items:center;gap:.8rem}
+header img{width:64px;height:64px;border-radius:50%;cursor:pointer}
+header h1{margin:0;font-weight:700;font-family:"Gloria Hallelujah",sans-serif;font-size:clamp(22px,3.8vw,32px);white-space:nowrap}
+main{min-height:100svh;display:grid;place-items:center;text-align:center;padding:120px 16px 100px}
+.wrap{width:min(720px,94vw);display:grid;gap:18px;margin:auto}
+.list{display:grid;gap:12px}
+.item{display:flex;align-items:center;justify-content:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;text-align:center;cursor:pointer;transition:background .18s,border-color .18s,transform .12s}
+.item:hover{background:#20273b;border-color:#46537a}
+.item:active{transform:scale(.99)}
+.item.active{background:#232b42;border-color:#526393;box-shadow:0 0 0 2px rgba(255,140,0,.18) inset}
+.title{font-weight:800;letter-spacing:.2px;color:#e9eeff}
+.more{appearance:none;border:none;border-radius:12px;padding:14px 18px;background:#20273b;border:1px solid #46537a;color:#e9eeff;font-weight:800;cursor:pointer}
+.more:hover{background:#232b42;border-color:#526393}
+.desc{font-family:"Spectral",serif;color:#ffe7cc;font-size:1.12rem;line-height:1.65;background:rgba(255,140,0,.08);border:1px solid rgba(255,140,0,.28);border-radius:12px;padding:16px 18px;text-align:left}
+.compat{font-family:"Spectral",serif;background:#2a0f0f;border:1px solid #803333;color:#ffd7d7;border-radius:12px;padding:12px 14px;text-align:left}
+.player{display:grid;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+.controls{display:flex;gap:14px;align-items:center}
+.btn{width:56px;height:56px;border-radius:999px;display:grid;place-items:center;background:#121827;border:1px solid #4a597f;color:#fff;font-size:22px;cursor:pointer;transition:transform .12s,background .18s,border-color .18s}
+.btn:hover{background:#182036;border-color:#55689b}
+.btn:active{transform:scale(.98)}
+.btn:focus-visible{outline:2px dashed var(--accent);outline-offset:4px}
+.bar{position:relative;height:12px;flex:1;background:#121827;border:1px solid #4a597f;border-radius:999px;cursor:pointer}
+.fill{position:absolute;inset:0 auto 0 0;width:0%;background:linear-gradient(90deg,var(--accent),#ffb469);border-radius:999px;box-shadow:0 0 16px rgba(255,140,0,.22)}
+.vol-wrap{display:flex;align-items:center;gap:10px;flex:0 1 230px;background:#121827;border:1px solid #4a597f;border-radius:999px;padding:8px 10px}
+.vol-ico{width:22px;height:22px;display:grid;place-items:center}
+.vol{flex:1}input[type=range].vol{width:100%;accent-color:var(--accent)}
+.vol-pct{min-width:42px;text-align:right;color:var(--muted)}
+@media (max-width:480px){.vol-wrap{display:none}}
+footer{position:fixed;left:0;right:0;bottom:14px;z-index:20;display:flex;justify-content:center}
+.links{display:flex;gap:18px}
+.links a{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;opacity:.95;transition:opacity .2s,transform .2s}
+.links a:hover{opacity:1;transform:scale(1.06)}
+.links a:focus-visible{outline:2px dashed var(--accent);outline-offset:4px;border-radius:8px}
+</style>
+</head>
+<body>
+<header>
+  <a href="/" aria-label="Revenir à la page de base"><img src="/Sources/Images/jerome.webp" alt="Logo Jérôme"></a>
+  <h1>Journal de bord</h1>
+</header>
+
+<main>
+  <div class="wrap">
+    <div id="trackList" class="list" aria-label="Pistes">
+      <button type="button" class="item active"
+              data-id="1"
+              data-src="1.flac"
+              data-desc="1.txt">
+        <div class="title">Premier message - 7 Septembre 2025</div>
+      </button>
+            <button type="button" class="item active"
+              data-id="2"
+              data-src="Be Proud Girl.mp3"
+              data-desc="2.txt">
+        <div class="title">Son pas utilisé (1) - 7 Septembre 2025</div>
+      </button>
+    </div>
+
+    <div id="desc" class="desc">Sélectionne une entrée pour afficher la note.</div>
+    <div id="compat" class="compat" hidden>⚠️ Ton navigateur ne lit pas le FLAC (Safari iOS). Prévois un MP3/OPUS si tu veux la lecture partout.</div>
+
+    <div class="player" aria-label="Lecteur audio">
+      <div class="controls">
+        <button id="play" class="btn" aria-label="Lecture/Pause" aria-pressed="false">▶</button>
+        <div id="bar" class="bar" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progression">
+          <div id="fill" class="fill"></div>
+        </div>
+        <div class="vol-wrap" role="group" aria-label="Volume (desktop)">
+          <span class="vol-ico" aria-hidden="true">🔈</span>
+          <input id="vol" class="vol" type="range" min="0" max="1" step="0.01" value="0.3">
+          <span id="volpct" class="vol-pct">30%</span>
+        </div>
+      </div>
+      <audio id="audio" preload="metadata" playsinline></audio>
+    </div>
+  </div>
+</main>
+
+<footer aria-label="Réseaux">
+  <div class="links">
+    <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933z"/></svg>
+    </a>
+    <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+    <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+    <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
+  </div>
+</footer>
+
+<script>
+(()=>{"use strict";
+const audio=document.getElementById("audio");
+const playBtn=document.getElementById("play");
+const bar=document.getElementById("bar");
+const fill=document.getElementById("fill");
+const vol=document.getElementById("vol");
+const volpct=document.getElementById("volpct");
+const listEl=document.getElementById("trackList");
+const descEl=document.getElementById("desc");
+const compat=document.getElementById("compat");
+
+const flacSupported = !!audio.canPlayType && (audio.canPlayType("audio/flac")==="probably" || audio.canPlayType("audio/flac")==="maybe");
+compat.hidden = flacSupported;
+
+function basePath(){ return location.pathname.replace(/[^\/]+$/,""); }
+function toAbs(p){ if(!p) return ""; return p.startsWith("/")?p:(basePath()+p); }
+
+function setVolume(v){audio.volume=v;vol.value=String(v);volpct.textContent=Math.round(v*100)+"%"}
+setVolume(0.3);
+vol.addEventListener("input",()=>setVolume(Number(vol.value)));
+
+function updateBtn(){ playBtn.textContent=audio.paused?"▶":"⏸"; playBtn.setAttribute("aria-pressed",audio.paused?"false":"true"); }
+function updateProgress(){ const p=audio.duration?(audio.currentTime/audio.duration)*100:0; fill.style.width=p+"%"; bar.setAttribute("aria-valuenow",String(Math.round(p))); }
+function seek(x){ const r=bar.getBoundingClientRect(); const dx=Math.min(Math.max(x-r.left,0),r.width); const ratio=r.width?dx/r.width:0; if(isFinite(audio.duration)) audio.currentTime=ratio*audio.duration; }
+
+bar.addEventListener("click",e=>seek(e.clientX));
+bar.addEventListener("pointerdown",e=>{seek(e.clientX); const m=ev=>seek(ev.clientX); const u=()=>{window.removeEventListener("pointermove",m);window.removeEventListener("pointerup",u)}; window.addEventListener("pointermove",m); window.addEventListener("pointerup",u)});
+audio.addEventListener("timeupdate",updateProgress);
+audio.addEventListener("play",updateBtn);
+audio.addEventListener("pause",updateBtn);
+audio.addEventListener("ended",()=>{audio.currentTime=0;audio.pause()});
+
+let currentBtn=null;
+
+async function loadDesc(btn){
+  let txt=(btn.dataset.descText||"").trim();
+  let url=(btn.dataset.desc||"").trim();
+  if(!url && btn.dataset.src){ url=btn.dataset.src.replace(/\.[^/.]+$/,".txt"); }
+  if(url){
+    try{
+      const r=await fetch(toAbs(url),{cache:"no-store"});
+      if(r.ok){ const t=(await r.text()).trim(); if(t) txt=t; }
+    }catch{}
+  }
+  descEl.textContent = txt || "—";
+}
+
+function selectBtn(btn,autoplay){
+  if(!btn) return;
+  if(currentBtn) currentBtn.classList.remove("active");
+  btn.classList.add("active");
+  currentBtn=btn;
+  const src=toAbs(btn.dataset.src||"");
+  if(src){ audio.src=src; audio.load(); }
+  loadDesc(btn);
+  if(autoplay){ audio.play().catch(()=>{}) }
+  updateBtn(); updateProgress();
+}
+
+listEl.addEventListener("click",e=>{
+  const btn=e.target.closest(".item"); if(!btn) return;
+  const wasThis = (currentBtn===btn);
+  const wasPlaying = !audio.paused && wasThis;
+  selectBtn(btn, !wasPlaying);
+});
+
+playBtn.addEventListener("click",()=>{
+  if(!audio.src){ selectBtn(listEl.querySelector(".item"), true); return; }
+  if(audio.paused){ audio.play().catch(()=>{}) } else { audio.pause(); }
+  updateBtn();
+});
+
+selectBtn(listEl.querySelector(".item"), false);
+})();
+</script>
+</body>
+</html>

@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>KhotiCeres • Présentation</title>
-<link rel="icon" href="../../Sources/Images/Khoti.webp" type="image/webp">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
-<meta name="description" content="KhotiCeres : jeu vidéo créé en live sur Twitch. Avis court signé Fever, images et lien Twitch.">
+<link rel="icon" href="../../Sources/Images/Khoti.webp" type="image/webp" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet" />
+<meta name="description" content="KhotiCeres : aperçu neutre du projet 'After Hours' (WIP), images et lien Twitch." />
+
+<meta name="theme-color" content="#07080b" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
 <style>
   :root{
     --bg:#07080b; --bg2:#0a0c12;
@@ -16,18 +21,21 @@
     --radius:16px; --shadow:0 18px 60px rgba(0,0,0,.45);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
   img{max-width:100%;display:block}
   a{color:inherit;text-decoration:none}
 
-  html,body{
+  :root, html, body { background:#07080b; color-scheme:dark }
+  *{ -webkit-tap-highlight-color:transparent }
+  html,body{ height:100%; overscroll-behavior:none; background-attachment:fixed }
+
+  body{
     background:linear-gradient(180deg,var(--bg),var(--bg2));
     color:var(--txt);
     font:400 16px/1.65 "Sora",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    min-height:100svh;
+    display:flex;flex-direction:column;
   }
-
-  body{min-height:100dvh;display:flex;flex-direction:column}
 
   header{padding:22px 14px}
   .brand{
@@ -56,9 +64,7 @@
     background:linear-gradient(90deg, var(--violet), var(--pink) 45%, var(--blue));
     -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
   }
-  .sub{color:var(--muted); margin:0 0 12px}
-  .quote-line{font-size:1.06rem; color:var(--strong); margin-top:2px}
-  .sig{color:var(--muted); font-weight:800; margin-left:6px}
+  .sub{color:var(--muted); margin:0 0 10px}
 
   .actions{margin-top:12px}
   .link{
@@ -85,16 +91,14 @@
   .footer-link{color:#d7dcf0}
   .footer-link:hover{color:#ffffff}
 
-  /* Desktop : logo à gauche, texte à droite */
   @media (min-width:980px){
     .hero{grid-template-columns:minmax(280px,360px) 1fr}
-    .media{order:1; max-width:none}     /* gauche */
-    .context{order:2}                   /* droite */
+    .media{order:1; max-width:none}
+    .context{order:2}
     .gallery{grid-template-columns:1fr 1fr; align-items:start}
     .tile img{aspect-ratio:16/10; object-fit:cover}
     .page{gap:24px}
   }
-
   @media (max-width:640px){
     .hero,.gallery,.actions{text-align:center}
     .media{width:min(280px,92vw)}
@@ -115,9 +119,10 @@
 
       <div class="context">
         <h2 id="khoti-title">After Hours — WIP</h2>
-        <p class="sub">Jeu vidéo créé en live sur Twitch (développement en direct), ambiance années 90 posée.</p>
-
-        <p class="quote-line">« Son parcours de création est intéressant et son jeu a du potentiel. » <span class="sig">— Fever</span></p>
+        <p class="sub">
+          <strong>Présentation.</strong> <em>After Hours</em> est un projet de jeu narratif développé en direct sur Twitch.
+          Le développement est public (sessions de code, itérations, tests). Les visuels ci-dessous sont des WIP.
+        </p>
 
         <div class="actions" role="navigation" aria-label="Lien officiel">
           <a class="link" target="_blank" rel="noopener" href="https://www.twitch.tv/khoticeres">Voir la chaîne Twitch</a>

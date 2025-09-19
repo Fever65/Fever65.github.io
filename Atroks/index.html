@@ -1,313 +1,187 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="../Sources/Images/Atroks.webp" type="image/webp" />
-    <title>ArchiveFever.Work • Atroks</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --accent: #ff6a1f;
-            --accent-light: #ffa366;
-            --bg-dark: #0d0d0d;
-            --text: #f0f0f0;
-            --muted: #aaaaaa;
-            --glass: rgba(255, 255, 255, 0.04);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ATROKS WORKSHOP • Monteur vidéo</title>
+<link rel="icon" href="../Sources/Images/Atroks.webp" type="image/webp">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet">
+<meta name="description" content="ATROKS WORKSHOP — Atroks est un monteur vidéo. Tarifs et contacts pro.">
+<style>
+  :root{
+    --bg:#0b0d12; --bg2:#0a0c12;
+    --txt:#cfd4e7; --muted:#9aa6bf; --strong:#eef1ff;
+    --orange:#ff7a1a; --pink:#ff6ec7; --violet:#7f6cff; --blue:#39b6ff;
+    --panel:rgba(255,255,255,.035); --panel-2:rgba(255,255,255,.055);
+    --shadow:0 10px 28px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  html,body{
+    background:linear-gradient(180deg,var(--bg),var(--bg2));
+    color:var(--txt);
+    font:400 16px/1.6 "Sora",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility
+  }
 
-        html,
-        body {
-            height: 100%;
-            font-family: 'Outfit', sans-serif;
-            scroll-behavior: smooth;
-            background: var(--bg-dark);
-            color: var(--text);
-            display: flex;
-            flex-direction: column;
-        }
+  /* Layout compact (1080p friendly) */
+  body{min-height:100vh;display:flex;flex-direction:column}
+  header{padding:10px 12px}
+  main{flex:1;display:flex;align-items:center;justify-content:center}
+  .page{width:100%;max-width:1100px;margin:0 auto;padding:10px 14px;display:grid;gap:14px}
+  footer{background:transparent;color:#9aa6bf;font-size:.92rem}
+  .footer-wrap{max-width:1100px;margin:0 auto;padding:8px 14px 12px;text-align:center;display:grid;gap:6px}
 
-        main {
-            flex: 1;
-        }
+  /* Titre */
+  .brand{
+    text-align:center;font-weight:800;letter-spacing:.4px;
+    font-size:clamp(1.5rem,5.8vw,2.2rem);
+    background:linear-gradient(90deg, #ffb05a, var(--orange) 35%, var(--pink) 70%, var(--violet));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent
+  }
 
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
+  /* HERO */
+  .hero{display:grid;gap:10px;align-items:center}
+  .media{border-radius:10px;overflow:hidden;background:#0f121a;box-shadow:var(--shadow);max-width:260px;margin:0 auto}
+  .intro h2{
+    margin:0 0 2px;font-weight:800;line-height:1.12;
+    font-size:clamp(1.05rem,3.6vw,1.4rem);
+    background:linear-gradient(90deg,var(--orange), var(--pink) 50%, var(--blue));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent
+  }
+  .intro p{margin:0;color:#9aa6bf;font-size:.95rem}
 
-        section:first-of-type {
-            background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
-        }
+  /* SERVICES */
+  .services h3,.contact-title{
+    font-weight:800;letter-spacing:.02em;margin:0 0 8px;
+    font-size:clamp(1rem,3.2vw,1.25rem); color:var(--strong)
+  }
+  .cards{display:grid;gap:10px;grid-template-columns:1fr}
+  .service-card{background:var(--panel);border-radius:10px;padding:10px;box-shadow:var(--shadow)}
+  .service-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+  .emoji{font-size:1rem}
+  .service-title{font-weight:800;color:#ffb37a}
+  .lines{display:grid;gap:3px}
+  .lines small{color:#9aa6bf}
+  .price-inline{font-weight:800;color:#ffe9d6}
 
-        h1 {
-            font-size: 3.5rem;
-            background: linear-gradient(90deg, #ff5c00, #ffa500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeZoom 1.2s ease-out forwards;
-            opacity: 0;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
+  /* CONTACTS — un seul bloc */
+  .contact-card{background:var(--panel-2);border-radius:10px;padding:10px;box-shadow:var(--shadow)}
+  .contact-grid{display:grid;gap:8px}
+  .row{display:grid;gap:6px;align-items:center;grid-template-columns:120px 1fr}
+  .row strong{color:var(--strong);font-size:.96rem}
+  .value{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .chip{padding:6px 10px;border-radius:999px;font-weight:800;background:linear-gradient(90deg, rgba(127,108,255,.18), rgba(57,182,255,.16));color:#eaf1ff;font-size:.92rem}
+  .cta{position:relative;display:inline-block;font-weight:800;color:var(--violet);padding-left:14px;transition:color .12s ease;font-size:.95rem}
+  .cta:hover{color:#6e5bff}
+  .cta::before{content:"→";position:absolute;left:0;top:0;color:inherit}
 
-        h2 {
-            color: var(--accent);
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
+  /* Bandeau (identique) */
+  .pill{
+    display:inline-block;padding:8px 14px;border-radius:999px;
+    background:linear-gradient(90deg, rgba(138,120,255,.24), rgba(57,182,255,.22), rgba(255,110,199,.22));
+    color:#eef2ff;font-weight:800;
+    backdrop-filter:blur(8px) saturate(115%);-webkit-backdrop-filter:blur(8px) saturate(115%);
+    box-shadow:0 8px 20px rgba(0,0,0,.26), inset 0 0 0 1px rgba(255,255,255,.08)
+  }
+  .footer-link{color:#d7dcf0}.footer-link:hover{color:#ffffff}
 
-        p {
-            max-width: 720px;
-            line-height: 1.7;
-            font-size: 1.1rem;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-        }
+  /* Desktop (≥980px) : tout tient en 1080p */
+  @media (min-width:980px){
+    body{font-size:15px}
+    .page{gap:12px}
+    .hero{grid-template-columns:minmax(220px,300px) 1fr}
+    .media{max-width:none}
+    .cards{grid-template-columns:repeat(4,1fr)}
+    .contact-grid{grid-template-columns:repeat(2,1fr)}
+    .row{grid-template-columns:120px 1fr}
+  }
 
-        .highlight {
-            color: var(--accent-light);
-            font-weight: 600;
-        }
-
-        .btn {
-            padding: 0.7rem 1.6rem;
-            background: #1a1a1a;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            font-weight: 500;
-            border-radius: 40px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 12px rgba(255, 92, 0, 0.1);
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .services-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 12px;
-            width: 280px;
-            text-align: left;
-            color: var(--text);
-            box-shadow: 0 0 12px rgba(255, 92, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .glass-card strong {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--accent-light);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .glass-card span {
-            display: block;
-            margin-top: 0.3rem;
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-
-        a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: #fff;
-        }
-
-        /* CONTACT */
-        #contact {
-            padding: 6rem 2rem;
-            background: linear-gradient(to bottom, #0d0d0d, #111);
-            min-height: 90vh;
-        }
-
-        .contact-card {
-            background: var(--glass);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 2.5rem 2rem;
-            max-width: 480px;
-            margin: auto;
-            box-shadow: 0 0 12px rgba(255, 92, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-            font-size: 1.1rem;
-            text-align: left;
-        }
-
-        .contact-card span {
-            color: #aaa;
-            font-weight: 500;
-            margin-right: 0.4rem;
-        }
-
-        .contact-card a {
-            color: var(--accent);
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .contact-card a:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem 1rem;
-            font-size: 0.9rem;
-            color: var(--muted);
-            background: linear-gradient(to top, #0d0d0d, #1a1a1a);
-            margin-top: auto;
-        }
-
-        footer a {
-            color: var(--accent);
-        }
-
-        @keyframes fadeZoom {
-            from {
-                opacity: 0;
-                transform: scale(1.2);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2.4rem;
-            }
-
-            .glass-card,
-            .contact-card {
-                width: 90%;
-            }
-
-            .btn {
-                font-size: 0.95rem;
-                padding: 0.6rem 1.4rem;
-            }
-        }
-    </style>
+  /* Mobile */
+  @media (max-width:640px){
+    .hero{text-align:center}
+    .media{width:min(240px,90vw)}
+    .row{grid-template-columns:1fr}
+  }
+</style>
 </head>
-
 <body>
+<header>
+  <h1 class="brand">ATROKS WORKSHOP</h1>
+</header>
 
-    <main>
-        <section>
-            <h1>ATROKS WORKSHOP</h1>
-            <p>Montage vidéo <span class="highlight">cinématique</span> & <span class="highlight">créatif</span> pour
-                les créateurs exigeants.</p>
-            <a class="btn" href="#presentation">🚀 Découvrir</a>
-        </section>
+<main>
+  <div class="page">
 
-        <section id="presentation">
-            <h2>🎬 Présentation</h2>
-            <p>
-                Moi c’est <span class="highlight">Atroks</span>, 28 ans, monteur vidéo <span
-                    class="highlight">autodidacte</span> passionné depuis plus de 2 ans. J’ai appris seul, avec rigueur
-                et curiosité, en m’inspirant des meilleurs contenus en ligne. Aujourd’hui, je travaille avec des
-                créateurs de tous horizons pour les aider à transformer leurs idées en vidéos puissantes, dynamiques et
-                engageantes.
-            </p>
-            <p>
-                Mon objectif ? Mettre en valeur <span class="highlight">ta personnalité</span> à travers chaque montage.
-                Que tu sois streamer, youtubeur, artiste ou entrepreneur, je prends le temps de comprendre ton univers
-                pour créer des contenus sur mesure. Mon style est <span class="highlight">éclectique</span>, ma méthode
-                <span class="highlight">rigoureuse</span> et mon ambition claire : te faire briller à l’écran.
-            </p>
-        </section>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="intro-title">
+      <figure class="media">
+        <img src="../Sources/Images/Atroks.webp" alt="Logo Atroks">
+      </figure>
+      <div class="intro">
+        <h2 id="intro-title">Atroks est un monteur vidéo</h2>
+        <p>Tarifs & contacts ci-dessous.</p>
+      </div>
+    </section>
 
-        <section id="services">
-            <h2>💼 Services</h2>
-            <div class="services-grid">
-                <div class="glass-card">
-                    <strong>🎥 Montage Long</strong>
-                    <span>Simple : 1€/min</span>
-                    <span>Complexe : 2,5€/min</span>
-                </div>
-                <div class="glass-card">
-                    <strong>📱 Shorts TikTok / YT</strong>
-                    <span>7€ par vidéo (effets inclus)</span>
-                </div>
-                <div class="glass-card">
-                    <strong>🎨 Créa Graphique</strong>
-                    <span>Miniature, logo, bannière : 5€</span>
-                    <span>Overlay statique : 15€</span>
-                    <span>Dynamique : 35€</span>
-                </div>
-                <div class="glass-card">
-                    <strong>⚙️ Options</strong>
-                    <span>Sous-titres : 5€/30min</span>
-                    <span>Anglais : +10€</span>
-                    <span>Express : +50%</span>
-                </div>
-            </div>
-        </section>
+    <!-- SERVICES -->
+    <section class="services" aria-labelledby="services-title">
+      <h3 id="services-title">Services</h3>
+      <div class="cards">
+        <article class="service-card">
+          <div class="service-head"><span class="emoji">🎞️</span><div class="service-title">Montage Long</div></div>
+          <div class="lines">
+            <div>Simple : <span class="price-inline">1€ / min</span></div>
+            <div>Complexe : <span class="price-inline">2,5€ / min</span></div>
+          </div>
+        </article>
+        <article class="service-card">
+          <div class="service-head"><span class="emoji">📱</span><div class="service-title">Shorts TikTok / YT</div></div>
+          <div class="lines"><div>7€ par vidéo <small>(effets inclus)</small></div></div>
+        </article>
+        <article class="service-card">
+          <div class="service-head"><span class="emoji">🎨</span><div class="service-title">Créa Graphique</div></div>
+          <div class="lines">
+            <div>Miniature, logo, bannière : <span class="price-inline">5€</span></div>
+            <div>Overlay statique : <span class="price-inline">15€</span></div>
+            <div>Dynamique : <span class="price-inline">35€</span></div>
+          </div>
+        </article>
+        <article class="service-card">
+          <div class="service-head"><span class="emoji">⚙️</span><div class="service-title">Options</div></div>
+          <div class="lines">
+            <div>Sous-titres : <span class="price-inline">5€ / 30min</span></div>
+            <div>Anglais : <span class="price-inline">+10€</span></div>
+            <div>Express : <span class="price-inline">+50%</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-        <section id="contact">
-            <h2>📬 Contact</h2>
-            <div class="contact-card">
-                <p><span>💬 Discord :</span> <strong>atrooks</strong></p>
-                <p><span>📸 Instagram :</span> <a href="https://www.instagram.com/atroksworkshop"
-                        target="_blank">@atroksworkshop</a></p>
-                <p><span>💼 LinkedIn :</span> <a href="https://www.linkedin.com/in/atroks-workshop-8449b2376/"
-                        target="_blank">Atroks Workshop</a></p>
-                <p><span>📧 Email :</span> <a href="mailto:atroksatroks7@gmail.com">atroksatroks7@gmail.com</a></p>
-            </div>
-        </section>
-    </main>
+    <!-- CONTACTS — un seul bloc -->
+    <section aria-labelledby="contact-title">
+      <h3 class="contact-title" id="contact-title">Contact pro</h3>
+      <div class="contact-card">
+        <div class="contact-grid">
+          <div class="row"><strong>Discord</strong><div class="value"><span class="chip">atrooks</span></div></div>
+          <div class="row"><strong>Email</strong><div class="value"><a class="cta" href="mailto:atroksatroks7@gmail.com">atroksatroks7@gmail.com</a></div></div>
+          <div class="row"><strong>Instagram</strong><div class="value"><a class="cta" href="https://www.instagram.com/atroksworkshop" target="_blank" rel="noopener">@atroksworkshop</a></div></div>
+          <div class="row"><strong>LinkedIn</strong><div class="value"><a class="cta" href="https://www.linkedin.com/in/atroks-workshop-8449b2376/" target="_blank" rel="noopener">Atroks Workshop</a></div></div>
+        </div>
+      </div>
+    </section>
 
-    <footer>
-        Site propulsé avec ❤️ par <a href="../index.html">Sylvain Hirtz</a>
-    </footer>
+  </div>
+</main>
 
+<footer>
+  <div class="footer-wrap">
+    <div class="pill">Recommandé par ArchiveFever.Work — Sylvain Hirtz (Fever)</div>
+    <div>Site propulsé avec ❤️ par <a class="footer-link" href="../index.html">Sylvain Hirtz</a></div>
+  </div>
+</footer>
 </body>
-
 </html>

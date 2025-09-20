@@ -3,159 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Merci pour ton soutien — Don simplifié via PayPal · ArchiveFever.Work" />
+  <meta name="description" content="Soutenir ArchiveFever.Work — Dons" />
   <title>ArchiveFever.Work ∙ Merci</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Inter:wght@400..900&display=swap" rel="stylesheet" />
   <link rel="icon" href="../../Sources/Images/rat.webp" type="image/webp">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-  <!-- Base (fond/header/footer inchangés) -->
   <style>
-    :root{
-      --bg:#000; --text:#f5f5f5; --muted:#cfcfcf; --accent:#ff8c00;
-      --line:rgba(255,255,255,.16); --maxw:1080px;
-      --btn1:#ff962e; --btn2:#ff7b00; --btnText:#1b1107; --btnGlow:0 12px 44px rgba(255,140,0,.16);
-    }
+    :root{ --bg:#000; --text:#f5f5f5; --accent:#ff8c00; --muted:#cfcfcf; --line:rgba(255,255,255,.12) }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0; background:var(--bg); color:var(--text);
-      font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      font-feature-settings:"tnum" 1;
-      display:flex; flex-direction:column; min-height:100vh;
+      font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      display:flex; flex-direction:column; min-height:100vh;
     }
     a{color:inherit; text-decoration:none}
     img{display:block; max-width:100%; height:auto}
 
-    /* Header / Footer — inchangés */
     header{ display:flex; justify-content:center; align-items:center; gap:.8rem; padding:20px 12px }
     header img{ width:64px; height:64px; border-radius:50% }
     header h1{ margin:0; font-weight:700; line-height:1; font-family:"Gloria Hallelujah", cursive; font-size:clamp(22px,3.8vw,32px) }
+
     footer{ padding:20px 12px; display:flex; justify-content:center }
     .links{ display:flex; gap:18px; align-items:center; justify-content:center }
     .links a{ width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; transition:color .2s }
     .links a:hover{ color:var(--accent) }
-  </style>
 
-  <!-- Thème allégé (scopé #don) -->
-  <style id="don-lite-2025">
-    #don{ flex:1; display:flex; justify-content:center; padding:28px 14px }
-    #don .wrap{ width:100%; max-width:var(--maxw); display:grid; gap:28px }
+    #don{ flex:1; display:flex; align-items:center; justify-content:center; padding:28px 16px }
+    .pay-only{ display:grid; gap:14px; width:min(520px,92vw); justify-items:center }
 
-    /* HERO */
-    #don .hero{ display:grid; grid-template-columns:64px 1fr; gap:12px; align-items:center }
-    #don .avatar{ width:64px; height:64px; border-radius:14px; object-fit:cover; outline:1px solid var(--line); background:#111 }
-    #don .title{ margin:0 0 6px; font-size:clamp(22px,6vw,34px); font-weight:900; letter-spacing:.1px }
-    #don .lead{ margin:0; color:#d5d5d5; line-height:1.7; font-size:clamp(14px,2.4vw,16px) }
+    .pay-row{ display:grid; gap:10px; width:100% }
+    @media (min-width:560px){ .pay-row{ grid-template-columns:1fr 1fr } }
 
-    /* Section dons */
-    #don .section{ display:grid; gap:16px }
-    #don .h3{ margin:0; font-size:clamp(16px,3.5vw,18px); font-weight:800 }
-    #don .sep{ height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent); border:0 }
+    .link-btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+      padding:14px 18px; width:100%;
+      border-radius:12px; border:1px solid var(--line);
+      background:rgba(255,255,255,.04);
+      color:#fff; font-weight:900; letter-spacing:.2px; text-align:center;
+      transition:transform .05s ease, filter .15s ease, box-shadow .2s ease, border-color .2s ease;
+      box-shadow:0 10px 28px rgba(0,0,0,.28);
+    }
+    .link-btn:hover{ filter:brightness(1.06); border-color:rgba(255,255,255,.22) }
+    .link-btn:active{ transform:translateY(1px) }
 
-    /* Pills colorées — visuel plus plat, toujours tactile */
-    #don .quick{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px }
-    @media (min-width:820px){ #don .quick{ grid-template-columns:repeat(6, minmax(0,1fr)) } }
-    #don .chip{
-      --c1:#222; --c2:#141414;
-      background:linear-gradient(180deg, var(--c1), var(--c2));
-      border:1px solid rgba(255,255,255,.14);
-      color:#fff; border-radius:999px; padding:12px 0;
-      font-weight:800; text-align:center; cursor:pointer; user-select:none; touch-action:manipulation;
-      transition:transform .04s ease, filter .15s ease, border-color .15s ease;
-    }
-    #don .chip:hover{ filter:brightness(1.06) }
-    #don .chip:active{ transform:translateY(1px) }
-    #don .chip.active{ border-color:rgba(255,140,0,.45) }
-    /* couleurs */
-    #don .chip[data-amount="2"]  { --c1:#07ba9e; --c2:#0c8c79 }
-    #don .chip[data-amount="5"]  { --c1:#2a8ff0; --c2:#1a65c8 }
-    #don .chip[data-amount="10"] { --c1:#7768f9; --c2:#5340e6 }
-    #don .chip[data-amount="20"] { --c1:#f27a5f; --c2:#cf5d45 }
-    #don .chip[data-amount="50"] { --c1:#ffd070; --c2:#e6a438; color:#2b1d08 }
-    #don .chip[data-amount="100"]{ --c1:#ff7a86; --c2:#d95560 }
+    .pp{ background:linear-gradient(180deg,#ffd18a,#ff8c00); color:#1a130a }
+    .kf{ background:linear-gradient(180deg,#9bd4ff,#4aa3ff); color:#0b1730 }
 
-    /* Bloc Montant — mobile first (centré, léger) */
-    #don .amount{ display:grid; gap:12px }
-    /* Ligne montant */
-    #don .field{
-      position:relative; display:flex; align-items:baseline; justify-content:center; gap:8px;
-      padding:2px 0 10px; border-bottom:1px solid rgba(255,255,255,.22); cursor:text;
-      max-width:560px; margin:0 auto;
-    }
-    #don .digits{
-      all:unset; text-align:right; font-weight:900;
-      font-size:clamp(28px,10vw,42px); color:#fff; letter-spacing:.2px;
-      font-variant-numeric:tabular-nums; appearance:textfield; -moz-appearance:textfield;
-      caret-color:#ffb14a; min-width:2ch;
-    }
-    #don .digits::-webkit-outer-spin-button,#don .digits::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0 }
-    #don .cur{ opacity:.9; font-weight:800; color:#eaeaea; font-size:clamp(16px,5vw,20px) }
-    /* Hint centré sous la ligne */
-    #don .edit-hint{
-      text-align:center; color:#bdbdbd; font-size:12.5px; opacity:.95; margin:-4px auto 4px; user-select:none;
-      transition:opacity .2s ease; max-width:560px;
-    }
-    #don .field:focus-within + .edit-hint{ opacity:0 }
-
-    /* Stepper : sous le montant sur mobile ; en ligne sur desktop */
-    #don .stepper{ display:flex; gap:12px; justify-content:center }
-    #don .step{
-      width:48px; height:48px; border-radius:999px;
-      background:transparent; border:1px solid rgba(255,255,255,.22);
-      color:#fff; font-weight:900; font-size:18px;
-      display:flex; align-items:center; justify-content:center; cursor:pointer; touch-action:manipulation;
-      transition:background .15s ease, transform .05s ease, border-color .15s ease;
-    }
-    #don .step:hover{ background:rgba(255,255,255,.06) }
-    #don .step:active{ transform:translateY(1px) }
-
-    /* Desktop : aligner en ligne */
-    @media (min-width:980px){
-      #don .amount{
-        grid-template-columns:auto 1fr auto;
-        align-items:center;
-        gap:14px;
-      }
-      #don .stepper{ order:0 }
-      #don .stepper.left{ justify-content:flex-end }
-      #don .stepper.right{ justify-content:flex-start }
-      #don .edit-hint{ text-align:right }
-    }
-
-    /* Soulignement flash (100% à chaque changement) */
-    #don .meter{
-      position:absolute; left:0; bottom:-1px; height:2px; width:0%;
-      background:linear-gradient(90deg,#ffd18a,#ff9a3e,#ff7b00);
-      box-shadow:0 0 12px rgba(255,140,0,.28);
-    }
-
-    /* CTA plus léger */
-    #don .cta{ display:grid; gap:10px; max-width:640px; margin:0 auto }
-    #don .btn{
-      width:100%; padding:14px 22px; border-radius:12px;
-      background:linear-gradient(180deg,var(--btn1),var(--btn2));
-      color:var(--btnText); font-weight:900; font-size:16px; letter-spacing:.2px;
-      border:1px solid rgba(255,255,255,.10); box-shadow:var(--btnGlow);
-      display:inline-flex; align-items:center; justify-content:center;
-      position:relative; overflow:hidden; transition:transform .05s ease, filter .15s ease, box-shadow .2s ease;
-      touch-action:manipulation;
-    }
-    #don .btn::after{
-      content:""; position:absolute; inset:0; transform:translateX(-120%);
-      background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);
-      transition:transform .6s ease;
-    }
-    #don .btn:hover{ filter:saturate(1.05); box-shadow:0 18px 56px rgba(255,140,0,.22) }
-    #don .btn:hover::after{ transform:translateX(120%) }
-    #don .sub{ color:var(--muted); font-size:12.5px; text-align:center }
+    .note{ color:var(--muted); font-size:12.5px; text-align:center }
   </style>
 </head>
 <body>
-  <!-- HEADER (inchangé) -->
   <header>
     <a href="../../index.html" aria-label="Retour à l’accueil">
       <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme">
@@ -163,57 +64,16 @@
     <h1>Merci</h1>
   </header>
 
-  <!-- CONTENU -->
-  <main id="don">
-    <div class="wrap">
-
-      <!-- HERO -->
-      <section class="hero" aria-labelledby="t-merci">
-        <img src="../../Sources/Images/Fever.webp" alt="Fever" class="avatar">
-        <div>
-          <h2 id="t-merci" class="title">Merci pour ton soutien — chaque euro compte</h2>
-          <p class="lead">Ton don finance l’hébergement, les outils et le temps de création pour garder ArchiveFever.Work <b>utile, rapide et propre</b>.</p>
-        </div>
-      </section>
-
-      <hr class="sep"/>
-
-      <!-- DON -->
-      <section class="section" aria-labelledby="t-don">
-        <h3 id="t-don" class="h3">Faire un don maintenant</h3>
-
-        <div class="quick" id="quick">
-          <button class="chip" type="button" data-amount="2">2€</button>
-          <button class="chip" type="button" data-amount="5">5€</button>
-          <button class="chip" type="button" data-amount="10">10€</button>
-          <button class="chip" type="button" data-amount="20">20€</button>
-          <button class="chip" type="button" data-amount="50">50€</button>
-          <button class="chip" type="button" data-amount="100">100€</button>
-        </div>
-
-        <!-- MOBILE-FIRST: field centré, stepper en dessous -->
-        <div class="amount">
-          <div class="stepper left"><button class="step" id="minus" type="button" aria-label="Diminuer">−</button></div>
-
-          <div class="field" id="field" title="Cliquer pour saisir au clavier">
-            <input id="amount" class="digits" type="number" min="1" max="9999" step="1" value="5" inputmode="numeric" aria-label="Montant">
-            <span class="cur">€</span>
-            <span class="meter" id="meter" aria-hidden="true"></span>
-          </div>
-
-          <div class="stepper right"><button class="step" id="plus" type="button" aria-label="Augmenter">+</button></div>
-        </div>
-        <div class="edit-hint" id="editHint" aria-hidden="true">✏️ cliquer pour saisir</div>
-
-        <div class="cta">
-          <a id="pay" class="btn" rel="noopener" target="_blank" aria-live="polite">Donner 5 €</a>
-          <div class="sub">Paiement traité sur PayPal. Aucune donnée bancaire n’est collectée sur ce site.</div>
-        </div>
-      </section>
+  <main id="don" role="main">
+    <div class="pay-only">
+      <div class="pay-row">
+        <a class="link-btn pp" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener">PayPal</a>
+        <a class="link-btn kf" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener">Ko-fi</a>
+      </div>
+      <div class="note">Paiement sur PayPal ou Ko-fi. Aucune donnée bancaire n’est traitée ici.</div>
     </div>
   </main>
 
-  <!-- FOOTER (inchangé) -->
   <footer aria-label="Réseaux">
     <div class="links">
       <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
@@ -227,87 +87,5 @@
       <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
     </div>
   </footer>
-
-  <!-- Script -->
-  <script>
-    (function(){
-      const chips = Array.from(document.querySelectorAll('#quick .chip'));
-      const amountInput = document.getElementById('amount');
-      const minus = document.getElementById('minus');
-      const plus = document.getElementById('plus');
-      const pay = document.getElementById('pay');
-      const meter = document.getElementById('meter');
-      const field = document.getElementById('field');
-      const editHint = document.getElementById('editHint');
-
-      const clamp = (v,min,max)=>Math.max(min,Math.min(max,v));
-      const LS_KEY = 'af_don_last';
-
-      function clean(n){ return clamp(Math.round(Number(n)||0), 1, 9999); }
-
-      function flashMeter(){
-        meter.style.transition = 'none';
-        meter.style.width = '0%';
-        void meter.offsetWidth; // reflow
-        meter.style.transition = 'width .30s ease';
-        meter.style.width = '100%';
-      }
-
-      function setAmount(v, syncChips=true){
-        const n = clean(v);
-        amountInput.value = n;
-
-        if (syncChips){
-          chips.forEach(c => c.classList.toggle('active', parseInt(c.dataset.amount) === n));
-        }
-
-        pay.textContent = 'Donner ' + n + ' €';
-        pay.href = 'https://www.paypal.com/paypalme/Fever65/' + encodeURIComponent(n) + '?country.x=FR&locale.x=fr_FR';
-
-        localStorage.setItem(LS_KEY, String(n));
-        flashMeter();
-      }
-
-      // Chips
-      chips.forEach(c => {
-        c.addEventListener('click', () => setAmount(c.dataset.amount));
-        c.setAttribute('tabindex','0');
-        c.addEventListener('keydown', e=>{
-          if(e.key==='Enter' || e.key===' '){ c.click(); e.preventDefault(); }
-        });
-      });
-
-      // Saisie & focus
-      amountInput.addEventListener('input', () => setAmount(amountInput.value, false));
-      field.addEventListener('click', () => amountInput.focus());
-      amountInput.addEventListener('focus', () => editHint.style.opacity = '0');
-      amountInput.addEventListener('blur', () => editHint.style.opacity = '');
-
-      // Raccourcis
-      amountInput.addEventListener('keydown', e=>{
-        const base = clean(amountInput.value);
-        let delta = 0;
-        if (e.key === 'ArrowUp')  delta = 1;
-        if (e.key === 'ArrowDown') delta = -1;
-        if (delta !== 0){
-          if (e.shiftKey) delta *= 5;
-          if (e.ctrlKey || e.metaKey) delta *= 10;
-          e.preventDefault();
-          setAmount(base + delta);
-        }
-        if (e.key === 'Enter'){ pay.click(); }
-      });
-
-      // Stepper
-      minus.addEventListener('click', ()=> setAmount(clean(amountInput.value) - 1));
-      plus.addEventListener('click',  ()=> setAmount(clean(amountInput.value) + 1));
-
-      // Prefill
-      const qs = new URLSearchParams(location.search);
-      const qAmt = qs.get('amount') || qs.get('a');
-      const last = localStorage.getItem(LS_KEY);
-      setAmount(qAmt || last || 5);
-    })();
-  </script>
 </body>
 </html>

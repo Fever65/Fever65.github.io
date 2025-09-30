@@ -5,102 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" href="Sources/Images/jerome.webp" type="image/webp">
   <title>ArchiveFever.Work</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
   <style>
     :root{
-      --bg:#000;
-      --text:#f5f5f5;
-      --muted:#bdbdbd;
-      --accent:#ff8c00;
-      --radius:12px;
+      --bg:#000; --text:#f5f5f5; --muted:#bdbdbd; --accent:#ff8c00; --radius:12px;
+      --pad-top:120px; --pad-bottom:110px;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{
-      margin:0; background:var(--bg); color:var(--text);
-      font-family:"Source Code Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
+    html{scroll-padding-top:calc(var(--pad-top) - 80px)}
+    body{margin:0; background:var(--bg); color:var(--text); font-family:"Source Code Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif}
     a{color:inherit; text-decoration:none}
     img{display:block; max-width:100%; height:auto}
 
     header{
       position:fixed; top:14px; left:0; right:0; z-index:20;
       display:flex; justify-content:center; align-items:center; gap:.8rem;
+      transition:transform .2s ease, opacity .2s ease, visibility .2s ease;
     }
-    header img{
-      width:64px; height:64px; border-radius:50%; cursor:pointer;
-    }
-    header h1{
-      margin:0; font-weight:700;
-      font-family:"Gloria Hallelujah", sans-serif;
-      font-size:clamp(22px,3.8vw,32px);
-      white-space:nowrap;
-    }
+    header img{width:64px; height:64px; border-radius:50%; cursor:pointer}
+    header h1{margin:0; font-weight:700; font-family:"Gloria Hallelujah", sans-serif; font-size:clamp(22px,3.8vw,32px); white-space:nowrap}
 
-    .view{ display:none }
-    .view.active{ display:block }
+    .view{display:none}
+    .view.active{display:block}
 
     .hero{
-      min-height:100svh; display:grid; place-items:center; text-align:center;
-      padding:120px 16px 100px;
+      min-height:100svh;
+      display:grid; place-items:center; text-align:center;
+      padding: calc(var(--pad-top) + env(safe-area-inset-top,0px)) 16px calc(var(--pad-bottom) + env(safe-area-inset-bottom,0px));
     }
-    .cats{
-      display:grid; gap:16px;
-      grid-template-columns:1fr;
-      width:min(320px, 90vw);
-      margin:0 auto;
-    }
-    .cat{
-      display:block;
-      padding:16px;
-      border-radius:var(--radius);
-      background:#111;
-      font-weight:700;
-      text-align:center;
-    }
-    .cat:hover{ background:#1a1a1a; color:var(--accent) }
+    .cats{display:grid; gap:16px; grid-template-columns:1fr; width:min(320px, 90vw); margin:0 auto}
+    .cat{display:block; padding:16px; border-radius:var(--radius); background:#111; font-weight:700; text-align:center}
+    .cat:hover{background:#1a1a1a; color:var(--accent)}
 
-    .panel{ min-height:100svh; padding:120px 14px 110px; max-width:1200px; margin:0 auto }
-    .panel h2{ margin:0 0 12px; font-size:clamp(18px,4.5vw,28px) }
-    .panel p.lead{ margin:0 0 18px; color:var(--muted) }
-    .back{
-      display:inline-block; margin:0 0 12px; padding:8px 12px;
-      border-radius:8px; background:#111;
+    .panel{
+      min-height:100svh;
+      padding: calc(var(--pad-top) + env(safe-area-inset-top,0px)) 14px calc(var(--pad-bottom) + env(safe-area-inset-bottom,0px));
+      max-width:1200px; margin:0 auto
     }
-    .back:hover{ background:#1a1a1a; color:var(--accent) }
+    .panel h2{margin:0 0 12px; font-size:clamp(18px,4.5vw,28px)}
+    .panel p.lead{margin:0 0 18px; color:var(--muted)}
+    .back{display:inline-block; margin:0 0 12px; padding:8px 12px; border-radius:8px; background:#111}
+    .back:hover{background:#1a1a1a; color:var(--accent)}
 
-    .grid{
-      display:grid; gap:12px;
-      grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
-    }
-    .card{
-      background:#111; border-radius:12px; aspect-ratio:1/1;
-      display:grid; place-items:center;
-    }
-    .card:hover{ background:#1a1a1a }
-    .card img{ width:78%; height:auto; object-fit:contain }
+    .grid{display:grid; gap:12px; grid-template-columns:repeat(2,1fr); justify-items:stretch}
+    @media (min-width:560px){ .grid{ grid-template-columns:repeat(3,1fr) } }
+    @media (min-width:900px){ .grid{ grid-template-columns:repeat(4,1fr) } }
+    .grid:has(> .card:last-child:nth-child(odd)) > .card:last-child{grid-column:1/-1; width:min(260px,100%); justify-self:center}
+
+    .card{background:#111; border-radius:12px; aspect-ratio:1/1; display:grid; place-items:center; width:100%}
+    .card:hover{background:#1a1a1a}
+    .card img{width:78%; height:auto; object-fit:contain}
 
     footer{
       position:fixed; left:0; right:0; bottom:14px; z-index:20;
       display:flex; justify-content:center;
+      transition:transform .2s ease, opacity .2s ease, visibility .2s ease;
     }
-    .links{
-      display:flex; gap:18px;
+    .links{display:flex; gap:18px}
+    .links a{width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px}
+    .links a:hover{color:var(--accent)}
+
+    @media (max-width:620px){
+      body.chrome-hidden header{transform:translateY(-120%); opacity:0; visibility:hidden}
+      body.chrome-hidden footer{transform:translateY(120%); opacity:0; visibility:hidden}
+      body.chrome-hidden .panel,
+      body.chrome-hidden .hero{padding: 12px 14px 12px}
+      body.chrome-hidden .panel{min-height:auto}
+      body.chrome-hidden html{scroll-padding-top:0}
     }
-    .links a{
-      width:32px; height:32px;
-      display:flex; align-items:center; justify-content:center;
-      color:#fff; font-size:20px;
-    }
-    .links a:hover{ color:var(--accent) }
   </style>
 </head>
 <body>
-
-  <header>
+  <header id="site-header">
     <img src="Sources/Images/jerome.webp" alt="Logo Jérôme" onclick="playMiaou()">
     <h1>ArchiveFever.Work</h1>
   </header>
@@ -122,10 +100,10 @@
       <h2>Présentation</h2>
       <p class="lead">Présentation personnelle et projets liés.</p>
       <div class="grid">
-        <a href="Projets/Fever/index.html" class="card"><img src="Sources/Images/Fever.webp"></a>
-        <a href="Projets/Setup/index.html" class="card"><img src="Sources/Images/setup.webp"></a>
-        <a href="Projets/Journal/index.html" class="card"><img src="Sources/Images/journal.webp"></a>
-        <a href="Projets/Merci/index.html" class="card"><img src="Sources/Images/merci.webp"></a>
+        <a href="Projets/Fever/index.html" class="card"><img src="Sources/Images/Fever.webp" alt=""></a>
+        <a href="Projets/Setup/index.html" class="card"><img src="Sources/Images/setup.webp" alt=""></a>
+        <a href="Projets/Journal/index.html" class="card"><img src="Sources/Images/journal.webp" alt=""></a>
+        <a href="Projets/Merci/index.html" class="card"><img src="Sources/Images/merci.webp" alt=""></a>
       </div>
     </div>
   </section>
@@ -136,11 +114,11 @@
       <h2>Collaborations</h2>
       <p class="lead">Ils m'ont fait confiance.</p>
       <div class="grid">
-        <a href="MarleyAndMe/index.html" class="card"><img src="Sources/Images/Marley.webp"></a>
-        <a href="Oneiiq/index.html" class="card"><img src="Sources/Images/Oneiiq2.webp"></a>
-        <a href="Khoti/index.html" class="card"><img src="Sources/Images/Khoti.webp"></a>
-        <a href="Atroks/index.html" class="card"><img src="Sources/Images/Atroks.webp"></a>
-        <a href="LastProtocol/index.html" class="card"><img src="Sources/Images/LastProtocol.webp"></a>
+        <a href="MarleyAndMe/index.html" class="card"><img src="Sources/Images/Marley.webp" alt=""></a>
+        <a href="Oneiiq/index.html" class="card"><img src="Sources/Images/Oneiiq2.webp" alt=""></a>
+        <a href="Khoti/index.html" class="card"><img src="Sources/Images/Khoti.webp" alt=""></a>
+        <a href="Atroks/index.html" class="card"><img src="Sources/Images/Atroks.webp" alt=""></a>
+        <a href="LastProtocol/index.html" class="card"><img src="Sources/Images/LastProtocol.webp" alt=""></a>
       </div>
     </div>
   </section>
@@ -151,10 +129,10 @@
       <h2>Outils</h2>
       <p class="lead">Mes utilitaires pratiques et fun.</p>
       <div class="grid">
-        <a href="Projets/QR/index.html" class="card"><img src="Sources/Images/QR.webp"></a>
-        <a href="Projets/WQR/index.html" class="card"><img src="Sources/Images/WQR.webp"></a>
-        <a href="Projets/GAAP/index.html" class="card"><img src="Sources/Images/GAAP.webp"></a>
-        <a href="Projets/Flappy/index.html" class="card"><img src="Sources/Images/Flappy.webp"></a>
+        <a href="Projets/QR/index.html" class="card"><img src="Sources/Images/QR.webp" alt=""></a>
+        <a href="Projets/WQR/index.html" class="card"><img src="Sources/Images/WQR.webp" alt=""></a>
+        <a href="Projets/GAAP/index.html" class="card"><img src="Sources/Images/GAAP.webp" alt=""></a>
+        <a href="Projets/Flappy/index.html" class="card"><img src="Sources/Images/Flappy.webp" alt=""></a>
       </div>
     </div>
   </section>
@@ -165,15 +143,15 @@
       <h2>Albums IA</h2>
       <p class="lead">Mes sons fait à l'aide de Suno.</p>
       <div class="grid">
-        <a href="Albums/Fragments/index.html" class="card"><img src="Sources/Images/Fragments.webp"></a>
-        <a href="Albums/Ocean/index.html" class="card"><img src="Sources/Images/Ocean.webp"></a>
-        <a href="Albums/203/index.html" class="card"><img src="Sources/Images/203.webp"></a>
-        <a href="Albums/MementoMori/index.html" class="card"><img src="Sources/Images/MementoMori.webp"></a>
+        <a href="Albums/Fragments/index.html" class="card"><img src="Sources/Images/Fragments.webp" alt=""></a>
+        <a href="Albums/Ocean/index.html" class="card"><img src="Sources/Images/Ocean.webp" alt=""></a>
+        <a href="Albums/203/index.html" class="card"><img src="Sources/Images/203.webp" alt=""></a>
+        <a href="Albums/MementoMori/index.html" class="card"><img src="Sources/Images/MementoMori.webp" alt=""></a>
       </div>
     </div>
   </section>
 
-    <footer aria-label="Réseaux">
+  <footer aria-label="Réseaux" id="site-footer">
     <div class="links">
       <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
@@ -194,6 +172,8 @@
       const id=(location.hash||'#home').replace('#','');
       document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
       (document.getElementById(id)||document.getElementById('home')).classList.add('active');
+      const hideChrome = id!=='home' && window.matchMedia('(max-width:620px)').matches;
+      document.body.classList.toggle('chrome-hidden', hideChrome);
       window.scrollTo({top:0,behavior:'smooth'});
     }
     window.addEventListener('hashchange',updateView);
@@ -202,6 +182,25 @@
       const a=document.getElementById("miaou");
       a.currentTime=0; a.play().catch(()=>{});
     }
+    (function(){
+      const header=document.getElementById('site-header');
+      const footer=document.getElementById('site-footer');
+      function applyOffsets(){
+        const h=header?Math.ceil(header.getBoundingClientRect().height):0;
+        const f=footer?Math.ceil(footer.getBoundingClientRect().height):0;
+        const topPad=Math.max(90,h+28);
+        const botPad=Math.max(110,f+28);
+        document.documentElement.style.setProperty('--pad-top',topPad+'px');
+        document.documentElement.style.setProperty('--pad-bottom',botPad+'px');
+        document.documentElement.style.scrollPaddingTop=Math.max(0,topPad-40)+'px';
+      }
+      applyOffsets();
+      window.addEventListener('resize',()=>{applyOffsets(); updateView()});
+      window.addEventListener('orientationchange',()=>{applyOffsets(); updateView()});
+      if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>{applyOffsets(); updateView()}).catch(()=>{});}
+      setTimeout(()=>{applyOffsets(); updateView()},0);
+      setTimeout(()=>{applyOffsets(); updateView()},250);
+    })();
   </script>
 </body>
 </html>

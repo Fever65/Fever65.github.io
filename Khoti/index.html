@@ -1,153 +1,91 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>KhotiCeres • Présentation</title>
-<link rel="icon" href="../../Sources/Images/Khoti.webp" type="image/webp" />
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&display=swap" rel="stylesheet" />
-<meta name="description" content="KhotiCeres : aperçu neutre du projet 'After Hours' (WIP), images et lien Twitch." />
-
-<meta name="theme-color" content="#07080b" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KhotiCeres — After Hours</title>
+<link rel="icon" href="../../Sources/Images/Khoti.webp" type="image/webp">
+<meta name="description" content="KhotiCeres — aperçu du projet de jeu vidéo After Hours (WIP). Lien Twitch et images plein écran.">
 <style>
   :root{
-    --bg:#07080b; --bg2:#0a0c12;
-    --txt:#cfd4e7; --muted:#9aa6bf; --strong:#eef1ff;
-    --violet:#7f6cff; --pink:#ff6ec7; --blue:#39b6ff; --cyan:#58e3ff;
-    --panel:rgba(255,255,255,.035);
-    --radius:16px; --shadow:0 18px 60px rgba(0,0,0,.45);
+    --bg:#000; --ink:#ececec; --muted:#a7b0bd; --soft:#0b0d10;
+    --accent:#ff8c00; --accent2:#69c7ff; --hr:rgba(255,255,255,.08);
+    --w:920px;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
-  img{max-width:100%;display:block}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:17px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial}
   a{color:inherit;text-decoration:none}
-
-  :root, html, body { background:#07080b; color-scheme:dark }
-  *{ -webkit-tap-highlight-color:transparent }
-  html,body{ height:100%; overscroll-behavior:none; background-attachment:fixed }
-
-  body{
-    background:linear-gradient(180deg,var(--bg),var(--bg2));
-    color:var(--txt);
-    font:400 16px/1.65 "Sora",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-    min-height:100svh;
-    display:flex;flex-direction:column;
+  .wrap{max-width:var(--w);margin:0 auto;padding:24px 16px}
+  .hero{text-align:center;display:grid;gap:10px;margin:6px auto 18px}
+  .brand{font-weight:800;letter-spacing:.3px;font-size:clamp(1.7rem,6vw,2.4rem);line-height:1.12;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .sub{color:var(--muted);font-size:.98rem}
+  .desc{max-width:66ch;margin:10px auto 0;text-align:center;display:grid;gap:10px}
+  .desc p{margin:0}
+  .divider{height:2px;background:linear-gradient(90deg,transparent, rgba(255,140,0,.45) 12%, rgba(106,199,255,.45) 50%, rgba(255,140,0,.45) 88%, transparent);margin:18px 0;border-radius:2px}
+  .cta{display:flex;justify-content:center;margin-top:8px}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:12px 18px;border:1px solid rgba(255,255,255,.28);
+    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+    color:#fff;border-radius:999px;
+    transition:transform .08s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+    font-weight:800; letter-spacing:.2px; text-transform:uppercase
   }
-
-  header{padding:22px 14px}
-  .brand{
-    text-align:center;
-    font-weight:800; letter-spacing:.4px;
-    font-size:clamp(1.8rem,7vw,3rem);
-    background:linear-gradient(90deg, var(--cyan), var(--violet) 55%, #bd7bff);
-    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 6px 18px rgba(88,227,255,.08));
-  }
-
-  main{flex:1;display:flex;align-items:center;justify-content:center}
-  .page{width:100%;max-width:1100px;padding:16px;margin-inline:auto;display:grid;gap:22px}
-
-  .hero{
-    display:grid; gap:18px; align-items:center;
-    grid-template-columns:1fr;
-  }
-  .media{
-    border-radius:14px; overflow:hidden; background:#0f121a; box-shadow:var(--shadow);
-    max-width:420px; margin:0 auto;
-  }
-  .context h2{
-    margin:0 0 8px; font-weight:800; line-height:1.15;
-    font-size:clamp(1.3rem,4.2vw,2rem);
-    background:linear-gradient(90deg, var(--violet), var(--pink) 45%, var(--blue));
-    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-  }
-  .sub{color:var(--muted); margin:0 0 10px}
-
-  .actions{margin-top:12px}
-  .link{
-    position:relative; display:inline-block; font-weight:800; color:var(--violet);
-    padding-left:22px; line-height:1.2; transition:color .12s ease
-  }
-  .link:hover{color:#6e5bff}
-  .link::before{content:"→"; position:absolute; left:0; top:0; color:inherit}
-
-  .gallery{display:grid; gap:14px; margin-top:4px}
-  .tile{background:var(--panel); border-radius:12px; overflow:hidden; box-shadow:0 14px 44px rgba(0,0,0,.38)}
-  .tile img{width:100%; height:auto}
-  .tile figcaption{padding:8px 10px; color:var(--muted); font-size:.95rem}
-
-  footer{background:transparent; color:var(--muted); font-size:.95rem}
-  .footer-wrap{max-width:1100px; margin:0 auto; padding:16px 14px 22px; text-align:center; display:grid; gap:10px}
-  .pill{
-    display:inline-block; padding:10px 16px; border-radius:999px;
-    background:linear-gradient(90deg, rgba(138,120,255,.24), rgba(57,182,255,.22), rgba(255,110,199,.22));
-    color:#eef2ff; font-weight:800;
-    backdrop-filter:blur(10px) saturate(115%); -webkit-backdrop-filter:blur(10px) saturate(115%);
-    box-shadow:0 14px 34px rgba(0,0,0,.26), inset 0 0 0 1px rgba(255,255,255,.08)
-  }
-  .footer-link{color:#d7dcf0}
-  .footer-link:hover{color:#ffffff}
-
-  @media (min-width:980px){
-    .hero{grid-template-columns:minmax(280px,360px) 1fr}
-    .media{order:1; max-width:none}
-    .context{order:2}
-    .gallery{grid-template-columns:1fr 1fr; align-items:start}
-    .tile img{aspect-ratio:16/10; object-fit:cover}
-    .page{gap:24px}
-  }
-  @media (max-width:640px){
-    .hero,.gallery,.actions{text-align:center}
-    .media{width:min(280px,92vw)}
-  }
+  .btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+  .btn:hover{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05));border-color:rgba(255,255,255,.45);box-shadow:0 0 0 4px rgba(255,140,0,.12), 0 0 24px rgba(106,199,255,.18)}
+  .btn:active{transform:translateY(1px)}
+  .arrow{opacity:.9}
+  .gallery{display:grid;gap:16px;margin-top:16px}
+  figure{margin:0;background:var(--soft);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+  .thumb{display:block;width:100%;height:auto}
+  figcaption{padding:10px;color:var(--muted);font-size:.95rem;border-top:1px solid rgba(255,255,255,.06)}
+  @media (min-width:920px){.gallery{grid-template-columns:1fr 1fr}}
+  .hr90{height:1px;background:repeating-linear-gradient(90deg,var(--hr) 0 12px,transparent 12px 24px);margin:18px 0}
+  footer{position:relative;margin-top:18px;padding:16px;border-top:1px solid var(--hr)}
+  .back{position:absolute;right:12px;bottom:12px;font-size:.9rem;color:#cfd4e7;padding:6px 10px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.03)}
+  .back:hover{border-color:rgba(255,255,255,.36)}
+  .sr-only{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:24px}
+  .lightbox img{max-width:95vw;max-height:90vh;height:auto}
+  .lightbox:target{display:flex}
+  .close{position:fixed;top:16px;right:18px;padding:8px 12px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(255,255,255,.08);color:#fff;text-decoration:none}
+  .close:focus-visible{outline:2px solid #fff;outline-offset:2px}
 </style>
 </head>
 <body>
-<header>
-  <h1 class="brand">KhotiCeres</h1>
-</header>
-
-<main>
-  <div class="page">
-    <section class="hero" aria-labelledby="khoti-title">
-      <figure class="media">
-        <img src="../../Sources/Images/Khoti.webp" alt="Portrait de KhotiCeres">
-      </figure>
-
-      <div class="context">
-        <h2 id="khoti-title">After Hours — WIP</h2>
-        <p class="sub">
-          <strong>Présentation.</strong> <em>After Hours</em> est un projet de jeu développé en direct sur Twitch.
-          Le développement est public (sessions de code, itérations, tests). Les visuels ci-dessous sont des WIP.
-        </p>
-
-        <div class="actions" role="navigation" aria-label="Lien officiel">
-          <a class="link" target="_blank" rel="noopener" href="https://www.twitch.tv/khoticeres">Voir la chaîne Twitch</a>
-        </div>
+  <div class="wrap">
+    <header class="hero" aria-labelledby="t">
+      <h1 id="t" class="brand">KhotiCeres - After Hours</h1>
+      <div class="desc" aria-label="Description">
+        <p><strong>KhotiCeres</strong> avance son jeu en direct sur Twitch : on voit la construction pas à pas, des essais aux corrections, sans filtre.</p>
+        <p><strong>After Hours</strong> s'attaque au monde du travail après la fermeture. Découvrez son univers en direct sur Twitch et bientôt sur Steam.</p>
       </div>
-    </section>
+      <div class="cta">
+        <a class="btn" href="https://www.twitch.tv/khoticeres"><span class="arrow">→</span> le twitch de Khoti</a>
+      </div>
+    </header>
 
-    <section class="gallery" aria-label="Images du jeu">
-      <figure class="tile">
-        <img src="../Sources/Images/Khoti1.webp" alt="Bureau du jeu (WIP)">
+    <div class="divider"></div>
+
+    <main class="gallery" aria-label="Aperçus cliquables">
+      <figure>
+        <a href="#full1"><img class="thumb" src="../../Sources/Images/Khoti1.webp" alt="After Hours — Le bureau (WIP)"></a>
         <figcaption>Le bureau — WIP</figcaption>
       </figure>
-      <figure class="tile">
-        <img src="../Sources/Images/Khoti2.webp" alt="Cuisine du jeu (WIP)">
-        <figcaption>La cuisine — WIP</figcaption>
+      <figure>
+        <a href="#full2"><img class="thumb" src="../../Sources/Images/Khoti2.webp" alt="After Hours — La cuisine (WIP)"></a>
+        <figcaption>La salle de pause — WIP</figcaption>
       </figure>
-    </section>
-  </div>
-</main>
+    </main>
 
-<footer>
-  <div class="footer-wrap">
-    <div class="pill">Recommandé par ArchiveFever.Work — Sylvain Hirtz (Fever)</div>
-    <div>Site propulsé avec ❤️ par <a class="footer-link" href="../index.html">Sylvain Hirtz</a></div>
+    <div class="hr90" aria-hidden="true"></div>
+
+    <footer>
+      <a class="back" href="../../index.html">← Retour ArchiveFever.Work</a>
+      <span class="sr-only">Fin de page</span>
+    </footer>
   </div>
-</footer>
+
+  <div id="full1" class="lightbox"><a class="close" href="#" aria-label="Fermer">×</a><img src="../../Sources/Images/Khoti1.webp" alt=""></div>
+  <div id="full2" class="lightbox"><a class="close" href="#" aria-label="Fermer">×</a><img src="../../Sources/Images/Khoti2.webp" alt=""></div>
 </body>
 </html>

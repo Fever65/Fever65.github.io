@@ -11,6 +11,7 @@
       --bg:#000; --ink:#e9edf7; --muted:#a4b0c6; --ring:rgba(255,255,255,.10);
       --c1:#7f6cff; --c2:#ff6ec7; --c3:#58e3ff; --c4:#ffd166; --c5:#00f5d4;
       --pad:clamp(16px,2.5vw,28px);
+      --footer-offset:clamp(10px,2.4vh,28px);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -18,11 +19,12 @@
       margin:0; background:var(--bg); color:var(--ink);
       font:400 16px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       letter-spacing:.02em;
-      min-height:100vh; display:grid; grid-template-rows:1fr auto;
+      min-height:100vh;
+      display:grid; grid-template-rows:1fr auto;
+      row-gap:var(--footer-offset);
+      padding-bottom:calc(env(safe-area-inset-bottom) + 4px);
     }
-    main{
-      display:grid; place-content:center; padding:var(--pad);
-    }
+    main{display:grid; place-content:center; padding:var(--pad)}
     .stack{display:grid; gap:18px; text-align:center; width:100%; max-width:760px}
     h1{
       margin:0; font-weight:900; font-size:clamp(30px,8.5vw,72px);
@@ -35,10 +37,7 @@
     }
     @keyframes hueflow{0%{background-position:0% 50%}100%{background-position:220% 50%}}
     @media (prefers-reduced-motion:reduce){h1{animation:none}}
-    .tag{
-      margin:0 auto; max-width:48ch; color:var(--muted);
-      font-size:clamp(14px,2.1vw,17px); line-height:1.6;
-    }
+    .tag{margin:0 auto; max-width:48ch; color:var(--muted); font-size:clamp(14px,2.1vw,17px); line-height:1.6}
     .tag b{color:var(--ink); font-weight:600}
     nav{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
     a.btn{
@@ -66,15 +65,15 @@
     }
     footer a:hover::after{transform:scaleX(1)}
     .arrow{font-size:1.05em; opacity:.9}
-    @media (min-width:1024px){
-      .stack{gap:16px}
-      nav{gap:10px}
-    }
+    @media (min-width:1024px){.stack{gap:16px} nav{gap:10px}}
     @media (max-height:720px){
       h1{font-size:clamp(28px,7.5vw,60px)}
       .tag{font-size:clamp(13px,2vw,16px)}
       a.btn{padding:8px 12px}
       footer{padding:14px}
+    }
+    @supports (height: 100svh){
+      body{min-height:100svh}
     }
   </style>
 </head>
@@ -85,6 +84,7 @@
       <p class="tag"><b>Talented music group</b> of three women who choose to remain anonymous — voices first, faces always covered.</p>
       <nav>
         <a class="btn" href="https://www.youtube.com/@LASTPROTOCOLGROUP" target="_blank" rel="noopener">YouTube&nbsp;Channel ↗</a>
+        <a class="btn" href="https://www.instagram.com/lastprotocolgroup" target="_blank" rel="noopener">Instagram ↗</a>
         <a class="btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfS4YsZyw7w6dufTQ_FzZfGH" target="_blank" rel="noopener">UNLISTED&nbsp;—&nbsp;Playlist ↗</a>
       </nav>
     </div>

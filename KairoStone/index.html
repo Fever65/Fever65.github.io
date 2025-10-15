@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KAIRO STONE</title>
+<link rel="icon" href="../../Sources/Images/KS.webp" type="image/webp">
+<meta name="description" content="KAIRO STONE — British rap artist. 'SUN DRUNK' (2025) feat. LAST PROTOCOL.">
+<style>
+  :root{
+    --bg:#0a0a0a;--ink:#f2f2f2;--muted:#aab0ba;
+    --c1:#7f6cff;--c2:#ff6ec7;
+    --w:clamp(280px, 92vw, 920px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    min-height:100vh;
+    padding:40px 20px;
+    overflow-x:hidden;
+  }
+  .top{width:100%;max-width:var(--w);display:flex;flex-direction:column;align-items:center}
+  h1{
+    font-size:clamp(1.8rem,5vw,2.6rem);
+    background:linear-gradient(90deg,var(--c1),var(--c2));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-align:center;
+  }
+  .tag{
+    color:var(--muted);
+    text-align:center;
+    font-size:.95rem;
+    margin-top:4px;
+    margin-bottom:22px;
+  }
+  .portrait{
+    width:200px;height:200px;
+    border-radius:14px;
+    object-fit:cover;
+    display:block;
+    margin:0 auto 1.2rem;
+    box-shadow:0 0 20px rgba(255,255,255,.07);
+  }
+  .bio{
+    width:100%;max-width:var(--w);
+    color:#e6e8ed;
+    text-align:center;
+    margin-bottom:2rem;
+    font-size:clamp(.96rem,1.2vw,1.05rem);
+  }
+  .media{
+    width:100%;max-width:var(--w);
+    background:#111;
+    border:1px solid rgba(255,255,255,.05);
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:2rem;
+  }
+  .media-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    color:var(--ink);
+    font-size:clamp(1rem,1.3vw,1.05rem);
+    margin-bottom:10px;
+    flex-wrap:wrap;
+  }
+  .media-head span{color:var(--muted)}
+  iframe{
+    width:100%;
+    aspect-ratio:16/9;
+    border:none;
+    border-radius:10px;
+    background:#000;
+    display:block;
+  }
+  footer{
+    width:100%;max-width:var(--w);
+    text-align:center;
+    font-size:.85rem;
+    color:var(--muted);
+    border-top:1px solid rgba(255,255,255,.07);
+    padding:1rem 0 0;
+    margin-top:auto;
+  }
+  footer a{
+    background:linear-gradient(90deg,var(--c1),var(--c2));
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-decoration:none;
+    font-weight:600;
+  }
+  @media(max-width:700px){
+    body{padding:30px 14px}
+    .portrait{width:160px;height:160px;margin-bottom:1rem}
+    .bio{font-size:.95rem;margin-bottom:1.6rem}
+    .media{padding:12px}
+  }
+</style>
+</head>
+<body>
+
+  <div class="top">
+    <h1>KAIRO STONE</h1>
+    <div class="tag">British rap artist · early 30s</div>
+    <img src="../../Sources/Images/KairoStone.webp" alt="Portrait of Kairo Stone" class="portrait" loading="eager" decoding="async">
+  </div>
+
+  <p class="bio">
+    <strong>KAIRO STONE</strong> is a British rapper from Manchester.
+    His sound blends introspective writing with deep, atmospheric production.
+    In 2025, he collaborated with the female trio <strong>LAST PROTOCOL</strong> on
+    <em>SUN DRUNK</em>, a fusion of UK rap and dreamlike pop textures.
+  </p>
+
+  <div class="media">
+    <div class="media-head">
+      <strong>SUN DRUNK</strong>
+      <span>feat. LAST PROTOCOL · 2025</span>
+    </div>
+    <iframe src="https://www.youtube.com/embed/rLRmShzLkq4" allowfullscreen title="SUN DRUNK — KAIRO STONE feat. LAST PROTOCOL"></iframe>
+  </div>
+
+  <footer>
+    Powered by <a href="../index.html" target="_self">ArchiveFever.Work</a>
+  </footer>
+
+</body>
+</html>

@@ -49,10 +49,9 @@
     .back{display:inline-block; margin:0 0 12px; padding:8px 12px; border-radius:8px; background:#111}
     .back:hover{background:#1a1a1a; color:var(--accent)}
 
-    .grid{display:grid; gap:12px; grid-template-columns:repeat(2,1fr); justify-items:stretch}
-    @media (min-width:560px){ .grid{ grid-template-columns:repeat(3,1fr) } }
-    @media (min-width:900px){ .grid{ grid-template-columns:repeat(4,1fr) } }
-    .grid:has(> .card:last-child:nth-child(odd)) > .card:last-child{grid-column:1/-1; width:min(260px,100%); justify-self:center}
+    .grid{display:grid; gap:12px; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); align-items:stretch}
+    @media (min-width:560px){ .grid{ grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)) } }
+    @media (min-width:900px){ .grid{ grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)) } }
 
     .card{background:#111; border-radius:12px; aspect-ratio:1/1; display:grid; place-items:center; width:100%}
     .card:hover{background:#1a1a1a}
@@ -119,6 +118,7 @@
         <a href="Khoti/index.html" class="card"><img src="Sources/Images/Khoti.webp" alt=""></a>
         <a href="Atroks/index.html" class="card"><img src="Sources/Images/Atroks.webp" alt=""></a>
         <a href="LastProtocol/index.html" class="card"><img src="Sources/Images/LastProtocol.webp" alt=""></a>
+        <a href="KairoStone/index.html" class="card"><img src="Sources/Images/KS.webp" alt=""></a>
       </div>
     </div>
   </section>

@@ -4,249 +4,216 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ArchiveFever.Work ∙ Fever</title>
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="../../Sources/Images/Fever.webp" type="image/webp">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   <style>
     :root{
-      --bg:#000;
-      --text:#f5f5f5;
-      --muted:#bdbdbd;
-      --accent:#ff8c00;
-
-      --blue:#3aa6ff;
-      --green:#4cd486;
-      --violet:#b086ff;
-      --rose:#ff7aa8;
-
-      --surface:#0f0f0f;
-      --surface2:#141414;
-      --line:rgba(255,255,255,.08);
-      --radius:14px;
-      --maxw:1060px;
+      --bg1:#0b0b0b; --bg3:#000;
+      --text:#e9ebf4; --muted:#aeb7c7; --ink:#eef2f8;
+      --accent:#ff8c00; --c1:#7f6cff; --c2:#58e3ff; --c3:#ffd166; --c4:#00f5d4;
+      --surface:#111214; --surface2:#15161a; --line:rgba(255,255,255,.10);
+      --radius:18px; --maxw:1080px; --pad:clamp(18px,2.6vw,32px); --section:clamp(22px,4.2vw,48px);
+      --trans:.14s;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
+    html{scroll-behavior:smooth}
     body{
-      margin:0; background:var(--bg); color:var(--text);
-      font-family:"Source Code Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      min-height:100vh; display:flex; flex-direction:column;
+      margin:0; color:var(--text); font-family:"Source Code Pro",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.7;
       -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      background:
+        radial-gradient(1100px 700px at 18% 10%, #101217 0%, #0a0c10 55%, #050607 100%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg3) 100%);
+      background-attachment:fixed;
     }
     a{color:inherit; text-decoration:none}
     img{display:block; max-width:100%; height:auto}
+    :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:10px}
 
-    header{ display:flex; justify-content:center; align-items:center; gap:.8rem; padding:20px 12px }
-    header img{ width:64px; height:64px; border-radius:50% }
-    header h1{ margin:0; line-height:1; font-weight:700; font-family:"Gloria Hallelujah", cursive; font-size:clamp(22px,3.8vw,32px); color:#fff; white-space:nowrap }
+    header{display:flex; align-items:center; gap:1rem; padding:18px var(--pad); max-width:var(--maxw); margin:0 auto}
+    header img{width:60px; height:60px; border-radius:50%}
+    header h1{margin:0; font:700 clamp(22px,3.4vw,34px)/1 "Gloria Hallelujah",cursive}
 
-    main{ flex:1; display:flex; justify-content:center; padding:24px 16px }
-    .wrap{ width:100%; max-width:var(--maxw); display:grid; gap:28px }
+    .wrap{max-width:var(--maxw); margin:0 auto; padding:0 var(--pad) var(--section)}
+    .block{margin-top:var(--section)}
+    .card{border:1px solid var(--line); border-radius:var(--radius); background:linear-gradient(180deg,var(--surface),var(--surface2)); padding:clamp(18px,3vw,34px)}
+    .section-head{display:flex; align-items:center; gap:12px; margin-bottom:14px}
+    .h2{margin:0; font-weight:900; font-size:clamp(18px,2.6vw,22px)}
+    .bar{height:6px; width:56px; border-radius:4px; background:linear-gradient(90deg,var(--accent),var(--c2),var(--c1))}
 
-    .hero{ display:grid; gap:18px; background:linear-gradient(180deg, var(--surface), var(--surface2)); border:1px solid var(--line); border-radius:var(--radius); padding:18px }
-    .hero-top{ display:grid; gap:16px; align-items:center; grid-template-columns: 110px 1fr }
-    .portrait{ width:110px; height:110px; border-radius:12px; object-fit:cover; background:#111; outline:1px solid var(--line) }
-    .title{ margin:0 0 6px; font-size:clamp(18px,3vw,22px); font-weight:800 }
-    .title .a{ color:var(--accent) }
-    .subtitle{ margin:0; color:var(--muted); font-size:clamp(14px,2.4vw,16px) }
+    /* QUI JE SUIS */
+    .head-row{display:grid; gap:18px; grid-template-columns:min(110px,24vw) 1fr; align-items:center; margin-bottom:12px}
+    .portrait{width:110px; height:110px; border-radius:16px; object-fit:cover; background:#0f0f10; outline:1px solid var(--line)}
+    .prose{display:grid; gap:12px}
+    .prose p{margin:0}
+    .hl{padding:.06em .32em; border-radius:.4em}
+    .hl1{background:color-mix(in srgb, var(--c3) 28%, transparent); color:#fff}
+    .hl2{background:color-mix(in srgb, var(--c1) 24%, transparent); color:#fff}
+    .hl3{background:color-mix(in srgb, var(--c2) 22%, transparent); color:#fff}
+    .badges{display:flex; gap:10px; flex-wrap:wrap}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 10px; background:#0f1013; border:1px solid var(--line); border-radius:12px; font-weight:800; font-size:13px}
+    .badge i{color:var(--accent)}
+    .subh{margin:10px 0 0; font-size:16px; font-weight:900}
 
-    .cta{ display:flex; gap:12px; flex-wrap:wrap; margin-top:10px }
-    .btn{ display:inline-flex; align-items:center; gap:10px; padding:10px 16px; border-radius:10px; background:#111; border:1px solid var(--line); font-weight:800; font-size:14px }
-    .btn:hover{ background:#1a1a1a; color:var(--accent) }
-    .btn i{ font-size:16px }
+    /* Études */
+    .edu-list{margin:8px 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    .edu-item{display:grid; grid-template-columns:84px 1fr; gap:12px; align-items:start; padding:10px 0; border-top:1px solid var(--line)}
+    .edu-item:first-child{border-top:none}
+    .year{display:inline-block; font-weight:900; color:#000; border-radius:12px; padding:6px 10px; text-align:center; min-width:72px}
+    .y1{background:var(--c3)} .y2{background:var(--c1)} .y3{background:var(--c2)} .y4{background:#ff7aa8} .y5{background:var(--accent)}
+    .what{color:var(--ink)} .what small{display:block; color:var(--muted); font-size:12.5px; margin-top:2px}
 
-    .badges{ display:flex; gap:10px; flex-wrap:wrap }
-    .badge{ display:inline-flex; align-items:center; gap:8px; padding:8px 10px; background:#101010; border:1px solid var(--line); border-radius:10px; font-weight:700; font-size:13px }
-    .badge i{ color:var(--accent) }
+    /* Services */
+    .grid{display:grid; gap:16px}
+    .cols-2{grid-template-columns:1fr}
+    @media (min-width:900px){.cols-2{grid-template-columns:1.05fr 1fr}}
+    .feature{display:flex; gap:12px; align-items:flex-start; padding:14px; border:1px solid var(--line); border-radius:14px; background:#0f1013}
+    .ico{width:38px; height:38px; border-radius:10px; display:grid; place-items:center; color:#000; font-weight:900}
+    .i-c1{background:var(--c1)} .i-c2{background:var(--c2)} .i-c3{background:var(--c3)} .i-c4{background:var(--c4)}
+    .feature strong{display:block; font-size:15px}
+    .feature span{display:block; color:var(--muted); font-size:13px; margin-top:2px}
 
-    .grid-3{ display:grid; gap:18px; grid-template-columns: 1fr }
-    .card{ background:linear-gradient(180deg, var(--surface), var(--surface2)); border:1px solid var(--line); border-radius:var(--radius); padding:18px }
-    .h2{ margin:0 0 12px; font-size:clamp(16px,2.6vw,20px); font-weight:900; letter-spacing:.2px; color:#fff }
-    .h2::after{ content:""; display:block; width:46px; height:3px; margin-top:6px; border-radius:3px; background:linear-gradient(90deg,var(--accent),var(--blue)) }
+    /* Exemples */
+    .tiles{display:grid; gap:16px; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr))}
+    .tile{display:grid; gap:8px; justify-items:center; text-align:center; background:#0f1013; border:1px solid var(--line); border-radius:16px; padding:18px; transition:transform var(--trans) ease, background var(--trans) ease, color var(--trans) ease}
+    .tile:hover{transform:translateY(-1px); background:#18191d; color:var(--accent)}
+    .tile img{width:54px; height:54px; object-fit:cover; border-radius:12px; outline:1px solid var(--line)}
+    .tile strong{font-size:15px}
 
-    .about p{ margin:0 0 12px; line-height:1.6; font-size:clamp(15px,2.4vw,16px) }
-    .about .key{ display:flex; flex-wrap:wrap; gap:8px }
-    .chip{
-      padding:6px 10px; border-radius:999px; font-weight:800; font-size:12px;
-      border:1px solid var(--line); background:#0f0f0f;
+    /* CTA + Footer */
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:12px}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 18px; border-radius:12px; background:#0f0f10; border:1px solid var(--line); font-weight:800; font-size:14px; transition:transform var(--trans) ease, color var(--trans) ease, background var(--trans) ease, border-color var(--trans) ease}
+    .btn:hover{background:#18191d; color:var(--accent); border-color:#23252b}
+    .btn:active{transform:translateY(1px)}
+    .btn i{font-size:16px}
+
+    footer{padding:24px var(--pad); display:flex; justify-content:center}
+    .links{display:flex; gap:18px; align-items:center; justify-content:center}
+    .links a{width:34px; height:34px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; transition:color var(--trans) ease}
+    .links a:hover{color:var(--accent)}
+
+    /* Mobile clean pour “Qui je suis” */
+    @media (max-width:600px){
+      header img{width:56px; height:56px}
+      .head-row{grid-template-columns:1fr; align-items:start}
+      .portrait{width:100px; height:100px; justify-self:start}
+      .edu-item{grid-template-columns:74px 1fr}
+      .year{min-width:64px; padding:6px 8px}
+      .card{padding:18px}
+      .feature{padding:12px}
+      .tiles{grid-template-columns:1fr 1fr}
     }
-    .chip.blue{ background:color-mix(in srgb, var(--blue) 20%, #0f0f0f); }
-    .chip.green{ background:color-mix(in srgb, var(--green) 20%, #0f0f0f); }
-    .chip.violet{ background:color-mix(in srgb, var(--violet) 20%, #0f0f0f); }
-    .chip.rose{ background:color-mix(in srgb, var(--rose) 20%, #0f0f0f); }
-
-    .services--grid .svc-grid{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) }
-    .svc{ display:flex; align-items:center; gap:12px; background:#101010; border:1px solid var(--line); border-radius:12px; padding:12px }
-    .svc .icon{
-      width:34px; height:34px; border-radius:8px; display:grid; place-items:center; color:#000; font-size:16px; font-weight:900;
-    }
-    .svc .icon.blue{ background:var(--blue) }
-    .svc .icon.green{ background:var(--green) }
-    .svc .icon.violet{ background:var(--violet) }
-    .svc .icon.rose{ background:var(--rose) }
-    .svc .txt strong{ display:block; font-size:14px }
-    .svc .txt span{ display:block; color:var(--muted); font-size:12.5px; margin-top:2px }
-
-    .parcours .stack{ display:grid; gap:8px }
-    .edu{ display:flex; gap:10px; align-items:center; background:#101010; border:1px solid var(--line); border-radius:12px; padding:10px 12px }
-    .edu i{ color:var(--accent) }
-    .edu .when{ color:#fff; font-weight:800; font-size:13px; margin-right:8px }
-    .edu .what{ font-size:13px; color:var(--muted) }
-
-    .showcase{ display:grid; gap:12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) }
-    .tile{ display:flex; align-items:center; gap:12px; padding:14px; background:#0f0f0f; border:1px solid var(--line); border-radius:12px }
-    .tile img{ width:44px; height:44px; object-fit:cover; border-radius:8px; background:#111; outline:1px solid var(--line) }
-    .tile strong{ font-size:14px }
-    .tile span{ color:var(--muted); font-size:13px }
-    .tile:hover{ background:#151515; color:var(--accent) }
-
-    .contact{ display:grid; gap:10px; justify-items:center; text-align:center; background:#0f0f0f; border:1px solid var(--line); border-radius:12px; padding:16px }
-    .contact p{ margin:0; color:var(--muted); font-size:14px }
-    .handles{ display:flex; gap:12px; flex-wrap:wrap }
-    .handle{ background:#111; border:1px solid var(--line); border-radius:10px; padding:8px 12px; font-weight:800; font-size:13px }
-    .handle:hover{ background:#1a1a1a; color:var(--accent) }
-
-    footer{ padding:20px 12px; display:flex; justify-content:center }
-    .links{ display:flex; gap:18px; align-items:center; justify-content:center }
-    .links a{ width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; transition:color .2s }
-    .links a:hover{ color:var(--accent) }
-
-    @media (min-width:980px){
-      .grid-3{ grid-template-columns: 1.2fr 1fr 1fr }
-    }
-    @media (min-width:920px){
-      .hero{ grid-template-columns: 1.15fr .85fr }
-    }
-    @media (max-width:560px){
-      header img{ width:54px; height:54px }
-      .hero-top{ grid-template-columns: 84px 1fr }
-      .portrait{ width:84px; height:84px }
-    }
+    @media (max-width:420px){ .tiles{grid-template-columns:1fr} }
+    @media (prefers-reduced-motion: reduce){ *{transition:none !important; animation:none !important; scroll-behavior:auto !important} }
   </style>
 </head>
 <body>
   <header>
     <a href="../../index.html" aria-label="Retour à l’accueil">
-      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme">
+      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme" loading="eager">
     </a>
     <h1>Fever</h1>
   </header>
 
-  <main>
-    <div class="wrap">
+  <main class="wrap">
+    <!-- QUI JE SUIS -->
+    <section id="moi" class="card" aria-labelledby="moi-title">
+      <div class="section-head">
+        <div class="bar"></div><h2 id="moi-title" class="h2">Qui je suis</h2>
+      </div>
 
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-top">
-          <img src="../../Sources/Images/Fev.webp" alt="Portrait de Fever" class="portrait">
-          <div>
-            <h2 id="hero-title" class="title">Je conçois des sites vitrines <span class="a">clairs</span>, <span style="color:#fff;font-weight:800;">rapides</span> et <span class="a">crédibles</span>.</h2>
-            <p class="subtitle">Pour des personnes et des projets qui méritent d’être vus.</p>
-            <div class="cta">
-              <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" class="btn"><i class="fas fa-paper-plane"></i>Soumettre un projet</a>
-              <a href="../../index.html#clients" class="btn"><i class="fas fa-user-friends"></i>Voir les goats</a>
-            </div>
+      <div class="head-row">
+        <img src="../../Sources/Images/Fev.webp" alt="Portrait de Fever" class="portrait" width="220" height="220" loading="eager">
+        <div class="prose">
+          <p>Je suis <strong>Sylvain Hirtz</strong> (Fever), 26 ans. J’aide des créateurs et petites structures à présenter leur projet avec des pages <span class="hl hl1">nettes</span> et <span class="hl hl2">efficaces</span>.</p>
+          <p>Approche : aller à l’essentiel, écrire court, navigation évidente. <span class="hl hl3">Honnêteté</span>, lisibilité, résultat. Si c’est faisable, je le dis. Sinon, je le dis aussi.</p>
+          <div class="badges">
+            <span class="badge"><i class="fas fa-bolt"></i> Chargement vif</span>
+            <span class="badge"><i class="fas fa-tablet-alt"></i> Compatibles mobile & PC</span>
+            <span class="badge"><i class="fas fa-check-circle"></i> Process transparent</span>
           </div>
         </div>
-        <div class="badges" aria-label="Qualités">
-          <span class="badge"><i class="fas fa-bolt"></i> Chargement rapide</span>
-          <span class="badge"><i class="fas fa-mobile-alt"></i> Mobile-first</span>
-          <span class="badge"><i class="fas fa-shield-alt"></i> Lisible & fiable</span>
+      </div>
+
+      <h3 class="subh">Études & formations</h3>
+      <ul class="edu-list" aria-label="Études et formations">
+        <li class="edu-item"><span class="year y1">2024</span><span class="what">Développeur Web & Web Mobile<small>Front-end, responsive, performance</small></span></li>
+        <li class="edu-item"><span class="year y2">2022</span><span class="what">Certification SecNumacadémie<small>Hygiène et sécurité numériques</small></span></li>
+        <li class="edu-item"><span class="year y3">2022</span><span class="what">Technicien Supérieur Systèmes & Réseaux<small>Administration & mise en production</small></span></li>
+        <li class="edu-item"><span class="year y4">2020</span><span class="what">Bac Pro SN — Option RISC<small>Réseaux, systèmes, communication</small></span></li>
+        <li class="edu-item"><span class="year y5">2017</span><span class="what">CAP Électricité<small>Installation & rigueur de terrain</small></span></li>
+      </ul>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="block card" aria-labelledby="services-title">
+      <div class="section-head">
+        <div class="bar"></div><h2 id="services-title" class="h2">Ce que je propose</h2>
+      </div>
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="feature">
+          <div class="ico i-c3"><i class="fas fa-window-restore"></i></div>
+          <div><strong>Page dédiée</strong><span>Une page simple qui dit qui vous êtes, ce que vous faites et comment vous contacter.</span></div>
         </div>
-      </section>
-
-      <section class="grid-3" aria-label="À propos, services et parcours">
-        <div class="card about">
-          <h3 class="h2">À propos</h3>
-          <p>Je suis <strong>Sylvain Hirtz</strong> (<strong>Fever</strong>). Mon truc : des sites vitrines qui vont droit au but. Une idée forte, une lecture fluide, des actions évidentes.</p>
-          <p>Je travaille vite et propre, avec un design simple, des mots courts et tout ce qu’il faut pour inspirer confiance.</p>
-          <div class="key">
-            <span class="chip blue">UX simple</span>
-            <span class="chip green">Design net</span>
-            <span class="chip violet">Performance</span>
-            <span class="chip rose">Accessibilité</span>
-          </div>
+        <div class="feature">
+          <div class="ico i-c1"><i class="fas fa-users"></i></div>
+          <div><strong>Mise en avant</strong><span>Publication dans ma rubrique <em>Collaborateurs</em> sur ArchiveFever.Work</span></div>
         </div>
-
-        <section class="card services services--grid">
-          <h3 class="h2">Mes services</h3>
-          <div class="svc-grid">
-            <div class="svc">
-              <div class="icon blue"><i class="fas fa-window-restore"></i></div>
-              <div class="txt">
-                <strong>Site vitrine</strong>
-                <span>1–5 pages, clair et efficace</span>
-              </div>
-            </div>
-            <div class="svc">
-              <div class="icon green"><i class="fas fa-brush"></i></div>
-              <div class="txt">
-                <strong>Identité visuelle</strong>
-                <span>Couleurs, typo, mise en page</span>
-              </div>
-            </div>
-            <div class="svc">
-              <div class="icon violet"><i class="fas fa-rocket"></i></div>
-              <div class="txt">
-                <strong>Performance</strong>
-                <span>Chargement rapide, code léger</span>
-              </div>
-            </div>
-            <div class="svc">
-              <div class="icon rose"><i class="fas fa-tools"></i></div>
-              <div class="txt">
-                <strong>Fonctionnalités</strong>
-                <span>Contact, réseaux, hébergement</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div class="card parcours">
-          <h3 class="h2">Parcours</h3>
-          <div class="stack">
-            <div class="edu"><i class="fas fa-graduation-cap"></i><span class="when">2024</span><span class="what">Développeur Web & Web Mobile</span></div>
-            <div class="edu"><i class="fas fa-shield-alt"></i><span class="when">2022</span><span class="what">Certification SecNumacadémie</span></div>
-            <div class="edu"><i class="fas fa-network-wired"></i><span class="when">2022</span><span class="what">Technicien Supérieur Systèmes & Réseaux</span></div>
-            <div class="edu"><i class="fas fa-laptop-code"></i><span class="when">2020</span><span class="what">Bac Pro SN — Option RISC</span></div>
-            <div class="edu"><i class="fas fa-plug"></i><span class="when">2017</span><span class="what">CAP Électricité</span></div>
-          </div>
+        <div class="feature">
+          <div class="ico i-c2"><i class="fas fa-link"></i></div>
+          <div><strong>Liens utiles</strong><span>Boutons clairs vers vos réseaux.</span></div>
         </div>
-      </section>
-
-      <section class="card" aria-label="Découvrir">
-        <h3 class="h2">Découvrir</h3>
-        <div class="showcase">
-          <a class="tile" href="../../index.html#clients">
-            <img src="../../Sources/Images/Marley.webp" alt="Clients">
-            <div><strong>Collaborations</strong><br><span>Mes création pour d'autres créateurs. (Faits avec passion)</span></div>
-          </a>
-          <a class="tile" href="../../index.html#outils">
-            <img src="../../Sources/Images/GAAP.webp" alt="Outils">
-            <div><strong>Outils</strong><br><span>Mes utilitaires simples. (Fun et utile)</span></div>
-          </a>
-          <a class="tile" href="../../index.html#albums">
-            <img src="../../Sources/Images/Fragments.webp" alt="Albums IA">
-            <div><strong>Albums IA</strong><br><span>Mes sons générés par IA. (Suno)</span></div>
-          </a>
+        <div class="feature">
+          <div class="ico i-c4"><i class="fas fa-rocket"></i></div>
+          <div><strong>En ligne rapidement</strong><span>Page légère et rapide.</span></div>
         </div>
-      </section>
+      </div>
+      <div class="cta">
+        <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" class="btn"><i class="fas fa-clipboard-check"></i>Démarrer le brief</a>
+      </div>
+    </section>
 
-      <section class="contact" aria-label="Contact">
-        <h3 class="h2" style="margin:0;">Contact</h3>
-        <p>Discutons de ton projet.</p>
-        <div class="handles">
-          <span class="handle"><i class="fab fa-discord"></i> fever65</span>
-        </div>
-      </section>
+    <!-- EXEMPLES -->
+    <section id="decouvrir" class="block card" aria-labelledby="decouvrir-title">
+      <div class="section-head">
+        <div class="bar"></div><h2 id="decouvrir-title" class="h2">Exemples</h2>
+      </div>
+      <div class="tiles" aria-label="Raccourcis">
+        <a class="tile" href="../../index.html#collaborateurs">
+          <img src="../../Sources/Images/Marley.webp" alt="Collaborateurs" width="108" height="108" loading="lazy">
+          <strong>Collaborateurs</strong>
+        </a>
+        <a class="tile" href="../../index.html#outils">
+          <img src="../../Sources/Images/GAAP.webp" alt="Outils" width="108" height="108" loading="lazy">
+          <strong>Outils</strong>
+        </a>
+        <a class="tile" href="../../index.html#albums">
+          <img src="../../Sources/Images/Fragments.webp" alt="Albums" width="108" height="108" loading="lazy">
+          <strong>Albums</strong>
+        </a>
+      </div>
+    </section>
 
-    </div>
+    <!-- CONTACT -->
+    <section id="contact" class="block card" aria-labelledby="contact-title">
+      <div class="section-head">
+        <div class="bar"></div><h2 id="contact-title" class="h2">Contact</h2>
+      </div>
+      <p style="margin:0 0 12px">Message simple, réponse honnête.</p>
+      <div class="cta">
+        <a href="https://forms.gle/zAe5NUdtq1CzqeV8A" class="btn"><i class="fas fa-paper-plane"></i>Soumettre un projet</a>
+        <span class="btn"><i class="fab fa-discord"></i>fever65</span>
+      </div>
+    </section>
   </main>
 
   <footer aria-label="Réseaux">
     <div class="links">
       <a href="https://x.com/infinity_lbrtr" aria-label="X">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
           <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z"/>
         </svg>
       </a>
@@ -261,9 +228,8 @@
     (function(){
       document.querySelectorAll('a[href]').forEach(a=>{
         const href=a.getAttribute('href')||'';
-        if(href.trim().startsWith('#')) return;
-        a.setAttribute('target','_blank');
-        a.setAttribute('rel','noopener');
+        if(href.startsWith('#')) return;
+        if(/^https?:\/\//i.test(href)) { a.setAttribute('target','_blank'); a.setAttribute('rel','noopener'); }
       });
     })();
   </script>

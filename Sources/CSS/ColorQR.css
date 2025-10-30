@@ -15,7 +15,10 @@
 html,
 body {
   height: 100%;
-  background: var(--bg);
+  background:
+  linear-gradient(180deg, #0f1013 0%, #090a0c 60%, #050506 100%);
+background-attachment: fixed;
+
   color: var(--fg);
   font-family: 'Source Code Pro', monospace;
   display: flex;

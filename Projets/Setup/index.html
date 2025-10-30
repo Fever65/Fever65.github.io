@@ -12,113 +12,110 @@
 
   <style>
     :root{
-      --bg:#000;
-      --text:#f5f5f5;
-      --muted:#cfcfcf;
-      --surface:#0f0f0f;
-      --surface2:#151515;
-      --line:rgba(255,255,255,.08);
-      --accent:#ff8c00;
-      --teal:#2ec9b9;
-      --violet:#9d7cf3;
-      --blue:#4aa3ff;
-      --green:#58d38c;
-      --radius:16px;
-      --col-min:300px;
+      /* Thème harmonisé avec les autres pages */
+      --bg1:#0b0b0b; --bg3:#000;
+      --ink:#eef2f8; --text:#e9ebf4; --muted:#c6cfdb;
+      --accent:#ff8c00; --c1:#7f6cff; --c2:#58e3ff; --c3:#ffd166; --c4:#00f5d4; --c5:#2ec9b9;
+      --surface:#111214; --surface2:#15161a; --line:rgba(255,255,255,.10);
+
+      --radius:16px; --maxw:1100px; --pad:clamp(18px,2.6vw,32px);
+      --col-min:300px; --trans:.14s;
     }
     *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
     body{
-      background:var(--bg); color:var(--text);
-      font-family:"Source Code Pro", monospace;
-      min-height:100vh; display:flex; flex-direction:column;
+      color:var(--text);
+      font-family:"Source Code Pro",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      background:
+        radial-gradient(1100px 700px at 18% 10%, #101217 0%, #0a0c10 55%, #050607 100%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg3) 100%);
+      background-attachment:fixed;
+      min-height:100vh; display:flex; flex-direction:column;
+      line-height:1.7;
     }
-    a{color:inherit; text-decoration:none}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%;height:auto}
+    :focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:10px}
 
     header{
-      display:flex; justify-content:center; align-items:center; gap:.9rem;
-      padding:22px 14px;
+      display:flex;justify-content:center;align-items:center;gap:.9rem;
+      padding:22px var(--pad);max-width:var(--maxw);margin:0 auto;
     }
     header img{width:64px;height:64px;border-radius:50%}
     header h1{
-      margin:0; font-weight:700; line-height:1;
-      font-family:"Gloria Hallelujah", cursive;
-      font-size:clamp(22px,3.6vw,32px); color:#fff;
-      white-space:nowrap;
+      margin:0;font-weight:700;line-height:1;
+      font-family:"Gloria Hallelujah",cursive;
+      font-size:clamp(22px,3.6vw,32px);color:#fff;white-space:nowrap;
     }
 
-    main{flex:1; display:flex; justify-content:center; padding:26px 16px}
-    .container{width:100%; max-width:1100px; display:grid; gap:28px}
+    main{flex:1;display:flex;justify-content:center;padding:24px var(--pad)}
+    .container{width:100%;max-width:var(--maxw);display:grid;gap:28px}
 
-    .intro{
+    /* Cartes & sections */
+    .card, .group, .intro{
       background:linear-gradient(180deg,var(--surface),var(--surface2));
       border:1px solid var(--line); border-radius:var(--radius);
-      padding:18px 18px 16px;
-      display:grid; gap:10px; text-align:center;
     }
+    .intro{padding:18px;display:grid;gap:12px;text-align:center}
     .intro h2{
-      font-family:"Gloria Hallelujah", cursive;
-      font-size:clamp(18px,2.6vw,22px); color:var(--accent);
-      letter-spacing:.2px; font-weight:700;
+      font-family:"Gloria Hallelujah",cursive;
+      font-size:clamp(18px,2.4vw,22px);color:var(--accent);letter-spacing:.2px;font-weight:700
     }
-    .chips{display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+    .chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
     .chip{
-      padding:8px 12px; border-radius:999px; font-weight:800; font-size:13px;
-      background:#111; border:1px solid var(--line); color:#fff;
+      padding:8px 12px;border-radius:999px;font-weight:800;font-size:13px;
+      background:#0f1013;border:1px solid var(--line);color:#fff
     }
 
-    .section{display:grid; gap:16px}
+    .section{display:grid;gap:16px}
     .section h3{
-      margin:0; text-align:center; font-weight:800; letter-spacing:.2px;
-      font-size:clamp(16px,2.2vw,20px);
+      margin:0;text-align:center;font-weight:900;letter-spacing:.2px;
+      font-size:clamp(16px,2.2vw,20px);color:#fff
     }
-    .tone-orange h3{color:var(--accent)}
-    .tone-teal h3{color:var(--teal)}
-    .tone-violet h3{color:var(--violet)}
 
-    .grid{
-      display:grid; gap:14px;
-      grid-template-columns:repeat(auto-fit, minmax(var(--col-min),1fr));
-    }
+    .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(var(--col-min),1fr))}
 
     .card{
-      display:flex; align-items:center; gap:14px;
-      background:linear-gradient(180deg,var(--surface),var(--surface2));
-      border:1px solid var(--line); border-radius:14px;
-      padding:14px 16px;
+      display:flex;align-items:center;gap:14px;padding:14px 16px
     }
     .icon{
-      flex:0 0 40px; height:40px; border-radius:12px;
-      display:grid; place-items:center; color:#0b0b0b; font-size:18px;
+      flex:0 0 40px;height:40px;border-radius:12px;
+      display:grid;place-items:center;color:#0b0b0b;font-size:18px;outline:1px solid rgba(0,0,0,.08)
     }
-    .icon.orange{background:var(--accent)}
-    .icon.teal{background:var(--teal)}
-    .icon.violet{background:var(--violet)}
-    .icon.blue{background:var(--blue)}
-    .icon.green{background:var(--green)}
-    .text{display:flex; gap:8px; flex-wrap:wrap; align-items:baseline}
-    .label{font-weight:900; color:#fff}
+    .icon.orange{background:var(--c3)}
+    .icon.teal{background:var(--c5)}
+    .icon.violet{background:var(--c1)}
+    .icon.blue{background:var(--c2)}
+    .icon.green{background:#58d38c}
+
+    .text{display:flex;gap:8px;flex-wrap:wrap;align-items:baseline}
+    .label{font-weight:900;color:#fff}
     .value{color:var(--muted)}
 
-    .group{
-      background:linear-gradient(180deg,var(--surface),var(--surface2));
-      border:1px solid var(--line); border-radius:14px; padding:16px;
-      display:grid; gap:14px;
-    }
-    .group .row{display:grid; gap:10px}
+    .group{padding:16px;display:grid;gap:14px}
+    .group .row{display:grid;gap:10px}
     .group .row.cols-2{grid-template-columns:1fr 1fr}
-    @media(max-width:700px){.group .row.cols-2{grid-template-columns:1fr}}
+    @media(max-width:720px){.group .row.cols-2{grid-template-columns:1fr}}
 
-    footer{padding:20px 12px; display:flex; justify-content:center}
-    .links{display:flex; gap:18px; align-items:center}
-    .links a{width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px; transition:color .2s}
+    footer{padding:22px var(--pad);display:flex;justify-content:center}
+    .links{display:flex;gap:18px;align-items:center}
+    .links a{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;transition:color var(--trans)}
     .links a:hover{color:var(--accent)}
+
+    /* Petites optimisations responsive */
+    @media(max-width:560px){
+      header img{width:56px;height:56px}
+      .card{padding:12px}
+      .icon{width:36px;height:36px}
+    }
   </style>
 </head>
 <body>
   <header>
     <a href="../../index.html" aria-label="Retour à l’accueil">
-      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme">
+      <img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme" loading="eager">
     </a>
     <h1>Mon Setup</h1>
   </header>
@@ -136,7 +133,7 @@
         </div>
       </section>
 
-      <section class="section tone-orange" aria-label="La bête">
+      <section class="section" aria-label="La bête">
         <h3>La bête</h3>
         <div class="grid">
           <div class="card"><div class="icon orange"><i class="fas fa-microchip"></i></div><div class="text"><span class="label">Processeur :</span><span class="value">AMD Ryzen 5 3600X</span></div></div>
@@ -151,7 +148,7 @@
         </div>
       </section>
 
-      <section class="section tone-teal" aria-label="Périphériques">
+      <section class="section" aria-label="Périphériques">
         <h3>Périphériques</h3>
         <div class="grid">
           <div class="card"><div class="icon teal"><i class="fas fa-desktop"></i></div><div class="text"><span class="label">Moniteurs :</span><span class="value">LG-24GN600, HP 22vx</span></div></div>
@@ -163,7 +160,7 @@
         </div>
       </section>
 
-      <section class="section tone-violet" aria-label="Autres appareils">
+      <section class="section" aria-label="Autres appareils">
         <h3>Autres appareils</h3>
         <div class="grid">
           <div class="card"><div class="icon violet"><i class="fas fa-laptop"></i></div><div class="text"><span class="label">PC portable :</span><span class="value">MacBook Air M2 15″ 256 Go</span></div></div>
@@ -177,7 +174,7 @@
   <footer aria-label="Réseaux">
     <div class="links">
       <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" aria-hidden="true">
           <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933z"/>
         </svg>
       </a>

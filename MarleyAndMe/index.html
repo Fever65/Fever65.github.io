@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0b0d12">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta charset="UTF-8" />
@@ -15,103 +15,177 @@
     --txt:#e9eef9; --muted:#a7b2c8; --strong:#ffffff;
     --coral:#ff6f61; --turq:#40e0d0; --gold:#ffd86b;
     --shadow:0 16px 48px rgba(0,0,0,.45);
+    --ring:rgba(255,255,255,.12);
+    --ring-strong:rgba(255,140,0,.28);
+    --radius:14px;
   }
+
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
   img{display:block;max-width:100%;height:auto}
   a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--gold); outline-offset:4px; border-radius:10px}
 
   body{
-    background:radial-gradient(1600px 900px at 50% -15%, #131a27 0%, var(--bg) 55%, var(--bg2) 100%);
+    background:
+      radial-gradient(1300px 800px at 50% -18%, #172033 0%, var(--bg) 55%, var(--bg2) 100%),
+      linear-gradient(180deg, #0c0f15 0%, #090b11 100%);
+    background-attachment:fixed;
     color:var(--txt);
     font:400 16px/1.65 "Sora",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     overflow-x:hidden; display:flex; flex-direction:column;
   }
 
-  /* ===== HEADER : logo gauche du titre, sans contours ===== */
-  header{padding:24px 14px 10px}
+  /* ===== HEADER ===== */
+  header{padding:calc(18px + env(safe-area-inset-top,0px)) 14px 10px}
   .header-row{
     max-width:1100px; margin:0 auto;
-    display:flex; align-items:center; justify-content:center; gap:14px; text-align:left;
+    display:flex; align-items:center; justify-content:center; gap:14px;
   }
-  .logo{width:90px; height:auto; border:none; border-radius:12px; box-shadow:none; background:transparent}
-  .title{display:flex; flex-direction:column; gap:6px; min-width:0}
+  .logo{
+    width:90px; height:auto; border:none; border-radius:12px; background:transparent;
+    box-shadow:0 6px 20px rgba(0,0,0,.25);
+  }
+  .title{display:flex; flex-direction:column; gap:6px; min-width:0; text-align:left}
   .brand{
     font-weight:800; letter-spacing:.03em; line-height:1.1;
     font-size:clamp(1.9rem,6.8vw,3rem);
     background:linear-gradient(90deg, var(--turq), var(--coral) 60%, var(--gold));
     -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
     white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    filter:drop-shadow(0 2px 12px rgba(64,224,208,.18));
   }
   .tagline{color:var(--muted); font-size:1rem}
 
+  /* ===== LAYOUT ===== */
   main{flex:1}
-  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px;display:grid;gap:28px}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 14px 28px;display:grid;gap:28px}
 
   /* ===== Présentation ===== */
   #presentation{text-align:center}
-  #presentation p{max-width:860px;margin:0 auto;color:var(--muted)}
-  .accent{color:#bfeff0} .accent-2{color:#ffc3b9}
+  #presentation p{
+    max-width:860px;margin:0 auto;color:var(--muted);
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.00));
+    border:1px solid var(--ring); border-radius:var(--radius);
+    padding:16px 18px;
+  }
+  .accent{color:#bfeff0}
+  .accent-2{color:#ffc3b9}
 
   /* ===== Galerie (masonry) ===== */
-  .gallery{column-count:1; column-gap:14px}
+  .gallery{column-count:1; column-gap:16px}
   @media (min-width:640px){ .gallery{column-count:2} }
   @media (min-width:980px){ .gallery{column-count:3} }
-  .gallery-item{break-inside:avoid; margin-bottom:14px; cursor:pointer}
+
+  .gallery-item{break-inside:avoid; margin-bottom:16px; cursor:pointer; will-change:transform}
   .gallery-item img{
     width:100%; border-radius:12px; background:#0f141c;
-    box-shadow:var(--shadow); transition:transform .2s, box-shadow .2s
+    border:1px solid var(--ring);
+    box-shadow:var(--shadow);
+    transition:transform .22s ease, box-shadow .22s ease, filter .22s ease, border-color .22s ease;
   }
-  .gallery-item img:hover{ transform:translateY(-2px); box-shadow:0 20px 56px rgba(0,0,0,.5) }
+  .gallery-item img:hover{
+    transform:translateY(-2px) scale(1.01);
+    box-shadow:0 22px 60px rgba(0,0,0,.52);
+    border-color:rgba(255,255,255,.18);
+    filter:saturate(1.06);
+  }
 
-  /* ===== Contact pro : sans séparations ===== */
-  #contact{display:grid; gap:10px}
+  /* ===== Contact pro ===== */
+  #contact{display:grid; gap:12px}
   #contact .section-title{
-    font-weight:800; color:var(--strong); margin-bottom:6px; text-align:center;
+    font-weight:800; color:var(--strong); margin-bottom:2px; text-align:center;
+    text-shadow:0 2px 16px rgba(0,0,0,.35);
   }
   .contact-list{
     list-style:none; max-width:780px; margin:0 auto; padding:0;
-    /* AUCUNE bordure / séparation */
   }
   .contact-list li{
     display:flex; justify-content:space-between; align-items:center; gap:16px;
-    padding:10px 2px;  /* juste de l’air */
+    padding:12px 4px;
+    border-radius:12px;
+  }
+  .contact-list li:hover{
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+    outline:1px solid var(--ring);
   }
   .label{font-weight:700; color:#fff}
-  .cta{position:relative; font-weight:800; color:#13d7c6; padding-left:18px}
-  .cta::before{content:"→"; position:absolute; left:0; top:0}
-  .cta:hover{ color:#10efdd }
+  .cta{
+    position:relative; font-weight:800; color:#13d7c6; padding-left:20px;
+    text-shadow:0 0 0 transparent;
+    transition:color .18s ease, transform .18s ease;
+  }
+  .cta::before{
+    content:"→"; position:absolute; left:0; top:0; opacity:.9; transform:translateX(0);
+    transition:transform .18s ease, opacity .18s ease;
+  }
+  .cta:hover{ color:#10efdd; transform:translateX(1px) }
+  .cta:hover::before{ transform:translateX(2px); opacity:1 }
+
   @media (max-width:520px){
     .contact-list li{flex-direction:column; align-items:flex-start}
+    .cta{padding-left:18px}
   }
 
-  /* ===== Bandeau + footer ===== */
+  /* ===== Footer ===== */
   footer{background:transparent;color:#9aa6bf;font-size:.95rem}
-  .footer-wrap{max-width:1100px;margin:0 auto;padding:16px 14px 22px;text-align:center;display:grid;gap:10px}
+  .footer-wrap{
+    max-width:1100px;margin:0 auto;padding:16px 14px calc(22px + env(safe-area-inset-bottom,0px));
+    text-align:center;display:grid;gap:10px
+  }
   .pill{
     display:inline-block;padding:10px 16px;border-radius:999px;
-    background:linear-gradient(90deg, rgba(64,224,208,.25), rgba(255,111,97,.22), rgba(255,216,107,.22));
+    background:
+      linear-gradient(90deg, rgba(64,224,208,.25), rgba(255,111,97,.22), rgba(255,216,107,.22));
     color:#eef2ff;font-weight:800;
-    backdrop-filter:blur(10px) saturate(115%); box-shadow:0 14px 34px rgba(0,0,0,.26), inset 0 0 0 1px rgba(255,255,255,.08)
+    backdrop-filter:blur(10px) saturate(115%);
+    box-shadow:0 14px 34px rgba(0,0,0,.26), inset 0 0 0 1px rgba(255,255,255,.08)
   }
   .footer-link{color:#d7dcf0} .footer-link:hover{color:#ffffff}
 
-  /* ===== Carrousel ===== */
-  .carousel{position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
-    background:rgba(6,9,14,.92); opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:999}
+  /* ===== Carrousel (mêmes IDs/classes, uniquement style) ===== */
+  .carousel{
+    position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    background:rgba(6,9,14,.92);
+    opacity:0; pointer-events:none; transition:opacity .25s ease; z-index:999
+  }
   .carousel.active{opacity:1; pointer-events:auto}
-  .carousel-content{position:relative; display:flex; align-items:center; justify-content:center; padding:6px}
-  .carousel-content img{max-width:92vw; max-height:90vh; object-fit:contain; display:none; border-radius:12px}
+  .carousel-content{
+    position:relative; display:flex; align-items:center; justify-content:center; padding:8px;
+    border-radius:16px;
+    background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02));
+    outline:1px solid var(--ring);
+    box-shadow:0 26px 64px rgba(0,0,0,.55);
+  }
+  .carousel-content img{
+    max-width:92vw; max-height:90vh; object-fit:contain; display:none; border-radius:12px;
+    outline:1px solid var(--ring);
+    background:#0e121a;
+    box-shadow:0 18px 44px rgba(0,0,0,.45);
+  }
   .prev,.next{
     position:absolute; top:50%; transform:translateY(-50%);
     background:rgba(255,255,255,.1); color:#fff; border:none; font-size:2rem;
-    padding:.45rem .9rem; border-radius:10px; cursor:pointer; backdrop-filter:blur(6px); transition:background .2s
+    padding:.45rem .9rem; border-radius:12px; cursor:pointer; backdrop-filter:blur(6px);
+    transition:background .2s, transform .12s, box-shadow .2s;
+    outline:1px solid var(--ring);
   }
   .prev{left:12px} .next{right:12px}
-  .prev:hover,.next:hover{background:rgba(255,255,255,.2)}
+  .prev:hover,.next:hover{background:rgba(255,255,255,.18); box-shadow:0 8px 28px rgba(0,0,0,.35)}
+  .prev:active,.next:active{transform:translateY(-50%) scale(.98)}
   @media (max-width:480px){.prev,.next{font-size:1.6rem; padding:.35rem .7rem}}
-  :root,html,body{background:#000!important;color-scheme:dark}*{-webkit-tap-highlight-color:transparent}.page,.content,body,html{min-height:100svh}html,body{overscroll-behavior:none;background-attachment:fixed}
+
+  /* Keep original dark-enforcement */
+  :root,html,body{background:#000!important;color-scheme:dark}
+  *{-webkit-tap-highlight-color:transparent}
+  .page,.content,body,html{min-height:100svh}
+  html,body{overscroll-behavior:none;background-attachment:fixed}
+
+  /* Motion respect */
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important; animation:none!important; scroll-behavior:auto!important}
+  }
 </style>
 </head>
 <body>
@@ -122,6 +196,8 @@
     <img class="logo" src="logo.png" alt="Logo Marley And Me">
     <div class="title">
       <h1 class="brand">Marley And Me</h1>
+      <!-- tagline optionnelle si besoin -->
+      <!-- <div class="tagline">Identités visuelles & graphisme</div> -->
     </div>
   </div>
 </header>
@@ -176,12 +252,12 @@
 
 <footer>
   <div class="footer-wrap">
-    <div class="pill">Recommandé par ArchiveFever.Work — Sylvain Hirtz (Fever)</div>
     <div>Site propulsé avec ❤️ par <a class="footer-link" href="../index.html">Sylvain Hirtz</a></div>
   </div>
 </footer>
 
 <script>
+  /* ====== IMPORTANT : on ne modifie PAS tes fonctions ni la structure ====== */
   let currentIndex = 0;
   const projects = {
     projet1: ['bieres-food.webp', 'Bieres2.webp', 'Bieres3.webp'],
@@ -216,6 +292,7 @@
     projects[project].forEach((src, i) => {
       const img = document.createElement('img');
       img.src = src;
+      img.loading = 'eager'; // visuel du carrousel net tout de suite (sans changer le fonctionnement)
       img.style.display = i === 0 ? 'block' : 'none';
       content.appendChild(img);
     });

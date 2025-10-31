@@ -26,17 +26,12 @@
       --trans: 120ms;
     }
 
-    * {
-      box-sizing: border-box
-    }
-
     html,
     body {
-      height: 100%
-    }
-
-    html {
-      scroll-padding-top: calc(var(--pad-top) - 80px)
+      background-color: #000;
+      height: 100%;
+      color-scheme: dark;
+      -webkit-text-size-adjust: 100%;
     }
 
     body {
@@ -46,10 +41,50 @@
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
-background: radial-gradient(1100px 700px at 18% 10%, #101217 0%, #0a0c10 55%, #050607 100%), linear-gradient(180deg, #0b0b0b 0%, #000 100%);
-background-attachment: fixed;
+      background: none !important;
+      overflow-x: hidden;
+    }
 
+    body::before {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      background:
+        radial-gradient(1100px 700px at 18% 10%, #101217 0%, #0a0c10 55%, #050607 100%),
+        linear-gradient(180deg, #0b0b0b 0%, #000 100%);
+      background-repeat: no-repeat;
+      background-size: cover;
+      will-change: transform;
+    }
 
+    .hero,
+    .panel,
+    .view {
+      min-height: 100dvh;
+    }
+
+    @supports not (height: 100dvh) {
+
+      .hero,
+      .panel,
+      .view {
+        min-height: 100svh;
+      }
+    }
+
+    @supports (-webkit-touch-callout: none) {
+      .safari-bg-unfixed {
+        background-attachment: scroll !important;
+      }
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-padding-top: calc(var(--pad-top) - 80px)
     }
 
     a {
@@ -82,7 +117,7 @@ background-attachment: fixed;
       height: 64px;
       border-radius: 50%;
       cursor: pointer;
-      transition: transform var(--trans) ease
+      transition: transform var(--trans) ease;
     }
 
     header img:active {
@@ -95,7 +130,7 @@ background-attachment: fixed;
       font-family: "Gloria Hallelujah", sans-serif;
       font-size: clamp(22px, 3.8vw, 32px);
       white-space: nowrap;
-      letter-spacing: .2px
+      letter-spacing: .2px;
     }
 
     .view {
@@ -110,7 +145,6 @@ background-attachment: fixed;
     }
 
     .hero {
-      min-height: 100svh;
       display: grid;
       place-items: center;
       text-align: center;
@@ -122,7 +156,7 @@ background-attachment: fixed;
       gap: 16px;
       grid-template-columns: 1fr;
       width: min(360px, 92vw);
-      margin: 0 auto
+      margin: 0 auto;
     }
 
     .cat {
@@ -154,10 +188,9 @@ background-attachment: fixed;
     }
 
     .panel {
-      min-height: 100svh;
       padding: calc(var(--pad-top) + env(safe-area-inset-top, 0px)) 14px calc(var(--pad-bottom) + env(safe-area-inset-bottom, 0px));
       max-width: 1040px;
-      margin: 0 auto
+      margin: 0 auto;
     }
 
     .panel h2 {
@@ -195,7 +228,7 @@ background-attachment: fixed;
       display: grid;
       gap: 12px;
       align-items: stretch;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr))
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     }
 
     @media (min-width:560px) {
@@ -264,7 +297,7 @@ background-attachment: fixed;
       align-items: center;
       justify-content: center;
       color: #fff;
-      font-size: 20px
+      font-size: 20px;
     }
 
     .links a:hover {

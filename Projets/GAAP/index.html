@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,112 +8,399 @@
   <title>GAAP • ArchiveFever.Work</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="icon" href="../../Sources/Images/GAAP.webp" type="image/webp" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<style>
-  :root{
-    --bg:#000;--fg:#fff;--muted:#b6b6b6;
-    --accent:#ff8c00;--accent-2:#ff9b22;--accent-3:#ffd199;
-    --panel:#0b0b0b;--panel2:#141414;--radius:14px;
-    --border:#1b1b1b;--border-2:#242424;--shadow:0 10px 30px rgba(0,0,0,.35)
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%}
-  body{
-background: radial-gradient(1100px 700px at 18% 10%, #101217 0%, #0a0c10 55%, #050607 100%), linear-gradient(180deg, #0b0b0b 0%, #000 100%);
-background-attachment: fixed;
+  <style>
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --muted: #b6b6b6;
+      --accent: #ff8c00;
+      --accent-2: #ff9b22;
+      --accent-3: #ffd199;
+      --panel: #0b0b0b;
+      --panel2: #141414;
+      --radius: 14px;
+      --border: #1b1b1b;
+      --border-2: #242424;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35)
+    }
 
-    font-family:'Source Code Pro',monospace;
-    display:flex;flex-direction:column;min-height:100vh;
-    -webkit-tap-highlight-color:transparent;
-    -webkit-font-smoothing:antialiased;moz-osx-font-smoothing:grayscale;
-    text-rendering:optimizeLegibility;color-scheme:dark
-  }
-  header{display:flex;align-items:center;justify-content:center;gap:14px;margin:10px 0 6px}
-  header img{width:70px;height:70px;border-radius:50%;cursor:pointer}
-  h1{font-family:'Gloria Hallelujah',cursive;font-size:clamp(1.5rem,2.4vw,2rem);letter-spacing:.2px;color:var(--accent)}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
 
-  footer{text-align:center;color:var(--muted);padding:22px 10px 12px;width:100%;font-size:.92rem;margin-top:auto}
-  footer .links{display:flex;justify-content:center;gap:16px;margin-top:10px}
-  footer .links a{color:var(--accent);text-decoration:none;font-size:1.5rem;transition:color .2s ease,transform .1s}
-  footer .links a:hover{color:#fff;transform:translateY(-1px)}
-  footer .links svg{width:24px;height:24px;fill:var(--accent)}
-  footer .links a:hover svg{fill:#fff}
+    html,
+    body {
+      height: 100%;
+      background-color: #000;
+      color-scheme: dark;
+      -webkit-text-size-adjust: 100%
+    }
 
-  main{
-    flex:1;width:100%;max-width:1300px;margin:0 auto;
-    padding:14px 14px 24px;display:grid;gap:16px;grid-template-columns:1fr
-  }
-  @media (min-width:980px){main{grid-template-columns:440px 1fr;align-items:start;gap:20px}}
+    body {
+      font-family: 'Source Code Pro', monospace;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: antialiased;
+      moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      color: var(--fg);
+      background: none !important
+    }
 
-  .card{
-    background:linear-gradient(180deg,var(--panel),var(--panel2));
-    border:1px solid var(--border);border-radius:var(--radius);
-    padding:18px;box-shadow:var(--shadow)
-  }
-  .card:focus-within{border-color:var(--border-2);box-shadow:0 0 0 2px rgba(255,140,0,.12),var(--shadow)}
+    body::before {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      background:
+        radial-gradient(1100px 700px at 18% 10%, #101217 0%, #0a0c10 55%, #050607 100%),
+        linear-gradient(180deg, #0b0b0b 0%, #000 100%);
+      background-repeat: no-repeat;
+      background-size: cover;
+      will-change: transform
+    }
 
-  .title{font-family:'Gloria Hallelujah',cursive;font-size:clamp(1.15rem,2.2vw,1.55rem);letter-spacing:.4px;margin-bottom:10px}
-  .hint{color:var(--muted);font-size:.78rem;margin:6px 0 12px}
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 10px 0 6px
+    }
 
-  h2{
-    font-weight:700;font-size:.9rem;text-transform:uppercase;
-    letter-spacing:.12em;color:#9c9c9c;margin:16px 0 8px
-  }
+    header img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      cursor: pointer
+    }
 
-  label{display:block;font-weight:700;font-size:.86rem;margin:10px 0 6px;color:#e8e8e8}
-  input[type="text"],input[type="tel"],input[type="date"],input[type="time"],input[type="number"],textarea,select{
-    width:100%;padding:14px 12px;border-radius:10px;border:1px solid var(--border-2);
-    background:#0c0c0c;color:#fff;outline:none;font-weight:600;font-size:16px;
-    transition:border-color .15s,box-shadow .15s,background .15s;caret-color:#fff
-  }
-  input::placeholder,textarea::placeholder{color:#8a8a8a}
-  input:focus,textarea:focus,select:focus{border-color:#2f2f2f;box-shadow:0 0 0 2px rgba(255,140,0,.16)}
-  textarea{min-height:104px;resize:vertical}
+    h1 {
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      letter-spacing: .2px;
+      color: var(--accent)
+    }
 
-  .row{display:grid;gap:12px}
-  .row.cols-2{grid-template-columns:1fr 1fr}
-  @media (max-width:520px){.row.cols-2{grid-template-columns:1fr}}
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 22px 10px 12px;
+      width: 100%;
+      font-size: .92rem;
+      margin-top: auto
+    }
 
-  .file{display:flex;align-items:center;gap:10px;background:#0c0c0c;padding:12px;border:1px dashed #2a2a2a;border-radius:10px}
-  .file input{flex:1}
+    footer .links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 10px
+    }
 
-  .accentPick{display:flex;align-items:center;gap:10px}
-  .accentPick input[type="color"]{width:40px;height:40px;border:none;background:#000;border-radius:10px;box-shadow:inset 0 0 0 1px #2a2a2a}
+    footer .links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 1.5rem;
+      transition: color .2s ease, transform .1s
+    }
 
-  .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-  .btns>*{flex:1 1 180px}
-  button,.ghost,.linkbtn{
-    appearance:none;border:none;cursor:pointer;padding:14px 16px;border-radius:12px;
-    font-weight:800;font-size:15px;line-height:1;text-decoration:none;
-    display:inline-flex;align-items:center;justify-content:center;gap:8px;
-    transition:transform .06s ease,filter .15s ease,box-shadow .15s ease
-  }
-  .linkbtn{background:linear-gradient(180deg,var(--accent-2),var(--accent));color:#000;box-shadow:0 8px 20px rgba(255,140,0,.28)}
-  button:not(.ghost){background:linear-gradient(180deg,var(--accent-2),var(--accent));color:#000;box-shadow:0 8px 20px rgba(255,140,0,.28)}
-  .ghost{background:#121212;color:#fff;border:1px solid #272727}
-  .ghost:hover{border-color:#333}
-  .linkbtn:hover,button:not(.ghost):hover{filter:saturate(1.02) brightness(1.02);box-shadow:0 10px 26px rgba(255,140,0,.34);transform:translateY(-1px)}
-  button:active,.linkbtn:active{transform:translateY(0)}
-  .previewHeader{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-  .previewHeader .note{font-size:.8rem;color:#a0a0a0}
-  .previewWrap{position:relative}
-  canvas{width:100%;height:auto;display:block;border-radius:12px;background:#fff;outline:1px solid #ececec}
+    footer .links a:hover {
+      color: #fff;
+      transform: translateY(-1px)
+    }
 
-  @media (prefers-reduced-motion:reduce){
-    *{transition:none!important}
-  }
+    footer .links svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--accent)
+    }
 
-  @media print{
-    body{background:#fff}
-    header,.card:not(.printable),.previewHeader,.controls,footer{display:none!important}
-    .printable{display:block!important;border:none!important;box-shadow:none!important;padding:0!important}
-    .printable img{display:block;width:100%;height:auto}
-    @page{size:A4;margin:0}
-  }
-</style>
+    footer .links a:hover svg {
+      fill: #fff
+    }
+
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 14px 14px 24px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr
+    }
+
+    @media (min-width:980px) {
+      main {
+        grid-template-columns: 440px 1fr;
+        align-items: start;
+        gap: 20px
+      }
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--panel), var(--panel2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: var(--shadow)
+    }
+
+    .card:focus-within {
+      border-color: var(--border-2);
+      box-shadow: 0 0 0 2px rgba(255, 140, 0, .12), var(--shadow)
+    }
+
+    .title {
+      font-family: 'Gloria Hallelujah', cursive;
+      font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+      letter-spacing: .4px;
+      margin-bottom: 10px
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: .78rem;
+      margin: 6px 0 12px
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: .9rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: #9c9c9c;
+      margin: 16px 0 8px
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: .86rem;
+      margin: 10px 0 6px;
+      color: #e8e8e8
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border-2);
+      background: #0c0c0c;
+      color: #fff;
+      outline: none;
+      font-weight: 600;
+      font-size: 16px;
+      transition: border-color .15s, box-shadow .15s, background .15s;
+      caret-color: #fff
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #8a8a8a
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #2f2f2f;
+      box-shadow: 0 0 0 2px rgba(255, 140, 0, .16)
+    }
+
+    textarea {
+      min-height: 104px;
+      resize: vertical
+    }
+
+    .row {
+      display: grid;
+      gap: 12px
+    }
+
+    .row.cols-2 {
+      grid-template-columns: 1fr 1fr
+    }
+
+    @media (max-width:520px) {
+      .row.cols-2 {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .file {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #0c0c0c;
+      padding: 12px;
+      border: 1px dashed #2a2a2a;
+      border-radius: 10px
+    }
+
+    .file input {
+      flex: 1
+    }
+
+    .accentPick {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .accentPick input[type="color"] {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: #000;
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 1px #2a2a2a
+    }
+
+    .btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px
+    }
+
+    .btns>* {
+      flex: 1 1 180px
+    }
+
+    button,
+    .ghost,
+    .linkbtn {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 15px;
+      line-height: 1;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform .06s ease, filter .15s ease, box-shadow .15s ease
+    }
+
+    .linkbtn {
+      background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      color: #000;
+      box-shadow: 0 8px 20px rgba(255, 140, 0, .28)
+    }
+
+    button:not(.ghost) {
+      background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      color: #000;
+      box-shadow: 0 8px 20px rgba(255, 140, 0, .28)
+    }
+
+    .ghost {
+      background: #121212;
+      color: #fff;
+      border: 1px solid #272727
+    }
+
+    .ghost:hover {
+      border-color: #333
+    }
+
+    .linkbtn:hover,
+    button:not(.ghost):hover {
+      filter: saturate(1.02) brightness(1.02);
+      box-shadow: 0 10px 26px rgba(255, 140, 0, .34);
+      transform: translateY(-1px)
+    }
+
+    button:active,
+    .linkbtn:active {
+      transform: translateY(0)
+    }
+
+    .previewHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px
+    }
+
+    .previewHeader .note {
+      font-size: .8rem;
+      color: #a0a0a0
+    }
+
+    .previewWrap {
+      position: relative
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      background: #fff;
+      outline: 1px solid #ececec
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      * {
+        transition: none !important
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff
+      }
+
+      header,
+      .card:not(.printable),
+      .previewHeader,
+      .controls,
+      footer {
+        display: none !important
+      }
+
+      .printable {
+        display: block !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important
+      }
+
+      .printable img {
+        display: block;
+        width: 100%;
+        height: auto
+      }
+
+      @page {
+        size: A4;
+        margin: 0
+      }
+    }
+  </style>
 </head>
+
 <body>
   <header>
     <a href="../../index.html"><img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme" /></a>
@@ -122,10 +410,12 @@ background-attachment: fixed;
   <main>
     <section class="card" aria-label="Formulaire d'édition de l'affiche">
       <div class="title">Crée ton affiche d’animal perdu</div>
-      <p class="hint">Le bandeau affiche le titre et le nom. La photo est centrée en carré. Le texte se place en dessous automatiquement.</p>
+      <p class="hint">Le bandeau affiche le titre et le nom. La photo est centrée en carré. Le texte se place en dessous
+        automatiquement.</p>
 
       <h2>Photo</h2>
-      <div class="file"><input id="photo" type="file" accept="image/*" aria-label="Importer une photo de l'animal" /></div>
+      <div class="file"><input id="photo" type="file" accept="image/*" aria-label="Importer une photo de l'animal" />
+      </div>
       <p class="hint">Astuce : choisis une photo nette, cadrée sur l’animal.</p>
 
       <h2>En-tête</h2>
@@ -143,38 +433,49 @@ background-attachment: fixed;
       <h2>Infos principales</h2>
       <div class="row cols-2">
         <div><label for="name">Nom de l’animal</label><input id="name" type="text" placeholder="Ex : Jérôme" /></div>
-        <div><label for="species">Espèce / race</label><input id="species" type="text" placeholder="Ex : Chat européen" /></div>
+        <div><label for="species">Espèce / race</label><input id="species" type="text"
+            placeholder="Ex : Chat européen" /></div>
       </div>
       <div class="row cols-2">
-        <div><label for="colors">Couleur(s)</label><input id="colors" type="text" placeholder="Ex : gris tigré, blanc" /></div>
+        <div><label for="colors">Couleur(s)</label><input id="colors" type="text"
+            placeholder="Ex : gris tigré, blanc" /></div>
         <div><label for="lastDate">Date de la dernière vue</label><input id="lastDate" type="date" /></div>
       </div>
       <div class="row cols-2">
         <div><label for="lastTime">Heure de la dernière vue</label><input id="lastTime" type="time" /></div>
-        <div><label for="address">Adresse / lieu</label><input id="address" type="text" placeholder="Ex : 3 Rue des potiers" /></div>
+        <div><label for="address">Adresse / lieu</label><input id="address" type="text"
+            placeholder="Ex : 3 Rue des potiers" /></div>
       </div>
 
       <h2>Contact</h2>
       <div class="row cols-2">
-        <div><label for="contact">Personne à contacter</label><input id="contact" type="text" placeholder="Ex : Paul" /></div>
-        <div><label for="phone">Téléphone</label><input id="phone" type="tel" inputmode="tel" placeholder="Ex : 06 07 08 09 10" /></div>
+        <div><label for="contact">Personne à contacter</label><input id="contact" type="text" placeholder="Ex : Paul" />
+        </div>
+        <div><label for="phone">Téléphone</label><input id="phone" type="tel" inputmode="tel"
+            placeholder="Ex : 06 07 08 09 10" /></div>
       </div>
       <label for="email">Email (optionnel)</label>
       <input id="email" type="text" placeholder="Ex : nom@domaine.fr" />
 
       <label for="notes">Infos importantes</label>
-      <textarea id="notes" placeholder="Ex : Très peureux — ne pas courir vers lui. Répond au nom « Jérôme »."></textarea>
+      <textarea id="notes"
+        placeholder="Ex : Très peureux — ne pas courir vers lui. Répond au nom « Jérôme »."></textarea>
 
       <h2>Récompense (optionnel)</h2>
       <label for="reward">Montant (€)</label>
       <input id="reward" type="number" inputmode="numeric" min="0" step="1" placeholder="Laisser vide si aucune" />
 
       <div class="btns controls" role="group" aria-label="Actions">
-        <button id="copyImgBtn" class="ghost" title="Copier l’image dans le presse-papiers"><i class="fas fa-copy"></i> Copier l’image</button>
-        <a id="openPngBtn" class="linkbtn" href="#" target="_blank" rel="noopener" title="Ouvrir l’image dans un nouvel onglet"><i class="fas fa-external-link-alt"></i> Ouvrir l’image</a>
-        <button id="dlPng" title="Télécharger l’affiche en PNG"><i class="fas fa-download"></i> Télécharger l’affiche</button>
-        <button id="copyBtn" class="ghost" title="Copier les informations en texte"><i class="fas fa-clipboard"></i> Copier le texte</button>
-        <button id="resetBtn" class="ghost" title="Réinitialiser les champs"><i class="fas fa-undo"></i> Réinitialiser</button>
+        <button id="copyImgBtn" class="ghost" title="Copier l’image dans le presse-papiers"><i class="fas fa-copy"></i>
+          Copier l’image</button>
+        <a id="openPngBtn" class="linkbtn" href="#" target="_blank" rel="noopener"
+          title="Ouvrir l’image dans un nouvel onglet"><i class="fas fa-external-link-alt"></i> Ouvrir l’image</a>
+        <button id="dlPng" title="Télécharger l’affiche en PNG"><i class="fas fa-download"></i> Télécharger
+          l’affiche</button>
+        <button id="copyBtn" class="ghost" title="Copier les informations en texte"><i class="fas fa-clipboard"></i>
+          Copier le texte</button>
+        <button id="resetBtn" class="ghost" title="Réinitialiser les champs"><i class="fas fa-undo"></i>
+          Réinitialiser</button>
       </div>
     </section>
 
@@ -191,39 +492,48 @@ background-attachment: fixed;
     <p>Mes réseaux</p>
     <div class="links">
       <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933z"/></svg>
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933z" />
+        </svg>
       </a>
-      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i
+          class="fab fa-instagram"></i></a>
       <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-      <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
+      <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i
+          class="fab fa-youtube"></i></a>
+      <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i
+          class="fab fa-steam"></i></a>
     </div>
   </footer>
 
   <script>
-    const S={img:null,imgURL:null,A4W:1240,A4H:1754,LSKEY:'lostpet_centered_v1'};
-    const $=s=>document.querySelector(s);
-    const CTX=()=>$('#poster').getContext('2d');
-    let fontsReady=document.fonts?document.fonts.ready:Promise.resolve();
-    const fitText=(c,t,m,b,min,f)=>{let s=b;c.font=`700 ${s}px ${f}`;while(c.measureText(t).width>m&&s>min){s--;c.font=`700 ${s}px ${f}`}return s};
-    function measureWrapped(c,t,mw,lh){if(!t)return 0;const w=t.split(/\s+/);let l='',h=0;for(let i=0;i<w.length;i++){const test=l+w[i]+' ';if(c.measureText(test).width>mw&&i>0){h+=lh;l=w[i]+' '}else l=test}return h+lh}
-    function drawWrap(c,t,x,y,mw,lh){if(!t)return y;const w=t.split(/\s+/);let l='',yy=y;for(let i=0;i<w.length;i++){const test=l+w[i]+' ';if(c.measureText(test).width>mw&&i>0){c.fillText(l,x,yy);l=w[i]+' ';yy+=lh}else l=test}c.fillText(l,x,yy);return yy+lh}
-    function drawImageCover(c,img,x,y,w,h){const ir=img.naturalWidth/img.naturalHeight,r=w/h;let dw,dh,dx,dy;if(ir>r){dh=img.naturalHeight;dw=dh*r;dx=(img.naturalWidth-dw)/2;dy=0}else{dw=img.naturalWidth;dh=dw/r;dx=0;dy=(img.naturalHeight-dh)/2}c.drawImage(img,dx,dy,dw,dh,x,y,w,h)}
-    const fmtPhoneFR=s=>(s||'').replace(/\D+/g,'').slice(0,15).replace(/(\d{2})(?=\d)/g,'$1 ').trim();
-    function dateFR(d){try{if(!d)return'';const[y,m,da]=d.split('-').map(Number);if(!y||!m||!da)return'';return new Date(y,m-1,da).toLocaleDateString('fr-FR',{day:'2-digit',month:'long',year:'numeric'})}catch{return''}}
-    function buildShareText(){const banner=($('#banner').value.trim()||'ANIMAL PERDU').toUpperCase();const name=$('#name').value.trim()||'Animal';const species=$('#species').value.trim();const colors=$('#colors').value.trim();const address=$('#address').value.trim();const lastDate=$('#lastDate').value;const lastTime=$('#lastTime').value;const contact=$('#contact').value.trim();const phone=fmtPhoneFR($('#phone').value);const email=$('#email').value.trim();const notes=$('#notes').value.trim();const reward=parseInt($('#reward').value,10)||0;return[`${banner} — ${name}`,species?`Espèce/Race : ${species}`:'',colors?`Couleurs : ${colors}`:'',address?`Dernière localisation : ${address}`:'',(lastDate||lastTime)?`Vu le : ${[dateFR(lastDate),lastTime].filter(Boolean).join(' à ')}`:'',contact?`Contact : ${contact}`:'',phone?`Téléphone : ${phone}`:'',email?`Email : ${email}`:'',reward?`Récompense : ${reward}€`:'',notes?`Infos : ${notes}`:''].filter(Boolean).join('\n')}
-    async function draw(){await fontsReady;const c=CTX(),W=S.A4W,H=S.A4H,M=64;const accent=$('#accent').value||'#ff8c00';const banner=($('#banner').value.trim()||'ANIMAL PERDU').toUpperCase();const name=$('#name').value.trim()||'Nom inconnu';const species=$('#species').value.trim();const colors=$('#colors').value.trim();const lastDate=$('#lastDate').value;const lastTime=$('#lastTime').value;const lastSeen=[dateFR(lastDate),lastTime].filter(Boolean).join(' à ');const address=$('#address').value.trim();const contact=$('#contact').value.trim();const phone=fmtPhoneFR($('#phone').value);const email=$('#email').value.trim();const notes=$('#notes').value.trim();const reward=parseInt($('#reward').value,10)||0;c.save();c.clearRect(0,0,W,H);c.fillStyle='#fff';c.fillRect(0,0,W,H);const barPad=20;const titleSize=fitText(c,banner,W-2*M-40,62,34,'"Gloria Hallelujah", system-ui');const nameSize=fitText(c,name,W-2*M-40,48,26,'"Gloria Hallelujah", system-ui');const bannerH=barPad*2+titleSize+8+nameSize;c.fillStyle=accent;c.fillRect(M,M,W-2*M,bannerH);c.textAlign='center';c.textBaseline='top';c.fillStyle='#000';c.font=`700 ${titleSize}px "Gloria Hallelujah", system-ui`;c.fillText(banner,W/2,M+barPad);c.font=`700 ${nameSize}px "Gloria Hallelujah", system-ui`;c.fillText(name,W/2,M+barPad+titleSize+8);const topY=M+bannerH+20;const IMG=Math.min(680,W-2*M-40);const imgX=Math.round((W-IMG)/2);const imgY=topY;c.strokeStyle=accent;c.lineWidth=6;c.strokeRect(imgX,imgY,IMG,IMG);if(S.img)drawImageCover(c,S.img,imgX+6,imgY+6,IMG-12,IMG-12);else{c.fillStyle='#f3f3f3';c.fillRect(imgX+6,imgY+6,IMG-12,IMG-12);c.fillStyle='#777';c.textAlign='center';c.textBaseline='middle';c.font='700 22px "Source Code Pro"';c.fillText('Ajoutez une photo claire',imgX+IMG/2,imgY+IMG/2)}let y=imgY+IMG+18;const availBottom=H-M-y;let size={k:26,v:24,lh:30,gap:12,noteTitle:22,note:22,noteLH:28};function measureAll(){let h=0;const lines=[];if(species)lines.push(['Espèce / race',species]);if(colors)lines.push(['Couleur(s)',colors]);if(lastSeen)lines.push(['Vu le',lastSeen]);if(address)lines.push(['Lieu',address]);if(contact)lines.push(['Contact',contact]);if(phone)lines.push(['Téléphone',phone]);if(email)lines.push(['Email',email]);lines.forEach(([k,v])=>{c.font=`700 ${size.k}px "Source Code Pro"`;const kw=c.measureText(k+' : ').width;c.font=`600 ${size.v}px "Source Code Pro"`;h+=Math.max(size.v,measureWrapped(c,v,(W-2*M)-kw,size.lh))+size.gap+2});if(notes){h+=size.noteTitle+6;c.font=`600 ${size.note}px "Source Code Pro"`;h+=measureWrapped(c,notes,(W-2*M)-24,size.noteLH)+28}if(reward>0)h+=44;h+=24;return h}
-      let totalH=measureAll();if(totalH>availBottom){const ratio=Math.max(0.72,Math.min(1,availBottom/totalH));size.k=Math.max(18,Math.floor(size.k*ratio));size.v=Math.max(16,Math.floor(size.v*ratio));size.lh=Math.max(22,Math.floor(size.lh*ratio));size.gap=Math.max(8,Math.floor(size.gap*ratio));size.noteTitle=Math.max(16,Math.floor(size.noteTitle*ratio));size.note=Math.max(16,Math.floor(size.note*ratio));size.noteLH=Math.max(22,Math.floor(size.noteLH*ratio));totalH=measureAll()}
-      function drawInfo(k,val){if(!val)return;const base=y;const key=k+' : ';c.font=`700 ${size.k}px "Source Code Pro"`;c.fillStyle='#000';c.textAlign='left';const kw=c.measureText(key).width;c.fillText(key,M,base+size.v);c.font=`600 ${size.v}px "Source Code Pro"`;const endY=drawWrap(c,val,M+kw,base+size.v,(W-2*M)-kw,size.lh);y=endY+size.gap}
-      drawInfo('Espèce / race',species);drawInfo('Couleur(s)',colors);drawInfo('Vu le',lastSeen);drawInfo('Lieu',address);drawInfo('Contact',contact);drawInfo('Téléphone',phone);drawInfo('Email',email);
-      if(notes){const pad=14,titleGap=22,afterGap=28;const bgH=size.noteTitle+titleGap+measureWrapped(c,notes,(W-2*M)-2*pad,size.noteLH)+pad;c.globalAlpha=.12;c.fillStyle=accent;c.fillRect(M,y,W-2*M,bgH);c.globalAlpha=1;c.fillStyle='#000';c.font=`700 ${size.noteTitle}px "Source Code Pro"`;c.fillText('Infos importantes :',M+pad,y+pad);c.font=`600 ${size.note}px "Source Code Pro"`;drawWrap(c,notes,M+pad,y+pad+size.noteTitle+(titleGap-4),(W-2*M)-2*pad,size.noteLH);y+=bgH+afterGap}
-      if(reward>0){const text=`Récompense ${reward}€`;c.font='700 28px "Source Code Pro"';const tw=c.measureText(text).width;const bx=W-M-tw-34,by=H-M-42;c.fillStyle='#000';c.fillRect(bx-12,by-28,tw+24,44);c.fillStyle=accent;c.textAlign='left';c.textBaseline='alphabetic';c.fillText(text,bx,by)}
-      c.font='600 16px "Source Code Pro"';c.fillStyle='#444';c.textAlign='right';c.fillText('Généré sur ArchiveFever.Work',W-M,H-16);c.restore();$('#openPngBtn').href=$('#poster').toDataURL('image/png')}
-    function saveLS(){const ids=['banner','accent','name','species','colors','lastDate','lastTime','address','contact','phone','email','notes','reward'];const o={};ids.forEach(id=>o[id]=$('#'+id).value);localStorage.setItem(S.LSKEY,JSON.stringify(o))}
-    function loadLS(){try{const raw=localStorage.getItem(S.LSKEY);if(!raw)return;const o=JSON.parse(raw);Object.keys(o).forEach(k=>{$('#'+k)&&($('#'+k).value=o[k])})}catch{}}
-    function resetForm(){['banner','name','species','colors','lastDate','lastTime','address','contact','phone','email','notes','reward'].forEach(id=>$('#'+id).value='');$('#accent').value='#ff8c00';if(S.imgURL)URL.revokeObjectURL(S.imgURL);S.imgURL=null;S.img=null;localStorage.removeItem(S.LSKEY);draw()}
-    function bind(){['banner','name','species','colors','lastDate','lastTime','address','contact','phone','email','notes','reward','accent'].forEach(id=>$('#'+id).addEventListener('input',()=>{saveLS();draw()}));$('#photo').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];if(!f){S.img=null;S.imgURL&&URL.revokeObjectURL(S.imgURL);draw();return}S.imgURL&&URL.revokeObjectURL(S.imgURL);S.imgURL=URL.createObjectURL(f);const img=new Image();img.onload=()=>{S.img=img;draw()};img.onerror=()=>alert("Impossible de lire l'image.");img.src=S.imgURL});$('#dlPng').addEventListener('click',()=>{$('#poster').toBlob(b=>{if(!b){alert('Erreur génération PNG');return}const a=document.createElement('a');a.download='affiche-animal-perdu.png';a.href=URL.createObjectURL(b);a.click();setTimeout(()=>URL.revokeObjectURL(a.href),3000)},'image/png',0.98)});$('#copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(buildShareText());const b=$('#copyBtn'),old=b.textContent;b.textContent='Copié ✅';setTimeout(()=>b.textContent=old,1200)}catch{alert('Impossible de copier le texte.')}});$('#copyImgBtn').addEventListener('click',async()=>{try{const blob=await new Promise(res=>$('#poster').toBlob(res,'image/png',0.98));if(!navigator.clipboard||!window.ClipboardItem)throw new Error('no-clipboard');await navigator.clipboard.write([new ClipboardItem({[blob.type]:blob})]);const b=$('#copyImgBtn'),old=b.textContent;b.textContent='Image copiée ✅';setTimeout(()=>b.textContent=old,1200)}catch{alert("Copie d'image non supportée sur ce navigateur.")}});$('#resetBtn').addEventListener('click',resetForm)}
-    loadLS();bind();draw();
+    const S = { img: null, imgURL: null, A4W: 1240, A4H: 1754, LSKEY: 'lostpet_centered_v1' };
+    const $ = s => document.querySelector(s);
+    const CTX = () => $('#poster').getContext('2d');
+    let fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+    const fitText = (c, t, m, b, min, f) => { let s = b; c.font = `700 ${s}px ${f}`; while (c.measureText(t).width > m && s > min) { s--; c.font = `700 ${s}px ${f}` } return s };
+    function measureWrapped(c, t, mw, lh) { if (!t) return 0; const w = t.split(/\s+/); let l = '', h = 0; for (let i = 0; i < w.length; i++) { const test = l + w[i] + ' '; if (c.measureText(test).width > mw && i > 0) { h += lh; l = w[i] + ' ' } else l = test } return h + lh }
+    function drawWrap(c, t, x, y, mw, lh) { if (!t) return y; const w = t.split(/\s+/); let l = '', yy = y; for (let i = 0; i < w.length; i++) { const test = l + w[i] + ' '; if (c.measureText(test).width > mw && i > 0) { c.fillText(l, x, yy); l = w[i] + ' '; yy += lh } else l = test } c.fillText(l, x, yy); return yy + lh }
+    function drawImageCover(c, img, x, y, w, h) { const ir = img.naturalWidth / img.naturalHeight, r = w / h; let dw, dh, dx, dy; if (ir > r) { dh = img.naturalHeight; dw = dh * r; dx = (img.naturalWidth - dw) / 2; dy = 0 } else { dw = img.naturalWidth; dh = dw / r; dx = 0; dy = (img.naturalHeight - dh) / 2 } c.drawImage(img, dx, dy, dw, dh, x, y, w, h) }
+    const fmtPhoneFR = s => (s || '').replace(/\D+/g, '').slice(0, 15).replace(/(\d{2})(?=\d)/g, '$1 ').trim();
+    function dateFR(d) { try { if (!d) return ''; const [y, m, da] = d.split('-').map(Number); if (!y || !m || !da) return ''; return new Date(y, m - 1, da).toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' }) } catch { return '' } }
+    function buildShareText() { const banner = ($('#banner').value.trim() || 'ANIMAL PERDU').toUpperCase(); const name = $('#name').value.trim() || 'Animal'; const species = $('#species').value.trim(); const colors = $('#colors').value.trim(); const address = $('#address').value.trim(); const lastDate = $('#lastDate').value; const lastTime = $('#lastTime').value; const contact = $('#contact').value.trim(); const phone = fmtPhoneFR($('#phone').value); const email = $('#email').value.trim(); const notes = $('#notes').value.trim(); const reward = parseInt($('#reward').value, 10) || 0; return [`${banner} — ${name}`, species ? `Espèce/Race : ${species}` : '', colors ? `Couleurs : ${colors}` : '', address ? `Dernière localisation : ${address}` : '', (lastDate || lastTime) ? `Vu le : ${[dateFR(lastDate), lastTime].filter(Boolean).join(' à ')}` : '', contact ? `Contact : ${contact}` : '', phone ? `Téléphone : ${phone}` : '', email ? `Email : ${email}` : '', reward ? `Récompense : ${reward}€` : '', notes ? `Infos : ${notes}` : ''].filter(Boolean).join('\n') }
+    async function draw() {
+      await fontsReady; const c = CTX(), W = S.A4W, H = S.A4H, M = 64; const accent = $('#accent').value || '#ff8c00'; const banner = ($('#banner').value.trim() || 'ANIMAL PERDU').toUpperCase(); const name = $('#name').value.trim() || 'Nom inconnu'; const species = $('#species').value.trim(); const colors = $('#colors').value.trim(); const lastDate = $('#lastDate').value; const lastTime = $('#lastTime').value; const lastSeen = [dateFR(lastDate), lastTime].filter(Boolean).join(' à '); const address = $('#address').value.trim(); const contact = $('#contact').value.trim(); const phone = fmtPhoneFR($('#phone').value); const email = $('#email').value.trim(); const notes = $('#notes').value.trim(); const reward = parseInt($('#reward').value, 10) || 0; c.save(); c.clearRect(0, 0, W, H); c.fillStyle = '#fff'; c.fillRect(0, 0, W, H); const barPad = 20; const titleSize = fitText(c, banner, W - 2 * M - 40, 62, 34, '"Gloria Hallelujah", system-ui'); const nameSize = fitText(c, name, W - 2 * M - 40, 48, 26, '"Gloria Hallelujah", system-ui'); const bannerH = barPad * 2 + titleSize + 8 + nameSize; c.fillStyle = accent; c.fillRect(M, M, W - 2 * M, bannerH); c.textAlign = 'center'; c.textBaseline = 'top'; c.fillStyle = '#000'; c.font = `700 ${titleSize}px "Gloria Hallelujah", system-ui`; c.fillText(banner, W / 2, M + barPad); c.font = `700 ${nameSize}px "Gloria Hallelujah", system-ui`; c.fillText(name, W / 2, M + barPad + titleSize + 8); const topY = M + bannerH + 20; const IMG = Math.min(680, W - 2 * M - 40); const imgX = Math.round((W - IMG) / 2); const imgY = topY; c.strokeStyle = accent; c.lineWidth = 6; c.strokeRect(imgX, imgY, IMG, IMG); if (S.img) drawImageCover(c, S.img, imgX + 6, imgY + 6, IMG - 12, IMG - 12); else { c.fillStyle = '#f3f3f3'; c.fillRect(imgX + 6, imgY + 6, IMG - 12, IMG - 12); c.fillStyle = '#777'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 22px "Source Code Pro"'; c.fillText('Ajoutez une photo claire', imgX + IMG / 2, imgY + IMG / 2) } let y = imgY + IMG + 18; const availBottom = H - M - y; let size = { k: 26, v: 24, lh: 30, gap: 12, noteTitle: 22, note: 22, noteLH: 28 }; function measureAll() { let h = 0; const lines = []; if (species) lines.push(['Espèce / race', species]); if (colors) lines.push(['Couleur(s)', colors]); if (lastSeen) lines.push(['Vu le', lastSeen]); if (address) lines.push(['Lieu', address]); if (contact) lines.push(['Contact', contact]); if (phone) lines.push(['Téléphone', phone]); if (email) lines.push(['Email', email]); lines.forEach(([k, v]) => { c.font = `700 ${size.k}px "Source Code Pro"`; const kw = c.measureText(k + ' : ').width; c.font = `600 ${size.v}px "Source Code Pro"`; h += Math.max(size.v, measureWrapped(c, v, (W - 2 * M) - kw, size.lh)) + size.gap + 2 }); if (notes) { h += size.noteTitle + 6; c.font = `600 ${size.note}px "Source Code Pro"`; h += measureWrapped(c, notes, (W - 2 * M) - 24, size.noteLH) + 28 } if (reward > 0) h += 44; h += 24; return h }
+      let totalH = measureAll(); if (totalH > availBottom) { const ratio = Math.max(0.72, Math.min(1, availBottom / totalH)); size.k = Math.max(18, Math.floor(size.k * ratio)); size.v = Math.max(16, Math.floor(size.v * ratio)); size.lh = Math.max(22, Math.floor(size.lh * ratio)); size.gap = Math.max(8, Math.floor(size.gap * ratio)); size.noteTitle = Math.max(16, Math.floor(size.noteTitle * ratio)); size.note = Math.max(16, Math.floor(size.note * ratio)); size.noteLH = Math.max(22, Math.floor(size.noteLH * ratio)); totalH = measureAll() }
+      function drawInfo(k, val) { if (!val) return; const base = y; const key = k + ' : '; c.font = `700 ${size.k}px "Source Code Pro"`; c.fillStyle = '#000'; c.textAlign = 'left'; const kw = c.measureText(key).width; c.fillText(key, M, base + size.v); c.font = `600 ${size.v}px "Source Code Pro"`; const endY = drawWrap(c, val, M + kw, base + size.v, (W - 2 * M) - kw, size.lh); y = endY + size.gap }
+      drawInfo('Espèce / race', species); drawInfo('Couleur(s)', colors); drawInfo('Vu le', lastSeen); drawInfo('Lieu', address); drawInfo('Contact', contact); drawInfo('Téléphone', phone); drawInfo('Email', email);
+      if (notes) { const pad = 14, titleGap = 22, afterGap = 28; const bgH = size.noteTitle + titleGap + measureWrapped(c, notes, (W - 2 * M) - 2 * pad, size.noteLH) + pad; c.globalAlpha = .12; c.fillStyle = accent; c.fillRect(M, y, W - 2 * M, bgH); c.globalAlpha = 1; c.fillStyle = '#000'; c.font = `700 ${size.noteTitle}px "Source Code Pro"`; c.fillText('Infos importantes :', M + pad, y + pad); c.font = `600 ${size.note}px "Source Code Pro"`; drawWrap(c, notes, M + pad, y + pad + size.noteTitle + (titleGap - 4), (W - 2 * M) - 2 * pad, size.noteLH); y += bgH + afterGap }
+      if (reward > 0) { const text = `Récompense ${reward}€`; c.font = '700 28px "Source Code Pro"'; const tw = c.measureText(text).width; const bx = W - M - tw - 34, by = H - M - 42; c.fillStyle = '#000'; c.fillRect(bx - 12, by - 28, tw + 24, 44); c.fillStyle = accent; c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.fillText(text, bx, by) }
+      c.font = '600 16px "Source Code Pro"'; c.fillStyle = '#444'; c.textAlign = 'right'; c.fillText('Généré sur ArchiveFever.Work', W - M, H - 16); c.restore(); $('#openPngBtn').href = $('#poster').toDataURL('image/png')
+    }
+    function saveLS() { const ids = ['banner', 'accent', 'name', 'species', 'colors', 'lastDate', 'lastTime', 'address', 'contact', 'phone', 'email', 'notes', 'reward']; const o = {}; ids.forEach(id => o[id] = $('#' + id).value); localStorage.setItem(S.LSKEY, JSON.stringify(o)) }
+    function loadLS() { try { const raw = localStorage.getItem(S.LSKEY); if (!raw) return; const o = JSON.parse(raw); Object.keys(o).forEach(k => { $('#' + k) && ($('#' + k).value = o[k]) }) } catch { } }
+    function resetForm() { ['banner', 'name', 'species', 'colors', 'lastDate', 'lastTime', 'address', 'contact', 'phone', 'email', 'notes', 'reward'].forEach(id => $('#' + id).value = ''); $('#accent').value = '#ff8c00'; if (S.imgURL) URL.revokeObjectURL(S.imgURL); S.imgURL = null; S.img = null; localStorage.removeItem(S.LSKEY); draw() }
+    function bind() { ['banner', 'name', 'species', 'colors', 'lastDate', 'lastTime', 'address', 'contact', 'phone', 'email', 'notes', 'reward', 'accent'].forEach(id => $('#' + id).addEventListener('input', () => { saveLS(); draw() })); $('#photo').addEventListener('change', e => { const f = e.target.files && e.target.files[0]; if (!f) { S.img = null; S.imgURL && URL.revokeObjectURL(S.imgURL); draw(); return } S.imgURL && URL.revokeObjectURL(S.imgURL); S.imgURL = URL.createObjectURL(f); const img = new Image(); img.onload = () => { S.img = img; draw() }; img.onerror = () => alert("Impossible de lire l'image."); img.src = S.imgURL }); $('#dlPng').addEventListener('click', () => { $('#poster').toBlob(b => { if (!b) { alert('Erreur génération PNG'); return } const a = document.createElement('a'); a.download = 'affiche-animal-perdu.png'; a.href = URL.createObjectURL(b); a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 3000) }, 'image/png', 0.98) }); $('#copyBtn').addEventListener('click', async () => { try { await navigator.clipboard.writeText(buildShareText()); const b = $('#copyBtn'), old = b.textContent; b.textContent = 'Copié ✅'; setTimeout(() => b.textContent = old, 1200) } catch { alert('Impossible de copier le texte.') } }); $('#copyImgBtn').addEventListener('click', async () => { try { const blob = await new Promise(res => $('#poster').toBlob(res, 'image/png', 0.98)); if (!navigator.clipboard || !window.ClipboardItem) throw new Error('no-clipboard'); await navigator.clipboard.write([new ClipboardItem({ [blob.type]: blob })]); const b = $('#copyImgBtn'), old = b.textContent; b.textContent = 'Image copiée ✅'; setTimeout(() => b.textContent = old, 1200) } catch { alert("Copie d'image non supportée sur ce navigateur.") } }); $('#resetBtn').addEventListener('click', resetForm) }
+    loadLS(); bind(); draw();
   </script>
 </body>
+
 </html>

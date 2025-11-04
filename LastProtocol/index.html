@@ -1,95 +1,314 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>LAST PROTOCOL</title>
   <link rel="icon" href="../Sources/Images/LastProtocol.webp" type="image/webp">
-  <meta name="description" content="LAST PROTOCOL — a talented music group of three women who choose to remain anonymous. Official channel and playlists for UNLISTED and EMOTIONS albums.">
+  <meta name="description" content="LAST PROTOCOL — three anonymous women. Official channel and albums: UNLISTED, EMOTIONS, SHORT, MEMORY SEQUENCE.">
   <style>
     :root{
-      --bg:#000; --ink:#e9edf7; --muted:#a4b0c6; --ring:rgba(255,255,255,.10);
-      --c1:#7f6cff; --c2:#ff6ec7; --c3:#58e3ff; --c4:#ffd166; --c5:#00f5d4;
-      --pad:clamp(16px,2.5vw,28px);
-      --footer-offset:clamp(10px,2.4vh,28px);
+      --page-bg:#0c0a0f;
+      --gradient:radial-gradient(1100px 720px at 12% -8%, #2a1637 0%, #120d18 48%, #0c0a0f 100%);
+      --ink:#f2f3fb;
+      --muted:#b8bfd0;
+      --pad:clamp(16px,2.6vw,30px);
+      --p1:#7f6cff;
+      --p2:#ff6ec7;
+      --p3:#58e3ff;
+      --album-violet:#7f6cff;
+      --album-pink:#ff6ec7;
+      --album-peach:#ffb37a;
+      --album-cyan:#7de2ff;
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; background:var(--bg); color:var(--ink);
+      margin:0;
+      background-color:var(--page-bg);
+      background-image:var(--gradient);
+      background-repeat:no-repeat;
+      background-size:cover;
+      color:var(--ink);
       font:400 16px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      letter-spacing:.02em;
+      letter-spacing:.01em;
       min-height:100vh;
-      display:grid; grid-template-rows:1fr auto;
-      row-gap:var(--footer-offset);
+      display:grid;
+      grid-template-rows:1fr auto;
+      gap:clamp(18px,2.6vh,28px);
       padding-bottom:calc(env(safe-area-inset-bottom) + 4px);
-    }
-    main{display:grid; place-content:center; padding:var(--pad)}
-    .stack{display:grid; gap:18px; text-align:center; width:100%; max-width:760px}
-    h1{
-      margin:0; font-weight:900; font-size:clamp(30px,8.5vw,72px);
-      letter-spacing:.16em; text-transform:uppercase;
-      background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5),var(--c1));
-      background-size:220% 100%;
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      text-shadow:0 0 18px rgba(127,108,255,.12),0 0 32px rgba(88,227,255,.08);
-      animation:hueflow 7s linear infinite;
-    }
-    @keyframes hueflow{0%{background-position:0% 50%}100%{background-position:220% 50%}}
-    @media (prefers-reduced-motion:reduce){h1{animation:none}}
-    .tag{margin:0 auto; max-width:48ch; color:var(--muted); font-size:clamp(14px,2.1vw,17px); line-height:1.6}
-    .tag b{color:var(--ink); font-weight:600}
-    nav{display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
-    a.btn{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 14px; border-radius:999px;
-      border:1px solid var(--ring); color:var(--ink); text-decoration:none;
-      transition:border-color .18s ease, background-color .18s ease, transform .06s ease, box-shadow .18s ease;
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:.95em; opacity:.95
-    }
-    a.btn:hover{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.14); box-shadow:0 6px 18px rgba(0,0,0,.35)}
-    a.btn:active{transform:translateY(1px)}
-    footer{
-      padding:calc(var(--pad)*.8) var(--pad) calc(var(--pad)*.9);
-      color:var(--muted); font-size:.95rem;
-      display:flex; align-items:center; justify-content:center; gap:12px; text-align:center;
-    }
-    footer a{
-      color:var(--ink); text-decoration:none; border:none; position:relative;
-      display:inline-flex; align-items:center; gap:.5em; padding:.2em .1em;
-    }
-    footer a::after{
-      content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px;
-      background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);
-      transform:scaleX(0); transform-origin:center; transition:transform .18s ease;
-    }
-    footer a:hover::after{transform:scaleX(1)}
-    .arrow{font-size:1.05em; opacity:.9}
-    @media (min-width:1024px){.stack{gap:16px} nav{gap:10px}}
-    @media (max-height:720px){
-      h1{font-size:clamp(28px,7.5vw,60px)}
-      .tag{font-size:clamp(13px,2vw,16px)}
-      a.btn{padding:8px 12px}
-      footer{padding:14px}
     }
     @supports (height: 100svh){
       body{min-height:100svh}
+    }
+    main{
+      width:100%;
+      margin-inline:auto;
+      padding:var(--pad);
+      display:flex;
+      flex-direction:column;
+      gap:clamp(20px,3vh,34px);
+      max-width:1100px;
+      align-items:center;
+    }
+    .hero{
+      text-align:center;
+      display:grid;
+      gap:14px;
+      place-items:center;
+      max-width:56rem;
+      width:100%;
+      padding-top:4px;
+    }
+
+    h1{
+      margin:0;
+      font-weight:900;
+      font-size:clamp(38px,10vw,86px);
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      background:linear-gradient(100deg, #ffffff 0%, #ff6ec7 25%, #7f6cff 55%, #58e3ff 90%);
+      background-size:220% 100%;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+      text-shadow:
+        0 0 25px rgba(255,110,199,.25),
+        0 0 45px rgba(88,227,255,.18);
+      animation:hueflow 8s linear infinite;
+      text-align:center;
+    }
+
+    .tagline{
+      margin:0;
+      max-width:46ch;
+      color:var(--muted);
+      font-size:clamp(.93rem,2.1vw,1.05rem);
+      line-height:1.65;
+      text-align:center;
+      font-weight:400;
+    }
+    .tagline b{color:var(--ink); font-weight:600}
+
+    @keyframes hueflow{0%{background-position:0% 50%}100%{background-position:220% 50%}}
+    @media (prefers-reduced-motion:reduce){h1{animation:none}}
+
+    .primary-actions{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      width:100%;
+    }
+    a.btn{
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:7px;
+      padding:9px 16px;
+      border-radius:999px;
+      border:1px solid rgba(245,239,255,.12);
+      background:rgba(17,12,20,.45);
+      backdrop-filter:blur(16px);
+      color:var(--ink);
+      text-decoration:none;
+      transition:border-color .14s ease, background-color .14s ease, transform .05s ease;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      font-size:.9rem;
+    }
+    a.btn:hover{
+      background:rgba(255,255,255,.04);
+      border-color:rgba(255,255,255,.18);
+      transform:translateY(-1px);
+    }
+    .playlists{
+      display:grid;
+      gap:14px;
+      width:100%;
+      max-width:1100px;
+    }
+    .playlists-title{
+      font-size:.8rem;
+      letter-spacing:.26em;
+      text-transform:uppercase;
+      color:rgba(242,243,251,.6);
+      text-align:center;
+    }
+    .playlists-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:16px;
+      justify-items:center;
+      width:100%;
+    }
+    .card{
+      background:radial-gradient(880px 480px at 15% -30%, rgba(255,110,199,.16), transparent 65%), rgba(0,0,0,.32);
+      border:1px solid rgba(255,255,255,.024);
+      border-radius:20px;
+      padding:18px 16px 16px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:15px;
+      backdrop-filter:blur(10px);
+      min-height:140px;
+      text-align:center;
+      width:min(100%,280px);
+      box-shadow:0 14px 30px rgba(0,0,0,.25);
+    }
+    .card-header{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:center;
+    }
+    .album-badge{
+      font-size:.58rem;
+      text-transform:uppercase;
+      letter-spacing:.24em;
+      border-radius:999px;
+      padding:3px 12px 4px;
+      color:#0b0b0b;
+    }
+    .album-violet{background:var(--album-violet); color:#fff;}
+    .album-pink{background:var(--album-pink); color:#fff;}
+    .album-peach{background:var(--album-peach); color:#281215;}
+    .album-cyan{background:var(--album-cyan); color:#051115;}
+    .card-title{
+      font-weight:700;
+      font-size:1.05rem;
+      letter-spacing:.04em;
+    }
+    .card a.play-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:rgba(0,0,0,.42);
+      border:1px solid rgba(248,248,248,.1);
+      border-radius:999px;
+      padding:6px 14px 7px;
+      text-decoration:none;
+      color:var(--ink);
+      font-size:.8rem;
+      transition:background .14s ease;
+    }
+    .card a.play-btn:hover{
+      background:rgba(0,0,0,.6);
+    }
+    footer{
+      padding:calc(var(--pad)*.6) var(--pad) calc(var(--pad)*.9);
+      color:var(--muted);
+      font-size:.9rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      text-align:center;
+    }
+    footer a{
+      color:var(--ink);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:.4em;
+      position:relative;
+      padding:.15em .1em;
+    }
+    footer a::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:-2px;
+      height:1px;
+      background:linear-gradient(90deg,transparent,rgba(255,255,255,.6),transparent);
+      transform:scaleX(0);
+      transform-origin:center;
+      transition:transform .16s ease;
+    }
+    footer a:hover::after{transform:scaleX(1)}
+    .arrow{font-size:1.05em; opacity:.9}
+
+    @media (max-width:520px){
+      .primary-actions{
+        flex-direction:column;
+        align-items:center;
+      }
+      a.btn{
+        width:min(240px,100%);
+      }
+      h1{
+        font-size:46px;
+        letter-spacing:.12em;
+      }
+      .hero{
+        gap:12px;
+      }
+    }
+    @media (min-width:720px){
+      .playlists-grid{
+        grid-template-columns:repeat(2, minmax(240px,280px));
+      }
+    }
+    @media (min-width:1080px){
+      .playlists-grid{
+        grid-template-columns:repeat(4, minmax(230px,260px));
+      }
+      .card{
+        width:100%;
+      }
     }
   </style>
 </head>
 <body>
   <main>
-    <div class="stack">
+    <header class="hero">
       <h1>LAST PROTOCOL</h1>
-      <p class="tag"><b>Talented music group</b> of three women who choose to remain anonymous — voices first, faces always covered.</p>
-      <nav>
-        <a class="btn" href="https://www.youtube.com/@LASTPROTOCOLGROUP" target="_blank" rel="noopener">YouTube&nbsp;Channel ↗</a>
+      <p class="tagline">
+        <b>Last Protocol</b> is a musical entity formed by three anonymous women — blending emotion, mystery, and passion into one sound. Their voices rise from the shadows, letting music speak where faces remain unseen.
+      </p>
+      <div class="primary-actions">
+        <a class="btn" href="https://www.youtube.com/@LASTPROTOCOLGROUP" target="_blank" rel="noopener">YouTube Channel ↗</a>
         <a class="btn" href="https://www.instagram.com/lastprotocolgroup" target="_blank" rel="noopener">Instagram ↗</a>
-        <a class="btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfS4YsZyw7w6dufTQ_FzZfGH" target="_blank" rel="noopener">UNLISTED&nbsp;—&nbsp;Playlist ↗</a>
-        <a class="btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfRVWFKP23eNmJ7DaLhVONfG" target="_blank" rel="noopener">EMOTIONS&nbsp;—&nbsp;Playlist ↗</a>
-      </nav>
-    </div>
+      </div>
+    </header>
+
+    <section class="playlists" aria-label="Official albums">
+      <p class="playlists-title">Official Albums</p>
+      <div class="playlists-grid">
+        <article class="card">
+          <div class="card-header">
+            <span class="album-badge album-violet">Album</span>
+            <span class="card-title">UNLISTED</span>
+          </div>
+          <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfS4YsZyw7w6dufTQ_FzZfGH" target="_blank" rel="noopener">Play on YouTube ↗</a>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="album-badge album-pink">Album</span>
+            <span class="card-title">EMOTIONS</span>
+          </div>
+          <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfRVWFKP23eNmJ7DaLhVONfG" target="_blank" rel="noopener">Play on YouTube ↗</a>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="album-badge album-peach">Album</span>
+            <span class="card-title">SHORT</span>
+          </div>
+          <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfSv0KKnUSV3cW2FydBmS-ov" target="_blank" rel="noopener">Play on YouTube ↗</a>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="album-badge album-cyan">Album</span>
+            <span class="card-title">MEMORY SEQUENCE</span>
+          </div>
+          <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfRCg71s7g2kIbpvTmNC72ay" target="_blank" rel="noopener">Play on YouTube ↗</a>
+        </article>
+      </div>
+    </section>
   </main>
+
   <footer>
     <span>Page created by <b>Sylvain Hirtz</b> (Fever)</span>
     <a href="../index.html" rel="noopener" title="Back to ARCHIVEFEVER.WORK"><span class="arrow" aria-hidden="true">→</span> Back to ARCHIVEFEVER.WORK</a>

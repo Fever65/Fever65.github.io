@@ -3,136 +3,181 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>KAIRO STONE</title>
+<title>KAIRO STONE • English Singer</title>
 <link rel="icon" href="../../Sources/Images/KS.webp" type="image/webp">
-<meta name="description" content="KAIRO STONE — British rap artist. 'SUN DRUNK' (2025) feat. LAST PROTOCOL.">
+<meta name="description" content="Kairo Stone — English singer & songwriter. 'SUN DRUNK' and 'TONIGHT' (2025) feat. LAST PROTOCOL.">
 <style>
   :root{
-    --bg:#0a0a0a;--ink:#f2f2f2;--muted:#aab0ba;
-    --c1:#7f6cff;--c2:#ff6ec7;
-    --w:clamp(280px, 92vw, 920px);
+    --bg: radial-gradient(1050px 700px at 12% -5%, #231517 0%, #101114 50%, #080809 100%);
+    --ink: #f4f4f4;
+    --muted: rgba(244,244,244,.7);
+    --accent: #ff8f5d;
+    --accent2: #ff6ec7;
+    --w: min(1400px, 96vw); /* <-- plus large */
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
   body{
+    min-height:100vh;
     background:var(--bg);
     color:var(--ink);
-    font:16px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+    font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
     display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
-    min-height:100vh;
-    padding:40px 20px;
-    overflow-x:hidden;
+    justify-content:center;
   }
-  .top{width:100%;max-width:var(--w);display:flex;flex-direction:column;align-items:center}
-  h1{
-    font-size:clamp(1.8rem,5vw,2.6rem);
-    background:linear-gradient(90deg,var(--c1),var(--c2));
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+  .page{
+    width:100%;
+    max-width:var(--w);
+    padding:28px clamp(16px,3vw,40px) 20px;
+    display:grid;
+    grid-template-rows:auto auto 1fr auto;
+    gap:10px;
+  }
+
+  header{
     text-align:center;
+  }
+  h1{
+    font-size:clamp(2rem,4vw,2.8rem);
+    font-weight:800;
+    background:linear-gradient(120deg,var(--accent),var(--accent2),#8ea9ff);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
   }
   .tag{
     color:var(--muted);
-    text-align:center;
     font-size:.95rem;
-    margin-top:4px;
-    margin-bottom:22px;
+    margin-top:6px;
+  }
+
+  .hero{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
   }
   .portrait{
-    width:200px;height:200px;
-    border-radius:14px;
+    width:165px;
+    height:165px;
+    border-radius:20px;
     object-fit:cover;
-    display:block;
-    margin:0 auto 1.2rem;
-    box-shadow:0 0 20px rgba(255,255,255,.07);
+    box-shadow:0 14px 40px rgba(0,0,0,.45);
+    border:1px solid rgba(255,255,255,.06);
   }
   .bio{
-    width:100%;max-width:var(--w);
-    color:#e6e8ed;
+    max-width:72ch; /* <-- un peu plus large aussi */
     text-align:center;
-    margin-bottom:2rem;
-    font-size:clamp(.96rem,1.2vw,1.05rem);
+    color:var(--muted);
   }
-  .media{
-    width:100%;max-width:var(--w);
-    background:#111;
-    border:1px solid rgba(255,255,255,.05);
-    border-radius:12px;
-    padding:16px;
-    margin-bottom:2rem;
+  .bio strong{color:#fff}
+
+  .tracks{
+    display:grid;
+    gap:20px;
   }
-  .media-head{
+  .track-card{
+    background:rgba(0,0,0,.25);
+    border:1px solid rgba(255,255,255,.03);
+    border-radius:14px;
+    padding:12px;
+    backdrop-filter:blur(6px);
+    box-shadow:0 10px 26px rgba(0,0,0,.35);
+  }
+  .track-head{
     display:flex;
     justify-content:space-between;
     align-items:center;
+    margin-bottom:8px;
     gap:10px;
-    color:var(--ink);
-    font-size:clamp(1rem,1.3vw,1.05rem);
-    margin-bottom:10px;
-    flex-wrap:wrap;
   }
-  .media-head span{color:var(--muted)}
+  .track-title{font-weight:700;}
+  .track-meta{font-size:.78rem;color:var(--muted);}
   iframe{
     width:100%;
     aspect-ratio:16/9;
     border:none;
     border-radius:10px;
     background:#000;
-    display:block;
   }
+
   footer{
-    width:100%;max-width:var(--w);
     text-align:center;
-    font-size:.85rem;
-    color:var(--muted);
-    border-top:1px solid rgba(255,255,255,.07);
-    padding:1rem 0 0;
-    margin-top:auto;
+    font-size:.8rem;
+    color:rgba(244,244,244,.4);
+    padding-top:10px;
+    border-top:1px solid rgba(255,255,255,.05);
+    margin-top:6px;
   }
   footer a{
-    background:linear-gradient(90deg,var(--c1),var(--c2));
+    background:linear-gradient(120deg,var(--accent),var(--accent2));
     -webkit-background-clip:text;
+    background-clip:text;
     -webkit-text-fill-color:transparent;
     text-decoration:none;
     font-weight:600;
   }
-  @media(max-width:700px){
-    body{padding:30px 14px}
-    .portrait{width:160px;height:160px;margin-bottom:1rem}
-    .bio{font-size:.95rem;margin-bottom:1.6rem}
-    .media{padding:12px}
+
+  /* desktop: 2 vidéos bien larges */
+  @media (min-width:1024px){
+    .tracks{
+      grid-template-columns:1fr 1fr;
+      align-items:start;
+    }
+    iframe{
+      height:320px; /* profite de la largeur */
+      aspect-ratio:auto;
+    }
+  }
+
+  /* mobile */
+  @media (max-width:700px){
+    .page{padding-inline:10px}
+    .portrait{width:140px;height:140px}
+    .bio{font-size:.9rem}
+    .track-card{padding:10px}
+    iframe{aspect-ratio:16/9;height:auto}
   }
 </style>
 </head>
 <body>
+  <div class="page">
+    <header>
+      <h1>KAIRO STONE</h1>
+      <p class="tag">English singer & songwriter</p>
+    </header>
 
-  <div class="top">
-    <h1>KAIRO STONE</h1>
-    <div class="tag">British rap artist · early 30s</div>
-    <img src="../../Sources/Images/KairoStone.webp" alt="Portrait of Kairo Stone" class="portrait" loading="eager" decoding="async">
-  </div>
-
-  <p class="bio">
-    <strong>KAIRO STONE</strong> is a British rapper from Manchester.
-    His sound blends introspective writing with deep, atmospheric production.
-    In 2025, he collaborated with the female trio <strong>LAST PROTOCOL</strong> on
-    <em>SUN DRUNK</em>, a fusion of UK rap and dreamlike pop textures.
-  </p>
-
-  <div class="media">
-    <div class="media-head">
-      <strong>SUN DRUNK</strong>
-      <span>feat. LAST PROTOCOL · 2025</span>
+    <div class="hero">
+      <img src="../../Sources/Images/KairoStone.webp" alt="Kairo Stone portrait" class="portrait" loading="eager">
+      <p class="bio">
+        <strong>Kairo Stone</strong> blends warm pop and UK soul. In 2025 he teamed up with <strong>LAST PROTOCOL</strong> for two collaborations — <em>SUN DRUNK</em> and <em>TONIGHT</em>.
+      </p>
     </div>
-    <iframe src="https://www.youtube.com/embed/rLRmShzLkq4" allowfullscreen title="SUN DRUNK — KAIRO STONE feat. LAST PROTOCOL"></iframe>
+
+    <section class="tracks" aria-label="Featured songs">
+      <article class="track-card">
+        <div class="track-head">
+          <div class="track-title">SUN DRUNK</div>
+          <div class="track-meta">feat. LAST PROTOCOL • 2025</div>
+        </div>
+        <iframe src="https://www.youtube.com/embed/rLRmShzLkq4"
+                title="SUN DRUNK — KAIRO STONE feat. LAST PROTOCOL"
+                allowfullscreen loading="lazy"></iframe>
+      </article>
+
+      <article class="track-card">
+        <div class="track-head">
+          <div class="track-title">TONIGHT</div>
+          <div class="track-meta">feat. LAST PROTOCOL • 2025</div>
+        </div>
+        <iframe src="https://www.youtube.com/embed/RoyBy1ASIvY"
+                title="TONIGHT — KAIRO STONE feat. LAST PROTOCOL"
+                allowfullscreen loading="lazy"></iframe>
+      </article>
+    </section>
+
+    <footer>
+      Powered by <a href="../index.html" target="_self">ArchiveFever.Work</a>
+    </footer>
   </div>
-
-  <footer>
-    Powered by <a href="../index.html" target="_self">ArchiveFever.Work</a>
-  </footer>
-
 </body>
 </html>

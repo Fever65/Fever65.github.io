@@ -5,87 +5,208 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>KhotiCeres — After Hours</title>
 <link rel="icon" href="../../Sources/Images/Khoti.webp" type="image/webp">
-<meta name="description" content="KhotiCeres — aperçu du projet de jeu vidéo After Hours (WIP). Lien Twitch et images plein écran.">
+<meta name="description" content="KhotiCeres présente son jeu 3D en développement : After Hours. Suivez l’aventure en direct sur Twitch.">
 <style>
-  :root{
-    --bg:#000; --ink:#ececec; --muted:#a7b0bd; --soft:#0b0d10;
-    --accent:#ff8c00; --accent2:#69c7ff; --hr:rgba(255,255,255,.08);
-    --w:920px;
+  :root {
+    --bg: #0a0c10;
+    --ink: #f1f1f1;
+    --muted: #9aa0aa;
+    --accent: #ff8c00;
+    --accent2: #6cc9ff;
+    --soft: rgba(255,255,255,.04);
   }
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:17px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--w);margin:0 auto;padding:24px 16px}
-  .hero{text-align:center;display:grid;gap:10px;margin:6px auto 18px}
-  .brand{font-weight:800;letter-spacing:.3px;font-size:clamp(1.7rem,6vw,2.4rem);line-height:1.12;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .sub{color:var(--muted);font-size:.98rem}
-  .desc{max-width:66ch;margin:10px auto 0;text-align:center;display:grid;gap:10px}
-  .desc p{margin:0}
-  .divider{height:2px;background:linear-gradient(90deg,transparent, rgba(255,140,0,.45) 12%, rgba(106,199,255,.45) 50%, rgba(255,140,0,.45) 88%, transparent);margin:18px 0;border-radius:2px}
-  .cta{display:flex;justify-content:center;margin-top:8px}
-  .btn{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:12px 18px;border:1px solid rgba(255,255,255,.28);
-    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
-    color:#fff;border-radius:999px;
-    transition:transform .08s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
-    font-weight:800; letter-spacing:.2px; text-transform:uppercase
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: radial-gradient(1000px 700px at 20% 0%, #151821 0%, #090b10 50%, #040507 100%);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
-  .btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
-  .btn:hover{background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.05));border-color:rgba(255,255,255,.45);box-shadow:0 0 0 4px rgba(255,140,0,.12), 0 0 24px rgba(106,199,255,.18)}
-  .btn:active{transform:translateY(1px)}
-  .arrow{opacity:.9}
-  .gallery{display:grid;gap:16px;margin-top:16px}
-  figure{margin:0;background:var(--soft);border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
-  .thumb{display:block;width:100%;height:auto}
-  figcaption{padding:10px;color:var(--muted);font-size:.95rem;border-top:1px solid rgba(255,255,255,.06)}
-  @media (min-width:920px){.gallery{grid-template-columns:1fr 1fr}}
-  .hr90{height:1px;background:repeating-linear-gradient(90deg,var(--hr) 0 12px,transparent 12px 24px);margin:18px 0}
-  footer{position:relative;margin-top:18px;padding:16px;border-top:1px solid var(--hr)}
-  .back{position:absolute;right:12px;bottom:12px;font-size:.9rem;color:#cfd4e7;padding:6px 10px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.03)}
-  .back:hover{border-color:rgba(255,255,255,.36)}
-  .sr-only{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
-  .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:24px}
-  .lightbox img{max-width:95vw;max-height:90vh;height:auto}
-  .lightbox:target{display:flex}
-  .close{position:fixed;top:16px;right:18px;padding:8px 12px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(255,255,255,.08);color:#fff;text-decoration:none}
-  .close:focus-visible{outline:2px solid #fff;outline-offset:2px}
+
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+
+  p.desc {
+    max-width: 60ch;
+    margin: 0 auto 20px;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 999px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: .3px;
+    transition: all .2s ease;
+    margin-top: 8px;
+  }
+
+  .btn:hover {
+    border-color: rgba(255,255,255,.35);
+    background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.05));
+    transform: translateY(-1px);
+    box-shadow: 0 0 20px rgba(255,140,0,.15);
+  }
+
+  .gallery {
+    display: grid;
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  @media (min-width: 760px) {
+    .gallery {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  figure {
+    background: var(--soft);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+
+  figure:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(255,255,255,.08);
+  }
+
+  img.thumb {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+
+  figcaption {
+    padding: 10px;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  footer {
+    margin-top: auto;
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,.4);
+    padding: 20px;
+    background: rgba(0,0,0,.25);
+  }
+
+  footer a {
+    color: var(--accent2);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  footer a:hover {
+    color: var(--accent);
+  }
+
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 50;
+  }
+
+  .lightbox img {
+    max-width: 95vw;
+    max-height: 90vh;
+    border-radius: 8px;
+  }
+
+  .lightbox:target { display: flex; }
+
+  .close {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: rgba(0,0,0,.4);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 999px;
+    padding: 4px 12px 6px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header class="hero" aria-labelledby="t">
-      <h1 id="t" class="brand">KhotiCeres - After Hours</h1>
-      <div class="desc" aria-label="Description">
-        <p><strong>KhotiCeres</strong> avance son jeu en direct sur Twitch : on voit la construction pas à pas, des essais aux corrections, sans filtre.</p>
-        <p><strong>After Hours</strong> s'attaque au monde du travail après la fermeture. Découvrez son univers en direct sur Twitch et bientôt sur Steam.</p>
-      </div>
-      <div class="cta">
-        <a class="btn" href="https://www.twitch.tv/khoticeres"><span class="arrow">→</span> le twitch de Khoti</a>
-      </div>
-    </header>
 
-    <div class="divider"></div>
+  <main>
+    <h1>KhotiCeres — After Hours</h1>
+    <p class="desc">
+      Développeur passionné et streamer, <strong>KhotiCeres</strong> travaille en direct sur <strong>After Hours</strong> :
+      un jeu 3D immersif qui explore l’atmosphère d’un bureau après la fermeture.
+    </p>
 
-    <main class="gallery" aria-label="Aperçus cliquables">
+    <a href="https://www.twitch.tv/khoticeres" class="btn">→ Voir le Twitch</a>
+
+    <div class="gallery">
       <figure>
-        <a href="#full1"><img class="thumb" src="../../Sources/Images/Khoti1.webp" alt="After Hours — Le bureau (WIP)"></a>
-        <figcaption>Le bureau — WIP</figcaption>
+        <a href="#full1">
+          <img src="../../Sources/Images/Khoti1.webp" alt="After Hours — Bureau (WIP)" class="thumb">
+        </a>
+        <figcaption>Bureau — WIP</figcaption>
       </figure>
       <figure>
-        <a href="#full2"><img class="thumb" src="../../Sources/Images/Khoti2.webp" alt="After Hours — La cuisine (WIP)"></a>
-        <figcaption>La salle de pause — WIP</figcaption>
+        <a href="#full2">
+          <img src="../../Sources/Images/Khoti2.webp" alt="After Hours — Salle de pause (WIP)" class="thumb">
+        </a>
+        <figcaption>Salle de pause — WIP</figcaption>
       </figure>
-    </main>
+    </div>
+  </main>
 
-    <div class="hr90" aria-hidden="true"></div>
+  <footer>
+    Propulsé par <a href="../index.html">ArchiveFever.Work</a>
+  </footer>
 
-    <footer>
-      <a class="back" href="../../index.html">← Retour ArchiveFever.Work</a>
-      <span class="sr-only">Fin de page</span>
-    </footer>
+  <div id="full1" class="lightbox">
+    <a href="#" class="close" aria-label="Fermer">×</a>
+    <img src="../../Sources/Images/Khoti1.webp" alt="After Hours plein écran">
+  </div>
+  <div id="full2" class="lightbox">
+    <a href="#" class="close" aria-label="Fermer">×</a>
+    <img src="../../Sources/Images/Khoti2.webp" alt="After Hours plein écran">
   </div>
 
-  <div id="full1" class="lightbox"><a class="close" href="#" aria-label="Fermer">×</a><img src="../../Sources/Images/Khoti1.webp" alt=""></div>
-  <div id="full2" class="lightbox"><a class="close" href="#" aria-label="Fermer">×</a><img src="../../Sources/Images/Khoti2.webp" alt=""></div>
 </body>
 </html>

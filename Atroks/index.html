@@ -22,14 +22,27 @@
   --shadow: 0 10px 36px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  height:100%;
+}
 body{
   min-height:100vh;
-  background: var(--bg);
+  background-color:#0d0a09;
+  background-image: var(--bg);
+  background-repeat:no-repeat;
+  background-size:cover;
   color: var(--txt);
   font: 400 15.5px/1.55 "Sora", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   display:flex;
   flex-direction:column;
   -webkit-font-smoothing: antialiased;
+}
+@supports (-webkit-touch-callout: none) {
+  body{
+    background-color:#0d0a09;
+    background-image: radial-gradient(1100px 850px at 15% -5%, #2d1c15 0%, #140f0c 55%, #0d0a09 100%);
+    background-attachment: scroll;
+  }
 }
 header{
   padding:16px 16px 6px;
@@ -56,10 +69,10 @@ main{
 .hero{
   display:grid;
   gap:14px;
-  background: radial-gradient(380px 200px at 85% 0%, rgba(255,145,82,.11), rgba(20,15,12,0)) , rgba(14,10,8,.35);
+  background: radial-gradient(380px 200px at 85% 0%, rgba(255,145,82,.11), rgba(20,15,12,0)), rgba(14,10,8,.35);
   border:1px solid rgba(243,188,150,.16);
   border-radius:18px;
-  padding:16px 16px 16px;
+  padding:16px;
   backdrop-filter: blur(4px);
   box-shadow: var(--shadow);
   align-items:center;
@@ -102,7 +115,6 @@ main{
   letter-spacing:.1em;
   margin-bottom:6px;
 }
-
 section h3,
 .contact-title{
   font-weight:800;
@@ -118,7 +130,7 @@ section h3,
   background: linear-gradient(160deg, rgba(27,22,19,.85) 0%, rgba(23,18,15,.45) 100%);
   border:1px solid rgba(246,238,233,.02);
   border-radius: var(--radius);
-  padding:11px 11px 11px;
+  padding:11px;
   box-shadow: 0 10px 24px rgba(0,0,0,.3);
 }
 .service-head{
@@ -140,7 +152,6 @@ section h3,
   font-weight:700;
   color:var(--accent);
 }
-
 .contact-card{
   background: linear-gradient(160deg, rgba(27,22,19,.95) 0%, rgba(19,14,11,.55) 100%);
   border-radius: var(--radius);
@@ -190,7 +201,6 @@ section h3,
   color:inherit;
 }
 .cta:hover{color:#fff}
-
 footer{
   background:rgba(0,0,0,0);
   padding:0 16px 16px;
@@ -205,22 +215,12 @@ footer{
   gap:5px;
   padding-top:7px;
 }
-.pill{
-  display:inline-block;
-  background:rgba(255,145,82,.14);
-  border:1px solid rgba(255,145,82,.25);
-  color:#ffe3d2;
-  border-radius:999px;
-  padding:5px 16px 6px;
-  font-weight:600;
-}
 .footer-link{
   color:#ffe3d2;
   text-decoration:none;
   font-weight:600;
 }
 .footer-link:hover{color:#fff}
-
 @media (min-width:980px){
   .hero{
     grid-template-columns:150px 1fr;
@@ -244,7 +244,6 @@ footer{
 <header>
   <h1 class="brand">ATROKS WORKSHOP</h1>
 </header>
-
 <main>
   <section class="hero" aria-labelledby="intro-title">
     <figure class="media">
@@ -256,13 +255,13 @@ footer{
       <p>Tarifs transparents, contact direct. Demande, envoie tes rushs, il s’occupe du reste.</p>
     </div>
   </section>
-
   <section class="services" aria-labelledby="services-title">
     <h3 id="services-title">Services</h3>
     <div class="cards">
       <article class="service-card">
         <div class="service-head">
-          <span class="emoji">🎞️</span><div class="service-title">Montage long</div>
+          <span class="emoji">🎞️</span>
+          <div class="service-title">Montage long</div>
         </div>
         <div class="lines">
           <div>Simple : <span class="price-inline">1€ / min</span></div>
@@ -271,7 +270,8 @@ footer{
       </article>
       <article class="service-card">
         <div class="service-head">
-          <span class="emoji">📱</span><div class="service-title">Shorts TikTok / YT</div>
+          <span class="emoji">📱</span>
+          <div class="service-title">Shorts TikTok / YT</div>
         </div>
         <div class="lines">
           <div>7€ par vidéo <small>(effets inclus)</small></div>
@@ -279,7 +279,8 @@ footer{
       </article>
       <article class="service-card">
         <div class="service-head">
-          <span class="emoji">🎨</span><div class="service-title">Créa graphique</div>
+          <span class="emoji">🎨</span>
+          <div class="service-title">Créa graphique</div>
         </div>
         <div class="lines">
           <div>Miniature, logo, bannière : <span class="price-inline">5€</span></div>
@@ -289,7 +290,8 @@ footer{
       </article>
       <article class="service-card">
         <div class="service-head">
-          <span class="emoji">⚙️</span><div class="service-title">Options</div>
+          <span class="emoji">⚙️</span>
+          <div class="service-title">Options</div>
         </div>
         <div class="lines">
           <div>Sous-titres : <span class="price-inline">5€ / 30min</span></div>
@@ -299,7 +301,6 @@ footer{
       </article>
     </div>
   </section>
-
   <section aria-labelledby="contact-title">
     <h3 class="contact-title" id="contact-title">Contact pro</h3>
     <div class="contact-card">
@@ -324,12 +325,10 @@ footer{
     </div>
   </section>
 </main>
-
 <footer>
   <div class="footer-wrap">
     <div>Propulsé par <a class="footer-link" href="../index.html">ArchiveFever.Work</a></div>
   </div>
 </footer>
-
 </body>
 </html>

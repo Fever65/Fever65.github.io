@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>LAST PROTOCOL</title>
   <link rel="icon" href="../Sources/Images/LastProtocol.webp" type="image/webp">
-  <meta name="description" content="LAST PROTOCOL — three anonymous women. Official channel and albums: UNLISTED, EMOTIONS, SHORT, MEMORY SEQUENCE.">
+  <meta name="description" content="LAST PROTOCOL — three anonymous women. Official channel and albums: UNLISTED, EMOTIONS, SHORT, MEMORY SEQUENCE, BLACK SUNS.">
   <style>
     :root{
       --page-bg:#0c0a0f;
@@ -13,58 +13,59 @@
       --ink:#f2f3fb;
       --muted:#b8bfd0;
       --pad:clamp(16px,2.6vw,30px);
-      --p1:#7f6cff;
-      --p2:#ff6ec7;
-      --p3:#58e3ff;
       --album-violet:#7f6cff;
       --album-pink:#ff6ec7;
       --album-peach:#ffb37a;
       --album-cyan:#7de2ff;
+      --album-gold:#ffd86b;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+
+    *{
+      box-sizing:border-box;
       margin:0;
-      background-color:var(--page-bg);
+      padding:0;
+    }
+
+    body{
+      min-height:100vh;
+      background:var(--page-bg);
       background-image:var(--gradient);
       background-repeat:no-repeat;
       background-size:cover;
       color:var(--ink);
       font:400 16px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      letter-spacing:.01em;
-      min-height:100vh;
-      display:grid;
-      grid-template-rows:1fr auto;
+      display:flex;
+      flex-direction:column;
       gap:clamp(18px,2.6vh,28px);
       padding-bottom:calc(env(safe-area-inset-bottom) + 4px);
     }
-    @supports (height: 100svh){
-      body{min-height:100svh}
-    }
+
+    /* conteneur principal */
     main{
       width:100%;
-      margin-inline:auto;
+      max-width:1100px;
+      margin:0 auto;
       padding:var(--pad);
       display:flex;
       flex-direction:column;
-      gap:clamp(20px,3vh,34px);
-      max-width:1100px;
       align-items:center;
+      gap:clamp(20px,3vh,34px);
     }
+
     .hero{
       text-align:center;
-      display:grid;
+      display:flex;
+      flex-direction:column;
       gap:14px;
-      place-items:center;
-      max-width:56rem;
+      align-items:center;
       width:100%;
-      padding-top:4px;
+      max-width:56rem;
     }
 
     h1{
       margin:0;
       font-weight:900;
-      font-size:clamp(38px,10vw,86px);
+      font-size:clamp(34px, 8vw, 78px);
       letter-spacing:.14em;
       text-transform:uppercase;
       background:linear-gradient(100deg, #ffffff 0%, #ff6ec7 25%, #7f6cff 55%, #58e3ff 90%);
@@ -76,22 +77,25 @@
         0 0 25px rgba(255,110,199,.25),
         0 0 45px rgba(88,227,255,.18);
       animation:hueflow 8s linear infinite;
-      text-align:center;
+    }
+
+    @keyframes hueflow{
+      0%{background-position:0% 50%}
+      100%{background-position:220% 50%}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      h1{animation:none}
     }
 
     .tagline{
-      margin:0;
       max-width:46ch;
       color:var(--muted);
-      font-size:clamp(.93rem,2.1vw,1.05rem);
+      font-size:clamp(.9rem,2.1vw,1.02rem);
       line-height:1.65;
-      text-align:center;
-      font-weight:400;
     }
-    .tagline b{color:var(--ink); font-weight:600}
 
-    @keyframes hueflow{0%{background-position:0% 50%}100%{background-position:220% 50%}}
-    @media (prefers-reduced-motion:reduce){h1{animation:none}}
+    .tagline b{color:var(--ink); font-weight:600}
 
     .primary-actions{
       display:flex;
@@ -100,6 +104,7 @@
       flex-wrap:wrap;
       width:100%;
     }
+
     a.btn{
       display:inline-flex;
       justify-content:center;
@@ -115,18 +120,23 @@
       transition:border-color .14s ease, background-color .14s ease, transform .05s ease;
       font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
       font-size:.9rem;
+      max-width:240px;
     }
     a.btn:hover{
       background:rgba(255,255,255,.04);
       border-color:rgba(255,255,255,.18);
       transform:translateY(-1px);
     }
+
+    /* section albums */
     .playlists{
-      display:grid;
-      gap:14px;
       width:100%;
-      max-width:1100px;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      align-items:center;
     }
+
     .playlists-title{
       font-size:.8rem;
       letter-spacing:.26em;
@@ -134,13 +144,16 @@
       color:rgba(242,243,251,.6);
       text-align:center;
     }
+
+    /* grille auto-fit pour ne jamais dépasser */
     .playlists-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:16px;
-      justify-items:center;
       width:100%;
+      display:grid;
+      gap:16px;
+      grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+      align-items:stretch;
     }
+
     .card{
       background:radial-gradient(880px 480px at 15% -30%, rgba(255,110,199,.16), transparent 65%), rgba(0,0,0,.32);
       border:1px solid rgba(255,255,255,.024);
@@ -151,17 +164,17 @@
       align-items:center;
       gap:15px;
       backdrop-filter:blur(10px);
-      min-height:140px;
       text-align:center;
-      width:min(100%,280px);
-      box-shadow:0 14px 30px rgba(0,0,0,.25);
+      min-height:140px;
     }
+
     .card-header{
       display:flex;
       flex-direction:column;
       gap:6px;
       align-items:center;
     }
+
     .album-badge{
       font-size:.58rem;
       text-transform:uppercase;
@@ -169,16 +182,20 @@
       border-radius:999px;
       padding:3px 12px 4px;
       color:#0b0b0b;
+      white-space:nowrap;
     }
     .album-violet{background:var(--album-violet); color:#fff;}
     .album-pink{background:var(--album-pink); color:#fff;}
     .album-peach{background:var(--album-peach); color:#281215;}
     .album-cyan{background:var(--album-cyan); color:#051115;}
+    .album-gold{background:var(--album-gold); color:#1a1200;}
+
     .card-title{
       font-weight:700;
-      font-size:1.05rem;
+      font-size:1.02rem;
       letter-spacing:.04em;
     }
+
     .card a.play-btn{
       display:inline-flex;
       align-items:center;
@@ -189,13 +206,16 @@
       padding:6px 14px 7px;
       text-decoration:none;
       color:var(--ink);
-      font-size:.8rem;
+      font-size:.78rem;
       transition:background .14s ease;
+      white-space:nowrap;
     }
     .card a.play-btn:hover{
       background:rgba(0,0,0,.6);
     }
+
     footer{
+      margin-top:auto;
       padding:calc(var(--pad)*.6) var(--pad) calc(var(--pad)*.9);
       color:var(--muted);
       font-size:.9rem;
@@ -227,35 +247,14 @@
     footer a:hover::after{transform:scaleX(1)}
     .arrow{font-size:1.05em; opacity:.9}
 
-    @media (max-width:520px){
-      .primary-actions{
-        flex-direction:column;
-        align-items:center;
-      }
-      a.btn{
-        width:min(240px,100%);
-      }
-      h1{
-        font-size:46px;
-        letter-spacing:.12em;
-      }
-      .hero{
-        gap:12px;
-      }
+    /* mobile & petits écrans */
+    @media (max-width:540px){
+      main{padding:16px 14px 20px;}
+      h1{letter-spacing:.075em;}
+      .primary-actions a.btn{width:100%; max-width:none;}
+      .card{width:100%;}
     }
-    @media (min-width:720px){
-      .playlists-grid{
-        grid-template-columns:repeat(2, minmax(240px,280px));
-      }
-    }
-    @media (min-width:1080px){
-      .playlists-grid{
-        grid-template-columns:repeat(4, minmax(230px,260px));
-      }
-      .card{
-        width:100%;
-      }
-    }
+
   </style>
 </head>
 <body>
@@ -304,6 +303,14 @@
             <span class="card-title">MEMORY SEQUENCE</span>
           </div>
           <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfRCg71s7g2kIbpvTmNC72ay" target="_blank" rel="noopener">Play on YouTube ↗</a>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="album-badge album-gold">Album</span>
+            <span class="card-title">BLACK SUNS</span>
+          </div>
+          <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfTuXzXaruMZYyCG9Q31A9ri" target="_blank" rel="noopener">Play on YouTube ↗</a>
         </article>
       </div>
     </section>

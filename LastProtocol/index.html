@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>LAST PROTOCOL</title>
   <link rel="icon" href="../Sources/Images/LastProtocol.webp" type="image/webp">
-  <meta name="description" content="LAST PROTOCOL — three anonymous women. Official channel and albums: UNLISTED, EMOTIONS, SHORT, MEMORY SEQUENCE, BLACK SUNS.">
+  <meta name="description" content="LAST PROTOCOL — three anonymous women. Official channel and albums: UNLISTED, EMOTIONS, SHORT, MEMORY SEQUENCE, BLACK SUNS, ALMOST PERFECT.">
   <style>
     :root{
       --page-bg:#0c0a0f;
@@ -18,6 +18,7 @@
       --album-peach:#ffb37a;
       --album-cyan:#7de2ff;
       --album-gold:#ffd86b;
+      --album-blue:#6ea8ff;
     }
 
     *{
@@ -40,7 +41,6 @@
       padding-bottom:calc(env(safe-area-inset-bottom) + 4px);
     }
 
-    /* conteneur principal */
     main{
       width:100%;
       max-width:1100px;
@@ -128,7 +128,6 @@
       transform:translateY(-1px);
     }
 
-    /* section albums */
     .playlists{
       width:100%;
       display:flex;
@@ -145,13 +144,21 @@
       text-align:center;
     }
 
-    /* grille auto-fit pour ne jamais dépasser */
     .playlists-grid{
       width:100%;
       display:grid;
       gap:16px;
       grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
       align-items:stretch;
+    }
+
+    /* >>> Desktop : forcer une grille 3x2 bien centrée <<< */
+    @media (min-width: 1024px){
+      .playlists-grid{
+        max-width:900px;
+        margin-inline:auto;
+        grid-template-columns:repeat(3, minmax(0, 1fr));
+      }
     }
 
     .card{
@@ -189,6 +196,7 @@
     .album-peach{background:var(--album-peach); color:#281215;}
     .album-cyan{background:var(--album-cyan); color:#051115;}
     .album-gold{background:var(--album-gold); color:#1a1200;}
+    .album-blue{background:var(--album-blue); color:#07101f;}
 
     .card-title{
       font-weight:700;
@@ -247,7 +255,6 @@
     footer a:hover::after{transform:scaleX(1)}
     .arrow{font-size:1.05em; opacity:.9}
 
-    /* mobile & petits écrans */
     @media (max-width:540px){
       main{padding:16px 14px 20px;}
       h1{letter-spacing:.075em;}
@@ -273,6 +280,7 @@
     <section class="playlists" aria-label="Official albums">
       <p class="playlists-title">Official Albums</p>
       <div class="playlists-grid">
+
         <article class="card">
           <div class="card-header">
             <span class="album-badge album-violet">Album</span>
@@ -312,6 +320,15 @@
           </div>
           <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfTuXzXaruMZYyCG9Q31A9ri" target="_blank" rel="noopener">Play on YouTube ↗</a>
         </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="album-badge album-blue">Album</span>
+            <span class="card-title">ALMOST PERFECT</span>
+          </div>
+          <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfSZWWV6AToOkbcTUxRrbwD2" target="_blank" rel="noopener">Play on YouTube ↗</a>
+        </article>
+
       </div>
     </section>
   </main>

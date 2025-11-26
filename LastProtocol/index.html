@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>LAST PROTOCOL</title>
   <link rel="icon" href="../Sources/Images/LastProtocol.webp" type="image/webp">
-  <meta name="description" content="LAST PROTOCOL — three anonymous women. Official channel and albums: UNLISTED, EMOTIONS, SHORT, MEMORY SEQUENCE, BLACK SUNS, ALMOST PERFECT.">
+  <meta name="description" content="LAST PROTOCOL — three anonymous women. Official channel and albums: UNLISTED, EMOTIONS, SHORT, MEMORY SEQUENCE, BLACK SUNS, ALMOST PERFECT, UNSEEN.">
   <style>
     :root{
       --page-bg:#0c0a0f;
@@ -19,6 +19,7 @@
       --album-cyan:#7de2ff;
       --album-gold:#ffd86b;
       --album-blue:#6ea8ff;
+      --album-mint:#88ffcf;
     }
 
     *{
@@ -37,7 +38,7 @@
       font:400 16px system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       display:flex;
       flex-direction:column;
-      gap:clamp(18px,2.6vh,28px);
+      gap:clamp(14px,2.2vh,24px);
       padding-bottom:calc(env(safe-area-inset-bottom) + 4px);
     }
 
@@ -49,14 +50,15 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      gap:clamp(20px,3vh,34px);
+      gap:clamp(18px,2.6vh,30px);
+      flex:1;
     }
 
     .hero{
       text-align:center;
       display:flex;
       flex-direction:column;
-      gap:14px;
+      gap:12px;
       align-items:center;
       width:100%;
       max-width:56rem;
@@ -65,7 +67,7 @@
     h1{
       margin:0;
       font-weight:900;
-      font-size:clamp(34px, 8vw, 78px);
+      font-size:clamp(32px, 6vw, 64px);
       letter-spacing:.14em;
       text-transform:uppercase;
       background:linear-gradient(100deg, #ffffff 0%, #ff6ec7 25%, #7f6cff 55%, #58e3ff 90%);
@@ -89,17 +91,17 @@
     }
 
     .tagline{
-      max-width:46ch;
+      max-width:44ch;
       color:var(--muted);
-      font-size:clamp(.9rem,2.1vw,1.02rem);
-      line-height:1.65;
+      font-size:clamp(.88rem,2vw,.98rem);
+      line-height:1.6;
     }
 
     .tagline b{color:var(--ink); font-weight:600}
 
     .primary-actions{
       display:flex;
-      gap:12px;
+      gap:10px;
       justify-content:center;
       flex-wrap:wrap;
       width:100%;
@@ -110,7 +112,7 @@
       justify-content:center;
       align-items:center;
       gap:7px;
-      padding:9px 16px;
+      padding:8px 16px;
       border-radius:999px;
       border:1px solid rgba(245,239,255,.12);
       background:rgba(17,12,20,.45);
@@ -119,7 +121,7 @@
       text-decoration:none;
       transition:border-color .14s ease, background-color .14s ease, transform .05s ease;
       font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-      font-size:.9rem;
+      font-size:.88rem;
       max-width:240px;
     }
     a.btn:hover{
@@ -132,12 +134,12 @@
       width:100%;
       display:flex;
       flex-direction:column;
-      gap:16px;
+      gap:12px;
       align-items:center;
     }
 
     .playlists-title{
-      font-size:.8rem;
+      font-size:.78rem;
       letter-spacing:.26em;
       text-transform:uppercase;
       color:rgba(242,243,251,.6);
@@ -147,47 +149,51 @@
     .playlists-grid{
       width:100%;
       display:grid;
-      gap:16px;
+      gap:14px;
       grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
       align-items:stretch;
     }
 
-    /* >>> Desktop : forcer une grille 3x2 bien centrée <<< */
-    @media (min-width: 1024px){
+    @media (min-width:1024px){
       .playlists-grid{
         max-width:900px;
         margin-inline:auto;
         grid-template-columns:repeat(3, minmax(0, 1fr));
       }
+      .playlists-grid > .card:last-child:nth-child(7){
+        grid-column:2 / span 1;
+      }
     }
 
     .card{
-      background:radial-gradient(880px 480px at 15% -30%, rgba(255,110,199,.16), transparent 65%), rgba(0,0,0,.32);
+      background:
+        radial-gradient(880px 480px at 15% -30%, rgba(255,110,199,.16), transparent 65%),
+        rgba(0,0,0,.32);
       border:1px solid rgba(255,255,255,.024);
-      border-radius:20px;
-      padding:18px 16px 16px;
+      border-radius:18px;
+      padding:16px 14px 14px;
       display:flex;
       flex-direction:column;
       align-items:center;
-      gap:15px;
+      gap:12px;
       backdrop-filter:blur(10px);
       text-align:center;
-      min-height:140px;
+      min-height:130px;
     }
 
     .card-header{
       display:flex;
       flex-direction:column;
-      gap:6px;
+      gap:4px;
       align-items:center;
     }
 
     .album-badge{
-      font-size:.58rem;
+      font-size:.56rem;
       text-transform:uppercase;
       letter-spacing:.24em;
       border-radius:999px;
-      padding:3px 12px 4px;
+      padding:3px 11px 4px;
       color:#0b0b0b;
       white-space:nowrap;
     }
@@ -197,10 +203,11 @@
     .album-cyan{background:var(--album-cyan); color:#051115;}
     .album-gold{background:var(--album-gold); color:#1a1200;}
     .album-blue{background:var(--album-blue); color:#07101f;}
+    .album-mint{background:var(--album-mint); color:#02140b;}
 
     .card-title{
       font-weight:700;
-      font-size:1.02rem;
+      font-size:.98rem;
       letter-spacing:.04em;
     }
 
@@ -224,9 +231,9 @@
 
     footer{
       margin-top:auto;
-      padding:calc(var(--pad)*.6) var(--pad) calc(var(--pad)*.9);
+      padding:calc(var(--pad)*.4) var(--pad) calc(var(--pad)*.7);
       color:var(--muted);
-      font-size:.9rem;
+      font-size:.86rem;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -255,8 +262,16 @@
     footer a:hover::after{transform:scaleX(1)}
     .arrow{font-size:1.05em; opacity:.9}
 
+    @media (min-width:1200px) and (min-height:800px){
+      body{gap:16px;}
+      main{padding-block:22px;}
+      .hero{gap:10px;}
+      .playlists{gap:10px;}
+      footer{padding-top:18px;padding-bottom:20px;}
+    }
+
     @media (max-width:540px){
-      main{padding:16px 14px 20px;}
+      main{padding:16px 14px 18px;}
       h1{letter-spacing:.075em;}
       .primary-actions a.btn{width:100%; max-width:none;}
       .card{width:100%;}
@@ -327,6 +342,14 @@
             <span class="card-title">ALMOST PERFECT</span>
           </div>
           <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfSZWWV6AToOkbcTUxRrbwD2" target="_blank" rel="noopener">Play on YouTube ↗</a>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="album-badge album-mint">Album</span>
+            <span class="card-title">UNSEEN</span>
+          </div>
+          <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfQN04pa8iHLnGRojBZJLkIU" target="_blank" rel="noopener">Play on YouTube ↗</a>
         </article>
 
       </div>

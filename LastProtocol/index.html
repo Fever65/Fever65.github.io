@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>LAST PROTOCOL</title>
   <link rel="icon" href="../Sources/Images/LastProtocol.webp" type="image/webp">
-  <meta name="description" content="LAST PROTOCOL — three anonymous women. Official channel and albums: UNLISTED, EMOTIONS, SHORT, MEMORY SEQUENCE, BLACK SUNS, ALMOST PERFECT, UNSEEN.">
+  <meta name="description" content="LAST PROTOCOL — three anonymous women. Official channel and albums: UNLISTED, EMOTIONS, SHORT, MEMORY SEQUENCE, BLACK SUNS, ALMOST PERFECT, UNSEEN, SOFT CRISIS.">
   <style>
     :root{
       --page-bg:#0c0a0f;
@@ -50,7 +50,7 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      gap:clamp(18px,2.6vh,30px);
+      gap:clamp(20px,2.8vh,32px);
       flex:1;
     }
 
@@ -134,7 +134,7 @@
       width:100%;
       display:flex;
       flex-direction:column;
-      gap:12px;
+      gap:14px;
       align-items:center;
     }
 
@@ -149,19 +149,16 @@
     .playlists-grid{
       width:100%;
       display:grid;
-      gap:14px;
+      gap:16px;
       grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
       align-items:stretch;
     }
 
     @media (min-width:1024px){
       .playlists-grid{
-        max-width:900px;
+        max-width:980px;
         margin-inline:auto;
-        grid-template-columns:repeat(3, minmax(0, 1fr));
-      }
-      .playlists-grid > .card:last-child:nth-child(7){
-        grid-column:2 / span 1;
+        grid-template-columns:repeat(4, minmax(0, 1fr));
       }
     }
 
@@ -178,7 +175,7 @@
       gap:12px;
       backdrop-filter:blur(10px);
       text-align:center;
-      min-height:130px;
+      min-height:120px;
     }
 
     .card-header{
@@ -266,7 +263,7 @@
       body{gap:16px;}
       main{padding-block:22px;}
       .hero{gap:10px;}
-      .playlists{gap:10px;}
+      .playlists{gap:12px;}
       footer{padding-top:18px;padding-bottom:20px;}
     }
 
@@ -350,6 +347,14 @@
             <span class="card-title">UNSEEN</span>
           </div>
           <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfQN04pa8iHLnGRojBZJLkIU" target="_blank" rel="noopener">Play on YouTube ↗</a>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <span class="album-badge album-pink">Album</span>
+            <span class="card-title">SOFT CRISIS</span>
+          </div>
+          <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfRegJ3di5bYb0WGWOE-eZ_y" target="_blank" rel="noopener">Play on YouTube ↗</a>
         </article>
 
       </div>

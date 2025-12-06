@@ -167,11 +167,12 @@
       align-items: stretch;
     }
 
-    @media (min-width:1024px) {
+    /* Desktop : 5 colonnes pour 10 albums → 2 lignes propres, plus rien de décalé */
+    @media (min-width: 1200px) {
       .playlists-grid {
-        max-width: 980px;
+        max-width: 1100px;
         margin-inline: auto;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
       }
     }
 
@@ -456,6 +457,14 @@
             target="_blank" rel="noopener">Play on YouTube ↗</a>
         </article>
 
+        <article class="card">
+          <div class="card-header">
+            <span class="album-badge album-violet">Album</span>
+            <span class="card-title">HEARTBEAT DIARIES</span>
+          </div>
+          <a class="play-btn" href="https://www.youtube.com/playlist?list=PLGIYp7PRQhfSk_q_53wc1u0AWHK3JpL2l"
+            target="_blank" rel="noopener">Play on YouTube ↗</a>
+        </article>
 
       </div>
     </section>

@@ -1,30 +1,41 @@
 # ArchiveFever.Work
 
-> Portfolio vivant + labo créatif de **Fever** (Sylvain Hirtz).
-> Du concret, rapide, mobile-first.
+> Page d’accueil minimaliste et point d’entrée vers les projets de **Sylvain Hirtz** (Fever).  
+> Du concret. Du rapide. Du fonctionnel.
 
-**👉 Visiter le site : https://archivefever.work**
+**👉 Site : https://archivefever.work**
 
 ---
 
-## Pourquoi cliquer ?
-- **Projets réels** : vitrines clean pour créateurs & petites marques.
-- **Mini-outils utiles** : QR, petites apps maison, trucs qui servent.
-- **Journal audio** : coulisses, idées, progrès — format court.
-- **Expériences visuelles** : 3D légère, transitions douces, zero lourdeur.
-- **Mascotte “Jérôme”** : une identité fun, sans perdre en propreté.
+## C’est quoi ?
+ArchiveFever.Work centralise mes **outils**, **univers créatifs** et **collaborations**.  
+Pas de blabla. Pas de surcharge. Juste ce qui existe et fonctionne.
+
+---
+
+## Ce que tu trouveras
+- **Outils**  
+  Mini-apps utiles (QR, WiFiQR), pensées pour être rapides et simples.
+
+- **Univers**  
+  Projets créatifs comme *Flappy Jérôme*.
+
+- **Albums**  
+  Expériences musicales.
+
+- **Collaborateurs**  
+  Créateurs, streamers et artistes avec qui je travaille.
 
 ---
 
 ## Pour qui ?
-Curieux, entrepreneurs, streamers, artisans — tous ceux qui veulent
-des pages **belles, simples et efficaces**.
+Celles et ceux qui aiment :
+- les sites **clairs**
+- les projets **finis**
+- les idées **simples mais propres**
+- le web sans artifices inutiles
 
 ---
 
-## Envie d’un site vitrine ?
-**Viens voir ici** : https://archivefever.work/Projets/Fever/index.html
-
-—
-
-Passe, explore, repars avec une idée, un outil… ou ton futur site.
+Passe. Clique. Utilise.  
+Et si ça t’inspire, on peut bosser ensemble.

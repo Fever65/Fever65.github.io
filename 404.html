@@ -1,143 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ArchiveFever.Work ∙ 404</title>
-  <link rel="icon" href="Sources/Images/rat.webp" type="image/webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet" />
-  <!-- Font Awesome pour les icônes -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<style>
-  :root{
-    --bg:#000;
-    --text:#f5f5f5;
-    --muted:#bdbdbd;
-    --accent:#ff8c00;
-    --surface:#0f0f0f;
-    --surface2:#141414;
-    --line:rgba(255,255,255,.08);
-    --radius:14px;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{height:100%}
-  body{
-    background:var(--bg); color:var(--text);
-    font-family:"Source Code Pro", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    display:flex; flex-direction:column; min-height:100vh;
-    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
-  }
-  a{color:inherit; text-decoration:none}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ArchiveFever.Work — 404</title>
+  <link rel="icon" href="Sources/Images/jerome.webp" type="image/webp">
 
-  header{
-    display:flex; justify-content:center; align-items:center; gap:.8rem;
-    padding:20px 12px;
-  }
-  header img{ width:64px; height:64px; border-radius:50% }
-  header h1{
-    margin:0; font-weight:700; line-height:1;
-    font-family:"Gloria Hallelujah", cursive;
-    font-size:clamp(22px,3.8vw,32px); color:#fff;
-    white-space:nowrap;
-  }
+  <style>
+    :root{
+      --bg:#060606;
+      --text:#e9e9e9;
+      --muted:#8a8a8a;
+      --accent:#ff8c00;
+      --link:#dcdcdc;
+    }
 
-  main{
-    flex:1; display:flex; justify-content:center; align-items:center;
-    padding:24px 16px;
-  }
-  .terminal{
-    width:min(760px,94vw);
-    background:linear-gradient(180deg,var(--surface),var(--surface2));
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:18px;
-  }
-  .term-head{
-    display:flex; align-items:center; gap:12px; margin-bottom:12px;
-    border-bottom:1px solid rgba(255,255,255,.06); padding-bottom:12px;
-  }
-  .dots{display:flex; gap:8px; margin-right:auto}
-  .dot{width:10px; height:10px; border-radius:50%}
-  .dot.red{background:#ff5f57}
-  .dot.yellow{background:#febc2e}
-  .dot.green{background:#28c840}
-  .term-title{ color:var(--muted); font-weight:700; letter-spacing:.2px }
+    *{box-sizing:border-box}
+    html,body{height:100%}
 
-  .head-404{ display:flex; align-items:center; gap:12px; margin:14px 2px 8px }
-  .head-404 img{ width:54px; height:54px; object-fit:cover }
-  .head-404 h2{ margin:0; font-size:clamp(20px,3.2vw,26px); color:var(--accent) }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font:16px/1.6 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      user-select:none;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
 
-  .line{ color:var(--muted); margin:6px 2px }
-  .actions{ display:flex; justify-content:center; margin-top:16px }
-  .btn{
-    display:inline-block; padding:10px 18px; border-radius:10px;
-    background:#111; border:1px solid var(--line); font-weight:700;
-  }
-  .btn:hover{ background:#1a1a1a; color:var(--accent) }
+    main{
+      padding:24px 16px;
+      max-width:520px;
+      width:100%;
+    }
 
-  footer{
-    padding:20px 12px; display:flex; justify-content:center;
-  }
-  .links{ display:flex; gap:18px; align-items:center; justify-content:center }
-  .links a{
-    width:32px; height:32px; display:flex; align-items:center; justify-content:center;
-    color:#fff; font-size:20px; transition:color .2s;
-  }
-  .links a:hover{ color:var(--accent) }
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      margin-bottom:18px;
+    }
 
-  @media (max-width:560px){
-    header img{ width:54px; height:54px }
-    .head-404 img{ width:44px; height:44px }
-  }
-</style>
+    #jerome{
+      width:64px;
+      height:64px;
+      border-radius:999px;
+      cursor:pointer;
+    }
+
+    h1{
+      margin:0;
+      font-size:22px;
+      letter-spacing:1px;
+    }
+
+    .code{
+      margin:10px 0 6px;
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .msg{
+      margin:0 0 18px;
+      font-size:14px;
+    }
+
+    a{
+      color:var(--link);
+      text-decoration:none;
+      display:inline-block;
+      margin-top:6px;
+      font-weight:700;
+    }
+
+    a:hover{color:var(--accent)}
+
+    footer{
+      margin-top:28px;
+      font-size:12px;
+      color:var(--muted);
+    }
+
+    @media (max-width:420px){
+      #jerome{width:56px;height:56px}
+      h1{font-size:20px}
+    }
+  </style>
 </head>
+
 <body>
+<main>
 
   <header>
-    <a href="index.html" aria-label="Retour à l’accueil">
-      <img src="Sources/Images/jerome.webp" alt="Logo Jérôme">
-    </a>
-    <h1>4rch1v3F3v3r.W0RK</h1>
+    <img id="jerome" src="Sources/Images/jerome.webp" alt="Jérôme">
+    <h1>ARCHIVEFEVER.WORK</h1>
   </header>
 
-  <main>
-    <div class="terminal" role="group" aria-labelledby="t-title">
-      <div class="term-head">
-        <div class="dots">
-          <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-        </div>
-        <div class="term-title" id="t-title">Désolé...</div>
-      </div>
+  <p class="code">404</p>
+  <p class="msg">Cette page n’existe pas ou a été déplacée.</p>
 
-      <div class="head-404">
-        <img src="Sources/Images/rat.webp" alt="Rat">
-        <h2>Il n’y a rien ici.</h2>
-      </div>
+  <a href="/index.html">← Retour à l’accueil</a>
 
-      <div class="line">&gt; Page introuvable.</div>
-      <div class="line">&gt; Une erreur s’est produite lors de l’accès au fichier demandé.</div>
-      <div class="line">&gt; Le fichier est absent, a été déplacé, ou l’URL est incorrecte.</div>
-      <div class="line">&gt; Utilisez le bouton ci-dessous pour revenir à l’accueil.</div>
-
-      <div class="actions">
-        <a href="index.html" class="btn">Réparer le site web.</a>
-      </div>
-    </div>
-  </main>
-
-    <footer aria-label="Réseaux">
-    <div class="links">
-      <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor">
-          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z"/>
-        </svg>
-      </a>
-      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-      <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
-    </div>
+  <footer>
+    Rien à voir ici. Autant repartir.
   </footer>
 
+  <audio id="miaou" src="Sources/Sons/miaou.mp3" preload="auto"></audio>
+
+</main>
+
+<script>
+  const a=document.getElementById("miaou");
+  document.getElementById("jerome").onclick=()=>{
+    try{a.currentTime=0;a.play().catch(()=>{})}catch(e){}
+  };
+</script>
 </body>
 </html>

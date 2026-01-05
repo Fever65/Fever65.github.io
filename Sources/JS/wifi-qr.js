@@ -74,8 +74,8 @@ document.getElementById('generateBtn').addEventListener('click', () => {
       dark: colorDark,
       light: colorLight
     },
-    margin: borderToggle.checked ? 2 : 0,
-    width: 300
+    margin: borderToggle.checked ? 1 : 0,
+    width: 256
   }, function (error) {
     if (error) {
       alert("Erreur lors de la génération du QR Code.");

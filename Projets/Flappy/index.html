@@ -7,7 +7,6 @@
   <meta name="theme-color" content="#000000" />
   <title>Flappy Jérome • ArchiveFever.Work</title>
 
-  <!-- EXACTEMENT tes includes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -31,7 +30,6 @@
       --border-2: #242424;
       --shadow: 0 10px 30px rgba(0, 0, 0, .35);
       --h: 0px;
-      --f: 0px;
     }
 
     * {
@@ -97,44 +95,6 @@
       color: var(--accent)
     }
 
-    footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 22px 10px 12px;
-      width: 100%;
-      font-size: .92rem;
-      margin-top: auto
-    }
-
-    footer .links {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 10px
-    }
-
-    footer .links a {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 1.5rem;
-      transition: color .2s ease, transform .1s
-    }
-
-    footer .links a:hover {
-      color: #fff;
-      transform: translateY(-1px)
-    }
-
-    footer .links svg {
-      width: 24px;
-      height: 24px;
-      fill: var(--accent)
-    }
-
-    footer .links a:hover svg {
-      fill: #fff
-    }
-
     main {
       flex: 1;
       width: 100%;
@@ -157,9 +117,9 @@
     .stage {
       position: relative;
       width: 100%;
-      height: calc(var(--vh, 1vh) * 100 - var(--h) - var(--f) - 48px);
-      height: calc(100svh - var(--h) - var(--f) - 48px);
-      height: calc(100dvh - var(--h) - var(--f) - 48px);
+      height: calc(var(--vh, 1vh) * 100 - var(--h) - 48px);
+      height: calc(100svh - var(--h) - 48px);
+      height: calc(100dvh - var(--h) - 48px);
       min-height: 520px;
       border-radius: var(--radius);
       overflow: hidden;
@@ -259,18 +219,6 @@
       backdrop-filter: blur(2px)
     }
 
-    .tip {
-      position: absolute;
-      bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
-      right: calc(env(safe-area-inset-right, 0px) + 12px);
-      color: #9aa0a6;
-      font-weight: 700;
-      background: rgba(0, 0, 0, .3);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 6px 8px
-    }
-
     @media (prefers-reduced-motion:reduce) {
       * {
         transition: none !important;
@@ -281,7 +229,6 @@
 </head>
 
 <body>
-  <!-- ===== HEADER ===== -->
   <header>
     <a href="../../index.html"><img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme" /></a>
     <h1>FLAPPY JÉRÔME</h1>
@@ -307,42 +254,19 @@
     </section>
   </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <p>Mes réseaux</p>
-    <div class="links">
-      <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933z" />
-        </svg>
-      </a>
-      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i
-          class="fab fa-instagram"></i></a>
-      <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-      <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i
-          class="fab fa-youtube"></i></a>
-      <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i
-          class="fab fa-steam"></i></a>
-    </div>
-  </footer>
-
   <script>
     (() => {
-      // ===== Fit header/footer
+      // ===== Fit header
       const header = document.querySelector('header');
-      const footer = document.querySelector('footer');
       const stage = document.querySelector('.stage');
       function fitChrome() {
         const h = header?.getBoundingClientRect().height || 0;
-        const f = footer?.getBoundingClientRect().height || 0;
         document.documentElement.style.setProperty('--h', h + 'px');
-        document.documentElement.style.setProperty('--f', f + 'px');
       }
       new ResizeObserver(fitChrome).observe(document.body);
       window.addEventListener('load', fitChrome, { once: true });
 
-      // ===== Mobile 100vh fix (VisualViewport) =====
+      // ===== Mobile 100vh fix
       function setVH() {
         const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight) * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -370,14 +294,12 @@
       }
       new ResizeObserver(resize).observe(stage);
 
-      // ===== Assets
       const JEROME_SRC = '../../Sources/Images/jerome.webp';
       const jerome = new Image(); jerome.src = JEROME_SRC;
 
-      // ===== Game params (Jérôme 60x60 fixe)
       let BIRD_R, GRAV, FLAP_V, PIPE_W, GAP, SPEED, SPEED_GAIN, GAP_MIN;
       function calcUnits() {
-        BIRD_R = 30;              // 60x60 tout le temps
+        BIRD_R = 30;
         GRAV = H * 2.2;
         FLAP_V = -H * 0.72;
         PIPE_W = Math.max(58, Math.min(86, Math.floor(W * 0.11)));
@@ -387,13 +309,11 @@
         SPEED_GAIN = 2.2;
       }
 
-      // ===== State
       let tLast = performance.now();
-      let game = 'ready'; // 'ready' | 'playing' | 'paused' | 'celebrate' | 'over'
+      let game = 'ready';
       let score = 0, best = 0;
-      let milestone = false; // pour la fin à 666
+      let milestone = false;
 
-      // Chargement du best en étant safe (localStorage peut throw)
       try {
         best = parseInt(localStorage.getItem('flappy_jerome_best') || '0', 10) || 0;
       } catch (e) {
@@ -411,10 +331,9 @@
       UI.best.textContent = String(best);
 
       const bird = { x: 0, y: 0, vy: 0, r: 30, rot: 0 };
-      let pipes = []; // {x, gapY, gapH, passed}
+      let pipes = [];
       let cloudSeed = Math.random() * 1000;
 
-      // ====== Audio (score/over)
       let audioCtx = null, audioUnlocked = false;
       function ensureAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === 'suspended') audioCtx.resume(); audioUnlocked = true; }
       function beep(freq = 880, dur = 0.08, vol = 0.08, type = 'sine') {
@@ -428,7 +347,6 @@
       function scoreSfx(n = 0) { beep(740 + n * 12, 0.07, 0.07, 'triangle'); setTimeout(() => beep(980 + n * 14, 0.06, 0.06, 'sine'), 40); }
       function overSfx() { beep(220, 0.14, 0.08, 'sawtooth'); setTimeout(() => beep(160, 0.18, 0.07, 'sawtooth'), 80); }
 
-      // ===== Fireworks (pour la célébration)
       const rockets = [], sparks = [];
       function launchRocket() {
         const x = 80 + Math.random() * (W - 160);
@@ -461,7 +379,6 @@
           ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, Math.PI * 2); ctx.fill();
           ctx.globalAlpha = 1;
         }
-        // BRAVO
         ctx.save();
         ctx.font = `900 ${Math.floor(W * 0.12)}px "Gloria Hallelujah", system-ui`;
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
@@ -485,14 +402,11 @@
       function over() {
         if (game === 'celebrate') return;
         game = 'over';
-
-        // Best déjà mis à jour pendant la partie, mais on sécurise
         if (score > best) {
           best = score;
           UI.best.textContent = String(best);
           try { localStorage.setItem('flappy_jerome_best', String(best)); } catch (e) { }
         }
-
         overSfx();
         UI.msg.style.display = 'flex';
         UI.text.innerHTML = `Perdu 🤣🫵<br/><small>Score ${score} — Record ${best}<br/>Tape/Clic/Espace pour rejouer</small>`;
@@ -513,12 +427,11 @@
         }
       }
 
-      // ===== Pipes
       function rand(n) { const s = Math.sin(n * 9301 + 49297) * 233280; return s - Math.floor(s); }
       let spawnCount = 0;
       function spawnPipe(first = false) {
         const x = first ? W + PIPE_W * 1.2 : (pipes.length ? pipes[pipes.length - 1].x + Math.max(260, W * 0.42) : W + PIPE_W * 1.2);
-        const r = rand(spawnCount++); // 0..1
+        const r = rand(spawnCount++);
         const top = Math.floor(H * 0.18);
         const bottom = H - GROUND_H - Math.floor(H * 0.12);
         const gapH = Math.max(GAP_MIN, GAP - Math.min(120, score * 4));
@@ -526,13 +439,9 @@
         pipes.push({ x, gapY, gapH, passed: false });
       }
 
-      // ===== Input
       function flap() {
         ensureAudio();
-
-        // Si on a atteint 666 (état celebrate), un tap relance une partie
         if (game === 'celebrate') { start(); return; }
-
         if (game === 'over') { start(); return; }
         if (game === 'paused') { togglePause(); return; }
         if (game === 'ready') play();
@@ -545,31 +454,24 @@
         if (['Space', 'ArrowUp', 'KeyW', 'Enter'].includes(e.code)) { e.preventDefault(); flap(); }
         if (e.code === 'KeyP') { togglePause(); }
         if (e.code === 'KeyR') { start(); }
-        if (['ArrowLeft', 'ArrowRight', 'ArrowDown'].includes(e.code)) e.preventDefault();
       }, { passive: false });
       UI.pause.addEventListener('click', togglePause);
       UI.reset.addEventListener('click', start);
 
-      // ===== Background (clean : montagnes fixes, nuages lents)
       function drawBG() {
         const g = ctx.createLinearGradient(0, H, 0, 0);
         g.addColorStop(0, '#0f1624'); g.addColorStop(0.55, '#1b2a44'); g.addColorStop(1, '#2b3f68');
         ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-
         drawHills('#0f141b', 0.6, 22, 0.35, cloudSeed * 100);
         drawHills('#0b1016', 0.9, 30, 0.55, cloudSeed * 200);
-
         const gy = H - GROUND_H;
         const gg = ctx.createLinearGradient(0, gy, 0, H);
         gg.addColorStop(0, '#0f1216'); gg.addColorStop(1, '#0b0d11');
-        ctx.fillStyle = gg; ctx.fillRect(0, gy, GROUND_H ? W : 0, GROUND_H);
-
+        ctx.fillStyle = gg; ctx.fillRect(0, gy, W, GROUND_H);
         const gh = 6, g2 = ctx.createLinearGradient(0, gy, 0, gy + gh);
         g2.addColorStop(0, '#487c3a'); g2.addColorStop(1, '#2f5e2a');
         ctx.fillStyle = g2; ctx.fillRect(0, gy, W, gh);
         ctx.fillStyle = '#3b6d31'; for (let i = 2; i < W; i += 4) { const h = 2 + (i * 7) % 3; ctx.fillRect(i, gy - h, 1, h); }
-
-        // nuages très lents
         ctx.save(); ctx.globalAlpha = 0.12;
         const t = performance.now() * 0.00001;
         for (let i = 0; i < 6; i++) {
@@ -581,9 +483,7 @@
       function drawHills(color, amp, freq, scale, phase) {
         ctx.fillStyle = color; ctx.beginPath(); ctx.moveTo(0, H - GROUND_H - 20);
         for (let x = 0; x <= W; x += 8) {
-          const y = H - GROUND_H - 30
-            - Math.sin((x * scale + phase) * 0.02) * amp * 18
-            - Math.sin((x * scale + phase) * 0.005) * amp * 14;
+          const y = H - GROUND_H - 30 - Math.sin((x * scale + phase) * 0.02) * amp * 18 - Math.sin((x * scale + phase) * 0.005) * amp * 14;
           ctx.lineTo(x, y);
         }
         ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fill();
@@ -595,62 +495,48 @@
         ctx.fillStyle = '#e7eef9'; ctx.fill();
       }
 
-      // ===== Pipes & scoring
       function drawPipes(dt) {
         for (let i = pipes.length - 1; i >= 0; i--) {
           const p = pipes[i];
           if (game === 'playing') { p.x -= SPEED * dt; }
-
           const topH = p.gapY;
           const botY = p.gapY + p.gapH;
           const botH = H - GROUND_H - botY;
-
           const gTop = ctx.createLinearGradient(0, 0, 0, topH);
           gTop.addColorStop(0, '#2b231b'); gTop.addColorStop(1, '#1a1611');
           const gBot = ctx.createLinearGradient(0, botY, 0, H - GROUND_H);
           gBot.addColorStop(0, '#2b231b'); gBot.addColorStop(1, '#1a1611');
-
           ctx.fillStyle = 'rgba(0,0,0,0.18)';
           ctx.fillRect(p.x + PIPE_W - 3, 0, 3, topH);
           ctx.fillRect(p.x + PIPE_W - 3, botY, 3, botH);
-
           ctx.fillStyle = gTop; ctx.fillRect(p.x, 0, PIPE_W, topH);
           const capTop = ctx.createLinearGradient(0, topH - 10, 0, topH);
           capTop.addColorStop(0, '#4a7c3b'); capTop.addColorStop(1, '#2f5e2a');
           ctx.fillStyle = capTop; ctx.fillRect(p.x - 4, topH - 8, PIPE_W + 8, 8);
-
           ctx.fillStyle = gBot; ctx.fillRect(p.x, botY, PIPE_W, botH);
           const capBot = ctx.createLinearGradient(0, botY, 0, botY + 10);
           capBot.addColorStop(0, '#2f5e2a'); capBot.addColorStop(1, '#4a7c3b');
           ctx.fillStyle = capBot; ctx.fillRect(p.x - 4, botY, PIPE_W + 8, 8);
-
-          // score & CÉLÉBRATION à 666 (plus rien à 20)
           if (!p.passed && p.x + PIPE_W < bird.x - bird.r) {
             p.passed = true;
             score++;
             UI.score.textContent = String(score);
-
-            // Mise à jour du meilleur score en temps réel
             if (score > best) {
               best = score;
               UI.best.textContent = String(best);
               try { localStorage.setItem('flappy_jerome_best', String(best)); } catch (e) { }
             }
-
             SPEED += SPEED_GAIN;
             scoreSfx(score);
-
             if (score === 666 && !milestone) {
               milestone = true;
               game = 'celebrate';
               rockets.length = 0; sparks.length = 0;
               for (let k = 0; k < 6; k++) setTimeout(launchRocket, k * 300);
-
               UI.msg.style.display = 'flex';
               UI.text.innerHTML = `🔥 666 atteint 🔥<br/><small>Jérôme est devenu une légende.<br/>Tape/Clic/Espace pour rejouer</small>`;
             }
           }
-
           if (p.x + PIPE_W < -40) { pipes.splice(i, 1); }
         }
         if (game === 'playing' && pipes.length < 4) {
@@ -659,7 +545,6 @@
         }
       }
 
-      // ===== Bird (60x60, sans ombre/contour)
       function circleRectCollide(cx, cy, r, rect) {
         const nx = Math.max(rect.x, Math.min(cx, rect.x + rect.w));
         const ny = Math.max(rect.y, Math.min(cy, rect.y + rect.h));
@@ -674,19 +559,16 @@
           const targetRot = bird.vy < 0 ? -0.35 : Math.min(0.55, bird.vy / (H * 0.9));
           bird.rot += (targetRot - bird.rot) * 0.12;
         }
-
         const gy = H - GROUND_H;
         if (bird.y + bird.r >= gy) { bird.y = gy - bird.r; if (game === 'playing') over(); }
         if (bird.y - bird.r <= 0) { bird.y = bird.r; if (game === 'playing') over(); }
         for (const p of pipes) {
           const topRect = { x: p.x, y: 0, w: PIPE_W, h: p.gapY };
-          const botRect = { x: p.x, y: p.gapY + p.gapH, w: PIPE_W, h: H - GROUND_H - (p.pgapY + p.gapH) };
           const botRectFixed = { x: p.x, y: p.gapY + p.gapH, w: PIPE_W, h: H - GROUND_H - (p.gapY + p.gapH) };
           if (circleRectCollide(bird.x, bird.y, bird.r, topRect) || circleRectCollide(bird.x, bird.y, bird.r, botRectFixed)) {
             if (game === 'playing') over();
           }
         }
-
         ctx.save();
         ctx.translate(bird.x, bird.y);
         ctx.rotate(bird.rot);
@@ -700,7 +582,6 @@
         ctx.restore();
       }
 
-      // ===== Loop
       function tick(now) {
         const dt = Math.min(0.033, (now - tLast) / 1000); tLast = now;
         drawBG();
@@ -710,10 +591,7 @@
         if (game !== 'paused') requestAnimationFrame(tick);
       }
 
-      // Boot
       resize(); fitChrome(); start(); requestAnimationFrame(tick);
-
-      // Auto-pause onglet caché
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState !== 'visible' && game === 'playing') { togglePause(); }
       });

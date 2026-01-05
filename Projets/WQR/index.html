@@ -2,125 +2,181 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ArchiveFever.Work ∙ Wi-Fi QR</title>
-  <link rel="stylesheet" href="../../Sources/CSS/ColorQR.css" />
-  <link rel="icon" type="image/webp" href="../../Sources/Images/WQR.webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wi-Fi QR</title>
+    <link rel="icon" type="image/webp" href="../../Sources/Images/WQR.webp" />
+    <link href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #000;
+            --panel: #0d0d0d;
+            --accent: #ff8c00;
+            --text: #fff;
+            --border: #222;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Source Code Pro', monospace;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0 40px;
+        }
+
+        .jerome-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        main { width: 100%; max-width: 400px; }
+
+        #qrForm {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-row { display: flex; flex-direction: column; gap: 5px; }
+
+        label { font-size: 0.75rem; color: #888; text-transform: uppercase; }
+
+        input[type="text"], select {
+            background: #111;
+            border: 1px solid var(--border);
+            padding: 10px;
+            color: #fff;
+            font-family: inherit;
+            width: 100%;
+        }
+
+        .color-group { display: flex; gap: 5px; align-items: center; }
+
+        input[type="color"] {
+            border: none;
+            width: 40px;
+            height: 40px;
+            background: none;
+            cursor: pointer;
+        }
+
+        .checkbox {
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            padding: 5px 0;
+        }
+
+        button#generateBtn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        #qrContainer {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        canvas {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #downloadBtn {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.8rem;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .hidden { display: none !important; }
+    </style>
 </head>
 
 <body>
-  <header>
-    <a href="../../index.html"><img src="../../Sources/Images/jerome.webp" alt="Logo Jérôme" class="jerome-logo"></a>
-    <h1>Wi-Fi QR</h1>
-  </header>
+    <header>
+        <a href="../../index.html"><img src="../../Sources/Images/jerome.webp" alt="Logo" class="jerome-logo"></a>
+        <h1>Wi-Fi QR</h1>
+    </header>
 
-  <main>
-    <form id="qrForm">
-      <div class="form-row">
-        <label for="ssidInput">Nom du réseau (SSID) :</label>
-        <input type="text" id="ssidInput" required>
-      </div>
+    <main>
+        <form id="qrForm">
+            <div class="form-row">
+                <label for="ssidInput">Nom du réseau (SSID)</label>
+                <input type="text" id="ssidInput" required placeholder="Nom de votre box">
+            </div>
 
-      <div class="form-row">
-        <label for="passwordInput">Mot de passe :</label>
-        <input type="text" id="passwordInput">
-      </div>
+            <div class="form-row">
+                <label for="passwordInput">Mot de passe</label>
+                <input type="text" id="passwordInput" placeholder="••••••••">
+            </div>
 
-      <div class="form-row">
-        <label for="securitySelect">Sécurité :</label>
-        <select id="securitySelect">
-          <option value="WPA">WPA/WPA2</option>
-          <option value="WEP">WEP</option>
-          <option value="nopass">Aucune</option>
-        </select>
-      </div>
+            <div class="form-row">
+                <label for="securitySelect">Sécurité</label>
+                <select id="securitySelect">
+                    <option value="WPA">WPA/WPA2</option>
+                    <option value="WEP">WEP</option>
+                    <option value="nopass">Aucune</option>
+                </select>
+            </div>
 
-      <div class="form-row">
-        <label for="primaryColor">Couleur principale :</label>
-        <input type="color" id="primaryColor" value="#ff8c00">
-        <input type="text" id="primaryText" value="#ff8c00" class="color-value">
-      </div>
+            <div class="form-row">
+                <label>Couleurs (Principale / Secondaire)</label>
+                <div class="color-group">
+                    <input type="color" id="primaryColor" value="#ff8c00">
+                    <input type="text" id="primaryText" value="#ff8c00" style="flex:1">
+                </div>
+                <div class="color-group">
+                    <input type="color" id="secondaryColor" value="#970000">
+                    <input type="text" id="secondaryText" value="#970000" style="flex:1">
+                </div>
+            </div>
 
-      <div class="form-row">
-        <label for="secondaryColor">Couleur secondaire :</label>
-        <input type="color" id="secondaryColor" value="#970000">
-        <input type="text" id="secondaryText" value="#970000" class="color-value">
-      </div>
+            <div class="form-row checkbox">
+                <input type="checkbox" id="borderToggle" checked>
+                <label for="borderToggle" style="cursor: pointer;">Bordure personnalisée</label>
+            </div>
 
-      <div class="form-row checkbox">
-        <label for="borderToggle">Créer une bordure</label>
-        <input type="checkbox" id="borderToggle">
-      </div>
+            <button type="button" id="generateBtn">Générer le QR Code</button>
+        </form>
 
-      <button type="button" id="generateBtn">Générer le QR Code Wi-Fi</button>
-    </form>
+        <div id="qrContainer" class="hidden">
+            <canvas id="qrCode"></canvas>
+            <a id="downloadBtn" class="hidden" download="wifi-qr.png">Télécharger</a>
+        </div>
+    </main>
 
-    <div id="qrContainer" class="hidden">
-      <canvas id="qrCode"></canvas>
-      <a id="downloadBtn" class="hidden" download="wifi-qr.png">Télécharger le QR Code</a>
-    </div>
-  </main>
-
-  <footer>
-    <p>Mes réseaux</p>
-    <div class="links">
-      <a href="https://x.com/infinity_lbrtr" target="_blank" aria-label="X">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.933zM16.92 20.846h2.04L7.077 3.154H4.957l11.963 17.692z" />
-        </svg>
-      </a>
-      <a href="https://instagram.com/infinity_lbrtr" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="https://twitch.tv/feveeeer" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-      <a href="https://youtube.com/@Infinity_lbrtr" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-      <a href="https://steamcommunity.com/id/Fever65/" target="_blank" aria-label="Steam"><i class="fab fa-steam"></i></a>
-    </div>
-  </footer>
-
-  <style>
-    footer {
-      text-align: center;
-      color: #b0b0b0;
-      padding: 20px 10px 10px;
-      width: 100%;
-      font-size: 0.9rem;
-      margin-top: auto;
-    }
-
-    footer .links {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-    footer .links a {
-      color: #ff8c00;
-      text-decoration: none;
-      font-size: 1.5rem;
-      transition: color 0.2s ease;
-    }
-
-    footer .links a:hover {
-      color: #fff;
-    }
-
-    footer .links svg {
-      width: 24px;
-      height: 24px;
-      fill: #ff8c00;
-    }
-
-    footer .links a:hover svg {
-      fill: #fff;
-    }
-  </style>
-
-  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-  <script src="../../Sources/JS/wifi-qr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="../../Sources/JS/wifi-qr.js"></script>
 </body>
 
 </html>

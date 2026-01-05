@@ -16,14 +16,8 @@
       --link: #dcdcdc;
     }
 
-    * {
-      box-sizing: border-box
-    }
-
-    html,
-    body {
-      height: 100%
-    }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
 
     body {
       margin: 0;
@@ -39,7 +33,7 @@
     main {
       width: min(860px, 100%);
       margin: 0 auto;
-      padding: 22px 16px 26px;
+      padding: 22px 16px 40px;
       text-align: center;
     }
 
@@ -59,25 +53,9 @@
       flex: 0 0 auto;
     }
 
-    .titleline {
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+    h1 { margin: 0; font-size: 22px; letter-spacing: 1px; }
 
-    h1 {
-      margin: 0;
-      font-size: 22px;
-      letter-spacing: 1px;
-      line-height: 1.15;
-    }
-
-    .cat {
-      margin: 18px 0;
-    }
-
+    .cat { margin: 24px 0; }
     .cat-title {
       margin: 0 0 10px;
       color: var(--accent);
@@ -86,71 +64,88 @@
       text-transform: uppercase;
     }
 
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
+    ul { list-style: none; margin: 0; padding: 0; }
+    li { margin: 8px 0; }
 
-    li {
-      margin: 6px 0;
-    }
-
-    a {
+    /* Style uniforme pour tous les liens et le déclencheur de la modale */
+    a, .modal-trigger {
       color: var(--link);
       text-decoration: none;
       cursor: pointer;
+      transition: 0.2s;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: inherit;
+      padding: 0;
     }
 
-    a:hover {
-      color: var(--accent)
+    a:hover, .modal-trigger:hover {
+      color: var(--accent);
     }
 
-    footer {
-      margin-top: 28px;
-      padding-top: 10px;
+    /* --- STYLE DE LA MODALE --- */
+    dialog {
+      background: rgba(15, 15, 15, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      color: white;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      margin: 0;
     }
 
-    details summary {
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-header {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-weight: 800;
+    }
+
+    .modal-links li { margin: 15px 0; font-size: 18px; }
+
+    .close-modal {
+      margin-top: 25px;
+      display: inline-block;
+      font-size: 12px;
+      color: var(--muted);
       cursor: pointer;
-      color: var(--text);
     }
 
-    details summary:hover {
-      color: var(--accent)
-    }
+    dialog[open] { animation: fadeIn 0.3s ease-out; }
 
-    details ul {
-      margin-top: 10px
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -45%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
     }
 
     @media (max-width:420px) {
-      #jerome {
-        width: 56px;
-        height: 56px
-      }
-
-      h1 {
-        font-size: 20px
-      }
+      #jerome { width: 56px; height: 56px }
+      h1 { font-size: 20px }
     }
   </style>
 </head>
 
 <body>
   <main>
-
     <header>
       <img id="jerome" src="Sources/Images/jerome.webp" alt="Jérôme">
-      <div class="titleline">
-        <h1>ArchiveFever.Work</h1>
-      </div>
+      <h1>ArchiveFever.Work</h1>
     </header>
-    <section class="cat"></section>
-    <ul>
-      <li><a href="Projets/Merci/index.html">Bonjour</a></li>
-    </ul>
-    </section>
+
     <section class="cat">
       <p class="cat-title">Mes outils utiles.</p>
       <ul>
@@ -187,29 +182,43 @@
       </ul>
     </section>
 
-    <footer>
-      <details>
-        <summary>ME CONTACTER</summary>
-        <ul>
-          <li><a href="https://x.com/infinity_lbrtr" target="_blank" rel="noreferrer">X (anciennement twitter)</a></li>
-          <li><a href="https://instagram.com/infinity_lbrtr" target="_blank" rel="noreferrer">Instagram</a></li>
-          <li><a href="https://twitch.tv/feveeeer" target="_blank" rel="noreferrer">Twitch</a></li>
-          <li><a href="https://youtube.com/@Infinity_lbrtr" target="_blank" rel="noreferrer">YouTube</a></li>
-          <li><a href="https://steamcommunity.com/id/Fever65/" target="_blank" rel="noreferrer">Steam</a></li>
-        </ul>
-      </details>
-    </footer>
+    <section class="cat">
+      <p class="cat-title">Plus d'infos sur moi.</p>
+      <ul>
+        <li><a href="Projets/Merci/index.html">Soutenir le projet -> Faire un don.</a></li>
+        <li><a href="Projets/Setup/index.html">Mon setup -> Le matériel que j'utilise.</a></li>
+        <li><button class="modal-trigger" id="openContact">Me contacter -> Mes réseaux sociaux.</button></li>
+      </ul>
+    </section>
+
+    <dialog id="contactModal">
+      <div class="modal-header">Réseaux & Contact</div>
+      <ul class="modal-links">
+        <li><a href="https://x.com/infinity_lbrtr" target="_blank">X (Twitter)</a></li>
+        <li><a href="https://instagram.com/infinity_lbrtr" target="_blank">Instagram</a></li>
+        <li><a href="https://twitch.tv/feveeeer" target="_blank">Twitch</a></li>
+        <li><a href="https://youtube.com/@Infinity_lbrtr" target="_blank">YouTube</a></li>
+        <li><a href="https://steamcommunity.com/id/Fever65/" target="_blank">Steam</a></li>
+      </ul>
+      <div class="close-modal" id="closeContact">FERMER</div>
+    </dialog>
 
     <audio id="miaou" src="Sources/Sons/miaou.mp3" preload="auto"></audio>
   </main>
 
   <script>
-    const a = document.getElementById("miaou");
+    const audio = document.getElementById("miaou");
+    const modal = document.getElementById("contactModal");
+    const openBtn = document.getElementById("openContact");
+    const closeBtn = document.getElementById("closeContact");
+
     document.getElementById("jerome").addEventListener("click", () => {
-      try { a.currentTime = 0; a.play().catch(() => { }) } catch (e) { }
+      try { audio.currentTime = 0; audio.play().catch(() => { }) } catch (e) { }
     }, { passive: true });
+
+    openBtn.onclick = () => modal.showModal();
+    closeBtn.onclick = () => modal.close();
+    modal.addEventListener("click", (e) => { if (e.target === modal) modal.close(); });
   </script>
-
 </body>
-
 </html>

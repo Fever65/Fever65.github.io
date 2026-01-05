@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYLVAIN HIRTZ — LE MANIFESTE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&family=Playfair+Display:ital,wght@1@700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            height: 100%;
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Grain subtil pour la texture */
+        body::before {
+            content: "";
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10%;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateY(10px);
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .label {
+            font-size: 0.65rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: #555;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 12vw, 8rem);
+            line-height: 0.8;
+            text-transform: uppercase;
+            letter-spacing: -6px;
+            margin-bottom: 2rem;
+        }
+
+        .italic {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            text-transform: lowercase;
+            letter-spacing: -2px;
+            color: #888;
+            font-weight: 500;
+        }
+
+        p {
+            max-width: 550px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            font-weight: 300;
+            color: #aaa;
+        }
+
+        /* Navigation Minimaliste */
+        .footer-ui {
+            position: fixed;
+            bottom: 40px; left: 0; width: 100%;
+            display: flex; flex-direction: column; align-items: center;
+            z-index: 20;
+        }
+
+        .dots { display: flex; gap: 12px; margin-bottom: 15px; }
+        .dot { width: 3px; height: 3px; background: #333; transition: 0.4s; }
+        .dot.active { background: #fff; transform: scale(2.5); }
+
+        .hint { font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; opacity: 0.3; }
+
+        /* Le Bouton Final */
+        .final-link {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #fff;
+            padding-bottom: 5px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .final-link:hover { color: #888; border-color: #888; padding-left: 15px; padding-right: 15px; }
+    </style>
+</head>
+<body onclick="nextSlide()">
+
+<div class="footer-ui">
+    <div class="dots" id="dots"></div>
+    <div class="hint" id="hint">Appuyez pour avancer</div>
+</div>
+
+<div id="manifesto">
+    <div class="slide active">
+        <div class="label">Sylvain Hirtz</div>
+        <h1>L'HÉRITAGE <br><span class="italic">est un choix.</span></h1>
+        <p>On ne laisse rien derrière soi par hasard. Ce que tu décides de construire aujourd'hui est la seule part de toi qui survivra au temps.</p>
+    </div>
+
+    <div class="slide">
+        <div class="label">La Réalité</div>
+        <h1>Le Rêve <br><span class="italic">est une prison.</span></h1>
+        <p>Tant que tes idées restent dans ta tête, elles t'enchaînent. Libère-les. Donne-leur une forme, même violente, même imparfaite.</p>
+    </div>
+
+    <div class="slide">
+        <div class="label">L'Action</div>
+        <h1>Bâtir <br><span class="italic">dans le sang.</span></h1>
+        <p>La création n'est pas une promenade. C'est une extraction. Tu dois arracher tes visions au néant pour les poser sur la table.</p>
+    </div>
+
+    <div class="slide">
+        <div class="label">Le Risque</div>
+        <h1>Échouer <br><span class="italic">est un luxe.</span></h1>
+        <p>Ceux qui ne font rien ne tombent jamais. Mais ils ne se relèvent jamais non plus. Préfère la douleur de l'échec au confort de l'inexistence.</p>
+    </div>
+
+    <div class="slide">
+        <div class="label">La Vérité</div>
+        <h1>Toucher <br><span class="italic">le réel.</span></h1>
+        <p>Tes mains sont faites pour sculpter, pas pour attendre. Le monde appartient à ceux qui osent le salir avec leur propre vérité.</p>
+    </div>
+
+    <div class="slide">
+        <div class="label">Maintenant</div>
+        <h1>Sortir <br><span class="italic">de l'ombre.</span></h1>
+        <p>N'attends plus que quelqu'un te dise que tu es prêt. Personne ne le fera. Lève-toi et va chercher ce qui t'appartient.</p>
+    </div>
+
+    <div class="slide">
+        <div class="label">Le Départ</div>
+        <h1>DEVIENS <br><span class="italic">éternel.</span></h1>
+        <a href="../../index.html" class="final-link">BÂTIR LE MONDE</a>
+        <p style="margin-top: 40px; font-size: 0.65rem; opacity: 0.4; letter-spacing: 2px;">SYLVAIN HIRTZ</p>
+    </div>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots');
+    const hint = document.getElementById('hint');
+
+    // Génération dynamique des points de navigation
+    slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if(i === 0) dot.classList.add('active');
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll('.dot');
+
+    function nextSlide() {
+        if (currentSlide < slides.length - 1) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+            
+            currentSlide++;
+            
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+
+            // Cacher le texte d'aide sur la dernière slide
+            if(currentSlide === slides.length - 1) {
+                hint.style.visibility = 'hidden';
+            }
+        }
+    }
+
+    // Sécurité de chargement
+    window.scrollTo(0, 0);
+</script>
+
+</body>
+</html>

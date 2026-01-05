@@ -123,7 +123,7 @@
     <div class="glitch">404</div>
     <h1>PERDU DANS LE VIDE</h1>
     <p>Cette page a été dévorée par Jérôme.</p>
-    <a href="/index.html">S'ÉCHAPPER</a>
+    <a href="index.html">S'ÉCHAPPER</a>
   </main>
 
   <audio id="miaou" src="Sources/Sons/miaou.mp3" preload="auto"></audio>
@@ -139,18 +139,18 @@
       glow.style.top = e.clientY + "px";
     };
 
-    // Spawn de clones de zinzin
+    // Spawn de clones
     jerome.onclick = () => {
-      // Son
-      try { audio.currentTime = 0; audio.play().catch(()=>{}); } catch(e){}
+      // Lecture du son (déclenché par un clic utilisateur pour passer les blocages navigateurs)
+      audio.currentTime = 0;
+      audio.play().catch(err => console.log("L'audio n'a pas pu être lu:", err));
 
-      // Création de 5 clones à chaque clic
       for(let i=0; i<5; i++) {
         const clone = document.createElement("img");
+        // Correction du chemin ici aussi
         clone.src = "Sources/Images/jerome.webp";
         clone.className = "clone";
         
-        // Position de départ
         let x = window.innerWidth / 2;
         let y = window.innerHeight / 2;
         let speedX = (Math.random() - 0.5) * 15;
@@ -159,7 +159,6 @@
 
         document.body.appendChild(clone);
 
-        // Animation de rebond
         const move = () => {
           x += speedX;
           y += speedY;

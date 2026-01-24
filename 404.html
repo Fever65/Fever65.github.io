@@ -28,7 +28,6 @@
       text-align: center;
     }
 
-    /* Effet de scanline (vieux moniteur) */
     body::before {
       content: " ";
       position: fixed;
@@ -46,7 +45,6 @@
       z-index: 10;
     }
 
-    /* Animation de glitch sur le texte */
     .glitch {
       font-size: 80px;
       font-weight: 900;
@@ -102,7 +100,6 @@
       100% { text-shadow: -0.025em 0 0 var(--glitch-1), -0.025em -0.025em 0 var(--glitch-2); }
     }
 
-    /* Halo qui suit la souris */
     .cursor-glow {
       position: fixed;
       width: 400px; height: 400px;
@@ -133,21 +130,17 @@
     const glow = document.getElementById("glow");
     const jerome = document.getElementById("jerome");
 
-    // Suivi de souris
     window.onmousemove = (e) => {
       glow.style.left = e.clientX + "px";
       glow.style.top = e.clientY + "px";
     };
 
-    // Spawn de clones
     jerome.onclick = () => {
-      // Lecture du son (déclenché par un clic utilisateur pour passer les blocages navigateurs)
       audio.currentTime = 0;
       audio.play().catch(err => console.log("L'audio n'a pas pu être lu:", err));
 
       for(let i=0; i<5; i++) {
         const clone = document.createElement("img");
-        // Correction du chemin ici aussi
         clone.src = "Sources/Images/jerome.webp";
         clone.className = "clone";
         

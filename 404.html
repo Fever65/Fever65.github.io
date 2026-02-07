@@ -1,174 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ArchiveFever.Work — 404 GLITCHED</title>
-  <link rel="icon" href="Sources/Images/jerome.webp" type="image/webp">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - ARCHIVEFEVER.WORK</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
 
-  <style>
-    :root {
-      --bg: #060606;
-      --text: #e9e9e9;
-      --accent: #ff8c00;
-      --glitch-1: #ff00ff;
-      --glitch-2: #00ffff;
-    }
+        .content {
+            padding: 20px;
+            max-width: 450px;
+        }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; overflow: hidden; background: var(--bg); }
+        h1 {
+            font-size: 13px;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
 
-    body {
-      margin: 0;
-      color: var(--text);
-      font: 16px/1.6 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+        p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: white;
+            font-weight: 300;
+        }
 
-    body::before {
-      content: " ";
-      position: fixed;
-      top: 0; left: 0; bottom: 0; right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                  linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-      background-size: 100% 4px, 3px 100%;
-      z-index: 100;
-      pointer-events: none;
-    }
+        .status {
+            font-size: 12px;
+            display: block;
+            margin-bottom: 60px;
+            color: #666;
+            letter-spacing: 1px;
+        }
 
-    main {
-      padding: 24px;
-      position: relative;
-      z-index: 10;
-    }
+        .project-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.6;
+            display: block;
+            margin-bottom: 10px;
+        }
 
-    .glitch {
-      font-size: 80px;
-      font-weight: 900;
-      position: relative;
-      text-shadow: 0.05em 0 0 var(--glitch-1), -0.025em -0.05em 0 var(--glitch-2),
-                   0.025em 0.05em 0 #ff0;
-      animation: glitch 500ms infinite;
-    }
+        .project-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
 
-    #jerome {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: transform 0.1s;
-      border: 4px solid var(--accent);
-      filter: drop-shadow(0 0 15px var(--accent));
-    }
+        .btn-back {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+        }
 
-    #jerome:hover { transform: scale(1.1) rotate(5deg); }
-    #jerome:active { transform: scale(0.9); }
-
-    .clone {
-      position: fixed;
-      pointer-events: none;
-      z-index: 5;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-    }
-
-    h1 { font-size: 1.5rem; letter-spacing: 5px; color: var(--accent); margin-top: 20px; }
-
-    a {
-      color: #fff;
-      text-decoration: none;
-      border: 1px solid #fff;
-      padding: 10px 20px;
-      margin-top: 20px;
-      display: inline-block;
-      transition: 0.3s;
-    }
-
-    a:hover { background: #fff; color: #000; box-shadow: 0 0 20px #fff; }
-
-    @keyframes glitch {
-      0% { text-shadow: 0.05em 0 0 var(--glitch-1), -0.05em -0.025em 0 var(--glitch-2); }
-      14% { text-shadow: 0.05em 0 0 var(--glitch-1), -0.05em -0.025em 0 var(--glitch-2); }
-      15% { text-shadow: -0.05em -0.025em 0 var(--glitch-1), 0.025em 0.025em 0 var(--glitch-2); }
-      49% { text-shadow: -0.05em -0.025em 0 var(--glitch-1), 0.025em 0.025em 0 var(--glitch-2); }
-      50% { text-shadow: 0.025em 0.05em 0 var(--glitch-1), 0.05em 0 0 var(--glitch-2); }
-      99% { text-shadow: 0.025em 0.05em 0 var(--glitch-1), 0.05em 0 0 var(--glitch-2); }
-      100% { text-shadow: -0.025em 0 0 var(--glitch-1), -0.025em -0.025em 0 var(--glitch-2); }
-    }
-
-    .cursor-glow {
-      position: fixed;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(255,140,0,0.15) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 1;
-    }
-  </style>
+        .btn-back:hover {
+            border-bottom: 1px solid white;
+        }
+    </style>
 </head>
 
 <body>
-  <div class="cursor-glow" id="glow"></div>
-  
-  <main>
-    <img id="jerome" src="Sources/Images/jerome.webp" alt="Jérôme">
-    <div class="glitch">404</div>
-    <h1>PERDU DANS LE VIDE</h1>
-    <p>Cette page a été dévorée par Jérôme.</p>
-    <a href="index.html">S'ÉCHAPPER</a>
-  </main>
 
-  <audio id="miaou" src="Sources/Sons/miaou.mp3" preload="auto"></audio>
+    <div class="content">
+        <h1>404 ERROR</h1>
 
-  <script>
-    const audio = document.getElementById("miaou");
-    const glow = document.getElementById("glow");
-    const jerome = document.getElementById("jerome");
+        <p>
+            Cette page n'existe pas, mais je n'aime pas le vide. <br>
+            Cet espace accueillera bientôt mes projets secrets.
+        </p>
 
-    window.onmousemove = (e) => {
-      glow.style.left = e.clientX + "px";
-      glow.style.top = e.clientY + "px";
-    };
+        <div style="margin-bottom: 60px;">
+            <span class="status"></span>
+            <ul style="list-style: none; padding: 0; margin-top: 20px;">
+                <li><a href="neural.html" class="project-link">&rarr; Neural Archive Core</a></li>
+            </ul>
+        </div>
 
-    jerome.onclick = () => {
-      audio.currentTime = 0;
-      audio.play().catch(err => console.log("L'audio n'a pas pu être lu:", err));
+        <div>
+            <a href="index.html" class="btn-back">
+                &rarr; Retour sur ArchiveFever.Work
+            </a>
+        </div>
+    </div>
 
-      for(let i=0; i<5; i++) {
-        const clone = document.createElement("img");
-        clone.src = "Sources/Images/jerome.webp";
-        clone.className = "clone";
-        
-        let x = window.innerWidth / 2;
-        let y = window.innerHeight / 2;
-        let speedX = (Math.random() - 0.5) * 15;
-        let speedY = (Math.random() - 0.5) * 15;
-        let rotation = 0;
-
-        document.body.appendChild(clone);
-
-        const move = () => {
-          x += speedX;
-          y += speedY;
-          rotation += 10;
-
-          if(x <= 0 || x >= window.innerWidth - 64) speedX *= -1;
-          if(y <= 0 || y >= window.innerHeight - 64) speedY *= -1;
-
-          clone.style.left = x + "px";
-          clone.style.top = y + "px";
-          clone.style.transform = `rotate(${rotation}deg)`;
-
-          requestAnimationFrame(move);
-        };
-        requestAnimationFrame(move);
-      }
-    };
-  </script>
 </body>
+
 </html>

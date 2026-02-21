@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>COLORQR - CHOIX DE LANGUE</title>
+  <title>NEURAL - LANGUAGE SELECT</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{
@@ -15,7 +15,7 @@
       overflow:hidden;
     }
 
-    /* FULL PAGE NEURAL BACKGROUND */
+    /* full-page background animation */
     canvas#dots{
       position:fixed;
       inset:0;
@@ -37,51 +37,31 @@
       padding:20px;
     }
 
+    /* more vertical panel */
     .panel{
-      width:min(560px, 92vw);
+      width:min(560px, 100%);
       border:1px solid #222;
+      background: radial-gradient(900px 500px at 50% 35%, rgba(0,251,255,.08), rgba(255,0,255,.06), rgba(0,0,0,0) 70%),
+                  linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,0));
       border-radius:14px;
       padding:18px;
-      background:
-        radial-gradient(900px 500px at 50% 35%, rgba(255,140,0,.10), rgba(0,251,255,.07), rgba(255,0,255,.05), rgba(0,0,0,0) 70%),
-        linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,0));
       position:relative;
       overflow:hidden;
-      text-align:center;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
 
-    .qr-marks{
-      position:absolute;
-      top:14px;
-      left:14px;
+    .stack{
       display:flex;
-      gap:8px;
-      opacity:.55;
-      pointer-events:none;
+      flex-direction:column;
+      gap:12px;
     }
-    .qr{
-      width:16px;height:16px;
-      border:1px solid #333;
-      border-radius:4px;
-      position:relative;
+
+    .block{
+      border:1px solid #151515;
+      border-radius:12px;
+      padding:18px;
       background: rgba(0,0,0,.35);
-    }
-    .qr:before{
-      content:"";
-      position:absolute;
-      inset:3px;
-      border:1px solid #444;
-      border-radius:3px;
-    }
-    .qr:after{
-      content:"";
-      position:absolute;
-      inset:6px;
-      background:#fff;
-      opacity:.08;
-      border-radius:2px;
     }
 
     .tag{
@@ -89,36 +69,35 @@
       text-transform:uppercase;
       letter-spacing:2px;
       color:#666;
-      margin-bottom:10px;
     }
 
     .title{
+      margin-top:10px;
       font-size:18px;
       letter-spacing:2px;
       line-height:1.2;
-      margin-bottom:10px;
     }
 
     .desc{
+      margin-top:10px;
       font-size:12px;
       color:#9a9a9a;
       line-height:1.6;
-      margin: 0 auto 14px auto;
-      max-width: 48ch;
+      max-width: 56ch;
     }
 
     .meta{
+      margin-top:14px;
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      justify-content:center;
       align-items:center;
       color:#666;
       font-size:10px;
       letter-spacing:1px;
       text-transform:uppercase;
-      margin-bottom:14px;
     }
+
     .chip{
       border:1px solid #222;
       padding:6px 10px;
@@ -127,14 +106,23 @@
       white-space:nowrap;
     }
 
-    .buttons{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      margin-top:6px;
+    .tiny{
+      font-size:10px;
+      color:#777;
+      opacity:.9;
+      line-height:1.6;
+      margin-top:14px;
     }
 
-    /* NON-WHITE BUTTONS */
+    .label{
+      font-size:9px;
+      color:#555;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      margin-bottom:10px;
+    }
+
+    /* non-white buttons (no eye burn) */
     .btn{
       width:100%;
       display:flex;
@@ -150,9 +138,10 @@
       font-size:12px;
       letter-spacing:1px;
       cursor:pointer;
-      transition: transform .05s ease, background .12s ease, border-color .12s ease, filter .12s ease;
+      transition: transform .05s ease, background .12s ease, color .12s ease, border-color .12s ease, filter .12s ease;
       user-select:none;
     }
+
     .btn:hover{
       background: rgba(255,255,255,.06);
       border-color:#3a3a3a;
@@ -161,42 +150,23 @@
     }
 
     .btn.primary{
-      border-color: rgba(255,140,0,.35);
-      background: rgba(255,140,0,.10);
-      font-weight:700;
+      border-color: rgba(0,251,255,.35);
+      background: rgba(0,251,255,.10);
     }
     .btn.primary:hover{
-      border-color: rgba(255,140,0,.55);
-      background: rgba(255,140,0,.14);
+      border-color: rgba(0,251,255,.60);
+      background: rgba(0,251,255,.14);
     }
 
     .btn.alt{
-      border-color: rgba(0,251,255,.30);
-      background: rgba(0,251,255,.08);
+      border-color: rgba(255,0,255,.30);
+      background: rgba(255,0,255,.09);
     }
     .btn.alt:hover{
-      border-color: rgba(0,251,255,.55);
-      background: rgba(0,251,255,.12);
+      border-color: rgba(255,0,255,.55);
+      background: rgba(255,0,255,.13);
     }
 
-    .divider{
-      height:1px;
-      background:#111;
-      margin:14px 0 10px 0;
-    }
-
-    .tiny{
-      font-size:10px;
-      color:#777;
-      opacity:.95;
-      line-height:1.5;
-    }
-
-    .back-row{
-      display:flex;
-      justify-content:center;
-      margin-top:12px;
-    }
     .btn.back{
       justify-content:center;
       gap:8px;
@@ -204,6 +174,7 @@
       font-weight:700;
       border-color:#222;
       background: rgba(0,0,0,.35);
+      margin-top:8px;
     }
     .btn.back:hover{
       background: rgba(255,255,255,.06);
@@ -223,46 +194,45 @@
 
   <div class="viewport">
     <div class="panel">
-      <div class="qr-marks">
-        <div class="qr"></div>
-        <div class="qr"></div>
-        <div class="qr"></div>
-      </div>
+      <div class="stack">
 
-      <div class="tag">LANGUE / LANGUAGE</div>
-      <div class="title">CHOISIR L’INTERFACE<br/>SELECT INTERFACE</div>
-      <div class="desc">
-        Choisis ta langue pour entrer dans ColorQR.<br/>
-        Pick your language to enter ColorQR.
-      </div>
+        <div class="block">
+          <div class="tag">LANGUAGE / LANGUE</div>
+          <div class="title">SELECT INTERFACE<br/>CHOISIR L’INTERFACE</div>
+          <div class="desc">
+            Pick your language to enter the Neural generator.<br/>
+            Choisis ta langue pour entrer dans le générateur Neural.
+          </div>
 
-      <div class="meta">
-        <span class="chip">COLORQR</span>
-        <span class="chip">ARCHIVEFEVER</span>
-        <span class="chip">EXPORT: PNG</span>
-      </div>
+          <div class="meta">
+            <span class="chip">NEURAL</span>
+            <span class="chip">ARCHIVEFEVER</span>
+          </div>
 
-      <div class="buttons">
-        <a class="btn primary" href="./FR.html">
-          <span>FRANÇAIS</span>
-          <span>→</span>
-        </a>
+          <div class="tiny">
+            Tip: you can bookmark each version directly.<br/>
+            Astuce : tu peux mettre chaque version en favori.
+          </div>
+        </div>
 
-        <a class="btn alt" href="./EN.html">
-          <span>ENGLISH</span>
-          <span>→</span>
-        </a>
-      </div>
+        <div class="block">
+          <div class="label">Choose / Choisir</div>
 
-      <div class="divider"></div>
+          <a class="btn primary" href="./EN.html">
+            <span>ENGLISH</span>
+            <span>→</span>
+          </a>
 
-      <div class="tiny">
-        Astuce : mets chaque version en favori.<br/>
-        Tip: bookmark each version directly.
-      </div>
+          <div style="height:10px"></div>
 
-      <div class="back-row">
-        <a class="btn back" href="../../index.html">← RETOUR / BACK</a>
+          <a class="btn alt" href="./FR.html">
+            <span>FRANÇAIS</span>
+            <span>→</span>
+          </a>
+
+          <a class="btn back" href="../../index.html">← BACK / RETOUR</a>
+        </div>
+
       </div>
     </div>
   </div>
@@ -281,8 +251,8 @@
     }
 
     let nodes = [];
-    let hueBase = 28;
-    let hueTarget = 210;
+    let hueBase = 180;
+    let hueTarget = 300;
 
     function init(){
       const area = window.innerWidth * window.innerHeight;
@@ -298,7 +268,7 @@
     }
 
     function pickNewHue(){
-      const choices = [18, 28, 42, 180, 210, 260, 300, 330];
+      const choices = [180, 200, 220, 260, 300, 320, 340, 20, 40, 60];
       hueTarget = choices[(Math.random()*choices.length)|0];
     }
 
@@ -324,7 +294,7 @@
           const dx = a.x-b.x, dy = a.y-b.y;
           const d = Math.hypot(dx,dy);
           if(d < maxD){
-            const alpha = (1 - d/maxD) * 0.20;
+            const alpha = (1 - d/maxD) * 0.22;
             const hue = (hueBase + (i%9)*2) % 360;
             ctx.beginPath();
             ctx.strokeStyle = `hsla(${hue}, 100%, 60%, ${alpha})`;

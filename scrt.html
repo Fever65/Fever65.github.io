@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>vrai archivefever.work · secondary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000;
+      --txt: #fff;
+      --accent: #ff8c00;
+      --v4: #555;
+      --v45: #00d2ff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--txt);
+      font-family: 'Source Code Pro', monospace;
+      padding: 40px 20px;
+    }
+
+    .container { max-width: 800px; margin: 0 auto; position: relative; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #666;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      transition: color 0.2s ease;
+    }
+    .back-btn:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .logo {
+      width: 180px; 
+      height: 180px;
+      border-radius: 40px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    h1 { font-weight: 900; font-size: 24px; letter-spacing: -1px; }
+
+    .info-suno {
+      border: 1px solid #222;
+      padding: 25px;
+      margin-bottom: 50px;
+      font-size: 15px;
+      line-height: 1.6;
+      background: #050505;
+    }
+    .info-suno b { color: var(--accent); }
+
+    .album-list { display: flex; flex-direction: column; gap: 15px; }
+
+    .album-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 25px;
+      text-decoration: none;
+      color: var(--txt);
+      border: 1px solid #222;
+      transition: all 0.2s ease;
+      background: #000;
+    }
+
+    .album-link:hover {
+      border-color: var(--txt);
+      background: #0a0a0a;
+      transform: scale(1.01);
+    }
+
+    .album-info { display: flex; flex-direction: column; gap: 5px; }
+    .name { font-weight: 900; font-size: 20px; text-transform: uppercase; }
+    
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+    .tag-v4 { background: #1a1a1a; color: #888; border: 1px solid #333; }
+    .tag-v45 { background: rgba(0,210,255,0.1); color: var(--v45); border: 1px solid var(--v45); }
+
+    .arrow { font-size: 20px; color: #333; transition: 0.2s; }
+    .album-link:hover .arrow { color: var(--accent); transform: translateX(5px); }
+
+    @media (max-width: 500px) {
+      .logo { width: 140px; height: 140px; }
+      .name { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="../index.html" class="back-btn">← RETOUR</a>
+
+    <header class="hero">
+      <img class="logo" src="Sources/Images/dromadog.webp" alt="dromadog" />
+      <h1>Les profondeurs des archives.</h1>
+    </header>
+
+    <div class="info-suno">
+      INDEX ARCHIVAIRE : Ces albums ont été générés via <b>SUNO AI</b>. 
+      Les trois premiers opus marquent l'ère <b>V4</b>, tandis que l'ultime projet exploite les capacités de la <b>V4.5</b>.
+    </div>
+
+    <div class="album-list">
+      
+      <a href="Archives/Albums/Fragments/index.html" class="album-link">
+        <div class="album-info">
+          <span class="tag tag-v4">SUNO V4</span>
+          <span class="name">Fragments</span>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="Archives/Albums/Ocean/index.html" class="album-link">
+        <div class="album-info">
+          <span class="tag tag-v4">SUNO V4</span>
+          <span class="name">Ocean</span>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="Archives/Albums/203/index.html" class="album-link">
+        <div class="album-info">
+          <span class="tag tag-v4">SUNO V4</span>
+          <span class="name">203</span>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a href="Archives/Albums/MementoMori/index.html" class="album-link" style="border-left: 4px solid var(--v45);">
+        <div class="album-info">
+          <span class="tag tag-v45">SUNO V4.5 (LAST)</span>
+          <span class="name">Memento Mori</span>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+
+</body>
+</html>

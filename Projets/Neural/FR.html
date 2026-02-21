@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEURAL - ARCHIVEFEVER</title>
+    <style>
+        * { box-sizing: border-box; }
+        html, body {
+            background-color: black;
+            color: white;
+            font-family: ui-monospace, 'Cascadia Code', monospace;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            padding: 15px;
+            text-align: center;
+            flex-shrink: 0;
+            border-bottom: 1px solid #111;
+        }
+        h1 { font-size: 12px; letter-spacing: 4px; margin: 0; opacity: 0.7; }
+        .zone-affichage {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            min-height: 0;
+        }
+        canvas {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border: 1px solid #222;
+        }
+        .barre-outils {
+            background: #080808;
+            border-top: 1px solid #222;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-end;
+            overflow-x: auto;
+            flex-shrink: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .barre-outils::-webkit-scrollbar { height: 4px; }
+        .barre-outils::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        .groupe-saisie { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; }
+        label { font-size: 9px; color: #555; text-transform: uppercase; white-space: nowrap; }
+        input, select, button {
+            background: #000;
+            border: 1px solid #333;
+            color: white;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 12px;
+            outline: none;
+        }
+        button { cursor: pointer; white-space: nowrap; font-weight: bold; padding: 10px 20px; }
+        button:hover { background: white; color: black; }
+        .btn-generer { background: white; color: black; }
+        #resolutionPerso { display: none; gap: 8px; }
+        .btn-sortie {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #333;
+            padding: 6px 12px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 10px;
+            z-index: 100;
+        }
+        @media (max-width: 768px) {
+            .barre-outils { justify-content: flex-start; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="../../index.html" class="btn-sortie">Retour &rarr;</a>
+
+    <header>
+        <h1>NOYAU_ARCHIVE_NEURONAL</h1>
+    </header>
+
+    <div class="zone-affichage">
+        <canvas id="toileNeurale"></canvas>
+    </div>
+
+    <div class="barre-outils">
+        <div class="groupe-saisie">
+            <label>Graine</label>
+            <input type="text" id="saisieGraine" placeholder="Aléatoire" style="width: 120px;">
+        </div>
+
+        <div class="groupe-saisie">
+            <label>Points</label>
+            <input type="number" id="saisieNoeuds" value="60" min="1" max="250" style="width: 70px;">
+        </div>
+
+        <div class="groupe-saisie">
+            <label>Couleurs</label>
+            <select id="modeCouleur">
+                <option value="neon">NÉON (Multicolore)</option>
+                <option value="binary">BINAIRE (Deux couleurs)</option>
+                <option value="mono">MONO (Blanc sur fond noir)</option>
+            </select>
+        </div>
+
+        <div class="groupe-saisie">
+            <label>Format</label>
+            <select id="selectFormat" onchange="basculerPerso()">
+                <option value="landscape">16:9</option>
+                <option value="ultrawide">21:9</option>
+                <option value="square">1:1</option>
+                <option value="portrait">9:16</option>
+                <option value="custom">Perso</option>
+            </select>
+        </div>
+
+        <div id="resolutionPerso" class="groupe-saisie">
+            <label>L/H</label>
+            <div style="display:flex; gap:5px;">
+                <input type="number" id="largeurPerso" value="1920" style="width:65px;">
+                <input type="number" id="hauteurPerso" value="1080" style="width:65px;">
+            </div>
+        </div>
+
+        <div class="groupe-saisie">
+            <label>&nbsp;</label>
+            <div style="display:flex; gap:10px;">
+                <button onclick="redimensionnerToile()" class="btn-generer">Générer</button>
+                <button onclick="sauverArchive()">Créer PNG</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const toile = document.getElementById('toileNeurale');
+        const ctx = toile.getContext('2d');
+
+        function basculerPerso() {
+            const estPerso = document.getElementById('selectFormat').value === 'custom';
+            document.getElementById('resolutionPerso').style.display = estPerso ? 'flex' : 'none';
+        }
+
+        function cyrb128(chaine) {
+            let h1 = 1779033703, h2 = 277808939, h3 = 1457163285, h4 = 951274213;
+            for (let i = 0, k; i < chaine.length; i++) {
+                k = chaine.charCodeAt(i);
+                h1 = h2 ^ Math.imul(h1 ^ k, 597399067);
+                h2 = h3 ^ Math.imul(h2 ^ k, 2869860233);
+                h3 = h4 ^ Math.imul(h3 ^ k, 951274213);
+                h4 = h1 ^ Math.imul(h4 ^ k, 2716044179);
+            }
+            return [h1 >>> 0, h2 >>> 0, h3 >>> 0, h4 >>> 0];
+        }
+
+        function sfc32(a, b, c, d) {
+            return function() {
+                a >>>= 0; b >>>= 0; c >>>= 0; d >>>= 0; 
+                var t = (a + b | 0) + d | 0;
+                d = d + 1 | 0;
+                a = b ^ b >>> 9;
+                b = c + (c << 3) | 0;
+                c = (c << 21 | c >>> 11);
+                c = c + t | 0;
+                return (t >>> 0) / 4294967296;
+            }
+        }
+
+        function redimensionnerToile() {
+            const format = document.getElementById('selectFormat').value;
+            if (format === 'landscape') { toile.width = 1920; toile.height = 1080; }
+            else if (format === 'ultrawide') { toile.width = 2560; toile.height = 1080; }
+            else if (format === 'square') { toile.width = 1500; toile.height = 1500; }
+            else if (format === 'portrait') { toile.width = 1080; toile.height = 1920; }
+            else if (format === 'custom') {
+                toile.width = parseInt(document.getElementById('largeurPerso').value) || 1000;
+                toile.height = parseInt(document.getElementById('hauteurPerso').value) || 1000;
+            }
+            genererNeural();
+        }
+
+        function genererNeural() {
+            let valeurGraine = document.getElementById('saisieGraine').value;
+            let alea;
+            if (!valeurGraine || valeurGraine.trim() === "") {
+                const graineAleatoire = Math.random().toString(36).substring(7);
+                const donneesGraine = cyrb128(graineAleatoire);
+                alea = sfc32(donneesGraine[0], donneesGraine[1], donneesGraine[2], donneesGraine[3]);
+            } else {
+                const donneesGraine = cyrb128(valeurGraine);
+                alea = sfc32(donneesGraine[0], donneesGraine[1], donneesGraine[2], donneesGraine[3]);
+            }
+
+            let nbNoeuds = parseInt(document.getElementById('saisieNoeuds').value);
+            if (nbNoeuds > 250) nbNoeuds = 250;
+
+            const mode = document.getElementById('modeCouleur').value;
+
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, toile.width, toile.height);
+
+            const toutesCouleurs = ['#00FBFF', '#FF00FF', '#FFFF00', '#FF3E11', '#FFFFFF'];
+            let couleurs = (mode === 'neon')
+                ? toutesCouleurs
+                : (mode === 'mono')
+                    ? ['#FFF']
+                    : [toutesCouleurs[Math.floor(alea()*5)], toutesCouleurs[Math.floor(alea()*5)]];
+
+            const noeuds = [];
+            for (let i = 0; i < nbNoeuds; i++) {
+                noeuds.push({
+                    x: alea() * toile.width,
+                    y: alea() * toile.height,
+                    color: couleurs[Math.floor(alea() * couleurs.length)],
+                    radius: 2 + alea() * 4
+                });
+            }
+
+            ctx.lineWidth = 1;
+            for (let i = 0; i < noeuds.length; i++) {
+                for (let j = i + 1; j < noeuds.length; j++) {
+                    const d = Math.hypot(noeuds[i].x - noeuds[j].x, noeuds[i].y - noeuds[j].y);
+                    if (d < toile.width / 4.5) { 
+                        ctx.beginPath();
+                        ctx.strokeStyle = noeuds[i].color;
+                        ctx.globalAlpha = (1 - (d / (toile.width / 4.5))) * 0.5;
+                        ctx.moveTo(noeuds[i].x, noeuds[i].y);
+                        ctx.lineTo(noeuds[j].x, noeuds[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            ctx.globalAlpha = 1;
+            noeuds.forEach(n => {
+                ctx.beginPath();
+                ctx.fillStyle = n.color;
+                ctx.shadowBlur = 15; ctx.shadowColor = n.color;
+                ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+        }
+
+        function sauverArchive() {
+            const lien = document.createElement('a');
+            lien.download = `NEURAL_${new Date().getTime()}.png`;
+            lien.href = toile.toDataURL();
+            lien.click();
+        }
+
+        redimensionnerToile();
+    </script>
+</body>
+</html>

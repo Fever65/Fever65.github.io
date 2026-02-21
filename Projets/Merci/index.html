@@ -1,106 +1,398 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soutenir ArchiveFever</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>DONATIONS — ARCHIVEFEVER</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      line-height: 1.6;
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{
+      width:100%;
+      height:100%;
+      background:#000;
+      color:#fff;
+      font-family:"Source Code Pro", ui-monospace, 'Cascadia Code', monospace;
+      overflow:hidden;
     }
 
-    .content {
-      max-width: 500px;
-      padding: 40px 20px;
-      text-align: center;
+    canvas#dots{
+      position:fixed;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:0;
+      opacity:.95;
+      pointer-events:none;
+      filter: blur(.15px);
     }
 
-    h1 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      letter-spacing: -0.5px;
+    .viewport{
+      position:relative;
+      z-index:1;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
     }
 
-    p {
-      font-size: 16px;
-      color: #a1a1a1;
-      margin-bottom: 40px;
+    .panel{
+      width:min(560px, 100%);
+      border:1px solid #222;
+      border-radius:14px;
+      padding:16px;
+      background:
+        radial-gradient(900px 500px at 50% 30%, rgba(255,140,0,.10), rgba(194,81,29,.07), rgba(0,0,0,0) 70%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,0));
+      position:relative;
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
-    .links {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
+    .stack{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
     }
 
-    .link-btn {
-      display: block;
-      padding: 16px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 15px;
-      transition: all 0.2s;
+    .block{
+      border:1px solid #151515;
+      border-radius:12px;
+      padding:16px;
+      background: rgba(0,0,0,.35);
     }
 
-    .paypal {
-      background-color: #fff;
-      color: #000;
+    .tag{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      color:#666;
     }
 
-    .kofi {
-      background-color: #1a1a1a;
-      color: #fff;
-      border: 1px solid #333;
+    .title{
+      margin-top:10px;
+      font-size:22px;
+      letter-spacing:2px;
+      line-height:1.2;
     }
 
-    .link-btn:hover {
-      opacity: 0.9;
+    .desc{
+      margin-top:10px;
+      font-size:16px;
+      color:#9a9a9a;
+      line-height:1.75;
+    }
+
+    .tiny{
+      margin-top:12px;
+      font-size:12px;
+      color:#7f7f7f;
+      opacity:.95;
+      line-height:1.7;
+    }
+
+    .label{
+      font-size:10px;
+      color:#555;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      margin-bottom:10px;
+    }
+
+    .btn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:15px 14px;
+      border:1px solid #2a2a2a;
+      border-radius:12px;
+      background: rgba(0,0,0,.55);
+      color:#fff;
+      text-decoration:none;
+      font-size:13px;
+      letter-spacing:1px;
+      cursor:pointer;
+      transition: transform .05s ease, background .12s ease, border-color .12s ease, filter .12s ease;
+      user-select:none;
+    }
+    .btn:hover{
+      background: rgba(255,255,255,.06);
+      border-color:#3a3a3a;
       transform: translateY(-1px);
+      filter: brightness(1.05);
     }
 
-    .back {
-      display: inline-block;
-      margin-top: 40px;
-      font-size: 13px;
-      color: #c2511d;
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .btn.primary{
+      border-color: rgba(255,140,0,.35);
+      background: rgba(255,140,0,.10);
+    }
+    .btn.primary:hover{
+      background: rgba(255,140,0,.14);
+      border-color: rgba(255,140,0,.55);
     }
 
-    .back:hover {
-      color: #888;
+    .back{
+      justify-content:center;
+      font-weight:700;
+      border-color:#222;
+      background: rgba(0,0,0,.35);
+      margin-top:10px;
+    }
+
+    .gate{
+      position:fixed;
+      inset:0;
+      z-index:10;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .gate.hidden{display:none}
+
+    .gateCard{
+      width:min(520px, 100%);
+      border:1px solid #222;
+      border-radius:14px;
+      padding:16px;
+      background: rgba(0,0,0,.55);
+    }
+    .gateTitle{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      color:#666;
+    }
+    .gateDesc{
+      margin-top:10px;
+      color:#9a9a9a;
+      font-size:14px;
+      line-height:1.7;
+    }
+    .gateBtns{
+      margin-top:14px;
+      display:grid;
+      gap:10px;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      canvas#dots{display:none}
+      html,body{overflow:auto}
     }
   </style>
 </head>
+
 <body>
+  <canvas id="dots"></canvas>
 
-  <div class="content">
-    <h1>Soutenir l'indépendance d'ArchiveFever.</h1>
-    
-    <p>
-      Le maintien de cette plateforme repose exclusivement sur votre soutien volontaire. 
-      Chaque contribution permet de garantir la pérennité du projet, de financer les serveurs et de préserver un espace sans aucune publicité. 
-      C'est grâce à vous que l'aventure continue.
-    </p>
-
-    <div class="links">
-      <a href="https://www.paypal.com/paypalme/Fever65" class="btn link-btn paypal" target="_blank">Faire un don via PayPal</a>
-      <a href="https://ko-fi.com/archivefeverwork" class="btn link-btn kofi" target="_blank">Soutenir sur Ko-fi</a>
+  <div class="gate" id="gate" aria-label="Choose language">
+    <div class="gateCard">
+      <div class="gateTitle">LANGUAGE / LANGUE</div>
+      <div class="gateDesc">Choose your language / Choisis ta langue</div>
+      <div class="gateBtns">
+        <button class="btn primary" id="pickEN" type="button"><span>ENGLISH</span><span>→</span></button>
+        <button class="btn" id="pickFR" type="button"><span>FRANÇAIS</span><span>→</span></button>
+      </div>
     </div>
-
-    <a href="../../index.html" class="back">Retour à l'accueil</a>
   </div>
 
+  <div class="viewport">
+    <div class="panel">
+      <div class="stack">
+
+        <div class="block">
+          <div class="tag" id="t_tag">DONATIONS</div>
+          <div class="title" id="t_title">SUPPORT ARCHIVEFEVER</div>
+
+          <div class="desc" id="t_desc">
+            ArchiveFever is ad-free. If you want to help pay for servers, keep the project going,
+            or simply make me happy, you can donate. A donation can also help feed Jérôme.
+          </div>
+
+          <div class="tiny" id="t_tiny">Thank you. Even a small one matters.</div>
+        </div>
+
+        <div class="block">
+          <div class="label" id="t_label">Pay</div>
+
+          <a class="btn primary" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener">
+            <span id="t_paypal">PAYPAL DONATION</span>
+            <span>→</span>
+          </a>
+
+          <div style="height:10px"></div>
+
+          <a class="btn" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener">
+            <span id="t_kofi">KO-FI</span>
+            <span>→</span>
+          </a>
+
+          <a class="btn back" href="../../index.html"><span id="t_back">← BACK</span></a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STR = {
+      EN: {
+        tag: "DONATIONS",
+        title: "SUPPORT ARCHIVEFEVER",
+        desc: "ArchiveFever is ad-free. If you want to help pay for servers, keep the project going, or simply make me happy, you can donate. A donation can also help feed Jérôme.",
+        tiny: "Thank you. Even a small one matters.",
+        label: "Pay",
+        paypal: "PAYPAL DONATION",
+        kofi: "KO-FI",
+        back: "← BACK",
+        docTitle: "DONATIONS — ARCHIVEFEVER"
+      },
+      FR: {
+        tag: "DONS",
+        title: "SOUTENIR ARCHIVEFEVER",
+        desc: "ArchiveFever est sans pubs. Si tu veux aider à payer les serveurs, continuer le projet, ou simplement me faire plaisir, tu peux faire un don. Le don peut aussi aider à nourrir Jérôme.",
+        tiny: "Merci. Même petit, ça compte.",
+        label: "Payer",
+        paypal: "DON PAYPAL",
+        kofi: "KO-FI",
+        back: "← RETOUR",
+        docTitle: "DONS — ARCHIVEFEVER"
+      }
+    };
+
+    const gate = document.getElementById("gate");
+    const el = {
+      tag: document.getElementById("t_tag"),
+      title: document.getElementById("t_title"),
+      desc: document.getElementById("t_desc"),
+      tiny: document.getElementById("t_tiny"),
+      label: document.getElementById("t_label"),
+      paypal: document.getElementById("t_paypal"),
+      kofi: document.getElementById("t_kofi"),
+      back: document.getElementById("t_back"),
+    };
+
+    function applyLang(lang){
+      const s = STR[lang] || STR.EN;
+      el.tag.textContent = s.tag;
+      el.title.textContent = s.title;
+      el.desc.textContent = s.desc;
+      el.tiny.textContent = s.tiny;
+      el.label.textContent = s.label;
+      el.paypal.textContent = s.paypal;
+      el.kofi.textContent = s.kofi;
+      el.back.textContent = s.back;
+      document.title = s.docTitle;
+      gate.classList.add("hidden");
+      document.documentElement.lang = (lang === "FR") ? "fr" : "en";
+    }
+
+    document.getElementById("pickEN").addEventListener("click", () => applyLang("EN"));
+    document.getElementById("pickFR").addEventListener("click", () => applyLang("FR"));
+
+    const c = document.getElementById('dots');
+    const ctx = c.getContext('2d');
+
+    function resize(){
+      const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      c.width = Math.floor(window.innerWidth * dpr);
+      c.height = Math.floor(window.innerHeight * dpr);
+      c.style.width = window.innerWidth + 'px';
+      c.style.height = window.innerHeight + 'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+
+    let nodes = [];
+    let hueBase = 28;
+    let hueTarget = 210;
+
+    function init(){
+      const area = window.innerWidth * window.innerHeight;
+      const n = Math.min(110, Math.max(55, Math.floor(area/12000)));
+      nodes = Array.from({length:n}).map(() => ({
+        x: Math.random()*window.innerWidth,
+        y: Math.random()*window.innerHeight,
+        vx: (Math.random()-.5)*0.35,
+        vy: (Math.random()-.5)*0.35,
+        r: 1.5 + Math.random()*2.2
+      }));
+      pickNewHue();
+    }
+
+    function pickNewHue(){
+      const choices = [18, 28, 42, 180, 210, 260, 300, 330];
+      hueTarget = choices[(Math.random()*choices.length)|0];
+    }
+
+    let lastHueSwap = 0;
+
+    function step(t){
+      if(t - lastHueSwap > 4200){
+        lastHueSwap = t;
+        pickNewHue();
+      }
+      hueBase += (hueTarget - hueBase) * 0.008;
+
+      ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+      ctx.fillStyle = 'rgba(0,0,0,0.22)';
+      ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+
+      const maxD = Math.min(window.innerWidth, window.innerHeight)/3.1;
+
+      for(let i=0;i<nodes.length;i++){
+        const a = nodes[i];
+        for(let j=i+1;j<nodes.length;j++){
+          const b = nodes[j];
+          const dx = a.x-b.x, dy = a.y-b.y;
+          const d = Math.hypot(dx,dy);
+          if(d < maxD){
+            const alpha = (1 - d/maxD) * 0.20;
+            const hue = (hueBase + (i%9)*2) % 360;
+            ctx.beginPath();
+            ctx.strokeStyle = `hsla(${hue}, 100%, 60%, ${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.moveTo(a.x,a.y);
+            ctx.lineTo(b.x,b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      for(const n of nodes){
+        n.x += n.vx; n.y += n.vy;
+        if(n.x < 0 || n.x > window.innerWidth) n.vx *= -1;
+        if(n.y < 0 || n.y > window.innerHeight) n.vy *= -1;
+
+        const hue = (hueBase + (n.x/window.innerWidth)*28) % 360;
+
+        ctx.beginPath();
+        ctx.fillStyle = `hsla(${hue}, 100%, 65%, 0.9)`;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = `hsla(${hue}, 100%, 65%, 0.85)`;
+        ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(!reduce){
+      resize();
+      init();
+      requestAnimationFrame(step);
+      window.addEventListener('resize', () => { resize(); init(); }, {passive:true});
+    }
+  </script>
 </body>
 </html>

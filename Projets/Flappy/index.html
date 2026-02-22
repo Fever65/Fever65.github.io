@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -15,313 +16,331 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   <style>
-    :root{
-      --bg:#000;
-      --fg:#fff;
-      --muted:#b6b6b6;
-      --accent:#ff8c00;
-      --accent-2:#ff9b22;
-      --accent-3:#ffd199;
-      --panel:#0b0b0b;
-      --panel2:#141414;
-      --radius:14px;
-      --border:#1b1b1b;
-      --border-2:#242424;
-      --shadow:0 10px 30px rgba(0,0,0,.35);
-      --shadow2:0 18px 60px rgba(0,0,0,.55);
-      --h:0px;
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --muted: #b6b6b6;
+      --accent: #ff8c00;
+      --accent-2: #ff9b22;
+      --accent-3: #ffd199;
+      --panel: #0b0b0b;
+      --panel2: #141414;
+      --radius: 14px;
+      --border: #1b1b1b;
+      --border-2: #242424;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      --shadow2: 0 18px 60px rgba(0, 0, 0, .55);
+      --h: 0px;
     }
 
-    *{margin:0;padding:0;box-sizing:border-box}
-    html,body{
-      height:100%;
-      overscroll-behavior-y:none;
-      background:#000;
-      color-scheme:dark;
-      -webkit-text-size-adjust:100%;
-      overflow-x:hidden;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
     }
 
-    body{
-      font-family:'Source Code Pro', monospace;
-      display:flex;
-      flex-direction:column;
-      min-height:100vh;
-      -webkit-tap-highlight-color:transparent;
-      -webkit-font-smoothing:antialiased;
-      moz-osx-font-smoothing:grayscale;
-      text-rendering:optimizeLegibility;
-      color:var(--fg);
-      background:none !important;
-      position:relative;
+    html,
+    body {
+      height: 100%;
+      overscroll-behavior-y: none;
+      background: #000;
+      color-scheme: dark;
+      -webkit-text-size-adjust: 100%;
+      overflow-x: hidden;
     }
 
-    /* base background (kept) */
-    body::before{
-      content:"";
-      position:fixed;
-      z-index:-3;
-      inset:0;
+    body {
+      font-family: 'Source Code Pro', monospace;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-font-smoothing: antialiased;
+      moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      color: var(--fg);
+      background: none !important;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      z-index: -3;
+      inset: 0;
       background:
         radial-gradient(1100px 700px at 18% 10%, #101217 0%, #0a0c10 55%, #050607 100%),
         linear-gradient(180deg, #0b0b0b 0%, #000 100%);
-      background-repeat:no-repeat;
-      background-size:cover;
-      will-change:transform;
+      background-repeat: no-repeat;
+      background-size: cover;
+      will-change: transform;
     }
 
-    /* subtle grid + glow overlay (new, light) */
-    body::after{
-      content:"";
-      position:fixed;
-      z-index:-2;
-      inset:0;
-      pointer-events:none;
-      opacity:.22;
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -2;
+      inset: 0;
+      pointer-events: none;
+      opacity: .22;
       background:
-        linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px),
-        radial-gradient(900px 520px at 25% 15%, rgba(255,140,0,.11), transparent 62%),
-        radial-gradient(900px 520px at 85% 30%, rgba(0,251,255,.08), transparent 62%),
-        radial-gradient(900px 520px at 55% 90%, rgba(255,0,255,.06), transparent 66%);
+        linear-gradient(to right, rgba(255, 255, 255, .05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, .05) 1px, transparent 1px),
+        radial-gradient(900px 520px at 25% 15%, rgba(255, 140, 0, .11), transparent 62%),
+        radial-gradient(900px 520px at 85% 30%, rgba(0, 251, 255, .08), transparent 62%),
+        radial-gradient(900px 520px at 55% 90%, rgba(255, 0, 255, .06), transparent 66%);
       background-size: 26px 26px, 26px 26px, auto, auto, auto;
       background-position: center, center, center, center, center;
-      mix-blend-mode:screen;
+      mix-blend-mode: screen;
     }
 
-    /* neural dots behind everything (new) */
-    canvas#neural{
-      position:fixed;
-      inset:0;
-      width:100%;
-      height:100%;
-      z-index:-1;
-      pointer-events:none;
-      opacity:.55;
+    canvas#neural {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .55;
       filter: blur(.15px);
     }
 
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:14px;
-      margin:10px 0 6px;
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 10px 0 6px;
       padding: 0 14px;
     }
 
-    header a{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:999px;
-      outline:none;
+    header a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      outline: none;
     }
 
-    header img{
-      width:70px;
-      height:70px;
-      border-radius:50%;
+    header img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
     }
-    header a:hover img{
+
+    header a:hover img {
       transform: translateY(-1px);
       filter: brightness(1.04);
-      border-color: rgba(255,140,0,.35);
+      border-color: rgba(255, 140, 0, .35);
     }
-    header a:active img{transform: translateY(0) scale(.99)}
 
-    h1{
-      font-family:'Gloria Hallelujah', cursive;
+    header a:active img {
+      transform: translateY(0) scale(.99)
+    }
+
+    h1 {
+      font-family: 'Gloria Hallelujah', cursive;
       font-size: clamp(1.5rem, 2.4vw, 2rem);
-      letter-spacing:.2px;
+      letter-spacing: .2px;
       color: var(--accent);
-      text-shadow: 0 0 22px rgba(255,140,0,.18);
-      user-select:none;
+      text-shadow: 0 0 22px rgba(255, 140, 0, .18);
+      user-select: none;
     }
 
-    main{
-      flex:1;
-      width:100%;
-      max-width:1300px;
-      margin:0 auto;
-      padding:14px 14px 24px;
-      display:grid;
-      gap:16px;
-      grid-template-columns:1fr;
+    main {
+      flex: 1;
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 14px 14px 24px;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
     }
 
-    .card{
-      background: linear-gradient(180deg, rgba(11,11,11,.85), rgba(20,20,20,.85));
-      border: 1px solid rgba(255,255,255,.10);
+    .card {
+      background: linear-gradient(180deg, rgba(11, 11, 11, .85), rgba(20, 20, 20, .85));
+      border: 1px solid rgba(255, 255, 255, .10);
       border-radius: calc(var(--radius) + 2px);
       padding: 12px;
       box-shadow: var(--shadow2);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      position:relative;
-      overflow:hidden;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* soft accent edge (new, subtle) */
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      pointer-events:none;
-      opacity:.35;
-      background: radial-gradient(900px 420px at 50% 10%, rgba(255,140,0,.20), transparent 60%);
-      mix-blend-mode:screen;
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      pointer-events: none;
+      opacity: .35;
+      background: radial-gradient(900px 420px at 50% 10%, rgba(255, 140, 0, .20), transparent 60%);
+      mix-blend-mode: screen;
     }
 
-    .stage{
-      position:relative;
-      width:100%;
+    .stage {
+      position: relative;
+      width: 100%;
       height: calc(var(--vh, 1vh) * 100 - var(--h) - 48px);
       height: calc(100svh - var(--h) - 48px);
       height: calc(100dvh - var(--h) - 48px);
-      min-height:520px;
+      min-height: 520px;
       border-radius: var(--radius);
-      overflow:hidden;
-      background:#000;
-      touch-action:none;
-      user-select:none;
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: 0 12px 34px rgba(0,0,0,.55);
+      overflow: hidden;
+      background: #000;
+      touch-action: none;
+      user-select: none;
+      border: 1px solid rgba(255, 255, 255, .10);
+      box-shadow: 0 12px 34px rgba(0, 0, 0, .55);
     }
 
-    /* subtle inner glow */
-    .stage::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
+    .stage::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
       border-radius: var(--radius);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), inset 0 0 60px rgba(255,140,0,.05);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06), inset 0 0 60px rgba(255, 140, 0, .05);
     }
 
-    canvas#game{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      display:block;
+    canvas#game {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
     }
 
-    .hud{
-      position:absolute;
+    .hud {
+      position: absolute;
       top: calc(env(safe-area-inset-top, 0px) + 10px);
       left: calc(env(safe-area-inset-left, 0px) + 10px);
-      display:flex;
-      gap:10px;
-      align-items:center;
-      background: rgba(0,0,0,.42);
-      border:1px solid rgba(255,255,255,.10);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: rgba(0, 0, 0, .42);
+      border: 1px solid rgba(255, 255, 255, .10);
       border-radius: 12px;
       padding: 8px 10px;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
 
-    .pill{
-      font-weight:800;
+    .pill {
+      font-weight: 800;
       font-size: 0.98rem;
-      color:#fff;
-      display:flex;
-      gap:8px;
-      align-items:baseline;
-      letter-spacing:.2px;
-      white-space:nowrap;
+      color: #fff;
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      letter-spacing: .2px;
+      white-space: nowrap;
     }
 
-    .pill small{
-      color: rgba(255,255,255,.55);
-      font-weight:700;
-      margin-left:6px;
+    .pill small {
+      color: rgba(255, 255, 255, .55);
+      font-weight: 700;
+      margin-left: 6px;
       font-size: .78rem;
-      letter-spacing:.2px;
+      letter-spacing: .2px;
     }
 
-    .pausebar{
-      position:absolute;
+    .pausebar {
+      position: absolute;
       bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
       left: calc(env(safe-area-inset-left, 0px) + 10px);
-      display:flex;
-      gap:8px;
-      background: rgba(0,0,0,.38);
-      border:1px solid rgba(255,255,255,.10);
+      display: flex;
+      gap: 8px;
+      background: rgba(0, 0, 0, .38);
+      border: 1px solid rgba(255, 255, 255, .10);
       border-radius: 12px;
       padding: 8px 8px;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
 
-    .btn{
-      appearance:none;
-      border:none;
-      cursor:pointer;
+    .btn {
+      appearance: none;
+      border: none;
+      cursor: pointer;
       border-radius: 10px;
       padding: 9px 12px;
-      background: rgba(0,0,0,.55);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.12);
-      font-weight:800;
-      font-size:.92rem;
-      letter-spacing:.3px;
+      background: rgba(0, 0, 0, .55);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, .12);
+      font-weight: 800;
+      font-size: .92rem;
+      letter-spacing: .3px;
       transition: transform .08s ease, filter .12s ease, border-color .12s ease, background .12s ease;
-      user-select:none;
+      user-select: none;
     }
-    .btn:hover{
-      border-color: rgba(255,255,255,.22);
+
+    .btn:hover {
+      border-color: rgba(255, 255, 255, .22);
       filter: brightness(1.06);
       transform: translateY(-1px);
-      background: rgba(255,255,255,.04);
+      background: rgba(255, 255, 255, .04);
     }
-    .btn:active{transform: translateY(0) scale(.99)}
 
-    .btn.primary{
-      background: linear-gradient(180deg, var(--accent-2), var(--accent));
-      color:#000;
-      border-color: transparent;
-      box-shadow: 0 10px 24px rgba(255,140,0,.22);
+    .btn:active {
+      transform: translateY(0) scale(.99)
     }
-    .btn.primary:hover{
+
+    .btn.primary {
+      background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      color: #000;
+      border-color: transparent;
+      box-shadow: 0 10px 24px rgba(255, 140, 0, .22);
+    }
+
+    .btn.primary:hover {
       filter: brightness(1.02);
-      box-shadow: 0 12px 28px rgba(255,140,0,.26);
+      box-shadow: 0 12px 28px rgba(255, 140, 0, .26);
       transform: translateY(-1px);
     }
 
-    .centerMsg{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      pointer-events:none;
-    }
-    .centerMsg .box{
-      background: rgba(0,0,0,.56);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: 14px;
-      padding: 12px 14px;
-      font-weight:900;
-      text-align:center;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      box-shadow: 0 14px 40px rgba(0,0,0,.55);
-      max-width: min(520px, 92vw);
-    }
-    .centerMsg .box small{
-      display:block;
-      margin-top:8px;
-      font-weight:700;
-      color: rgba(255,255,255,.65);
-      font-size: .9rem;
-      line-height:1.45;
+    .centerMsg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
     }
 
-    @media (prefers-reduced-motion: reduce){
-      *{transition:none !important; animation:none !important}
-      canvas#neural{display:none}
+    .centerMsg .box {
+      background: rgba(0, 0, 0, .56);
+      border: 1px solid rgba(255, 255, 255, .10);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-weight: 900;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, .55);
+      max-width: min(520px, 92vw);
+    }
+
+    .centerMsg .box small {
+      display: block;
+      margin-top: 8px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .65);
+      font-size: .9rem;
+      line-height: 1.45;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        animation: none !important
+      }
+
+      canvas#neural {
+        display: none
+      }
     }
   </style>
 </head>
@@ -357,7 +376,6 @@
   </main>
 
   <script>
-    // ====== Background neural animation (light + full page) ======
     (() => {
       const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduce) return;
@@ -366,14 +384,14 @@
       const ctx = c.getContext('2d');
       let W = 0, H = 0, dpr = 1;
 
-      function resize(){
+      function resize() {
         dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
         W = window.innerWidth; H = window.innerHeight;
         c.width = Math.floor(W * dpr);
         c.height = Math.floor(H * dpr);
         c.style.width = W + 'px';
         c.style.height = H + 'px';
-        ctx.setTransform(dpr,0,0,dpr,0,0);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         init();
       }
 
@@ -382,10 +400,10 @@
       let hueTarget = 210;
       let lastHueSwap = 0;
 
-      function init(){
+      function init() {
         const area = W * H;
         const n = Math.min(90, Math.max(40, Math.floor(area / 18000)));
-        nodes = Array.from({length:n}).map(() => ({
+        nodes = Array.from({ length: n }).map(() => ({
           x: Math.random() * W,
           y: Math.random() * H,
           vx: (Math.random() - .5) * 0.30,
@@ -395,31 +413,31 @@
         pickNewHue();
       }
 
-      function pickNewHue(){
+      function pickNewHue() {
         const choices = [18, 28, 42, 180, 210, 260, 300, 330];
         hueTarget = choices[(Math.random() * choices.length) | 0];
       }
 
-      function step(t){
-        if(t - lastHueSwap > 5200){
+      function step(t) {
+        if (t - lastHueSwap > 5200) {
           lastHueSwap = t;
           pickNewHue();
         }
         hueBase += (hueTarget - hueBase) * 0.006;
 
-        ctx.clearRect(0,0,W,H);
+        ctx.clearRect(0, 0, W, H);
         ctx.fillStyle = 'rgba(0,0,0,0.16)';
-        ctx.fillRect(0,0,W,H);
+        ctx.fillRect(0, 0, W, H);
 
         const maxD = Math.min(W, H) / 3.2;
 
-        for(let i=0;i<nodes.length;i++){
+        for (let i = 0; i < nodes.length; i++) {
           const a = nodes[i];
-          for(let j=i+1;j<nodes.length;j++){
+          for (let j = i + 1; j < nodes.length; j++) {
             const b = nodes[j];
             const dx = a.x - b.x, dy = a.y - b.y;
             const d = Math.hypot(dx, dy);
-            if(d < maxD){
+            if (d < maxD) {
               const alpha = (1 - d / maxD) * 0.18;
               const hue = (hueBase + (i % 9) * 2) % 360;
               ctx.beginPath();
@@ -432,10 +450,10 @@
           }
         }
 
-        for(const n of nodes){
+        for (const n of nodes) {
           n.x += n.vx; n.y += n.vy;
-          if(n.x < 0 || n.x > W) n.vx *= -1;
-          if(n.y < 0 || n.y > H) n.vy *= -1;
+          if (n.x < 0 || n.x > W) n.vx *= -1;
+          if (n.y < 0 || n.y > H) n.vy *= -1;
 
           const hue = (hueBase + (n.x / W) * 24) % 360;
           ctx.beginPath();
@@ -450,7 +468,7 @@
         requestAnimationFrame(step);
       }
 
-      window.addEventListener('resize', resize, {passive:true});
+      window.addEventListener('resize', resize, { passive: true });
       resize();
       requestAnimationFrame(step);
     })();
@@ -458,7 +476,6 @@
 
   <script>
     (() => {
-      // ===== Fit header
       const header = document.querySelector('header');
       const stage = document.querySelector('.stage');
       function fitChrome() {
@@ -468,7 +485,6 @@
       new ResizeObserver(fitChrome).observe(document.body);
       window.addEventListener('load', fitChrome, { once: true });
 
-      // ===== Mobile 100vh fix
       function setVH() {
         const vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight) * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -478,7 +494,6 @@
       window.addEventListener('orientationchange', () => setTimeout(setVH, 60), { passive: true });
       if (window.visualViewport) window.visualViewport.addEventListener('resize', setVH);
 
-      // ===== Canvas
       const canvas = document.getElementById('game');
       const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
       const DPR = () => Math.min(window.devicePixelRatio || 1, 2);
@@ -795,4 +810,5 @@
     })();
   </script>
 </body>
+
 </html>

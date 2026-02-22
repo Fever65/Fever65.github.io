@@ -1,193 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>NEURAL - LANGUAGE SELECT</title>
   <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{
-      background:#000;
-      color:#fff;
-      font-family: ui-monospace, 'Cascadia Code', monospace;
-      width:100%;
-      height:100%;
-      overflow:hidden;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
     }
 
-    /* full-page background animation */
-    canvas#dots{
-      position:fixed;
-      inset:0;
-      width:100%;
-      height:100%;
-      z-index:0;
-      pointer-events:none;
-      opacity:.95;
+    html,
+    body {
+      background: #000;
+      color: #fff;
+      font-family: ui-monospace, 'Cascadia Code', monospace;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    canvas#dots {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .95;
       filter: blur(.15px);
     }
 
-    .viewport{
-      position:relative;
-      z-index:1;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
+    .viewport {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
 
-    /* more vertical panel */
-    .panel{
-      width:min(560px, 100%);
-      border:1px solid #222;
-      background: radial-gradient(900px 500px at 50% 35%, rgba(0,251,255,.08), rgba(255,0,255,.06), rgba(0,0,0,0) 70%),
-                  linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,0));
-      border-radius:14px;
-      padding:18px;
-      position:relative;
-      overflow:hidden;
+    .panel {
+      width: min(560px, 100%);
+      border: 1px solid #222;
+      background: radial-gradient(900px 500px at 50% 35%, rgba(0, 251, 255, .08), rgba(255, 0, 255, .06), rgba(0, 0, 0, 0) 70%),
+        linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(0, 0, 0, 0));
+      border-radius: 14px;
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
 
-    .stack{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
-    .block{
-      border:1px solid #151515;
-      border-radius:12px;
-      padding:18px;
-      background: rgba(0,0,0,.35);
+    .block {
+      border: 1px solid #151515;
+      border-radius: 12px;
+      padding: 18px;
+      background: rgba(0, 0, 0, .35);
     }
 
-    .tag{
-      font-size:9px;
-      text-transform:uppercase;
-      letter-spacing:2px;
-      color:#666;
+    .tag {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #666;
     }
 
-    .title{
-      margin-top:10px;
-      font-size:18px;
-      letter-spacing:2px;
-      line-height:1.2;
+    .title {
+      margin-top: 10px;
+      font-size: 18px;
+      letter-spacing: 2px;
+      line-height: 1.2;
     }
 
-    .desc{
-      margin-top:10px;
-      font-size:12px;
-      color:#9a9a9a;
-      line-height:1.6;
+    .desc {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #9a9a9a;
+      line-height: 1.6;
       max-width: 56ch;
     }
 
-    .meta{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      color:#666;
-      font-size:10px;
-      letter-spacing:1px;
-      text-transform:uppercase;
+    .meta {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      color: #666;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
-    .chip{
-      border:1px solid #222;
-      padding:6px 10px;
-      border-radius:999px;
-      background: rgba(0,0,0,.25);
-      white-space:nowrap;
+    .chip {
+      border: 1px solid #222;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, .25);
+      white-space: nowrap;
     }
 
-    .tiny{
-      font-size:10px;
-      color:#777;
-      opacity:.9;
-      line-height:1.6;
-      margin-top:14px;
+    .tiny {
+      font-size: 10px;
+      color: #777;
+      opacity: .9;
+      line-height: 1.6;
+      margin-top: 14px;
     }
 
-    .label{
-      font-size:9px;
-      color:#555;
-      text-transform:uppercase;
-      letter-spacing:2px;
-      margin-bottom:10px;
+    .label {
+      font-size: 9px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
     }
 
-    /* non-white buttons (no eye burn) */
-    .btn{
-      width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding:14px 14px;
-      border:1px solid #2a2a2a;
-      border-radius:12px;
-      background: rgba(0,0,0,.55);
-      color:#fff;
-      text-decoration:none;
-      font-size:12px;
-      letter-spacing:1px;
-      cursor:pointer;
+    .btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 14px;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, .55);
+      color: #fff;
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 1px;
+      cursor: pointer;
       transition: transform .05s ease, background .12s ease, color .12s ease, border-color .12s ease, filter .12s ease;
-      user-select:none;
+      user-select: none;
     }
 
-    .btn:hover{
-      background: rgba(255,255,255,.06);
-      border-color:#3a3a3a;
+    .btn:hover {
+      background: rgba(255, 255, 255, .06);
+      border-color: #3a3a3a;
       transform: translateY(-1px);
       filter: brightness(1.06);
     }
 
-    .btn.primary{
-      border-color: rgba(0,251,255,.35);
-      background: rgba(0,251,255,.10);
-    }
-    .btn.primary:hover{
-      border-color: rgba(0,251,255,.60);
-      background: rgba(0,251,255,.14);
+    .btn.primary {
+      border-color: rgba(0, 251, 255, .35);
+      background: rgba(0, 251, 255, .10);
     }
 
-    .btn.alt{
-      border-color: rgba(255,0,255,.30);
-      background: rgba(255,0,255,.09);
-    }
-    .btn.alt:hover{
-      border-color: rgba(255,0,255,.55);
-      background: rgba(255,0,255,.13);
+    .btn.primary:hover {
+      border-color: rgba(0, 251, 255, .60);
+      background: rgba(0, 251, 255, .14);
     }
 
-    .btn.back{
-      justify-content:center;
-      gap:8px;
-      padding:12px 14px;
-      font-weight:700;
-      border-color:#222;
-      background: rgba(0,0,0,.35);
-      margin-top:8px;
+    .btn.alt {
+      border-color: rgba(255, 0, 255, .30);
+      background: rgba(255, 0, 255, .09);
     }
-    .btn.back:hover{
-      background: rgba(255,255,255,.06);
-      border-color:#3a3a3a;
+
+    .btn.alt:hover {
+      border-color: rgba(255, 0, 255, .55);
+      background: rgba(255, 0, 255, .13);
+    }
+
+    .btn.back {
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 14px;
+      font-weight: 700;
+      border-color: #222;
+      background: rgba(0, 0, 0, .35);
+      margin-top: 8px;
+    }
+
+    .btn.back:hover {
+      background: rgba(255, 255, 255, .06);
+      border-color: #3a3a3a;
       transform: translateY(-1px);
     }
 
-    @media (prefers-reduced-motion: reduce){
-      canvas#dots{display:none}
-      html,body{overflow:auto}
+    @media (prefers-reduced-motion: reduce) {
+      canvas#dots {
+        display: none
+      }
+
+      html,
+      body {
+        overflow: auto
+      }
     }
   </style>
 </head>
+
 <body>
 
   <canvas id="dots"></canvas>
@@ -198,9 +212,9 @@
 
         <div class="block">
           <div class="tag">LANGUAGE / LANGUE</div>
-          <div class="title">SELECT INTERFACE<br/>CHOISIR L’INTERFACE</div>
+          <div class="title">SELECT INTERFACE<br />CHOISIR L’INTERFACE</div>
           <div class="desc">
-            Pick your language to enter the Neural generator.<br/>
+            Pick your language to enter the Neural generator.<br />
             Choisis ta langue pour entrer dans le générateur Neural.
           </div>
 
@@ -210,7 +224,7 @@
           </div>
 
           <div class="tiny">
-            Tip: you can bookmark each version directly.<br/>
+            Tip: you can bookmark each version directly.<br />
             Astuce : tu peux mettre chaque version en favori.
           </div>
         </div>
@@ -241,83 +255,83 @@
     const c = document.getElementById('dots');
     const ctx = c.getContext('2d');
 
-    function resize(){
+    function resize() {
       const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
       c.width = Math.floor(window.innerWidth * dpr);
       c.height = Math.floor(window.innerHeight * dpr);
       c.style.width = window.innerWidth + 'px';
       c.style.height = window.innerHeight + 'px';
-      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     let nodes = [];
     let hueBase = 180;
     let hueTarget = 300;
 
-    function init(){
+    function init() {
       const area = window.innerWidth * window.innerHeight;
-      const n = Math.min(110, Math.max(55, Math.floor(area/12000)));
-      nodes = Array.from({length:n}).map(() => ({
-        x: Math.random()*window.innerWidth,
-        y: Math.random()*window.innerHeight,
-        vx: (Math.random()-.5)*0.35,
-        vy: (Math.random()-.5)*0.35,
-        r: 1.5 + Math.random()*2.2
+      const n = Math.min(110, Math.max(55, Math.floor(area / 12000)));
+      nodes = Array.from({ length: n }).map(() => ({
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        vx: (Math.random() - .5) * 0.35,
+        vy: (Math.random() - .5) * 0.35,
+        r: 1.5 + Math.random() * 2.2
       }));
       pickNewHue();
     }
 
-    function pickNewHue(){
+    function pickNewHue() {
       const choices = [180, 200, 220, 260, 300, 320, 340, 20, 40, 60];
-      hueTarget = choices[(Math.random()*choices.length)|0];
+      hueTarget = choices[(Math.random() * choices.length) | 0];
     }
 
     let lastHueSwap = 0;
 
-    function step(t){
-      if(t - lastHueSwap > 4200){
+    function step(t) {
+      if (t - lastHueSwap > 4200) {
         lastHueSwap = t;
         pickNewHue();
       }
       hueBase += (hueTarget - hueBase) * 0.008;
 
-      ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       ctx.fillStyle = 'rgba(0,0,0,0.22)';
-      ctx.fillRect(0,0,window.innerWidth,window.innerHeight);
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
 
-      const maxD = Math.min(window.innerWidth, window.innerHeight)/3.1;
+      const maxD = Math.min(window.innerWidth, window.innerHeight) / 3.1;
 
-      for(let i=0;i<nodes.length;i++){
+      for (let i = 0; i < nodes.length; i++) {
         const a = nodes[i];
-        for(let j=i+1;j<nodes.length;j++){
+        for (let j = i + 1; j < nodes.length; j++) {
           const b = nodes[j];
-          const dx = a.x-b.x, dy = a.y-b.y;
-          const d = Math.hypot(dx,dy);
-          if(d < maxD){
-            const alpha = (1 - d/maxD) * 0.22;
-            const hue = (hueBase + (i%9)*2) % 360;
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.hypot(dx, dy);
+          if (d < maxD) {
+            const alpha = (1 - d / maxD) * 0.22;
+            const hue = (hueBase + (i % 9) * 2) % 360;
             ctx.beginPath();
             ctx.strokeStyle = `hsla(${hue}, 100%, 60%, ${alpha})`;
             ctx.lineWidth = 1;
-            ctx.moveTo(a.x,a.y);
-            ctx.lineTo(b.x,b.y);
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
             ctx.stroke();
           }
         }
       }
 
-      for(const n of nodes){
+      for (const n of nodes) {
         n.x += n.vx; n.y += n.vy;
-        if(n.x < 0 || n.x > window.innerWidth) n.vx *= -1;
-        if(n.y < 0 || n.y > window.innerHeight) n.vy *= -1;
+        if (n.x < 0 || n.x > window.innerWidth) n.vx *= -1;
+        if (n.y < 0 || n.y > window.innerHeight) n.vy *= -1;
 
-        const hue = (hueBase + (n.x/window.innerWidth)*28) % 360;
+        const hue = (hueBase + (n.x / window.innerWidth) * 28) % 360;
 
         ctx.beginPath();
         ctx.fillStyle = `hsla(${hue}, 100%, 65%, 0.9)`;
         ctx.shadowBlur = 12;
         ctx.shadowColor = `hsla(${hue}, 100%, 65%, 0.85)`;
-        ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
         ctx.fill();
         ctx.shadowBlur = 0;
       }
@@ -326,12 +340,13 @@
     }
 
     const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if(!reduce){
+    if (!reduce) {
       resize();
       init();
       requestAnimationFrame(step);
-      window.addEventListener('resize', () => { resize(); init(); }, {passive:true});
+      window.addEventListener('resize', () => { resize(); init(); }, { passive: true });
     }
   </script>
 </body>
+
 </html>

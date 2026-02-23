@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <title>404</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg:#000;
+      --fg:#fff;
+      --border:rgba(255,255,255,.16);
+      --hover:rgba(255,255,255,.06);
+      --accent:#ff8c00;
+      --accent2:#7a3cff;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      background:var(--bg);
+      color:var(--fg);
+      font-family:"Source Code Pro", ui-monospace, monospace;
+      overflow:hidden;
+    }
+
+    canvas#n{
+      position:fixed; inset:0;
+      width:100%; height:100%;
+      z-index:0;
+    }
+
+    main{
+      position:relative;
+      z-index:2;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      padding:18px;
+      text-align:center;
+    }
+
+    .t{
+      font-weight:700;
+      font-size: clamp(86px, 18vw, 220px);
+      letter-spacing: .12em;
+      text-transform:uppercase;
+      color:#fff;
+      user-select:none;
+    }
+
+    .home{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.55);
+      color: var(--fg);
+      text-decoration:none;
+      font-weight:700;
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      cursor:pointer;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .home:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,140,0,.55);
+      background: var(--hover);
+    }
+    .home:active{ transform: translateY(0px) scale(.99); }
+
+    .sep{
+      width:1px;
+      height:14px;
+      background: rgba(255,255,255,.22);
+      border-radius: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      canvas#n{display:none}
+      body{overflow:auto}
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="n" aria-hidden="true"></canvas>
+
+  <main>
+    <div class="t">404</div>
+
+    <a class="home" href="index.html" aria-label="Accueil / Home">
+      <span>⟵ Accueil</span>
+      <span class="sep" aria-hidden="true"></span>
+      <span>Home</span>
+    </a>
+  </main>
+
+  <script>
+    (() => {
+      const c = document.getElementById("n");
+      const ctx = c.getContext("2d", { alpha:true });
+
+      let W=0,H=0,DPR=1;
+
+      const OR=[255,140,0], PR=[122,60,255];
+
+      const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+      const lerp=(a,b,t)=>a+(b-a)*t;
+      const mix=(x,y,t)=>[
+        Math.round(lerp(x[0],y[0],t)),
+        Math.round(lerp(x[1],y[1],t)),
+        Math.round(lerp(x[2],y[2],t))
+      ];
+      const rgba=(rgb,a)=>`rgba(${rgb[0]},${rgb[1]},${rgb[2]},${a})`;
+
+      const S = { nodes:[] };
+
+      function nodeCount(){
+        const area=W*H;
+        return Math.round(clamp(Math.sqrt(area)/12, 60, 170));
+      }
+
+      function resize(){
+        DPR = Math.max(1, Math.min(2, devicePixelRatio || 1));
+        W = innerWidth|0; H = innerHeight|0;
+        c.width = (W*DPR)|0; c.height = (H*DPR)|0;
+        c.style.width = W+"px"; c.style.height = H+"px";
+        ctx.setTransform(DPR,0,0,DPR,0,0);
+
+        const n = nodeCount();
+        S.nodes = Array.from({length:n}, () => {
+          const sp = (Math.random()*0.020 + 0.010);
+          const ang = Math.random()*Math.PI*2;
+          return {
+            x: Math.random()*W,
+            y: Math.random()*H,
+            vx: Math.cos(ang)*sp,
+            vy: Math.sin(ang)*sp,
+            p: Math.random()*6.283,
+            f: Math.random()
+          };
+        });
+      }
+      addEventListener("resize", resize, { passive:true });
+
+      function tick(now){
+        requestAnimationFrame(tick);
+        const t = now*0.001;
+
+        ctx.clearRect(0,0,W,H);
+
+        const fx = (Math.cos(t*0.10)*0.004 + Math.cos(t*0.04)*0.003);
+        const fy = (Math.sin(t*0.09)*0.004 + Math.sin(t*0.04)*0.003);
+
+        const nodes=S.nodes;
+
+        for(const p of nodes){
+          const wob = 0.0009;
+          p.vx += fx + Math.cos(t*0.25 + p.p)*wob;
+          p.vy += fy + Math.sin(t*0.25 + p.p)*wob;
+
+          p.x += p.vx;
+          p.y += p.vy;
+
+          p.vx *= 0.996;
+          p.vy *= 0.996;
+
+          if(p.x < -90) p.x = W+90; else if(p.x > W+90) p.x = -90;
+          if(p.y < -90) p.y = H+90; else if(p.y > H+90) p.y = -90;
+        }
+
+        const maxD = Math.max(170, Math.min(260, Math.sqrt(W*H)/13));
+        const maxD2 = maxD*maxD;
+
+        ctx.lineCap="round";
+        for(let i=0;i<nodes.length;i++){
+          const a = nodes[i];
+          for(let j=i+1;j<nodes.length;j++){
+            const b = nodes[j];
+            const dx=a.x-b.x, dy=a.y-b.y;
+            const d2=dx*dx+dy*dy;
+            if(d2>maxD2) continue;
+
+            const d=Math.sqrt(d2)||1;
+            const k=1-(d/maxD);
+
+            const col = mix(OR, PR, (a.f + b.f)*0.5);
+
+            ctx.strokeStyle = rgba(col, 0.12 + k*0.30);
+            ctx.lineWidth = 1.0 + k*1.20;
+
+            const cx=(a.x+b.x)*0.5 + Math.sin(t*0.18 + a.p)*8*k;
+            const cy=(a.y+b.y)*0.5 + Math.cos(t*0.18 + b.p)*8*k;
+
+            ctx.beginPath();
+            ctx.moveTo(a.x,a.y);
+            ctx.quadraticCurveTo(cx,cy,b.x,b.y);
+            ctx.stroke();
+          }
+        }
+
+        for(const p of nodes){
+          const col = mix(OR, PR, p.f);
+          ctx.beginPath();
+          ctx.fillStyle = rgba(col, 0.92);
+          ctx.arc(p.x,p.y, 1.6, 0, Math.PI*2);
+          ctx.fill();
+        }
+
+        ctx.fillStyle = "rgba(0,0,0,.035)";
+        ctx.fillRect(0,0,W,H);
+      }
+
+      resize();
+      requestAnimationFrame(tick);
+    })();
+  </script>
+</body>
+</html>

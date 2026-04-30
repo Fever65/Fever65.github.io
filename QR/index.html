@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QR — ARCHIVEFEVER</title>
+  <link rel="icon" href="../IMG/Jerome.webp" type="image/webp" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --border-soft: #222;
+      --accent: #ff8c00;
+      --txt: #f5f5f7;
+      --txt2: #a1a1a6;
+      --txt3: #6e6e73;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      background: var(--bg);
+      color: var(--txt);
+      font-family: "Source Code Pro", ui-monospace, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .card-wrap {
+      width: min(860px, 100%);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.03) inset,
+        0 32px 80px -20px rgba(0,0,0,.85),
+        0 8px 24px -8px rgba(0,0,0,.6);
+      animation: rise .55s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px) scale(.99); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--surface2);
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      color: var(--txt);
+    }
+
+    .card-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    .lang {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .lang button {
+      appearance: none; border: 0;
+      border-right: 1px solid var(--border);
+      background: transparent; color: var(--txt3);
+      padding: 7px 12px; font: inherit; font-size: 11px;
+      letter-spacing: .5px; text-transform: uppercase;
+      cursor: pointer; transition: color .15s; outline: none; font-weight: 700;
+    }
+    .lang button:last-child { border-right: 0; }
+    .lang button:hover { color: var(--txt); }
+    .lang button[aria-pressed="true"] { color: #000; background: var(--accent); }
+
+    .chip {
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--txt3);
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer; font: inherit;
+      font-weight: 700; font-size: 11px;
+      text-transform: uppercase; letter-spacing: .5px;
+      text-decoration: none;
+      display: inline-flex; align-items: center;
+      justify-content: center; white-space: nowrap; user-select: none;
+      transition: color .15s, border-color .15s;
+    }
+    .chip:hover { color: var(--txt); border-color: #3a3a3a; }
+
+    .card-body {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+    }
+
+    .card-left { border-right: 1px solid var(--border-soft); }
+
+    .tabs {
+      display: flex; gap: 8px;
+      padding: 14px 16px 0;
+    }
+
+    .tab {
+      flex: 1;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--txt2);
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer; font: inherit;
+      font-weight: 700; font-size: 12px;
+      text-transform: uppercase; letter-spacing: .5px;
+      transition: color .15s, background .15s, border-color .15s;
+      white-space: nowrap;
+    }
+    .tab:hover { color: var(--txt); border-color: #3a3a3a; }
+    .tab[aria-selected="true"] { background: var(--accent); color: #000; border-color: transparent; }
+
+    .card-b { padding: 14px 16px 16px; }
+    form { display: flex; flex-direction: column; gap: 12px; }
+
+    label {
+      font-size: 11px; color: var(--txt3);
+      text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+    }
+
+    input, select {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--txt);
+      padding: 10px 12px;
+      border-radius: 10px;
+      outline: none; font: inherit; font-size: 13px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    input:focus, select:focus {
+      border-color: rgba(255,140,0,.55);
+      box-shadow: 0 0 0 3px rgba(255,140,0,.10);
+    }
+
+    .row { display: flex; flex-direction: column; gap: 6px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .hint { color: var(--txt3); font-size: 12px; line-height: 1.45; }
+
+    .colors {
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      border-radius: 10px; padding: 12px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .colorline { display: flex; gap: 10px; align-items: center; }
+
+    input[type="color"] {
+      width: 42px; height: 42px;
+      padding: 2px; border: 1px solid var(--border);
+      background: var(--surface); cursor: pointer;
+      border-radius: 8px; flex-shrink: 0;
+    }
+
+    .chk { display: flex; gap: 10px; align-items: center; }
+    .chk input { width: 17px; height: 17px; accent-color: var(--accent); cursor: pointer; flex-shrink: 0; }
+
+    .btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 2px; }
+
+    .btn {
+      flex: 1 1 100px; border: 0;
+      border-radius: 10px; padding: 12px;
+      cursor: pointer; font: inherit;
+      font-weight: 800; font-size: 12px;
+      text-transform: uppercase; letter-spacing: .5px;
+      min-height: 44px; white-space: nowrap;
+      transition: filter .15s, transform .08s;
+    }
+    .btn:active { transform: scale(.99); }
+    .primary { background: var(--accent); color: #000; }
+    .primary:hover { filter: brightness(1.08); }
+    .ghost {
+      background: var(--surface2); color: var(--txt2);
+      border: 1px solid var(--border);
+    }
+    .ghost:hover { color: var(--txt); border-color: #3a3a3a; }
+
+    .preview-wrap { display: flex; flex-direction: column; height: 100%; }
+
+    .preview-head {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--surface2);
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 10px;
+    }
+
+    .preview-title {
+      font-weight: 700; font-size: 12px;
+      text-transform: uppercase; letter-spacing: .6px;
+      color: var(--txt);
+    }
+
+    .pill {
+      font-size: 11px; color: var(--txt3);
+      border: 1px solid var(--border);
+      padding: 4px 9px; border-radius: 6px;
+      background: var(--surface);
+    }
+
+    .preview {
+      display: flex; flex-direction: column; gap: 12px;
+      align-items: center; justify-content: center;
+      padding: 20px 16px; flex: 1;
+    }
+
+    .canvaswrap {
+      width: min(220px, 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    canvas { width: 100%; height: auto; display: block; border-radius: 6px; }
+
+    .dl {
+      color: var(--accent); text-decoration: none;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .5px; text-transform: uppercase;
+      border: 1px solid rgba(255,140,0,.35);
+      padding: 8px 16px; border-radius: 8px;
+      display: none; transition: background .15s;
+    }
+    .dl:hover { background: rgba(255,140,0,.08); }
+
+    .status {
+      color: var(--txt3); text-align: center;
+      font-size: 12px; line-height: 1.5; max-width: 22ch;
+    }
+
+    .hide { display: none !important; }
+
+    .modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.75);
+      display: none; align-items: center;
+      justify-content: center; padding: 16px; z-index: 50;
+      backdrop-filter: blur(6px);
+    }
+    .modal[aria-hidden="false"] { display: flex; }
+
+    .modal-card {
+      width: min(640px, 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      box-shadow: 0 32px 80px rgba(0,0,0,.8);
+      overflow: hidden;
+    }
+
+    .modal-h {
+      padding: 14px 18px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 10px;
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--surface2);
+    }
+
+    .modal-title {
+      font-weight: 800; letter-spacing: .6px;
+      text-transform: uppercase; font-size: 12px; color: var(--txt);
+    }
+
+    .modal-b {
+      padding: 18px; display: flex;
+      flex-direction: column; gap: 12px;
+      color: var(--txt2); font-size: 13px; line-height: 1.6;
+    }
+    .modal-b strong { color: var(--txt); }
+    .modal-b .muted { color: var(--txt3); }
+    .modal-b ul { padding-left: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .modal-actions { padding: 0 18px 18px; }
+
+    .close {
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--txt2); padding: 8px 14px;
+      border-radius: 8px; cursor: pointer; font: inherit;
+      font-weight: 700; font-size: 12px;
+      text-transform: uppercase; letter-spacing: .5px;
+      white-space: nowrap; transition: color .15s;
+    }
+    .close:hover { color: var(--txt); }
+
+    @media (max-width: 700px) {
+      .page { padding: 12px; align-items: flex-start; }
+      .card-body { grid-template-columns: 1fr; }
+      .card-left { border-right: none; border-bottom: 1px solid var(--border-soft); }
+      .card-wrap { border-radius: 16px; }
+      .preview { padding: 16px; }
+      .canvaswrap { width: min(200px, 80vw); }
+      .two { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 400px) {
+      .card-top { flex-direction: column; align-items: flex-start; }
+      .card-controls { width: 100%; }
+      .chip { flex: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card-wrap { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="card-wrap">
+
+    <div class="card-top">
+      <div class="card-title" id="hTitle">QR — Couleur & Wi-Fi</div>
+      <div class="card-controls">
+        <div class="lang" role="group" aria-label="Language">
+          <button id="btnFR" type="button" aria-pressed="true">FR</button>
+          <button id="btnEN" type="button" aria-pressed="false">EN</button>
+        </div>
+        <button class="chip" type="button" id="infoBtn"><span id="infoLabel">Infos</span></button>
+        <a class="chip" href="../index.html" id="backBtn"><span id="backLabel">Retour</span></a>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="card-left">
+        <div class="tabs" role="tablist">
+          <button class="tab" id="tabColor" role="tab" aria-selected="true" aria-controls="panelColor">ColorQR</button>
+          <button class="tab" id="tabWifi"  role="tab" aria-selected="false" aria-controls="panelWifi">WiFiQR</button>
+        </div>
+
+        <div class="card-b">
+
+          <div id="panelColor">
+            <form id="formColor">
+              <div class="row">
+                <label id="lUrl">Lien</label>
+                <input id="url" type="text" inputmode="url" placeholder="https://..." value="https://archivefever.work/Projets/QR" />
+                <div class="hint" id="hUrl">Ce lien sera encodé dans le QR.</div>
+              </div>
+              <div class="colors">
+                <div class="two">
+                  <div class="row">
+                    <label id="lC1">Couleur principale</label>
+                    <div class="colorline">
+                      <input id="c1" type="color" value="#ff8c00" />
+                      <input id="c1t" type="text" value="#ff8c00" spellcheck="false" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label id="lC2">Couleur secondaire</label>
+                    <div class="colorline">
+                      <input id="c2" type="color" value="#970000" />
+                      <input id="c2t" type="text" value="#970000" spellcheck="false" />
+                    </div>
+                  </div>
+                </div>
+                <div class="chk">
+                  <input id="m1" type="checkbox" checked />
+                  <label for="m1" id="lM1" style="text-transform:none;letter-spacing:0;color:var(--txt2);font-size:12px;">Bordure (marge) — améliore la détection</label>
+                </div>
+              </div>
+              <div class="btns">
+                <button class="btn primary" type="button" id="genColor">Générer</button>
+                <button class="btn ghost"   type="button" id="swapC">Inverser</button>
+                <button class="btn ghost"   type="button" id="randC">Aléatoire</button>
+              </div>
+              <div class="hint" id="hRandC">Le bouton "Aléatoire" change les 2 couleurs.</div>
+            </form>
+          </div>
+
+          <div id="panelWifi" class="hide">
+            <form id="formWifi">
+              <div class="row">
+                <label id="lSsid">Nom du Wi-Fi (SSID)</label>
+                <input id="ssid" type="text" placeholder="MonWifi" required />
+                <div class="hint" id="hSsid">Le QR proposera la connexion à ce réseau.</div>
+              </div>
+              <div class="row">
+                <label id="lPass">Mot de passe</label>
+                <input id="pass" type="password" placeholder="••••••••" />
+                <div class="hint" id="hPass">Si "Aucune", le mot de passe est ignoré.</div>
+              </div>
+              <div class="row">
+                <label id="lSec">Sécurité</label>
+                <select id="sec">
+                  <option value="WPA">WPA/WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="nopass" id="optNopass">Aucune</option>
+                </select>
+                <div class="hint" id="hSec">Définit comment l'appareil se connecte.</div>
+              </div>
+              <div class="colors">
+                <div class="two">
+                  <div class="row">
+                    <label id="lW1">Couleur principale</label>
+                    <div class="colorline">
+                      <input id="w1" type="color" value="#ff8c00" />
+                      <input id="w1t" type="text" value="#ff8c00" spellcheck="false" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label id="lW2">Couleur secondaire</label>
+                    <div class="colorline">
+                      <input id="w2" type="color" value="#970000" />
+                      <input id="w2t" type="text" value="#970000" spellcheck="false" />
+                    </div>
+                  </div>
+                </div>
+                <div class="chk">
+                  <input id="m2" type="checkbox" checked />
+                  <label for="m2" id="lM2" style="text-transform:none;letter-spacing:0;color:var(--txt2);font-size:12px;">Bordure (marge) — améliore la détection</label>
+                </div>
+              </div>
+              <div class="btns">
+                <button class="btn primary" type="button" id="genWifi">Générer</button>
+                <button class="btn ghost"   type="button" id="swapW">Inverser</button>
+                <button class="btn ghost"   type="button" id="randW">Aléatoire</button>
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card-right">
+        <div class="preview-wrap">
+          <div class="preview-head">
+            <div class="preview-title" id="previewLabel">Aperçu</div>
+            <div class="pill">256×256</div>
+          </div>
+          <div class="preview">
+            <div id="previewBox" class="canvaswrap hide">
+              <canvas id="canvas" width="256" height="256" aria-label="QR"></canvas>
+            </div>
+            <a id="dl" class="dl" download="qrcode.png" href="#">Télécharger</a>
+            <div id="status" class="status">Rien à afficher. Clique sur "Générer".</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="infoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+  <div class="modal-card">
+    <div class="modal-h">
+      <div class="modal-title" id="infoTitle">Infos</div>
+      <button class="close" type="button" id="closeInfo">Fermer</button>
+    </div>
+    <div class="modal-b" id="modalBody"></div>
+    <div class="modal-actions"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script>
+  const $ = id => document.getElementById(id);
+
+  const T = {
+    fr: {
+      headerTitle:  "QR — Couleur & Wi-Fi",
+      info:         "Infos",
+      back:         "Retour",
+      lUrl:         "Lien",
+      hUrl:         "Ce lien sera encodé dans le QR.",
+      lC1:          "Couleur principale",
+      lC2:          "Couleur secondaire",
+      lM1:          "Bordure (marge) — améliore la détection",
+      lM2:          "Bordure (marge) — améliore la détection",
+      hRandC:       'Le bouton "Aléatoire" change les 2 couleurs.',
+      genColor:     "Générer",
+      swapC:        "Inverser",
+      randC:        "Aléatoire",
+      lSsid:        "Nom du Wi-Fi (SSID)",
+      hSsid:        "Le QR proposera la connexion à ce réseau.",
+      ssidPlaceholder: "MonWifi",
+      lPass:        "Mot de passe",
+      hPass:        'Si "Aucune", le mot de passe est ignoré.',
+      lSec:         "Sécurité",
+      hSec:         "Définit comment l'appareil se connecte.",
+      lW1:          "Couleur principale",
+      lW2:          "Couleur secondaire",
+      genWifi:      "Générer",
+      swapW:        "Inverser",
+      randW:        "Aléatoire",
+      optNopass:    "Aucune",
+      previewLabel: "Aperçu",
+      dl:           "Télécharger",
+      statusEmpty:  'Rien à afficher. Clique sur "Générer".',
+      statusGen:    "Génération…",
+      statusReady:  "QR prêt — tu peux télécharger.",
+      statusErr:    "Erreur lors de la génération.",
+      alertUrl:     "Entre un lien.",
+      alertSsid:    "Entre un nom de réseau (SSID).",
+      alertErr:     "Erreur lors de la génération du QR.",
+      infoTitle:    "Infos",
+      closeInfo:    "Fermer",
+      modalHtml: `
+        <p><strong>Créé par Fever</strong> — projet publié sur <strong>ArchiveFever.Work</strong>.</p>
+        <p class="muted">Cet outil génère les QR codes <strong>localement dans ton navigateur</strong>. Les données saisies ne sont pas envoyées à un serveur.</p>
+        <ul>
+          <li><strong>Vie privée :</strong> aucune collecte des contenus saisis.</li>
+          <li><strong>Usage :</strong> tu es responsable du contenu encodé.</li>
+          <li><strong>Sécurité :</strong> un QR peut pointer vers du contenu risqué. Vérifie avant de partager.</li>
+          <li><strong>Responsabilité :</strong> Fever / ArchiveFever.Work ne peuvent être tenus responsables d'un usage malveillant par un tiers.</li>
+        </ul>
+        <p class="muted">Conseil : teste ton QR sur plusieurs téléphones avant de le diffuser.</p>`
+    },
+    en: {
+      headerTitle:  "QR — Color & Wi-Fi",
+      info:         "Info",
+      back:         "Back",
+      lUrl:         "Link",
+      hUrl:         "This link will be encoded inside the QR code.",
+      lC1:          "Primary color",
+      lC2:          "Secondary color",
+      lM1:          "Border (margin) — improves scanning reliability",
+      lM2:          "Border (margin) — improves scanning reliability",
+      hRandC:       '"Random" picks two new colors.',
+      genColor:     "Generate",
+      swapC:        "Swap",
+      randC:        "Random",
+      lSsid:        "Wi-Fi name (SSID)",
+      hSsid:        "The QR code will suggest joining this network.",
+      ssidPlaceholder: "MyWifi",
+      lPass:        "Password",
+      hPass:        'If "None", the password field is ignored.',
+      lSec:         "Security",
+      hSec:         "Defines how the device connects.",
+      lW1:          "Primary color",
+      lW2:          "Secondary color",
+      genWifi:      "Generate",
+      swapW:        "Swap",
+      randW:        "Random",
+      optNopass:    "None",
+      previewLabel: "Preview",
+      dl:           "Download",
+      statusEmpty:  'Nothing to show yet. Click "Generate".',
+      statusGen:    "Generating…",
+      statusReady:  "QR ready — you can download it.",
+      statusErr:    "Generation error.",
+      alertUrl:     "Please enter a link.",
+      alertSsid:    "Please enter a network name (SSID).",
+      alertErr:     "QR generation error.",
+      infoTitle:    "Info",
+      closeInfo:    "Close",
+      modalHtml: `
+        <p><strong>Made by Fever</strong> — a project on <strong>ArchiveFever.Work</strong>.</p>
+        <p class="muted">This tool generates QR codes <strong>locally in your browser</strong>. The data you enter is not sent to a server.</p>
+        <ul>
+          <li><strong>Privacy:</strong> no collection of the content you enter.</li>
+          <li><strong>Usage:</strong> you are responsible for what you encode.</li>
+          <li><strong>Security:</strong> QR codes can link to risky content. Always verify before sharing.</li>
+          <li><strong>Liability:</strong> Fever / ArchiveFever.Work cannot be held responsible for malicious use by third parties.</li>
+        </ul>
+        <p class="muted">Tip: test your QR on multiple phones before sharing publicly.</p>`
+    }
+  };
+
+  let currentLang = "fr";
+
+  function setLang(lang) {
+    currentLang = lang;
+    const t = T[lang];
+    document.documentElement.lang = lang;
+    $("hTitle").textContent       = t.headerTitle;
+    $("infoLabel").textContent    = t.info;
+    $("backLabel").textContent    = t.back;
+    $("lUrl").textContent         = t.lUrl;
+    $("hUrl").textContent         = t.hUrl;
+    $("lC1").textContent          = t.lC1;
+    $("lC2").textContent          = t.lC2;
+    $("lM1").textContent          = t.lM1;
+    $("lM2").textContent          = t.lM2;
+    $("hRandC").textContent       = t.hRandC;
+    $("genColor").textContent     = t.genColor;
+    $("swapC").textContent        = t.swapC;
+    $("randC").textContent        = t.randC;
+    $("lSsid").textContent        = t.lSsid;
+    $("hSsid").textContent        = t.hSsid;
+    $("ssid").placeholder         = t.ssidPlaceholder;
+    $("lPass").textContent        = t.lPass;
+    $("hPass").textContent        = t.hPass;
+    $("lSec").textContent         = t.lSec;
+    $("hSec").textContent         = t.hSec;
+    $("lW1").textContent          = t.lW1;
+    $("lW2").textContent          = t.lW2;
+    $("genWifi").textContent      = t.genWifi;
+    $("swapW").textContent        = t.swapW;
+    $("randW").textContent        = t.randW;
+    $("optNopass").textContent    = t.optNopass;
+    $("previewLabel").textContent = t.previewLabel;
+    $("dl").textContent           = t.dl;
+    $("infoTitle").textContent    = t.infoTitle;
+    $("closeInfo").textContent    = t.closeInfo;
+    $("modalBody").innerHTML      = t.modalHtml;
+    const s = $("status").dataset.state || "empty";
+    $("status").textContent = t["status" + s.charAt(0).toUpperCase() + s.slice(1)] || t.statusEmpty;
+    $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
+    $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
+    try { localStorage.setItem("qr_lang", lang); } catch(e) {}
+  }
+
+  $("btnFR").onclick = () => setLang("fr");
+  $("btnEN").onclick = () => setLang("en");
+
+  let savedLang = "fr";
+  try { savedLang = localStorage.getItem("qr_lang") || "fr"; } catch(e) {}
+
+  const modal = $("infoModal");
+  const openInfo  = () => modal.setAttribute("aria-hidden","false");
+  const closeInfo = () => modal.setAttribute("aria-hidden","true");
+  $("infoBtn").addEventListener("click", openInfo);
+  $("closeInfo").addEventListener("click", closeInfo);
+  modal.addEventListener("click", e => { if(e.target===modal) closeInfo(); });
+  document.addEventListener("keydown", e => { if(e.key==="Escape" && modal.getAttribute("aria-hidden")==="false") closeInfo(); });
+
+  function setMode(mode){
+    const isColor = mode==="color";
+    $("tabColor").setAttribute("aria-selected", String(isColor));
+    $("tabWifi").setAttribute("aria-selected",  String(!isColor));
+    $("panelColor").classList.toggle("hide", !isColor);
+    $("panelWifi").classList.toggle("hide",   isColor);
+    $("previewBox").classList.add("hide");
+    $("dl").style.display = "none";
+    const t = T[currentLang];
+    $("status").textContent = t.statusEmpty;
+    $("status").dataset.state = "empty";
+  }
+  $("tabColor").addEventListener("click", ()=>setMode("color"));
+  $("tabWifi").addEventListener("click",  ()=>setMode("wifi"));
+
+  const isHex = v => /^#([0-9a-f]{3}){1,2}$/i.test((v||"").trim());
+  const contrast = hex => {
+    const c=hex.replace("#",""),r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16);
+    return ((r*299+g*587+b*114)/1000)>140?"#000":"#fff";
+  };
+  function paint(input){ const v=input.value.trim(); if(!isHex(v)) return; input.style.background=v; input.style.color=contrast(v); }
+  function bind(picker,text){
+    picker.addEventListener("input", ()=>{ text.value=picker.value; paint(text); });
+    text.addEventListener("input",   ()=>{ const v=text.value.trim(); if(isHex(v)){ picker.value=v; paint(text); } });
+    paint(text);
+  }
+  bind($("c1"),$("c1t")); bind($("c2"),$("c2t"));
+  bind($("w1"),$("w1t")); bind($("w2"),$("w2t"));
+
+  function swap(p1,t1,p2,t2){ const a=p1.value,b=p2.value; p1.value=b;p2.value=a;t1.value=b;t2.value=a; paint(t1);paint(t2); }
+  $("swapC").addEventListener("click", ()=>swap($("c1"),$("c1t"),$("c2"),$("c2t")));
+  $("swapW").addEventListener("click", ()=>swap($("w1"),$("w1t"),$("w2"),$("w2t")));
+
+  const randHex = () => "#"+Math.floor(Math.random()*0xFFFFFF).toString(16).padStart(6,"0");
+  const lum = hex => { const c=hex.replace("#",""),r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return (r*299+g*587+b*114)/1000; };
+  function randomPair(){ let a=randHex(),b=randHex(),t=0; while(Math.abs(lum(a)-lum(b))<70&&t<40){b=randHex();t++;} return [a,b]; }
+  function applyColors(p1,t1,p2,t2){ const [a,b]=randomPair(); p1.value=a;t1.value=a;paint(t1); p2.value=b;t2.value=b;paint(t2); }
+  $("randC").addEventListener("click", ()=>applyColors($("c1"),$("c1t"),$("c2"),$("c2t")));
+  $("randW").addEventListener("click", ()=>applyColors($("w1"),$("w1t"),$("w2"),$("w2t")));
+
+  const safeName = s => (s||"qrcode").replace(/https?:\/\//gi,"").replace(/[^a-z0-9]+/gi,"_").replace(/^_+|_+$/g,"").slice(0,80)||"qrcode";
+
+  async function renderQR(data, dark, light, margin, filename){
+    const t = T[currentLang];
+    $("dl").style.display = "none";
+    $("status").textContent = t.statusGen;
+    $("status").dataset.state = "gen";
+    try {
+      await QRCode.toCanvas($("canvas"), data, { width:256, margin:margin?1:0, color:{dark,light} });
+      $("previewBox").classList.remove("hide");
+      $("dl").href     = $("canvas").toDataURL("image/png");
+      $("dl").download = filename;
+      $("dl").style.display = "inline";
+      $("status").textContent = t.statusReady;
+      $("status").dataset.state = "ready";
+    } catch(err) {
+      console.error(err);
+      $("status").textContent = t.statusErr;
+      $("status").dataset.state = "err";
+      alert(t.alertErr);
+    }
+  }
+
+  $("genColor").addEventListener("click", ()=>{
+    const url=$("url").value.trim();
+    if(!url) return alert(T[currentLang].alertUrl);
+    const dark=isHex($("c1").value)?$("c1").value:"#000000";
+    const light=isHex($("c2").value)?$("c2").value:"#ffffff";
+    renderQR(url, dark, light, $("m1").checked, `ColorQR_${safeName(url)}.png`);
+  });
+  $("formColor").addEventListener("submit", e=>{ e.preventDefault(); $("genColor").click(); });
+
+  $("genWifi").addEventListener("click", ()=>{
+    const ssid=$("ssid").value.trim();
+    const pass=$("pass").value.trim();
+    const sec=$("sec").value;
+    if(!ssid) return alert(T[currentLang].alertSsid);
+    const data=`WIFI:T:${sec};S:${ssid};${sec!=="nopass"?`P:${pass};`:""};`;
+    const dark=isHex($("w1").value)?$("w1").value:"#000000";
+    const light=isHex($("w2").value)?$("w2").value:"#ffffff";
+    renderQR(data, dark, light, $("m2").checked, `WiFiQR_${safeName(ssid)}.png`);
+  });
+  $("formWifi").addEventListener("submit", e=>{ e.preventDefault(); $("genWifi").click(); });
+
+  setMode("color");
+  setLang(savedLang);
+</script>
+</body>
+</html>

@@ -1,1 +1,393 @@
-Il n'y a plus rien ici pour le moment.
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ArchiveFever.Work</title>
+  <link rel="icon" href="IMG/Jerome.webp" type="image/webp" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --border-soft: #222;
+      --accent: #ff8c00;
+      --txt: #f5f5f7;
+      --txt2: #a1a1a6;
+      --txt3: #6e6e73;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100dvh;
+      background: var(--bg);
+      color: var(--txt);
+      font-family: "Source Code Pro", ui-monospace, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .card-wrap {
+      width: min(520px, 100%);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.03) inset,
+        0 32px 80px -20px rgba(0,0,0,.85),
+        0 8px 24px -8px rgba(0,0,0,.6);
+      animation: rise .55s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px) scale(.99); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--surface2);
+    }
+
+    .site-name {
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      color: var(--txt);
+    }
+
+    .site-name span { color: var(--accent); }
+
+    .lang {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+    .lang button {
+      appearance: none; border: 0;
+      border-right: 1px solid var(--border);
+      background: transparent; color: var(--txt3);
+      padding: 7px 12px; font: inherit; font-size: 11px;
+      letter-spacing: .5px; text-transform: uppercase;
+      cursor: pointer; transition: color .15s; outline: none; font-weight: 700;
+    }
+    .lang button:last-child { border-right: 0; }
+    .lang button:hover { color: var(--txt); }
+    .lang button[aria-pressed="true"] { color: #000; background: var(--accent); }
+
+    .card-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 24px; }
+
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .logo-wrap img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
+
+    .status-block { display: flex; flex-direction: column; gap: 6px; text-align: center; }
+
+    .status-label {
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .status-msg {
+      font-size: 13px;
+      color: var(--txt2);
+      line-height: 1.6;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--txt3);
+      font-weight: 700;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .pages-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .page-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--txt);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      transition: border-color .15s, color .15s;
+    }
+    .page-link:hover { border-color: var(--accent); color: var(--accent); }
+    .page-link-arrow { font-size: 14px; opacity: .5; }
+
+    .badge {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 5px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--txt3);
+      letter-spacing: .1em;
+      font-weight: 700;
+    }
+
+    .socials-btn {
+      appearance: none; border: 0;
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--txt2);
+      padding: 12px 14px;
+      border-radius: 10px;
+      cursor: pointer; font: inherit;
+      font-weight: 700; font-size: 12px;
+      text-transform: uppercase; letter-spacing: .5px;
+      transition: border-color .15s, color .15s;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .socials-btn:hover { border-color: #3a3a3a; color: var(--txt); }
+    .socials-btn[aria-expanded="true"] { border-color: var(--accent); color: var(--accent); }
+
+    .socials-panel {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .socials-panel.open { display: flex; }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--txt2);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      transition: border-color .15s, color .15s;
+    }
+    .social-link:hover { border-color: #3a3a3a; color: var(--txt); }
+
+    
+    .modal {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.75);
+      display: none; align-items: center;
+      justify-content: center; padding: 16px; z-index: 50;
+      backdrop-filter: blur(6px);
+    }
+    .modal[aria-hidden="false"] { display: flex; }
+
+    .modal-card {
+      width: min(400px, 100%);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--surface);
+      box-shadow: 0 32px 80px rgba(0,0,0,.8);
+      overflow: hidden;
+    }
+
+    .modal-h {
+      padding: 14px 18px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 10px;
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--surface2);
+    }
+
+    .modal-title {
+      font-weight: 800; letter-spacing: .6px;
+      text-transform: uppercase; font-size: 12px; color: var(--txt);
+    }
+
+    .modal-b {
+      padding: 16px 18px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .modal-actions { padding: 0 18px 18px; }
+
+    .close {
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--txt2); padding: 8px 14px;
+      border-radius: 8px; cursor: pointer; font: inherit;
+      font-weight: 700; font-size: 12px;
+      text-transform: uppercase; letter-spacing: .5px;
+      white-space: nowrap; transition: color .15s;
+    }
+    .close:hover { color: var(--txt); }
+
+    @media (max-width: 400px) {
+      .card-top { flex-wrap: wrap; }
+      .card-body { padding: 20px 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card-wrap { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="card-wrap">
+
+    <div class="card-top">
+      <div class="site-name">Archive<span>Fever</span>.Work</div>
+      <div class="lang" role="group" aria-label="Language">
+        <button id="btnFR" type="button" aria-pressed="true">FR</button>
+        <button id="btnEN" type="button" aria-pressed="false">EN</button>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="logo-wrap">
+        <img src="IMG/Jerome.webp" alt="ArchiveFever" />
+      </div>
+
+      <div class="status-block">
+        <div class="status-label" id="statusLabel">En reconstruction</div>
+        <div class="status-msg" id="statusMsg">Le site est en cours de refonte complète.<br>Les pages sont reconstruites une à une.</div>
+      </div>
+
+      <div>
+        <div class="section-label" id="pagesLabel">Pages</div>
+        <div class="pages-list" style="margin-top:10px;">
+          <a class="page-link" href="QR/index.html">
+            <span>ColorQR</span>
+            <span class="page-link-arrow">→</span>
+          </a>
+          <a class="page-link" href="Donations/index.html">
+            <span id="donationsLabel">Dons</span>
+            <span class="page-link-arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <button class="socials-btn" id="socialsBtn" aria-expanded="false">
+          <span id="socialsLabel">Mes réseaux</span>
+          <span id="socialsArrow">↓</span>
+        </button>
+        <div class="socials-panel" id="socialsPanel">
+          <a class="social-link" href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener">
+            <span>YouTube</span>
+          </a>
+          <a class="social-link" href="https://www.twitch.tv/feveeeer" target="_blank" rel="noopener">
+            <span>Twitch</span>
+          </a>
+          <a class="social-link" href="https://x.com/infinity_lbrtr" target="_blank" rel="noopener">
+            <span>Twitter / X</span>
+          </a>
+          <a class="social-link" href="https://steamcommunity.com/id/Fever65/" target="_blank" rel="noopener">
+            <span>Steam</span>
+          </a>
+          <a class="social-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">
+            <span>OnlyFans</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  const T = {
+    fr: {
+      statusLabel:    "En reconstruction",
+      statusMsg:      "Le site est en cours de refonte complète.<br>Les pages sont reconstruites une à une.",
+      pagesLabel:     "Pages",
+      donationsLabel: "Dons",
+      socialsLabel:   "Mes réseaux",
+    },
+    en: {
+      statusLabel:    "Under reconstruction",
+      statusMsg:      "The site is being fully rebuilt.<br>Pages are being reconstructed one by one.",
+      pagesLabel:     "Pages",
+      donationsLabel: "Donations",
+      socialsLabel:   "My socials",
+    }
+  };
+
+  let currentLang = "fr";
+
+  function setLang(lang) {
+    currentLang = lang;
+    const t = T[lang];
+    document.documentElement.lang = lang;
+    $("statusLabel").textContent    = t.statusLabel;
+    $("statusMsg").innerHTML        = t.statusMsg;
+    $("pagesLabel").textContent     = t.pagesLabel;
+    $("donationsLabel").textContent = t.donationsLabel;
+    $("socialsLabel").textContent   = t.socialsLabel;
+    $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
+    $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
+    try { localStorage.setItem("af_lang", lang); } catch(e) {}
+  }
+
+  $("btnFR").onclick = () => setLang("fr");
+  $("btnEN").onclick = () => setLang("en");
+
+  $("socialsBtn").addEventListener("click", () => {
+    const panel = $("socialsPanel");
+    const btn   = $("socialsBtn");
+    const open  = panel.classList.toggle("open");
+    btn.setAttribute("aria-expanded", String(open));
+    $("socialsArrow").textContent = open ? "↑" : "↓";
+  });
+
+  let savedLang = "fr";
+  try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch(e) {}
+  setLang(savedLang);
+</script>
+</body>
+</html>

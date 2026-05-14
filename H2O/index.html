@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>L'Eau Maudite — ArchiveFever.Work</title>
+  <link rel="icon" href="../IMG/Jerome.webp" type="image/webp" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --border-soft: #222;
+      --accent: #ff8c00;
+      --danger: #c94545;
+      --txt: #f5f5f7;
+      --txt2: #a1a1a6;
+      --txt3: #6e6e73;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      background: var(--bg);
+      color: var(--txt);
+      font-family: "Source Code Pro", ui-monospace, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      min-height: 100dvh;
+      padding: 24px 16px 48px;
+    }
+
+    .top-bar {
+      max-width: 680px;
+      margin: 0 auto 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .site-name {
+      font-size: 11px;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--txt3);
+    }
+    .site-name span { color: var(--accent); }
+
+    .back-chip {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--txt3);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      text-decoration: none;
+      transition: color .15s, border-color .15s;
+    }
+    .back-chip:hover { color: var(--accent); border-color: var(--accent); }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      animation: fadeUp .55s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero { text-align: center; }
+
+    .hero-overline {
+      font-size: 10px;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-size: clamp(1.8rem, 6vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: .02em;
+      line-height: 1.1;
+      color: var(--txt);
+      text-transform: uppercase;
+    }
+
+    .hero-tag {
+      margin-top: 14px;
+      font-size: 11px;
+      letter-spacing: .15em;
+      color: var(--txt3);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 0;
+    }
+
+    .tab-btn {
+      flex: 1;
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--txt3);
+      padding: 10px 8px;
+      font: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color .15s, border-color .15s;
+    }
+    .tab-btn:hover { color: var(--txt); }
+    .tab-btn[aria-selected="true"] {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .specs { display: flex; flex-direction: column; }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 12px;
+    }
+    .spec-row:last-child { border-bottom: 0; }
+    .spec-row .key { color: var(--txt3); text-transform: uppercase; letter-spacing: .1em; font-size: 11px; }
+    .spec-row .val { color: var(--txt); font-weight: 700; text-align: right; }
+    .spec-row .val.danger { color: var(--danger); }
+
+    .lore {
+      font-size: 13px;
+      line-height: 1.85;
+      color: var(--txt2);
+    }
+    .lore p + p { margin-top: 14px; }
+    .lore em { color: var(--accent); font-style: normal; font-weight: 700; }
+
+    .price { text-align: center; padding: 4px 0; }
+
+    .price-val {
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .price-note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: var(--txt3);
+      letter-spacing: .05em;
+    }
+
+    .warning {
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--txt2);
+      padding: 14px 0;
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .warning strong {
+      color: var(--danger);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-size: 11px;
+    }
+
+    .cta-wrap { text-align: center; }
+
+    .cta-btn {
+      appearance: none;
+      display: inline-block;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .cta-btn:hover { background: var(--accent); color: #000; }
+
+    .cta-note {
+      margin-top: 12px;
+      font-size: 11px;
+      letter-spacing: .1em;
+      color: var(--txt3);
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--txt3);
+      padding-top: 24px;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s, transform .25s;
+      z-index: 50;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="top-bar">
+    <div class="site-name">Archive<span>Fever</span>.Work</div>
+    <a class="back-chip" href="../index.html">↩ AF.W</a>
+  </div>
+
+  <div class="container">
+
+    <div class="hero">
+      <div class="hero-overline">Pièce unique · 1 / 1</div>
+      <h1 class="hero-title">L'Eau Maudite</h1>
+      <div class="hero-tag">Édition originelle · 2020</div>
+    </div>
+
+    <div>
+      <div class="tabs" role="tablist">
+        <button class="tab-btn" id="tabHistoire" role="tab" aria-selected="true" aria-controls="panelHistoire">Histoire</button>
+        <button class="tab-btn" id="tabSpecs" role="tab" aria-selected="false" aria-controls="panelSpecs">Spécifications</button>
+        <button class="tab-btn" id="tabAchat" role="tab" aria-selected="false" aria-controls="panelAchat">Achat</button>
+      </div>
+
+      <div style="padding-top: 22px;">
+
+        <div class="tab-panel active" id="panelHistoire">
+          <div class="lore">
+            <p>Mars 2020. La France entre en confinement. Quelque part dans une chambre, un jeune homme finit sa mini bouteille de Coca, l'ouvre, la rince à peine, et la remplit d'eau du robinet. Un geste sans importance, fait dans un moment qui n'en avait que trop.</p>
+            <p>La bouteille ne sera jamais ouverte. Posée dans un coin, elle traverse les saisons, les couvre-feux, les variants. Le niveau baisse lentement. Il en reste aujourd'hui à peine un quart.</p>
+            <p>Et puis <em>quelque chose</em> a fini par apparaître au fond. Quelque chose qui n'était pas là au départ. Quelque chose qui a pris le temps de grandir.</p>
+            <p>Six ans plus tard, elle est toujours là. Témoin d'une époque que personne ne veut revivre, et peut-être un peu plus que ça.</p>
+            <p>Aujourd'hui, son gardien accepte enfin de s'en séparer. <em>Mais pas à n'importe qui.</em></p>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panelSpecs">
+          <div class="specs">
+            <div class="spec-row"><span class="key">Origine</span><span class="val">France · Mars 2020</span></div>
+            <div class="spec-row"><span class="key">Contenant</span><span class="val">Mini Coca-Cola d'origine</span></div>
+            <div class="spec-row"><span class="key">Contenu</span><span class="val">Eau du robinet</span></div>
+            <div class="spec-row"><span class="key">Niveau restant</span><span class="val">≈ 1 / 4</span></div>
+            <div class="spec-row"><span class="key">Sédiment</span><span class="val danger">Présent au fond</span></div>
+            <div class="spec-row"><span class="key">Conservation</span><span class="val">6 ans à l'abri de la lumière</span></div>
+            <div class="spec-row"><span class="key">Disponibilité</span><span class="val">1 / 1</span></div>
+            <div class="spec-row"><span class="key">Comestibilité</span><span class="val danger">Aucune</span></div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="panelAchat">
+          <div class="price">
+            <div class="price-val">Prix sur candidature</div>
+            <div class="price-note">Négociable selon la sincérité du dossier.</div>
+          </div>
+
+          <div class="warning" style="margin-top: 20px;">
+            <strong>Avertissement.</strong> Ce produit n'est pas destiné à la consommation. Il s'agit d'un objet de collection. Toute ingestion relève de la seule responsabilité de l'acquéreur, et probablement d'une décision discutable.
+          </div>
+
+          <div class="cta-wrap" style="margin-top: 24px;">
+            <button class="cta-btn" id="ctaBtn">Copier mon pseudo Discord</button>
+            <div class="cta-note">Envoie moi un MP avec une candidature sérieuse.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer">
+      ArchiveFever.Work · Pièce unique 1/1 · Non comestible
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast">Pseudo copié : fever65</div>
+
+<script>
+  const tabs = [
+    { btn: "tabHistoire", panel: "panelHistoire" },
+    { btn: "tabSpecs",    panel: "panelSpecs" },
+    { btn: "tabAchat",    panel: "panelAchat" },
+  ];
+
+  function activate(idx) {
+    tabs.forEach((t, i) => {
+      const isActive = i === idx;
+      document.getElementById(t.btn).setAttribute("aria-selected", String(isActive));
+      document.getElementById(t.panel).classList.toggle("active", isActive);
+    });
+  }
+
+  tabs.forEach((t, i) => {
+    document.getElementById(t.btn).addEventListener("click", () => activate(i));
+  });
+
+  const discordTag = "fever65";
+  const toast = document.getElementById("toast");
+
+  document.getElementById("ctaBtn").addEventListener("click", () => {
+    navigator.clipboard.writeText(discordTag).then(() => {
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2500);
+    }).catch(() => {
+      const ta = document.createElement("textarea");
+      ta.value = discordTag;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2500);
+    });
+  });
+</script>
+</body>
+</html>

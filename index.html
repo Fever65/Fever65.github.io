@@ -303,6 +303,10 @@
             <span>ColorQR</span>
             <span class="page-link-arrow">→</span>
           </a>
+          <a class="page-link" href="TIMER/index.html">
+            <span id="timerLabel">Timer</span>
+            <span class="page-link-arrow">→</span>
+          </a>
           <a class="page-link" href="Donations/index.html">
             <span id="donationsLabel">Dons</span>
             <span class="page-link-arrow">→</span>
@@ -346,6 +350,7 @@
       statusLabel:    "En reconstruction",
       statusMsg:      "Le site est en cours de refonte complète.<br>Les pages sont reconstruites une à une.",
       pagesLabel:     "Pages",
+      timerLabel:     "Timer",
       donationsLabel: "Dons",
       socialsLabel:   "Mes réseaux",
     },
@@ -353,6 +358,7 @@
       statusLabel:    "Under reconstruction",
       statusMsg:      "The site is being fully rebuilt.<br>Pages are being reconstructed one by one.",
       pagesLabel:     "Pages",
+      timerLabel:     "Timer",
       donationsLabel: "Donations",
       socialsLabel:   "My socials",
     }
@@ -367,6 +373,7 @@
     $("statusLabel").textContent    = t.statusLabel;
     $("statusMsg").innerHTML        = t.statusMsg;
     $("pagesLabel").textContent     = t.pagesLabel;
+    $("timerLabel").textContent     = t.timerLabel;
     $("donationsLabel").textContent = t.donationsLabel;
     $("socialsLabel").textContent   = t.socialsLabel;
     $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));

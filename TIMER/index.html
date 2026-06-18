@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timer — ArchiveFever.Work</title>
+  <link rel="icon" href="../IMG/Jerome.webp" type="image/webp" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --border-soft: #222;
+      --accent: #ff8c00;
+      --danger: #ff3b30;
+      --txt: #f5f5f7;
+      --txt2: #a1a1a6;
+      --txt3: #6e6e73;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100dvh;
+      background: var(--bg);
+      color: var(--txt);
+      font-family: "Source Code Pro", ui-monospace, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+
+    .page {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .card-wrap {
+      width: min(720px, 100%);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.03) inset,
+        0 32px 80px -20px rgba(0,0,0,.85),
+        0 8px 24px -8px rgba(0,0,0,.6);
+      animation: rise .55s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px) scale(.99); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--surface2);
+    }
+
+    .card-title {
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      color: var(--txt);
+    }
+
+    .card-title span { color: var(--accent); }
+
+    .card-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+    .lang {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .lang button {
+      appearance: none;
+      border: 0;
+      border-right: 1px solid var(--border);
+      background: transparent;
+      color: var(--txt3);
+      padding: 7px 12px;
+      font-size: 11px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color .15s;
+      outline: none;
+      font-weight: 700;
+    }
+
+    .lang button:last-child { border-right: 0; }
+    .lang button:hover { color: var(--txt); }
+    .lang button[aria-pressed="true"] { color: #000; background: var(--accent); }
+
+    .chip {
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--txt3);
+      padding: 7px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      user-select: none;
+      transition: color .15s, border-color .15s;
+    }
+
+    .chip:hover { color: var(--txt); border-color: #3a3a3a; }
+
+    .card-body {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 18px;
+    }
+
+    .timer-panel,
+    .settings-panel {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .panel-title {
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--txt3);
+      font-weight: 700;
+    }
+
+    .status-pill {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--txt3);
+      letter-spacing: .1em;
+      font-weight: 700;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .status-pill.running { border-color: rgba(255,140,0,.45); color: var(--accent); }
+    .status-pill.done { border-color: rgba(255,59,48,.5); color: var(--danger); }
+
+    .timer-main {
+      padding: 24px 18px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .display {
+      font-size: clamp(2.9rem, 9vw, 5.5rem);
+      line-height: .9;
+      font-weight: 700;
+      letter-spacing: -.08em;
+      color: var(--txt);
+      font-variant-numeric: tabular-nums;
+      text-align: center;
+      text-shadow: 0 0 28px rgba(255,140,0,.08);
+    }
+
+    .display.done {
+      color: var(--accent);
+      animation: pulse .8s ease-in-out infinite;
+      text-shadow: 0 0 40px rgba(255,140,0,.35);
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.025); opacity: .82; }
+    }
+
+    .progress-wrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .progress-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--txt3);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .progress-bg {
+      width: 100%;
+      height: 5px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: var(--accent);
+      transition: width .15s linear;
+    }
+
+    .actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 10px;
+      cursor: pointer;
+      font-weight: 800;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      min-height: 44px;
+      white-space: nowrap;
+      transition: filter .15s, transform .08s, border-color .15s, color .15s;
+    }
+
+    .btn:active { transform: scale(.99); }
+    .primary { background: var(--accent); color: #000; }
+    .primary:hover { filter: brightness(1.08); }
+
+    .ghost {
+      background: var(--surface);
+      color: var(--txt2);
+      border: 1px solid var(--border);
+    }
+
+    .ghost:hover { color: var(--txt); border-color: #3a3a3a; }
+
+    .settings-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .row { display: flex; flex-direction: column; gap: 7px; }
+
+    label {
+      font-size: 11px;
+      color: var(--txt3);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    .duration-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .time-input {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--txt);
+      padding: 10px 8px;
+      border-radius: 10px;
+      outline: none;
+      font-size: 14px;
+      text-align: center;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      transition: border-color .15s, box-shadow .15s;
+    }
+
+    .time-input:focus {
+      border-color: rgba(255,140,0,.55);
+      box-shadow: 0 0 0 3px rgba(255,140,0,.10);
+    }
+
+    .input-caption {
+      display: block;
+      margin-top: 6px;
+      color: var(--txt3);
+      font-size: 10px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 700;
+    }
+
+    .presets {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .preset {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--txt2);
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      transition: border-color .15s, color .15s;
+    }
+
+    .preset:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hint {
+      color: var(--txt3);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .sound-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .sound-row .btn { flex: 1; }
+
+    .sound-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--txt3);
+      box-shadow: 0 0 0 0 rgba(255,140,0,0);
+      flex-shrink: 0;
+    }
+
+    .sound-dot.on {
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(255,140,0,.55);
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(12px);
+      max-width: min(420px, calc(100vw - 32px));
+      background: var(--surface);
+      border: 1px solid rgba(255,140,0,.35);
+      border-radius: 12px;
+      color: var(--txt);
+      padding: 12px 14px;
+      box-shadow: 0 22px 50px rgba(0,0,0,.55);
+      font-size: 12px;
+      line-height: 1.5;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 10;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 760px) {
+      .card-body { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 460px) {
+      .page { padding: 12px; align-items: flex-start; }
+      .card-wrap { border-radius: 16px; }
+      .card-body { padding: 14px; }
+      .card-top { flex-direction: column; align-items: flex-start; }
+      .card-controls { width: 100%; }
+      .chip { flex: 1; }
+      .actions { grid-template-columns: 1fr; }
+      .duration-grid { grid-template-columns: 1fr; }
+      .display { letter-spacing: -.06em; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card-wrap,
+      .display.done { animation: none; }
+      .progress-fill,
+      .toast { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="card-wrap">
+
+    <div class="card-top">
+      <div class="card-title">Archive<span>Fever</span>.Work — <span id="topTitle">Timer</span></div>
+      <div class="card-controls">
+        <div class="lang" role="group" aria-label="Language">
+          <button id="btnFR" type="button" aria-pressed="true">FR</button>
+          <button id="btnEN" type="button" aria-pressed="false">EN</button>
+        </div>
+        <a class="chip" href="../index.html" id="backBtn"><span id="backLabel">Retour</span></a>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <section class="timer-panel" aria-label="Timer">
+        <div class="panel-head">
+          <div class="panel-title" id="timerLabel">Chronomètre</div>
+          <div class="status-pill" id="stateLabel">Prêt</div>
+        </div>
+
+        <div class="timer-main">
+          <div class="display" id="display" aria-live="polite">25:00</div>
+
+          <div class="progress-wrap">
+            <div class="progress-meta">
+              <span id="progressLabel">Progression</span>
+              <span id="percentLabel">0%</span>
+            </div>
+            <div class="progress-bg" aria-hidden="true">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" type="button" id="startBtn">Démarrer</button>
+            <button class="btn ghost" type="button" id="pauseBtn">Pause</button>
+            <button class="btn ghost" type="button" id="resetBtn">Reset</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="settings-panel">
+        <div class="panel-head">
+          <div class="panel-title" id="settingsLabel">Réglage</div>
+          <div class="status-pill" id="soundLabel">Son</div>
+        </div>
+
+        <div class="settings-body">
+          <div class="row">
+            <label id="durationLabel">Durée</label>
+            <div class="duration-grid">
+              <div>
+                <input class="time-input" id="hours" type="number" min="0" max="23" step="1" value="0" inputmode="numeric" />
+                <span class="input-caption" id="hoursLabel">Heures</span>
+              </div>
+              <div>
+                <input class="time-input" id="minutes" type="number" min="0" max="59" step="1" value="25" inputmode="numeric" />
+                <span class="input-caption" id="minutesLabel">Minutes</span>
+              </div>
+              <div>
+                <input class="time-input" id="seconds" type="number" min="0" max="59" step="1" value="0" inputmode="numeric" />
+                <span class="input-caption" id="secondsLabel">Secondes</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <label id="presetsLabel">Presets</label>
+            <div class="presets">
+              <button class="preset" type="button" data-min="3">3 min</button>
+              <button class="preset" type="button" data-min="5">5 min</button>
+              <button class="preset" type="button" data-min="15">15 min</button>
+              <button class="preset" type="button" data-min="25">25 min</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <label id="soundTestLabel">Ping final</label>
+            <div class="sound-row">
+              <span class="sound-dot" id="soundDot" aria-hidden="true"></span>
+              <button class="btn ghost" type="button" id="testSoundBtn">Tester le son</button>
+            </div>
+            <div class="hint" id="hintLabel">Le son est généré localement. Clique une fois sur démarrer ou tester pour l’autoriser.</div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  const T = {
+    fr: {
+      topTitle:       "Timer",
+      backLabel:      "Retour",
+      timerLabel:     "Chronomètre",
+      settingsLabel:  "Réglage",
+      durationLabel:  "Durée",
+      hoursLabel:     "Heures",
+      minutesLabel:   "Minutes",
+      secondsLabel:   "Secondes",
+      presetsLabel:   "Presets",
+      soundTestLabel: "Ping final",
+      testSoundBtn:   "Tester le son",
+      hintLabel:      "Le son est généré localement. Clique une fois sur démarrer ou tester pour l’autoriser.",
+      progressLabel:  "Progression",
+      start:          "Démarrer",
+      resume:         "Reprendre",
+      pause:          "Pause",
+      reset:          "Reset",
+      states: {
+        idle:    "Prêt",
+        running: "En cours",
+        paused:  "Pause",
+        done:    "Terminé"
+      },
+      toastDone:      "Temps écoulé. Ping envoyé.",
+      toastInvalid:   "Choisis une durée supérieure à zéro.",
+      titleDone:      "Timer terminé",
+    },
+    en: {
+      topTitle:       "Timer",
+      backLabel:      "Back",
+      timerLabel:     "Timer",
+      settingsLabel:  "Settings",
+      durationLabel:  "Duration",
+      hoursLabel:     "Hours",
+      minutesLabel:   "Minutes",
+      secondsLabel:   "Seconds",
+      presetsLabel:   "Presets",
+      soundTestLabel: "Final ping",
+      testSoundBtn:   "Test sound",
+      hintLabel:      "The sound is generated locally. Click start or test once to authorize it.",
+      progressLabel:  "Progress",
+      start:          "Start",
+      resume:         "Resume",
+      pause:          "Pause",
+      reset:          "Reset",
+      states: {
+        idle:    "Ready",
+        running: "Running",
+        paused:  "Paused",
+        done:    "Done"
+      },
+      toastDone:      "Time is up. Ping sent.",
+      toastInvalid:   "Pick a duration greater than zero.",
+      titleDone:      "Timer done",
+    }
+  };
+
+  let currentLang = "fr";
+  let audioCtx = null;
+  let unlockedSound = false;
+
+  let state = "idle";
+  let totalMs = readDurationMs();
+  let remainingMs = totalMs;
+  let endAt = 0;
+  let rafId = 0;
+
+  function setLang(lang) {
+    currentLang = lang;
+    const t = T[lang];
+    document.documentElement.lang = lang;
+    $("topTitle").textContent       = t.topTitle;
+    $("backLabel").textContent      = t.backLabel;
+    $("timerLabel").textContent     = t.timerLabel;
+    $("settingsLabel").textContent  = t.settingsLabel;
+    $("durationLabel").textContent  = t.durationLabel;
+    $("hoursLabel").textContent     = t.hoursLabel;
+    $("minutesLabel").textContent   = t.minutesLabel;
+    $("secondsLabel").textContent   = t.secondsLabel;
+    $("presetsLabel").textContent   = t.presetsLabel;
+    $("soundTestLabel").textContent = t.soundTestLabel;
+    $("testSoundBtn").textContent   = t.testSoundBtn;
+    $("hintLabel").textContent      = t.hintLabel;
+    $("progressLabel").textContent  = t.progressLabel;
+    $("pauseBtn").textContent       = t.pause;
+    $("resetBtn").textContent       = t.reset;
+    renderState();
+    try { localStorage.setItem("af_timer_lang", lang); } catch(e) {}
+    $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
+    $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
+  }
+
+  function pad(n) {
+    return String(n).padStart(2, "0");
+  }
+
+  function clamp(n, min, max) {
+    n = Number.isFinite(n) ? n : 0;
+    return Math.min(max, Math.max(min, n));
+  }
+
+  function normalizeInputs() {
+    $("hours").value   = String(clamp(parseInt($("hours").value, 10), 0, 23));
+    $("minutes").value = String(clamp(parseInt($("minutes").value, 10), 0, 59));
+    $("seconds").value = String(clamp(parseInt($("seconds").value, 10), 0, 59));
+  }
+
+  function readDurationMs() {
+    const h = clamp(parseInt($("hours")?.value || "0", 10), 0, 23);
+    const m = clamp(parseInt($("minutes")?.value || "25", 10), 0, 59);
+    const s = clamp(parseInt($("seconds")?.value || "0", 10), 0, 59);
+    return ((h * 3600) + (m * 60) + s) * 1000;
+  }
+
+  function writeDuration(totalSeconds) {
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+    $("hours").value = h;
+    $("minutes").value = m;
+    $("seconds").value = s;
+  }
+
+  function formatTime(ms) {
+    const total = Math.max(0, Math.ceil(ms / 1000));
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
+  }
+
+  function renderState() {
+    const t = T[currentLang];
+    const pct = totalMs > 0 ? Math.min(100, Math.max(0, ((totalMs - remainingMs) / totalMs) * 100)) : 0;
+    $("display").textContent = formatTime(remainingMs);
+    $("progressFill").style.width = pct.toFixed(1) + "%";
+    $("percentLabel").textContent = Math.round(pct) + "%";
+    $("stateLabel").textContent = t.states[state] || t.states.idle;
+    $("stateLabel").className = "status-pill" + (state === "running" ? " running" : "") + (state === "done" ? " done" : "");
+    $("display").classList.toggle("done", state === "done");
+    $("startBtn").textContent = state === "paused" ? t.resume : t.start;
+    $("soundDot").classList.toggle("on", unlockedSound);
+
+    if (state === "running") {
+      document.title = formatTime(remainingMs) + " — ArchiveFever.Work";
+    } else if (state === "done") {
+      document.title = t.titleDone + " — ArchiveFever.Work";
+    } else {
+      document.title = "Timer — ArchiveFever.Work";
+    }
+  }
+
+  function showToast(msg) {
+    const el = $("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(() => el.classList.remove("show"), 2600);
+  }
+
+  async function ensureSound() {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return null;
+    if (!audioCtx) audioCtx = new AudioContext();
+    if (audioCtx.state === "suspended") await audioCtx.resume();
+    unlockedSound = true;
+    renderState();
+    return audioCtx;
+  }
+
+  function playPing() {
+    ensureSound().then(ctx => {
+      if (!ctx) return;
+      const base = ctx.currentTime;
+      const notes = [880, 660, 880, 1175, 880];
+
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = base + i * 0.16;
+        const dur = 0.115;
+
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(freq, start);
+
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.28, start + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + dur + 0.03);
+      });
+
+      if ("vibrate" in navigator) {
+        try { navigator.vibrate([80, 40, 80]); } catch(e) {}
+      }
+    }).catch(() => {});
+  }
+
+  function tick() {
+    if (state !== "running") return;
+    remainingMs = Math.max(0, endAt - performance.now());
+    renderState();
+
+    if (remainingMs <= 0) {
+      finish();
+      return;
+    }
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  function startTimer() {
+    if (state !== "paused") {
+      normalizeInputs();
+      totalMs = readDurationMs();
+      remainingMs = totalMs;
+    }
+
+    if (remainingMs <= 0) {
+      showToast(T[currentLang].toastInvalid);
+      renderState();
+      return;
+    }
+
+    ensureSound();
+    state = "running";
+    endAt = performance.now() + remainingMs;
+    cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(tick);
+    renderState();
+  }
+
+  function pauseTimer() {
+    if (state !== "running") return;
+    remainingMs = Math.max(0, endAt - performance.now());
+    state = "paused";
+    cancelAnimationFrame(rafId);
+    renderState();
+  }
+
+  function resetTimer() {
+    cancelAnimationFrame(rafId);
+    normalizeInputs();
+    totalMs = readDurationMs();
+    remainingMs = totalMs;
+    state = "idle";
+    renderState();
+  }
+
+  function finish() {
+    cancelAnimationFrame(rafId);
+    remainingMs = 0;
+    state = "done";
+    renderState();
+    playPing();
+    showToast(T[currentLang].toastDone);
+  }
+
+  ["hours", "minutes", "seconds"].forEach(id => {
+    $(id).addEventListener("input", () => {
+      if (state === "idle" || state === "done" || state === "paused") {
+        normalizeInputs();
+        totalMs = readDurationMs();
+        remainingMs = totalMs;
+        state = "idle";
+        renderState();
+      }
+    });
+  });
+
+  document.querySelectorAll(".preset").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const min = parseInt(btn.dataset.min, 10);
+      writeDuration(min * 60);
+      resetTimer();
+    });
+  });
+
+  $("startBtn").addEventListener("click", startTimer);
+  $("pauseBtn").addEventListener("click", pauseTimer);
+  $("resetBtn").addEventListener("click", resetTimer);
+  $("testSoundBtn").addEventListener("click", () => {
+    playPing();
+    showToast(T[currentLang].toastDone);
+  });
+
+  $("btnFR").onclick = () => setLang("fr");
+  $("btnEN").onclick = () => setLang("en");
+
+  document.addEventListener("keydown", e => {
+    const tag = (e.target && e.target.tagName || "").toLowerCase();
+    if (tag === "input") return;
+    if (e.code === "Space") {
+      e.preventDefault();
+      state === "running" ? pauseTimer() : startTimer();
+    }
+    if (e.key.toLowerCase() === "r") resetTimer();
+  });
+
+  let savedLang = "fr";
+  try {
+    savedLang = localStorage.getItem("af_timer_lang") || localStorage.getItem("af_lang") || "fr";
+  } catch(e) {}
+
+  renderState();
+  setLang(savedLang);
+</script>
+</body>
+</html>

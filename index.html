@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ArchiveFever.Work</title>
+  <meta name="description" content="ArchiveFever.Work — outils, projets et liens principaux." />
   <link rel="icon" href="IMG/Jerome.webp" type="image/webp" />
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -136,6 +137,30 @@
 
     .pages-list { display: flex; flex-direction: column; gap: 8px; }
 
+    .learn-more {
+      margin-top: -14px;
+      text-align: center;
+    }
+
+    .learn-more-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--txt3);
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+
+    .learn-more-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
     .page-link {
       display: flex;
       align-items: center;
@@ -153,6 +178,14 @@
       transition: border-color .15s, color .15s;
     }
     .page-link:hover { border-color: var(--accent); color: var(--accent); }
+    .page-link:focus-visible,
+    .learn-more-link:focus-visible,
+    .socials-btn:focus-visible,
+    .social-link:focus-visible,
+    .lang button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
     .page-link-arrow { font-size: 14px; opacity: .5; }
 
     .badge {
@@ -212,55 +245,6 @@
     }
     .social-link:hover { border-color: #3a3a3a; color: var(--txt); }
 
-    
-    .modal {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.75);
-      display: none; align-items: center;
-      justify-content: center; padding: 16px; z-index: 50;
-      backdrop-filter: blur(6px);
-    }
-    .modal[aria-hidden="false"] { display: flex; }
-
-    .modal-card {
-      width: min(400px, 100%);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: var(--surface);
-      box-shadow: 0 32px 80px rgba(0,0,0,.8);
-      overflow: hidden;
-    }
-
-    .modal-h {
-      padding: 14px 18px;
-      display: flex; align-items: center;
-      justify-content: space-between; gap: 10px;
-      border-bottom: 1px solid var(--border-soft);
-      background: var(--surface2);
-    }
-
-    .modal-title {
-      font-weight: 800; letter-spacing: .6px;
-      text-transform: uppercase; font-size: 12px; color: var(--txt);
-    }
-
-    .modal-b {
-      padding: 16px 18px;
-      display: flex; flex-direction: column; gap: 8px;
-    }
-
-    .modal-actions { padding: 0 18px 18px; }
-
-    .close {
-      border: 1px solid var(--border);
-      background: var(--surface2);
-      color: var(--txt2); padding: 8px 14px;
-      border-radius: 8px; cursor: pointer; font: inherit;
-      font-weight: 700; font-size: 12px;
-      text-transform: uppercase; letter-spacing: .5px;
-      white-space: nowrap; transition: color .15s;
-    }
-    .close:hover { color: var(--txt); }
 
     @media (max-width: 400px) {
       .card-top { flex-wrap: wrap; }
@@ -292,12 +276,19 @@
       </div>
 
       <div class="status-block">
-        <div class="status-label" id="statusLabel">En reconstruction</div>
-        <div class="status-msg" id="statusMsg">Le site est en cours de refonte complète.<br>Les pages sont reconstruites une à une.</div>
+        <div class="status-label" id="statusLabel">Bienvenue</div>
+        <div class="status-msg" id="statusMsg">Bienvenue sur ArchiveFever.Work.<br>Retrouve ici mes outils, mes projets et mes liens principaux.</div>
+      </div>
+
+      <div class="learn-more">
+        <a class="learn-more-link" href="ABOUT/index.html">
+          <span id="learnMoreLabel">En savoir plus</span>
+          <span aria-hidden="true">→</span>
+        </a>
       </div>
 
       <div>
-        <div class="section-label" id="pagesLabel">Pages</div>
+        <div class="section-label" id="pagesLabel">Outils</div>
         <div class="pages-list" style="margin-top:10px;">
           <a class="page-link" href="QR/index.html">
             <span>ColorQR</span>
@@ -315,7 +306,7 @@
       </div>
 
       <div>
-        <button class="socials-btn" id="socialsBtn" aria-expanded="false">
+        <button class="socials-btn" id="socialsBtn" aria-expanded="false" aria-controls="socialsPanel">
           <span id="socialsLabel">Mes réseaux</span>
           <span id="socialsArrow">↓</span>
         </button>
@@ -347,17 +338,19 @@
 
   const T = {
     fr: {
-      statusLabel:    "En reconstruction",
-      statusMsg:      "Le site est en cours de refonte complète.<br>Les pages sont reconstruites une à une.",
-      pagesLabel:     "Pages",
+      statusLabel:    "Bienvenue",
+      statusMsg:      "Bienvenue sur ArchiveFever.Work.<br>Retrouve ici mes outils, mes projets et mes liens principaux.",
+      pagesLabel:     "Outils",
+      learnMoreLabel: "En savoir plus",
       timerLabel:     "Timer",
       donationsLabel: "Dons",
       socialsLabel:   "Mes réseaux",
     },
     en: {
-      statusLabel:    "Under reconstruction",
-      statusMsg:      "The site is being fully rebuilt.<br>Pages are being reconstructed one by one.",
-      pagesLabel:     "Pages",
+      statusLabel:    "Welcome",
+      statusMsg:      "Welcome to ArchiveFever.Work.<br>Find my tools, projects and main links here.",
+      pagesLabel:     "Tools",
+      learnMoreLabel: "Learn more",
       timerLabel:     "Timer",
       donationsLabel: "Donations",
       socialsLabel:   "My socials",
@@ -367,12 +360,14 @@
   let currentLang = "fr";
 
   function setLang(lang) {
+    if (!T[lang]) lang = "fr";
     currentLang = lang;
     const t = T[lang];
     document.documentElement.lang = lang;
     $("statusLabel").textContent    = t.statusLabel;
     $("statusMsg").innerHTML        = t.statusMsg;
     $("pagesLabel").textContent     = t.pagesLabel;
+    $("learnMoreLabel").textContent = t.learnMoreLabel;
     $("timerLabel").textContent     = t.timerLabel;
     $("donationsLabel").textContent = t.donationsLabel;
     $("socialsLabel").textContent   = t.socialsLabel;
@@ -394,7 +389,7 @@
 
   let savedLang = "fr";
   try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch(e) {}
-  setLang(savedLang);
+  setLang(T[savedLang] ? savedLang : "fr");
 </script>
 </body>
 </html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="À propos d'ArchiveFever.Work : un espace personnel pour tester, créer et partager des outils simples." />
+  <title>À propos — ArchiveFever.Work</title>
+  <link rel="icon" href="../IMG/Jerome.webp" type="image/webp" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --border-soft: #222;
+      --accent: #ff8c00;
+      --txt: #f5f5f7;
+      --txt2: #a1a1a6;
+      --txt3: #6e6e73;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      min-height: 100dvh;
+      background: var(--bg);
+      color: var(--txt);
+      font-family: "Source Code Pro", ui-monospace, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body { overflow-x: hidden; }
+
+    .page {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    .card-wrap {
+      width: min(620px, 100%);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.03) inset,
+        0 32px 80px -20px rgba(0,0,0,.85),
+        0 8px 24px -8px rgba(0,0,0,.6);
+      animation: rise .55s cubic-bezier(.16,1,.3,1) both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(16px) scale(.99); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-soft);
+      background: var(--surface2);
+    }
+
+    .site-name {
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      color: var(--txt);
+      text-decoration: none;
+    }
+
+    .site-name span { color: var(--accent); }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--txt3);
+      padding: 7px 10px;
+      font: inherit;
+      font-size: 11px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 700;
+      transition: border-color .15s, color .15s;
+      white-space: nowrap;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      outline: none;
+    }
+
+    .lang {
+      display: inline-flex;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .lang button {
+      appearance: none;
+      border: 0;
+      border-right: 1px solid var(--border);
+      background: transparent;
+      color: var(--txt3);
+      padding: 7px 12px;
+      font: inherit;
+      font-size: 11px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color .15s;
+      outline: none;
+      font-weight: 700;
+    }
+
+    .lang button:last-child { border-right: 0; }
+    .lang button:hover { color: var(--txt); }
+    .lang button:focus-visible { box-shadow: 0 0 0 2px rgba(255,140,0,.35) inset; }
+    .lang button[aria-pressed="true"] { color: #000; background: var(--accent); }
+
+    .card-body {
+      padding: 28px 24px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .logo-wrap img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+    }
+
+    .intro-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .title {
+      font-size: clamp(22px, 5vw, 34px);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      font-weight: 800;
+      color: var(--txt);
+    }
+
+    .about-copy {
+      max-width: 55ch;
+      margin: 0 auto;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-soft);
+      color: var(--txt2);
+      font-size: 13px;
+      line-height: 1.8;
+      text-align: left;
+    }
+
+    .about-copy p + p { margin-top: 14px; }
+
+    .about-copy strong {
+      color: var(--txt);
+      font-weight: 700;
+    }
+
+    @media (max-width: 520px) {
+      .card-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .card-body { padding: 24px 16px 26px; }
+      .back-link span:first-child { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card-wrap { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <main class="card-wrap" aria-labelledby="aboutTitle">
+
+    <div class="card-top">
+      <a class="site-name" href="../index.html" aria-label="ArchiveFever.Work">Archive<span>Fever</span>.Work</a>
+      <div class="top-actions">
+        <a class="back-link" id="backLink" href="../index.html" aria-label="Retour à l'accueil">
+          <span id="backLabel">Retour</span>
+          <span aria-hidden="true">↩</span>
+        </a>
+        <div class="lang" role="group" id="langGroup" aria-label="Langue">
+          <button id="btnFR" type="button" aria-pressed="true">FR</button>
+          <button id="btnEN" type="button" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+
+      <div class="logo-wrap">
+        <img src="../IMG/Jerome.webp" alt="ArchiveFever" />
+      </div>
+
+      <section class="intro-block">
+        <div class="eyebrow" id="eyebrow">À propos</div>
+        <h1 class="title" id="aboutTitle">Je teste, je fabrique, je partage.</h1>
+      </section>
+
+      <section class="about-copy" id="aboutCopy" aria-label="Présentation">
+        <p id="p1">
+          ArchiveFever.Work, c’est un petit espace personnel où je range ce que je crée au fil du temps. Je ne me présente pas vraiment comme un <strong>développeur</strong> : je suis surtout quelqu’un qui aime tester des choses, comprendre comment elles fonctionnent et transformer une idée en page, en outil ou en petit projet quand l’envie arrive.
+        </p>
+        <p id="p2">
+          Je fais ça parce que ça m’occupe, parce que j’aime expérimenter, améliorer ce que je commence et garder une trace de mes essais. Parfois c’est simple, parfois c’est un peu bancal, parfois ça devient vraiment utile. Le but n’est pas de faire un portfolio parfait ou de jouer un rôle, mais de créer des choses sincères, accessibles, et qui peuvent peut-être servir à quelqu’un un jour.
+        </p>
+        <p id="p3">
+          Si une page ici te fait gagner du temps, t’aide pour un truc précis, te donne une idée ou te fait juste sourire, alors le site a déjà une raison d’exister.
+        </p>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  const $ = id => document.getElementById(id);
+
+  const T = {
+    fr: {
+      documentTitle: "À propos — ArchiveFever.Work",
+      description: "À propos d'ArchiveFever.Work : un espace personnel pour tester, créer et partager des outils simples.",
+      backLabel: "Retour",
+      backAria: "Retour à l'accueil",
+      langAria: "Langue",
+      eyebrow: "À propos",
+      aboutTitle: "Je teste, je fabrique, je partage.",
+      presentationAria: "Présentation",
+      p1: "ArchiveFever.Work, c’est un petit espace personnel où je range ce que je crée au fil du temps. Je ne me présente pas vraiment comme un <strong>développeur</strong> : je suis surtout quelqu’un qui aime tester des choses, comprendre comment elles fonctionnent et transformer une idée en page, en outil ou en petit projet quand l’envie arrive.",
+      p2: "Je fais ça parce que ça m’occupe, parce que j’aime expérimenter, améliorer ce que je commence et garder une trace de mes essais. Parfois c’est simple, parfois c’est un peu bancal, parfois ça devient vraiment utile. Le but n’est pas de faire un portfolio parfait ou de jouer un rôle, mais de créer des choses sincères, accessibles, et qui peuvent peut-être servir à quelqu’un un jour.",
+      p3: "Si une page ici te fait gagner du temps, t’aide pour un truc précis, te donne une idée ou te fait juste sourire, alors le site a déjà une raison d’exister."
+    },
+    en: {
+      documentTitle: "About — ArchiveFever.Work",
+      description: "About ArchiveFever.Work: a personal space to test, create and share simple tools.",
+      backLabel: "Back",
+      backAria: "Back to home",
+      langAria: "Language",
+      eyebrow: "About",
+      aboutTitle: "I test things, build things, and share them.",
+      presentationAria: "Introduction",
+      p1: "ArchiveFever.Work is a small personal space where I keep the things I create over time. I do not really present myself as a <strong>developer</strong>: I am mostly someone who likes testing things, understanding how they work, and turning an idea into a page, a tool, or a small project when the motivation shows up.",
+      p2: "I do it because it keeps me busy, because I like experimenting, improving what I start, and keeping a trace of my attempts. Sometimes it is simple, sometimes it is a little rough, and sometimes it becomes genuinely useful. The goal is not to build a perfect portfolio or pretend to be something I am not, but to create honest, accessible things that might help someone someday.",
+      p3: "If a page here saves you time, helps you with something specific, gives you an idea, or simply makes you smile, then the site already has a reason to exist."
+    }
+  };
+
+  function setText(id, value, html = false) {
+    const el = $(id);
+    if (!el) return;
+    if (html) el.innerHTML = value;
+    else el.textContent = value;
+  }
+
+  function setLang(lang) {
+    const t = T[lang] || T.fr;
+
+    document.documentElement.lang = lang;
+    document.title = t.documentTitle;
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.setAttribute("content", t.description);
+
+    setText("backLabel", t.backLabel);
+    setText("eyebrow", t.eyebrow);
+    setText("aboutTitle", t.aboutTitle);
+    setText("p1", t.p1, true);
+    setText("p2", t.p2);
+    setText("p3", t.p3);
+
+    $("backLink").setAttribute("aria-label", t.backAria);
+    $("langGroup").setAttribute("aria-label", t.langAria);
+    $("aboutCopy").setAttribute("aria-label", t.presentationAria);
+    $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
+    $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
+
+    try { localStorage.setItem("af_lang", lang); } catch(e) {}
+  }
+
+  $("btnFR").addEventListener("click", () => setLang("fr"));
+  $("btnEN").addEventListener("click", () => setLang("en"));
+
+  let savedLang = "fr";
+  try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch(e) {}
+  setLang(savedLang);
+</script>
+</body>
+</html>

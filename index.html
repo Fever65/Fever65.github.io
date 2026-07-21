@@ -3,28 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ArchiveFever.Work</title>
-  <meta name="description" content="ArchiveFever.Work — outils, projets et liens principaux." />
+  <title>ArchiveFever.Work — Outils web simples et gratuits</title>
+  <meta name="description" content="Des outils web simples, gratuits et sans compte : QR codes personnalisés, minuteur et expérimentations d’ArchiveFever.Work." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://archivefever.work/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="ArchiveFever.Work" />
+  <meta property="og:title" content="ArchiveFever.Work — Outils web simples et gratuits" />
+  <meta property="og:description" content="QR codes personnalisés, minuteur et expérimentations web accessibles sans compte." />
+  <meta property="og:url" content="https://archivefever.work/" />
+  <meta property="og:image" content="https://archivefever.work/IMG/Jerome.webp" />
+  <meta name="twitter:card" content="summary" />
   <link rel="icon" href="IMG/Jerome.webp" type="image/webp" />
-  <link rel="apple-touch-icon" href="/IMG/Jerome.webp">
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700;800&amp;display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0a0a0a;
       --surface: #161616;
       --surface2: #1e1e1e;
-      --border: #2a2a2a;
-      --border-soft: #222;
+      --border: #2f2f2f;
+      --border-soft: #252525;
       --accent: #ff8c00;
       --txt: #f5f5f7;
-      --txt2: #a1a1a6;
-      --txt3: #6e6e73;
+      --txt2: #b4b4b9;
+      --txt3: #85858b;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body {
-      width: 100%;
+    html { color-scheme: dark; }
+
+    body {
+      min-width: 280px;
       min-height: 100dvh;
       background: var(--bg);
       color: var(--txt);
@@ -32,365 +47,387 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    button, a { -webkit-tap-highlight-color: transparent; }
+
     .page {
       min-height: 100dvh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px 16px;
+      padding: 32px 16px;
     }
 
     .card-wrap {
-      width: min(520px, 100%);
+      width: min(620px, 100%);
+      overflow: hidden;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 20px;
-      overflow: hidden;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.03) inset,
-        0 32px 80px -20px rgba(0,0,0,.85),
-        0 8px 24px -8px rgba(0,0,0,.6);
+      box-shadow: 0 0 0 1px rgba(255,255,255,.03) inset, 0 32px 80px -20px rgba(0,0,0,.85), 0 8px 24px -8px rgba(0,0,0,.6);
       animation: rise .55s cubic-bezier(.16,1,.3,1) both;
     }
 
     @keyframes rise {
       from { opacity: 0; transform: translateY(16px) scale(.99); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .card-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      padding: 14px 16px;
+      gap: 12px;
+      padding: 12px 16px;
       border-bottom: 1px solid var(--border-soft);
       background: var(--surface2);
     }
 
     .site-name {
-      font-weight: 700;
+      color: var(--txt);
       font-size: 13px;
+      font-weight: 800;
       letter-spacing: .5px;
       text-transform: uppercase;
-      color: var(--txt);
     }
 
     .site-name span { color: var(--accent); }
 
     .lang {
       display: inline-flex;
-      border: 1px solid var(--border);
-      border-radius: 8px;
       overflow: hidden;
       background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 9px;
     }
+
     .lang button {
-      appearance: none; border: 0;
+      min-width: 44px;
+      min-height: 44px;
+      appearance: none;
+      border: 0;
       border-right: 1px solid var(--border);
-      background: transparent; color: var(--txt3);
-      padding: 7px 12px; font: inherit; font-size: 11px;
-      letter-spacing: .5px; text-transform: uppercase;
-      cursor: pointer; transition: color .15s; outline: none; font-weight: 700;
+      background: transparent;
+      color: var(--txt3);
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
     }
+
     .lang button:last-child { border-right: 0; }
     .lang button:hover { color: var(--txt); }
     .lang button[aria-pressed="true"] { color: #000; background: var(--accent); }
 
-    .card-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 24px; }
-
-    .logo-wrap {
+    .card-body {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      gap: 26px;
+      padding: 28px 24px 26px;
+    }
+
+    .hero {
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      text-align: center;
     }
 
     .logo-wrap img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
+      display: block;
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
     }
 
-    .status-block { display: flex; flex-direction: column; gap: 6px; text-align: center; }
-
-    .status-label {
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
+    .eyebrow {
       color: var(--accent);
-      font-weight: 700;
-    }
-
-    .status-msg {
-      font-size: 13px;
-      color: var(--txt2);
-      line-height: 1.6;
-    }
-
-    .section-label {
-      font-size: 11px;
+      font-size: 12px;
+      font-weight: 800;
       letter-spacing: .18em;
       text-transform: uppercase;
-      color: var(--txt3);
-      font-weight: 700;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border-soft);
     }
 
-    .pages-list { display: flex; flex-direction: column; gap: 8px; }
+    h1 {
+      max-width: 18ch;
+      color: var(--txt);
+      font-size: clamp(24px, 5vw, 34px);
+      line-height: 1.2;
+      letter-spacing: -.04em;
+    }
 
-    .learn-more {
-      margin-top: -14px;
-      text-align: center;
+    .hero-copy {
+      max-width: 52ch;
+      color: var(--txt2);
+      font-size: 14px;
+      line-height: 1.7;
     }
 
     .learn-more-link {
       display: inline-flex;
+      min-height: 44px;
       align-items: center;
-      gap: 4px;
+      gap: 6px;
       color: var(--txt3);
-      text-decoration: none;
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 800;
       letter-spacing: .08em;
+      text-decoration: none;
       text-transform: uppercase;
-      border-bottom: 1px solid transparent;
-      transition: color .15s, border-color .15s;
     }
 
-    .learn-more-link:hover {
-      color: var(--accent);
-      border-color: var(--accent);
+    .learn-more-link:hover { color: var(--accent); }
+
+    .section { display: grid; gap: 10px; }
+
+    .section-label {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--txt3);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
     }
+
+    .pages-list { display: grid; gap: 9px; }
 
     .page-link {
       display: flex;
+      min-height: 72px;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 14px;
+      gap: 18px;
+      padding: 13px 15px;
       background: var(--surface2);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      text-decoration: none;
+      border-radius: 11px;
       color: var(--txt);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      transition: border-color .15s, color .15s;
+      text-decoration: none;
+      transition: border-color .15s, transform .15s;
     }
-    .page-link:hover { border-color: var(--accent); color: var(--accent); }
-    .page-link:focus-visible,
-    .learn-more-link:focus-visible,
-    .socials-btn:focus-visible,
-    .social-link:focus-visible,
-    .lang button:focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-    .page-link-arrow { font-size: 14px; opacity: .5; }
 
-    .badge {
-      font-size: 10px;
-      padding: 3px 7px;
-      border-radius: 5px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--txt3);
-      letter-spacing: .1em;
-      font-weight: 700;
-    }
+    .page-link:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .page-link-copy { display: grid; gap: 4px; }
+    .page-link-title { font-size: 13px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+    .page-link-desc { color: var(--txt2); font-size: 12px; line-height: 1.5; }
+    .page-link-arrow { color: var(--accent); font-size: 18px; }
 
     .socials-btn {
-      appearance: none; border: 0;
       width: 100%;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--txt2);
-      padding: 12px 14px;
-      border-radius: 10px;
-      cursor: pointer; font: inherit;
-      font-weight: 700; font-size: 12px;
-      text-transform: uppercase; letter-spacing: .5px;
-      transition: border-color .15s, color .15s;
-      text-align: left;
+      min-height: 48px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 12px 14px;
+      appearance: none;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--txt2);
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-align: left;
+      text-transform: uppercase;
     }
-    .socials-btn:hover { border-color: #3a3a3a; color: var(--txt); }
-    .socials-btn[aria-expanded="true"] { border-color: var(--accent); color: var(--accent); }
 
-    .socials-panel {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 8px;
-    }
-    .socials-panel.open { display: flex; }
+    .socials-btn:hover { color: var(--txt); border-color: #4a4a4a; }
+    .socials-btn[aria-expanded="true"] { color: var(--accent); border-color: var(--accent); }
+
+    .socials-panel { display: none; gap: 7px; margin-top: 8px; }
+    .socials-panel.open { display: grid; }
 
     .social-link {
+      min-height: 44px;
       display: flex;
       align-items: center;
-      gap: 10px;
       padding: 10px 14px;
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      text-decoration: none;
       color: var(--txt2);
       font-size: 12px;
       font-weight: 700;
-      letter-spacing: .3px;
+      text-decoration: none;
       text-transform: uppercase;
-      transition: border-color .15s, color .15s;
     }
-    .social-link:hover { border-color: #3a3a3a; color: var(--txt); }
 
+    .social-link:hover { color: var(--txt); border-color: #4a4a4a; }
 
-    @media (max-width: 400px) {
-      .card-top { flex-wrap: wrap; }
-      .card-body { padding: 20px 16px; }
+    .support-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 15px;
+      background: rgba(255,140,0,.05);
+      border: 1px solid rgba(255,140,0,.22);
+      border-radius: 11px;
+    }
+
+    .support-copy { display: grid; gap: 4px; }
+    .support-title { font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .support-desc { color: var(--txt2); font-size: 12px; line-height: 1.5; }
+    .support-link { color: var(--accent); font-size: 12px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+    .support-link:hover { text-decoration: underline; }
+
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 520px) {
+      .page { align-items: flex-start; padding: 16px 10px; }
+      .card-body { padding: 24px 16px; }
+      .support-box { align-items: flex-start; flex-direction: column; }
+      .support-link { min-height: 44px; display: inline-flex; align-items: center; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .card-wrap { animation: none; }
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
-
-<div class="page">
-  <div class="card-wrap">
-
-    <div class="card-top">
-      <div class="site-name">Archive<span>Fever</span>.Work</div>
-      <div class="lang" role="group" aria-label="Language">
-        <button id="btnFR" type="button" aria-pressed="true">FR</button>
-        <button id="btnEN" type="button" aria-pressed="false">EN</button>
-      </div>
-    </div>
-
-    <div class="card-body">
-
-      <div class="logo-wrap">
-        <img src="IMG/Jerome.webp" alt="ArchiveFever" />
-      </div>
-
-      <div class="status-block">
-        <div class="status-label" id="statusLabel">Bienvenue</div>
-        <div class="status-msg" id="statusMsg">Bienvenue sur ArchiveFever.Work.<br>Retrouve ici mes outils, mes projets et mes liens principaux.</div>
-      </div>
-
-      <div class="learn-more">
-        <a class="learn-more-link" href="ABOUT/index.html">
-          <span id="learnMoreLabel">En savoir plus</span>
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
-
-      <div>
-        <div class="section-label" id="pagesLabel">Outils</div>
-        <div class="pages-list" style="margin-top:10px;">
-          <a class="page-link" href="QR/index.html">
-            <span>ColorQR</span>
-            <span class="page-link-arrow">→</span>
-          </a>
-          <a class="page-link" href="TIMER/index.html">
-            <span id="timerLabel">Timer</span>
-            <span class="page-link-arrow">→</span>
-          </a>
-          <a class="page-link" href="Donations/index.html">
-            <span id="donationsLabel">Dons</span>
-            <span class="page-link-arrow">→</span>
-          </a>
+  <main class="page">
+    <article class="card-wrap" aria-labelledby="mainTitle">
+      <header class="card-top">
+        <div class="site-name" aria-label="ArchiveFever.Work">Archive<span>Fever</span>.Work</div>
+        <div class="lang" role="group" aria-label="Choisir la langue">
+          <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
+          <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
         </div>
+      </header>
+
+      <div class="card-body">
+        <section class="hero">
+          <div class="logo-wrap">
+            <img src="IMG/Jerome.webp" alt="Jerome, la mascotte d’ArchiveFever.Work" width="82" height="82" />
+          </div>
+          <p class="eyebrow" id="statusLabel">Studio personnel</p>
+          <h1 id="mainTitle">Des outils simples, utiles et sans compte.</h1>
+          <p class="hero-copy" id="statusMsg">Je conçois de petites expériences web accessibles à tous, directement dans le navigateur.</p>
+          <a class="learn-more-link" href="ABOUT/index.html">
+            <span id="learnMoreLabel">Découvrir le projet</span><span aria-hidden="true">→</span>
+          </a>
+        </section>
+
+        <section class="section" aria-labelledby="toolsLabel">
+          <h2 class="section-label" id="toolsLabel">Outils disponibles</h2>
+          <div class="pages-list">
+            <a class="page-link" href="QR/index.html">
+              <span class="page-link-copy">
+                <span class="page-link-title">ColorQR</span>
+                <span class="page-link-desc" id="qrDesc">Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.</span>
+              </span>
+              <span class="page-link-arrow" aria-hidden="true">→</span>
+            </a>
+            <a class="page-link" href="TIMER/index.html">
+              <span class="page-link-copy">
+                <span class="page-link-title" id="timerLabel">Minuteur</span>
+                <span class="page-link-desc" id="timerDesc">Lance un compte à rebours avec raccourcis et alerte sonore.</span>
+              </span>
+              <span class="page-link-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+
+        <section aria-labelledby="socialsLabel">
+          <button class="socials-btn" id="socialsBtn" type="button" aria-expanded="false" aria-controls="socialsPanel">
+            <span id="socialsLabel">Mes réseaux</span><span id="socialsArrow" aria-hidden="true">↓</span>
+          </button>
+          <div class="socials-panel" id="socialsPanel">
+            <a class="social-link" href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a class="social-link" href="https://www.twitch.tv/feveeeer" target="_blank" rel="noopener noreferrer">Twitch</a>
+            <a class="social-link" href="https://x.com/infinity_lbrtr" target="_blank" rel="noopener noreferrer">Twitter / X</a>
+            <a class="social-link" href="https://steamcommunity.com/id/Fever65/" target="_blank" rel="noopener noreferrer">Steam</a>
+            <a class="social-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" id="surpriseLink">Surprise</a>
+          </div>
+        </section>
+
+        <aside class="support-box" aria-labelledby="supportTitle">
+          <div class="support-copy">
+            <h2 class="support-title" id="supportTitle">Soutenir le projet</h2>
+            <p class="support-desc" id="supportDesc">Optionnel, mais toujours apprécié.</p>
+          </div>
+          <a class="support-link" href="Donations/index.html" id="donationsLabel">Voir les options →</a>
+        </aside>
       </div>
+    </article>
+  </main>
 
-      <div>
-        <button class="socials-btn" id="socialsBtn" aria-expanded="false" aria-controls="socialsPanel">
-          <span id="socialsLabel">Mes réseaux</span>
-          <span id="socialsArrow">↓</span>
-        </button>
-        <div class="socials-panel" id="socialsPanel">
-          <a class="social-link" href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener">
-            <span>YouTube</span>
-          </a>
-          <a class="social-link" href="https://www.twitch.tv/feveeeer" target="_blank" rel="noopener">
-            <span>Twitch</span>
-          </a>
-          <a class="social-link" href="https://x.com/infinity_lbrtr" target="_blank" rel="noopener">
-            <span>Twitter / X</span>
-          </a>
-          <a class="social-link" href="https://steamcommunity.com/id/Fever65/" target="_blank" rel="noopener">
-            <span>Steam</span>
-          </a>
-          <a class="social-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener">
-            <span>OnlyFans</span>
-          </a>
-        </div>
-      </div>
+  <script>
+    const $ = id => document.getElementById(id);
 
-    </div>
-  </div>
-</div>
+    const T = {
+      fr: {
+        documentTitle: "ArchiveFever.Work — Outils web simples et gratuits",
+        description: "Des outils web simples, gratuits et sans compte : QR codes personnalisés, minuteur et expérimentations d’ArchiveFever.Work.",
+        statusLabel: "Studio personnel",
+        mainTitle: "Des outils simples, utiles et sans compte.",
+        statusMsg: "Je conçois de petites expériences web accessibles à tous, directement dans le navigateur.",
+        learnMoreLabel: "Découvrir le projet",
+        toolsLabel: "Outils disponibles",
+        qrDesc: "Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.",
+        timerLabel: "Minuteur",
+        timerDesc: "Lance un compte à rebours avec raccourcis et alerte sonore.",
+        socialsLabel: "Mes réseaux",
+        surpriseLink: "Surprise",
+        supportTitle: "Soutenir le projet",
+        supportDesc: "Optionnel, mais toujours apprécié.",
+        donationsLabel: "Voir les options →",
+        languageLabel: "Choisir la langue"
+      },
+      en: {
+        documentTitle: "ArchiveFever.Work — Simple, free web tools",
+        description: "Simple, free and accountless web tools: custom QR codes, a timer and experiments by ArchiveFever.Work.",
+        statusLabel: "Personal studio",
+        mainTitle: "Simple, useful tools. No account required.",
+        statusMsg: "I build small web experiences that anyone can use directly in their browser.",
+        learnMoreLabel: "Discover the project",
+        toolsLabel: "Available tools",
+        qrDesc: "Create a custom QR code or a downloadable Wi-Fi QR code.",
+        timerLabel: "Timer",
+        timerDesc: "Start a countdown with shortcuts and a final sound alert.",
+        socialsLabel: "My socials",
+        surpriseLink: "Surprise",
+        supportTitle: "Support the project",
+        supportDesc: "Entirely optional, always appreciated.",
+        donationsLabel: "View options →",
+        languageLabel: "Choose language"
+      }
+    };
 
-<script>
-  const $ = id => document.getElementById(id);
-
-  const T = {
-    fr: {
-      statusLabel:    "Bienvenue",
-      statusMsg:      "Bienvenue sur ArchiveFever.Work.<br>Retrouve ici mes outils, mes projets et mes liens principaux.",
-      pagesLabel:     "Outils",
-      learnMoreLabel: "En savoir plus",
-      timerLabel:     "Timer",
-      donationsLabel: "Dons",
-      socialsLabel:   "Mes réseaux",
-    },
-    en: {
-      statusLabel:    "Welcome",
-      statusMsg:      "Welcome to ArchiveFever.Work.<br>Find my tools, projects and main links here.",
-      pagesLabel:     "Tools",
-      learnMoreLabel: "Learn more",
-      timerLabel:     "Timer",
-      donationsLabel: "Donations",
-      socialsLabel:   "My socials",
+    function setLang(lang) {
+      const safeLang = T[lang] ? lang : "fr";
+      const t = T[safeLang];
+      document.documentElement.lang = safeLang;
+      document.title = t.documentTitle;
+      document.querySelector('meta[name="description"]').content = t.description;
+      ["statusLabel", "mainTitle", "statusMsg", "learnMoreLabel", "toolsLabel", "qrDesc", "timerLabel", "timerDesc", "socialsLabel", "surpriseLink", "supportTitle", "supportDesc", "donationsLabel"].forEach(id => {
+        $(id).textContent = t[id];
+      });
+      document.querySelector(".lang").setAttribute("aria-label", t.languageLabel);
+      $("btnFR").setAttribute("aria-pressed", String(safeLang === "fr"));
+      $("btnEN").setAttribute("aria-pressed", String(safeLang === "en"));
+      try { localStorage.setItem("af_lang", safeLang); } catch (_) {}
     }
-  };
 
-  let currentLang = "fr";
+    $("btnFR").addEventListener("click", () => setLang("fr"));
+    $("btnEN").addEventListener("click", () => setLang("en"));
 
-  function setLang(lang) {
-    if (!T[lang]) lang = "fr";
-    currentLang = lang;
-    const t = T[lang];
-    document.documentElement.lang = lang;
-    $("statusLabel").textContent    = t.statusLabel;
-    $("statusMsg").innerHTML        = t.statusMsg;
-    $("pagesLabel").textContent     = t.pagesLabel;
-    $("learnMoreLabel").textContent = t.learnMoreLabel;
-    $("timerLabel").textContent     = t.timerLabel;
-    $("donationsLabel").textContent = t.donationsLabel;
-    $("socialsLabel").textContent   = t.socialsLabel;
-    $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
-    $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
-    try { localStorage.setItem("af_lang", lang); } catch(e) {}
-  }
+    $("socialsBtn").addEventListener("click", () => {
+      const open = $("socialsPanel").classList.toggle("open");
+      $("socialsBtn").setAttribute("aria-expanded", String(open));
+      $("socialsArrow").textContent = open ? "↑" : "↓";
+    });
 
-  $("btnFR").onclick = () => setLang("fr");
-  $("btnEN").onclick = () => setLang("en");
-
-  $("socialsBtn").addEventListener("click", () => {
-    const panel = $("socialsPanel");
-    const btn   = $("socialsBtn");
-    const open  = panel.classList.toggle("open");
-    btn.setAttribute("aria-expanded", String(open));
-    $("socialsArrow").textContent = open ? "↑" : "↓";
-  });
-
-  let savedLang = "fr";
-  try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch(e) {}
-  setLang(T[savedLang] ? savedLang : "fr");
-</script>
+    let savedLang = "fr";
+    try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch (_) {}
+    setLang(savedLang);
+  </script>
 </body>
 </html>

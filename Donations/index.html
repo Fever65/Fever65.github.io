@@ -4,8 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dons — ArchiveFever.Work</title>
+  <meta name="description" content="Soutenir ArchiveFever.Work via PayPal ou Ko-fi, sans aucune obligation." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://archivefever.work/Donations/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="ArchiveFever.Work" />
+  <meta property="og:title" content="Soutenir ArchiveFever.Work" />
+  <meta property="og:description" content="Les options disponibles pour soutenir le développement des outils ArchiveFever.Work." />
+  <meta property="og:url" content="https://archivefever.work/Donations/" />
+  <meta property="og:image" content="https://archivefever.work/IMG/Jerome.webp" />
+  <meta name="twitter:card" content="summary" />
   <link rel="icon" href="../IMG/Jerome.webp" type="image/webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a0a0a;
@@ -89,7 +104,8 @@
       appearance: none; border: 0;
       border-right: 1px solid var(--border);
       background: transparent; color: var(--txt3);
-      padding: 7px 12px; font: inherit; font-size: 11px;
+      min-width: 44px; min-height: 44px;
+      padding: 7px 12px; font: inherit; font-size: 12px;
       letter-spacing: .5px; text-transform: uppercase;
       cursor: pointer; transition: color .15s; outline: none; font-weight: 700;
     }
@@ -110,6 +126,7 @@
       display: inline-flex; align-items: center;
       justify-content: center; white-space: nowrap;
       transition: color .15s, border-color .15s;
+      min-height: 44px;
     }
     .chip:hover { color: var(--txt); border-color: #3a3a3a; }
 
@@ -126,7 +143,7 @@
     }
 
     .section-msg {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--txt2);
       line-height: 1.7;
     }
@@ -150,6 +167,12 @@
       transition: border-color .15s, color .15s;
     }
     .don-link:hover { border-color: var(--accent); color: var(--accent); }
+    .don-link:focus-visible,
+    .chip:focus-visible,
+    .lang button:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
 
     .don-arrow { opacity: .5; }
 
@@ -165,11 +188,11 @@
 </head>
 <body>
 
-<div class="page">
-  <div class="card-wrap">
+<main class="page">
+  <article class="card-wrap" aria-labelledby="pageTitle">
 
     <div class="card-top">
-      <div class="site-name">Archive<span>Fever</span>.Work</div>
+      <a class="site-name" href="../index.html" style="text-decoration:none">Archive<span>Fever</span>.Work</a>
       <div class="card-controls">
         <div class="lang" role="group" aria-label="Language">
           <button id="btnFR" type="button" aria-pressed="true">FR</button>
@@ -182,35 +205,39 @@
     <div class="card-body">
 
       <div class="text-block">
-        <div class="section-title" id="pageTitle">Dons</div>
+        <h1 class="section-title" id="pageTitle">Dons</h1>
         <div class="section-msg" id="pageMsg">Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.</div>
       </div>
 
       <div class="don-list">
-        <a class="don-link" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener">
+        <a class="don-link" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener noreferrer">
           <span>PayPal</span>
           <span class="don-arrow">→</span>
         </a>
-        <a class="don-link" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener">
+        <a class="don-link" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener noreferrer">
           <span>Ko-fi</span>
           <span class="don-arrow">→</span>
         </a>
       </div>
 
     </div>
-  </div>
-</div>
+  </article>
+</main>
 
 <script>
   const $ = id => document.getElementById(id);
 
   const T = {
     fr: {
+      documentTitle: "Dons — ArchiveFever.Work",
+      description:   "Soutenir ArchiveFever.Work via PayPal ou Ko-fi, sans aucune obligation.",
       pageTitle:  "Dons",
       pageMsg:    "Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.",
       backLabel:  "Retour",
     },
     en: {
+      documentTitle: "Support — ArchiveFever.Work",
+      description:   "Support ArchiveFever.Work through PayPal or Ko-fi, with no obligation.",
       pageTitle:  "Donations",
       pageMsg:    "If you enjoy what I do and want to support the project, here's where to go. No pressure, obviously.",
       backLabel:  "Back",
@@ -220,9 +247,13 @@
   let currentLang = "fr";
 
   function setLang(lang) {
+    if (!T[lang]) lang = "fr";
     currentLang = lang;
     const t = T[lang];
     document.documentElement.lang = lang;
+    document.title = t.documentTitle;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.content = t.description;
     $("pageTitle").textContent  = t.pageTitle;
     $("pageMsg").textContent    = t.pageMsg;
     $("backLabel").textContent  = t.backLabel;

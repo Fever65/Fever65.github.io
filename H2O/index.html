@@ -4,8 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>L'Eau Maudite — ArchiveFever.Work</title>
+  <meta name="description" content="L’Eau Maudite : une pièce unique, étrange témoin du confinement de 2020, présentée par ArchiveFever.Work." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://archivefever.work/H2O/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="ArchiveFever.Work" />
+  <meta property="og:title" content="L'Eau Maudite — ArchiveFever.Work" />
+  <meta property="og:description" content="Une pièce unique, étrange témoin du confinement de 2020." />
+  <meta property="og:url" content="https://archivefever.work/H2O/" />
+  <meta property="og:image" content="https://archivefever.work/IMG/Jerome.webp" />
+  <meta name="twitter:card" content="summary" />
   <link rel="icon" href="../IMG/Jerome.webp" type="image/webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a0a0a;
@@ -66,6 +81,7 @@
       letter-spacing: .5px;
       text-decoration: none;
       transition: color .15s, border-color .15s;
+      min-height: 44px;
     }
     .back-chip:hover { color: var(--accent); border-color: var(--accent); }
 
@@ -132,6 +148,7 @@
       border-bottom: 2px solid transparent;
       margin-bottom: -1px;
       transition: color .15s, border-color .15s;
+      min-height: 44px;
     }
     .tab-btn:hover { color: var(--txt); }
     .tab-btn[aria-selected="true"] {
@@ -158,7 +175,7 @@
     .spec-row .val.danger { color: var(--danger); }
 
     .lore {
-      font-size: 13px;
+      font-size: 15px;
       line-height: 1.85;
       color: var(--txt2);
     }
@@ -217,6 +234,11 @@
     }
     .cta-btn:hover { background: var(--accent); color: #000; }
 
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
     .cta-note {
       margin-top: 12px;
       font-size: 11px;
@@ -257,15 +279,23 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
 
-<div class="page">
+<main class="page">
 
   <div class="top-bar">
-    <div class="site-name">Archive<span>Fever</span>.Work</div>
-    <a class="back-chip" href="../index.html">↩ AF.W</a>
+    <a class="site-name" href="../index.html" style="text-decoration:none">Archive<span>Fever</span>.Work</a>
+    <a class="back-chip" href="../index.html" aria-label="Retour à l’accueil">↩ AF.W</a>
   </div>
 
   <div class="container">
@@ -278,14 +308,14 @@
 
     <div>
       <div class="tabs" role="tablist">
-        <button class="tab-btn" id="tabHistoire" role="tab" aria-selected="true" aria-controls="panelHistoire">Histoire</button>
-        <button class="tab-btn" id="tabSpecs" role="tab" aria-selected="false" aria-controls="panelSpecs">Spécifications</button>
-        <button class="tab-btn" id="tabAchat" role="tab" aria-selected="false" aria-controls="panelAchat">Achat</button>
+        <button class="tab-btn" id="tabHistoire" role="tab" aria-selected="true" aria-controls="panelHistoire" tabindex="0">Histoire</button>
+        <button class="tab-btn" id="tabSpecs" role="tab" aria-selected="false" aria-controls="panelSpecs" tabindex="-1">Spécifications</button>
+        <button class="tab-btn" id="tabAchat" role="tab" aria-selected="false" aria-controls="panelAchat" tabindex="-1">Achat</button>
       </div>
 
       <div style="padding-top: 22px;">
 
-        <div class="tab-panel active" id="panelHistoire">
+        <div class="tab-panel active" id="panelHistoire" role="tabpanel" aria-labelledby="tabHistoire">
           <div class="lore">
             <p>Mars 2020. La France entre en confinement. Quelque part dans une chambre, un jeune homme finit sa mini bouteille de Coca, l'ouvre, la rince à peine, et la remplit d'eau du robinet. Un geste sans importance, fait dans un moment qui n'en avait que trop.</p>
             <p>La bouteille ne sera jamais ouverte. Posée dans un coin, elle traverse les saisons, les couvre-feux, les variants. Le niveau baisse lentement. Il en reste aujourd'hui à peine un quart.</p>
@@ -295,7 +325,7 @@
           </div>
         </div>
 
-        <div class="tab-panel" id="panelSpecs">
+        <div class="tab-panel" id="panelSpecs" role="tabpanel" aria-labelledby="tabSpecs" hidden>
           <div class="specs">
             <div class="spec-row"><span class="key">Origine</span><span class="val">France · Mars 2020</span></div>
             <div class="spec-row"><span class="key">Contenant</span><span class="val">Mini Coca-Cola d'origine</span></div>
@@ -308,7 +338,7 @@
           </div>
         </div>
 
-        <div class="tab-panel" id="panelAchat">
+        <div class="tab-panel" id="panelAchat" role="tabpanel" aria-labelledby="tabAchat" hidden>
           <div class="price">
             <div class="price-val">Prix sur candidature</div>
             <div class="price-note">Négociable selon la sincérité du dossier.</div>
@@ -332,9 +362,9 @@
     </div>
 
   </div>
-</div>
+</main>
 
-<div class="toast" id="toast">Pseudo copié : fever65</div>
+<div class="toast" id="toast" role="status" aria-live="polite">Pseudo copié : fever65</div>
 
 <script>
   const tabs = [
@@ -347,31 +377,50 @@
     tabs.forEach((t, i) => {
       const isActive = i === idx;
       document.getElementById(t.btn).setAttribute("aria-selected", String(isActive));
+      document.getElementById(t.btn).tabIndex = isActive ? 0 : -1;
       document.getElementById(t.panel).classList.toggle("active", isActive);
+      document.getElementById(t.panel).hidden = !isActive;
     });
   }
 
   tabs.forEach((t, i) => {
     document.getElementById(t.btn).addEventListener("click", () => activate(i));
+    document.getElementById(t.btn).addEventListener("keydown", event => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let next = i;
+      if (event.key === "ArrowRight") next = (i + 1) % tabs.length;
+      if (event.key === "ArrowLeft") next = (i - 1 + tabs.length) % tabs.length;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = tabs.length - 1;
+      activate(next);
+      document.getElementById(tabs[next].btn).focus();
+    });
   });
 
   const discordTag = "fever65";
   const toast = document.getElementById("toast");
 
-  document.getElementById("ctaBtn").addEventListener("click", () => {
-    navigator.clipboard.writeText(discordTag).then(() => {
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2500);
-    }).catch(() => {
+  function showCopyConfirmation() {
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2500);
+  }
+
+  document.getElementById("ctaBtn").addEventListener("click", async () => {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("Clipboard API unavailable");
+      await navigator.clipboard.writeText(discordTag);
+      showCopyConfirmation();
+    } catch (_) {
       const ta = document.createElement("textarea");
       ta.value = discordTag;
+      ta.setAttribute("aria-hidden", "true");
       document.body.appendChild(ta);
       ta.select();
       document.execCommand("copy");
       document.body.removeChild(ta);
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2500);
-    });
+      showCopyConfirmation();
+    }
   });
 </script>
 </body>

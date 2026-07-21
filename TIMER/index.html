@@ -3,9 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Timer — ArchiveFever.Work</title>
+  <title>Minuteur en ligne — ArchiveFever.Work</title>
+  <meta name="description" content="Un minuteur gratuit et sans compte avec raccourcis, progression visuelle et alerte sonore locale." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://archivefever.work/TIMER/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="ArchiveFever.Work" />
+  <meta property="og:title" content="Minuteur en ligne — ArchiveFever.Work" />
+  <meta property="og:description" content="Lance un compte à rebours avec raccourcis et alerte sonore, directement dans le navigateur." />
+  <meta property="og:url" content="https://archivefever.work/TIMER/" />
+  <meta property="og:image" content="https://archivefever.work/IMG/Jerome.webp" />
+  <meta name="twitter:card" content="summary" />
   <link rel="icon" href="../IMG/Jerome.webp" type="image/webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a0a0a;
@@ -96,8 +111,10 @@
       border-right: 1px solid var(--border);
       background: transparent;
       color: var(--txt3);
+      min-width: 44px;
+      min-height: 44px;
       padding: 7px 12px;
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: .5px;
       text-transform: uppercase;
       cursor: pointer;
@@ -128,6 +145,7 @@
       white-space: nowrap;
       user-select: none;
       transition: color .15s, border-color .15s;
+      min-height: 44px;
     }
 
     .chip:hover { color: var(--txt); border-color: #3a3a3a; }
@@ -286,7 +304,8 @@
 
     .row { display: flex; flex-direction: column; gap: 7px; }
 
-    label {
+    label,
+    .group-label {
       font-size: 11px;
       color: var(--txt3);
       text-transform: uppercase;
@@ -349,9 +368,21 @@
       text-transform: uppercase;
       letter-spacing: .5px;
       transition: border-color .15s, color .15s;
+      min-height: 44px;
     }
 
     .preset:hover { border-color: var(--accent); color: var(--accent); }
+
+    button:disabled,
+    input:disabled {
+      cursor: not-allowed;
+      opacity: .45;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
 
     .hint {
       color: var(--txt3);
@@ -432,13 +463,13 @@
 </head>
 <body>
 
-<div class="page">
-  <div class="card-wrap">
+<main class="page">
+  <article class="card-wrap" aria-labelledby="timerLabel">
 
     <div class="card-top">
       <div class="card-title">Archive<span>Fever</span>.Work — <span id="topTitle">Timer</span></div>
       <div class="card-controls">
-        <div class="lang" role="group" aria-label="Language">
+        <div class="lang" role="group" aria-label="Choisir la langue">
           <button id="btnFR" type="button" aria-pressed="true">FR</button>
           <button id="btnEN" type="button" aria-pressed="false">EN</button>
         </div>
@@ -448,10 +479,10 @@
 
     <div class="card-body">
 
-      <section class="timer-panel" aria-label="Minuteur">
+      <section class="timer-panel" aria-labelledby="timerLabel">
         <div class="panel-head">
-          <div class="panel-title" id="timerLabel">Chronomètre</div>
-          <div class="status-pill" id="stateLabel">Prêt</div>
+          <h1 class="panel-title" id="timerLabel">Minuteur</h1>
+          <div class="status-pill" id="stateLabel" role="status">Prêt</div>
         </div>
 
         <div class="timer-main">
@@ -462,7 +493,7 @@
               <span id="progressLabel">Progression</span>
               <span id="percentLabel">0%</span>
             </div>
-            <div class="progress-bg" aria-hidden="true">
+            <div class="progress-bg" id="progressBar" role="progressbar" aria-labelledby="progressLabel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
               <div class="progress-fill" id="progressFill"></div>
             </div>
           </div>
@@ -475,7 +506,7 @@
         </div>
       </section>
 
-      <aside class="settings-panel">
+      <aside class="settings-panel" aria-labelledby="settingsLabel">
         <div class="panel-head">
           <div class="panel-title" id="settingsLabel">Réglage</div>
           <div class="status-pill" id="soundLabel">Son</div>
@@ -483,26 +514,26 @@
 
         <div class="settings-body">
           <div class="row">
-            <label id="durationLabel">Durée</label>
-            <div class="duration-grid">
+            <div class="group-label" id="durationLabel">Durée</div>
+            <div class="duration-grid" role="group" aria-labelledby="durationLabel">
               <div>
                 <input class="time-input" id="hours" type="number" min="0" max="23" step="1" value="0" inputmode="numeric" />
-                <span class="input-caption" id="hoursLabel">Heures</span>
+                <label class="input-caption" id="hoursLabel" for="hours">Heures</label>
               </div>
               <div>
                 <input class="time-input" id="minutes" type="number" min="0" max="59" step="1" value="25" inputmode="numeric" />
-                <span class="input-caption" id="minutesLabel">Minutes</span>
+                <label class="input-caption" id="minutesLabel" for="minutes">Minutes</label>
               </div>
               <div>
                 <input class="time-input" id="seconds" type="number" min="0" max="59" step="1" value="0" inputmode="numeric" />
-                <span class="input-caption" id="secondsLabel">Secondes</span>
+                <label class="input-caption" id="secondsLabel" for="seconds">Secondes</label>
               </div>
             </div>
           </div>
 
           <div class="row">
-            <label id="presetsLabel">Presets</label>
-            <div class="presets">
+            <div class="group-label" id="presetsLabel">Raccourcis</div>
+            <div class="presets" role="group" aria-labelledby="presetsLabel">
               <button class="preset" type="button" data-min="3">3 min</button>
               <button class="preset" type="button" data-min="5">5 min</button>
               <button class="preset" type="button" data-min="15">15 min</button>
@@ -511,7 +542,7 @@
           </div>
 
           <div class="row">
-            <label id="soundTestLabel">Ping final</label>
+            <div class="group-label" id="soundTestLabel">Son final</div>
             <div class="sound-row">
               <span class="sound-dot" id="soundDot" aria-hidden="true"></span>
               <button class="btn ghost" type="button" id="testSoundBtn">Tester le son</button>
@@ -522,8 +553,8 @@
       </aside>
 
     </div>
-  </div>
-</div>
+  </article>
+</main>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -534,6 +565,8 @@
 
   const T = {
     fr: {
+      documentTitle:   "Minuteur en ligne — ArchiveFever.Work",
+      description:     "Un minuteur gratuit et sans compte avec raccourcis, progression visuelle et alerte sonore locale.",
       topTitle:       "Minuteur",
       backLabel:      "Retour",
       timerLabel:     "Minuteur",
@@ -546,7 +579,7 @@
       soundTestLabel: "Son final",
       soundLabel:     "Audio",
       testSoundBtn:   "Tester le son",
-      hintLabel:      "",
+      hintLabel:      "Le son reste local à ton appareil. Autorise-le en démarrant ou en testant une première fois.",
       progressLabel:  "Progression",
       start:          "Démarrer",
       resume:         "Reprendre",
@@ -558,12 +591,14 @@
         paused:  "Pause",
         done:    "Terminé"
       },
-      toastDone:      "Temps écoulé. Son lancé.",
+      toastDone:      "Temps écoulé.",
       toastInvalid:   "Choisis une durée supérieure à zéro.",
       titleDone:      "Minuteur terminé",
-      toastSoundFail: "",
+      toastSoundFail: "Le son n’a pas pu être lu sur cet appareil.",
     },
     en: {
+      documentTitle:   "Online timer — ArchiveFever.Work",
+      description:     "A free, accountless timer with shortcuts, visual progress, and a local sound alert.",
       topTitle:       "Timer",
       backLabel:      "Back",
       timerLabel:     "Timer",
@@ -576,7 +611,7 @@
       soundTestLabel: "Final sound",
       soundLabel:     "Audio",
       testSoundBtn:   "Test sound",
-      hintLabel:      "",
+      hintLabel:      "Sound stays on your device. Enable it once by starting or testing the timer.",
       progressLabel:  "Progress",
       start:          "Start",
       resume:         "Resume",
@@ -588,10 +623,10 @@
         paused:  "Paused",
         done:    "Done"
       },
-      toastDone:      "Time is up. Sound played.",
+      toastDone:      "Time is up.",
       toastInvalid:   "Pick a duration greater than zero.",
       titleDone:      "Timer done",
-      toastSoundFail: "",
+      toastSoundFail: "Sound could not be played on this device.",
     }
   };
 
@@ -605,11 +640,16 @@
   let remainingMs = totalMs;
   let endAt = 0;
   let rafId = 0;
+  let deadlineTimerId = 0;
 
   function setLang(lang) {
+    if (!T[lang]) lang = "fr";
     currentLang = lang;
     const t = T[lang];
     document.documentElement.lang = lang;
+    if (state !== "running" && state !== "done") document.title = t.documentTitle;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.content = t.description;
     $("topTitle").textContent       = t.topTitle;
     $("backLabel").textContent      = t.backLabel;
     $("timerLabel").textContent     = t.timerLabel;
@@ -626,6 +666,7 @@
     $("progressLabel").textContent  = t.progressLabel;
     $("pauseBtn").textContent       = t.pause;
     $("resetBtn").textContent       = t.reset;
+    document.querySelector(".lang").setAttribute("aria-label", lang === "fr" ? "Choisir la langue" : "Choose language");
     renderState();
     try { localStorage.setItem("af_timer_lang", lang); } catch(e) {}
     $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
@@ -677,18 +718,24 @@
     $("display").textContent = formatTime(remainingMs);
     $("progressFill").style.width = pct.toFixed(1) + "%";
     $("percentLabel").textContent = Math.round(pct) + "%";
+    $("progressBar").setAttribute("aria-valuenow", String(Math.round(pct)));
     $("stateLabel").textContent = t.states[state] || t.states.idle;
     $("stateLabel").className = "status-pill" + (state === "running" ? " running" : "") + (state === "done" ? " done" : "");
     $("display").classList.toggle("done", state === "done");
     $("startBtn").textContent = state === "paused" ? t.resume : t.start;
     $("soundDot").classList.toggle("on", unlockedSound);
+    $("startBtn").disabled = state === "running";
+    $("pauseBtn").disabled = state !== "running";
+    const settingsLocked = state === "running";
+    ["hours", "minutes", "seconds"].forEach(id => { $(id).disabled = settingsLocked; });
+    document.querySelectorAll(".preset").forEach(button => { button.disabled = settingsLocked; });
 
     if (state === "running") {
       document.title = formatTime(remainingMs) + " — ArchiveFever.Work";
     } else if (state === "done") {
       document.title = t.titleDone + " — ArchiveFever.Work";
     } else {
-      document.title = "Timer — ArchiveFever.Work";
+      document.title = t.documentTitle;
     }
   }
 
@@ -778,7 +825,7 @@
 
   function tick() {
     if (state !== "running") return;
-    remainingMs = Math.max(0, endAt - performance.now());
+    remainingMs = Math.max(0, endAt - Date.now());
     renderState();
 
     if (remainingMs <= 0) {
@@ -804,22 +851,26 @@
 
     unlockSound();
     state = "running";
-    endAt = performance.now() + remainingMs;
+    endAt = Date.now() + remainingMs;
     cancelAnimationFrame(rafId);
+    clearTimeout(deadlineTimerId);
+    deadlineTimerId = setTimeout(finish, remainingMs);
     rafId = requestAnimationFrame(tick);
     renderState();
   }
 
   function pauseTimer() {
     if (state !== "running") return;
-    remainingMs = Math.max(0, endAt - performance.now());
+    remainingMs = Math.max(0, endAt - Date.now());
     state = "paused";
     cancelAnimationFrame(rafId);
+    clearTimeout(deadlineTimerId);
     renderState();
   }
 
   function resetTimer() {
     cancelAnimationFrame(rafId);
+    clearTimeout(deadlineTimerId);
     normalizeInputs();
     totalMs = readDurationMs();
     remainingMs = totalMs;
@@ -828,7 +879,9 @@
   }
 
   function finish() {
+    if (state !== "running") return;
     cancelAnimationFrame(rafId);
+    clearTimeout(deadlineTimerId);
     remainingMs = 0;
     state = "done";
     renderState();
@@ -863,6 +916,14 @@
     await unlockSound();
     await playPing();
     showToast(T[currentLang].toastDone);
+  });
+
+  document.addEventListener("visibilitychange", () => {
+    if (state === "running") {
+      remainingMs = Math.max(0, endAt - Date.now());
+      if (remainingMs <= 0) finish();
+      else renderState();
+    }
   });
 
   $("btnFR").onclick = () => setLang("fr");

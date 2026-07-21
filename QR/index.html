@@ -3,9 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>QR — ARCHIVEFEVER</title>
+  <title>ColorQR — Générateur de QR personnalisés et Wi-Fi</title>
+  <meta name="description" content="Crée gratuitement des QR codes personnalisés ou des QR Wi-Fi, avec contrôle automatique du contraste et téléchargement PNG." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://archivefever.work/QR/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="ArchiveFever.Work" />
+  <meta property="og:title" content="ColorQR — Générateur de QR personnalisés et Wi-Fi" />
+  <meta property="og:description" content="Crée et télécharge un QR code fiable, coloré ou configuré pour un réseau Wi-Fi." />
+  <meta property="og:url" content="https://archivefever.work/QR/" />
+  <meta property="og:image" content="https://archivefever.work/IMG/Jerome.webp" />
+  <meta name="twitter:card" content="summary" />
   <link rel="icon" href="../IMG/Jerome.webp" type="image/webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0a0a0a;
@@ -87,7 +102,8 @@
       appearance: none; border: 0;
       border-right: 1px solid var(--border);
       background: transparent; color: var(--txt3);
-      padding: 7px 12px; font: inherit; font-size: 11px;
+      min-width: 44px; min-height: 44px;
+      padding: 7px 12px; font: inherit; font-size: 12px;
       letter-spacing: .5px; text-transform: uppercase;
       cursor: pointer; transition: color .15s; outline: none; font-weight: 700;
     }
@@ -108,6 +124,7 @@
       display: inline-flex; align-items: center;
       justify-content: center; white-space: nowrap; user-select: none;
       transition: color .15s, border-color .15s;
+      min-height: 44px;
     }
     .chip:hover { color: var(--txt); border-color: #3a3a3a; }
 
@@ -135,6 +152,7 @@
       text-transform: uppercase; letter-spacing: .5px;
       transition: color .15s, background .15s, border-color .15s;
       white-space: nowrap;
+      min-height: 44px;
     }
     .tab:hover { color: var(--txt); border-color: #3a3a3a; }
     .tab[aria-selected="true"] { background: var(--accent); color: #000; border-color: transparent; }
@@ -165,6 +183,8 @@
     .row { display: flex; flex-direction: column; gap: 6px; }
     .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .hint { color: var(--txt3); font-size: 12px; line-height: 1.45; }
+    .contrast-hint.good { color: #74d58c; }
+    .contrast-hint.bad { color: #ff9b9b; }
 
     .colors {
       border: 1px solid var(--border);
@@ -251,6 +271,11 @@
     }
     .dl:hover { background: rgba(255,140,0,.08); }
 
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
     .status {
       color: var(--txt3); text-align: center;
       font-size: 12px; line-height: 1.5; max-width: 22ch;
@@ -333,13 +358,13 @@
 </head>
 <body>
 
-<div class="page">
-  <div class="card-wrap">
+<main class="page">
+  <article class="card-wrap" aria-labelledby="hTitle">
 
     <div class="card-top">
-      <div class="card-title" id="hTitle">QR — Couleur & Wi-Fi</div>
+      <h1 class="card-title" id="hTitle">QR — Couleur &amp; Wi-Fi</h1>
       <div class="card-controls">
-        <div class="lang" role="group" aria-label="Language">
+        <div class="lang" role="group" aria-label="Choisir la langue">
           <button id="btnFR" type="button" aria-pressed="true">FR</button>
           <button id="btnEN" type="button" aria-pressed="false">EN</button>
         </div>
@@ -358,27 +383,27 @@
 
         <div class="card-b">
 
-          <div id="panelColor">
+          <div id="panelColor" role="tabpanel" aria-labelledby="tabColor">
             <form id="formColor">
               <div class="row">
-                <label id="lUrl">Lien</label>
-                <input id="url" type="text" inputmode="url" placeholder="https://..." value="https://archivefever.work/Projets/QR" />
+                <label id="lUrl" for="url">Lien</label>
+                <input id="url" type="url" inputmode="url" autocomplete="url" placeholder="https://..." value="https://archivefever.work/QR/" />
                 <div class="hint" id="hUrl">Ce lien sera encodé dans le QR.</div>
               </div>
               <div class="colors">
                 <div class="two">
                   <div class="row">
-                    <label id="lC1">Couleur principale</label>
+                    <label id="lC1" for="c1t">Couleur des modules</label>
                     <div class="colorline">
-                      <input id="c1" type="color" value="#ff8c00" />
-                      <input id="c1t" type="text" value="#ff8c00" spellcheck="false" />
+                      <input id="c1" type="color" value="#7a3e00" aria-labelledby="lC1" />
+                      <input id="c1t" type="text" value="#7a3e00" spellcheck="false" />
                     </div>
                   </div>
                   <div class="row">
-                    <label id="lC2">Couleur secondaire</label>
+                    <label id="lC2" for="c2t">Couleur du fond</label>
                     <div class="colorline">
-                      <input id="c2" type="color" value="#970000" />
-                      <input id="c2t" type="text" value="#970000" spellcheck="false" />
+                      <input id="c2" type="color" value="#fff7ed" aria-labelledby="lC2" />
+                      <input id="c2t" type="text" value="#fff7ed" spellcheck="false" />
                     </div>
                   </div>
                 </div>
@@ -393,23 +418,24 @@
                 <button class="btn ghost"   type="button" id="randC">Aléatoire</button>
               </div>
               <div class="hint" id="hRandC">Le bouton "Aléatoire" change les 2 couleurs.</div>
+              <div class="hint contrast-hint good" id="contrastColor" role="status">Contraste vérifié : bonne lisibilité.</div>
             </form>
           </div>
 
-          <div id="panelWifi" class="hide">
+          <div id="panelWifi" class="hide" role="tabpanel" aria-labelledby="tabWifi" hidden>
             <form id="formWifi">
               <div class="row">
-                <label id="lSsid">Nom du Wi-Fi (SSID)</label>
-                <input id="ssid" type="text" placeholder="MonWifi" required />
+                <label id="lSsid" for="ssid">Nom du Wi-Fi (SSID)</label>
+                <input id="ssid" type="text" placeholder="MonWifi" autocomplete="off" required />
                 <div class="hint" id="hSsid">Le QR proposera la connexion à ce réseau.</div>
               </div>
               <div class="row">
-                <label id="lPass">Mot de passe</label>
-                <input id="pass" type="password" placeholder="••••••••" />
+                <label id="lPass" for="pass">Mot de passe</label>
+                <input id="pass" type="password" placeholder="••••••••" autocomplete="new-password" />
                 <div class="hint" id="hPass">Si "Aucune", le mot de passe est ignoré.</div>
               </div>
               <div class="row">
-                <label id="lSec">Sécurité</label>
+                <label id="lSec" for="sec">Sécurité</label>
                 <select id="sec">
                   <option value="WPA">WPA/WPA2</option>
                   <option value="WEP">WEP</option>
@@ -420,17 +446,17 @@
               <div class="colors">
                 <div class="two">
                   <div class="row">
-                    <label id="lW1">Couleur principale</label>
+                    <label id="lW1" for="w1t">Couleur des modules</label>
                     <div class="colorline">
-                      <input id="w1" type="color" value="#ff8c00" />
-                      <input id="w1t" type="text" value="#ff8c00" spellcheck="false" />
+                      <input id="w1" type="color" value="#7a3e00" aria-labelledby="lW1" />
+                      <input id="w1t" type="text" value="#7a3e00" spellcheck="false" />
                     </div>
                   </div>
                   <div class="row">
-                    <label id="lW2">Couleur secondaire</label>
+                    <label id="lW2" for="w2t">Couleur du fond</label>
                     <div class="colorline">
-                      <input id="w2" type="color" value="#970000" />
-                      <input id="w2t" type="text" value="#970000" spellcheck="false" />
+                      <input id="w2" type="color" value="#fff7ed" aria-labelledby="lW2" />
+                      <input id="w2t" type="text" value="#fff7ed" spellcheck="false" />
                     </div>
                   </div>
                 </div>
@@ -444,6 +470,7 @@
                 <button class="btn ghost"   type="button" id="swapW">Inverser</button>
                 <button class="btn ghost"   type="button" id="randW">Aléatoire</button>
               </div>
+              <div class="hint contrast-hint good" id="contrastWifi" role="status">Contraste vérifié : bonne lisibilité.</div>
             </form>
           </div>
 
@@ -467,8 +494,8 @@
       </div>
 
     </div>
-  </div>
-</div>
+  </article>
+</main>
 
 <div class="modal" id="infoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
   <div class="modal-card">
@@ -481,19 +508,21 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
 <script>
   const $ = id => document.getElementById(id);
 
   const T = {
     fr: {
+      documentTitle: "ColorQR — Générateur de QR personnalisés et Wi-Fi",
+      description:   "Crée gratuitement des QR codes personnalisés ou des QR Wi-Fi, avec contrôle automatique du contraste et téléchargement PNG.",
       headerTitle:  "QR — Couleur & Wi-Fi",
       info:         "Infos",
       back:         "Retour",
       lUrl:         "Lien",
       hUrl:         "Ce lien sera encodé dans le QR.",
-      lC1:          "Couleur principale",
-      lC2:          "Couleur secondaire",
+      lC1:          "Couleur des modules",
+      lC2:          "Couleur du fond",
       lM1:          "Bordure (marge) — améliore la détection",
       lM2:          "Bordure (marge) — améliore la détection",
       hRandC:       'Le bouton "Aléatoire" change les 2 couleurs.',
@@ -507,8 +536,8 @@
       hPass:        'Si "Aucune", le mot de passe est ignoré.',
       lSec:         "Sécurité",
       hSec:         "Définit comment l'appareil se connecte.",
-      lW1:          "Couleur principale",
-      lW2:          "Couleur secondaire",
+      lW1:          "Couleur des modules",
+      lW2:          "Couleur du fond",
       genWifi:      "Générer",
       swapW:        "Inverser",
       randW:        "Aléatoire",
@@ -521,7 +550,11 @@
       statusErr:    "Erreur lors de la génération.",
       alertUrl:     "Entre un lien.",
       alertSsid:    "Entre un nom de réseau (SSID).",
+      alertPass:    "Entre un mot de passe ou choisis « Aucune » comme sécurité.",
       alertErr:     "Erreur lors de la génération du QR.",
+      contrastGood: "Contraste vérifié : bonne lisibilité.",
+      contrastBad:  "Contraste insuffisant : utilise des modules foncés sur un fond clair.",
+      alertContrast:"Choisis des modules plus foncés et un fond plus clair avec davantage de contraste.",
       infoTitle:    "Infos",
       closeInfo:    "Fermer",
       modalHtml: `
@@ -536,13 +569,15 @@
         <p class="muted">Conseil : teste ton QR sur plusieurs téléphones avant de le diffuser.</p>`
     },
     en: {
+      documentTitle: "ColorQR — Custom and Wi-Fi QR code generator",
+      description:   "Create custom or Wi-Fi QR codes for free, with automatic contrast validation and PNG download.",
       headerTitle:  "QR — Color & Wi-Fi",
       info:         "Info",
       back:         "Back",
       lUrl:         "Link",
       hUrl:         "This link will be encoded inside the QR code.",
-      lC1:          "Primary color",
-      lC2:          "Secondary color",
+      lC1:          "Module color",
+      lC2:          "Background color",
       lM1:          "Border (margin) — improves scanning reliability",
       lM2:          "Border (margin) — improves scanning reliability",
       hRandC:       '"Random" picks two new colors.',
@@ -556,8 +591,8 @@
       hPass:        'If "None", the password field is ignored.',
       lSec:         "Security",
       hSec:         "Defines how the device connects.",
-      lW1:          "Primary color",
-      lW2:          "Secondary color",
+      lW1:          "Module color",
+      lW2:          "Background color",
       genWifi:      "Generate",
       swapW:        "Swap",
       randW:        "Random",
@@ -570,7 +605,11 @@
       statusErr:    "Generation error.",
       alertUrl:     "Please enter a link.",
       alertSsid:    "Please enter a network name (SSID).",
+      alertPass:    "Enter a password or choose “None” as the security type.",
       alertErr:     "QR generation error.",
+      contrastGood: "Contrast checked: good scan reliability.",
+      contrastBad:  "Low contrast: use dark modules on a light background.",
+      alertContrast:"Choose darker modules and a lighter background with more contrast.",
       infoTitle:    "Info",
       closeInfo:    "Close",
       modalHtml: `
@@ -589,9 +628,13 @@
   let currentLang = "fr";
 
   function setLang(lang) {
+    if (!T[lang]) lang = "fr";
     currentLang = lang;
     const t = T[lang];
     document.documentElement.lang = lang;
+    document.title = t.documentTitle;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.content = t.description;
     $("hTitle").textContent       = t.headerTitle;
     $("infoLabel").textContent    = t.info;
     $("backLabel").textContent    = t.back;
@@ -623,10 +666,13 @@
     $("infoTitle").textContent    = t.infoTitle;
     $("closeInfo").textContent    = t.closeInfo;
     $("modalBody").innerHTML      = t.modalHtml;
+    document.querySelector(".lang").setAttribute("aria-label", lang === "fr" ? "Choisir la langue" : "Choose language");
     const s = $("status").dataset.state || "empty";
     $("status").textContent = t["status" + s.charAt(0).toUpperCase() + s.slice(1)] || t.statusEmpty;
     $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
     $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
+    updateContrast("color");
+    updateContrast("wifi");
     try { localStorage.setItem("qr_lang", lang); } catch(e) {}
   }
 
@@ -637,8 +683,19 @@
   try { savedLang = localStorage.getItem("qr_lang") || "fr"; } catch(e) {}
 
   const modal = $("infoModal");
-  const openInfo  = () => modal.setAttribute("aria-hidden","false");
-  const closeInfo = () => modal.setAttribute("aria-hidden","true");
+  const mainContent = document.querySelector("main");
+  let previousFocus = null;
+  const openInfo = () => {
+    previousFocus = document.activeElement;
+    mainContent.inert = true;
+    modal.setAttribute("aria-hidden", "false");
+    $("closeInfo").focus();
+  };
+  const closeInfo = () => {
+    modal.setAttribute("aria-hidden", "true");
+    mainContent.inert = false;
+    if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus();
+  };
   $("infoBtn").addEventListener("click", openInfo);
   $("closeInfo").addEventListener("click", closeInfo);
   modal.addEventListener("click", e => { if(e.target===modal) closeInfo(); });
@@ -650,6 +707,10 @@
     $("tabWifi").setAttribute("aria-selected",  String(!isColor));
     $("panelColor").classList.toggle("hide", !isColor);
     $("panelWifi").classList.toggle("hide",   isColor);
+    $("panelColor").hidden = !isColor;
+    $("panelWifi").hidden = isColor;
+    $("tabColor").tabIndex = isColor ? 0 : -1;
+    $("tabWifi").tabIndex = isColor ? -1 : 0;
     $("previewBox").classList.add("hide");
     $("dl").style.display = "none";
     const t = T[currentLang];
@@ -658,36 +719,107 @@
   }
   $("tabColor").addEventListener("click", ()=>setMode("color"));
   $("tabWifi").addEventListener("click",  ()=>setMode("wifi"));
+  $("tabColor").addEventListener("keydown", e => { if (e.key === "ArrowRight") { setMode("wifi"); $("tabWifi").focus(); } });
+  $("tabWifi").addEventListener("keydown", e => { if (e.key === "ArrowLeft") { setMode("color"); $("tabColor").focus(); } });
 
-  const isHex = v => /^#([0-9a-f]{3}){1,2}$/i.test((v||"").trim());
-  const contrast = hex => {
-    const c=hex.replace("#",""),r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16);
-    return ((r*299+g*587+b*114)/1000)>140?"#000":"#fff";
+  const isHex = value => /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test((value || "").trim());
+  const toHex6 = value => {
+    const hex = value.trim().slice(1);
+    return hex.length === 3 ? hex.split("").map(char => char + char).join("") : hex;
   };
-  function paint(input){ const v=input.value.trim(); if(!isHex(v)) return; input.style.background=v; input.style.color=contrast(v); }
-  function bind(picker,text){
-    picker.addEventListener("input", ()=>{ text.value=picker.value; paint(text); });
-    text.addEventListener("input",   ()=>{ const v=text.value.trim(); if(isHex(v)){ picker.value=v; paint(text); } });
+  const relativeLuminance = value => {
+    const hex = toHex6(value);
+    const channels = [0, 2, 4].map(index => parseInt(hex.slice(index, index + 2), 16) / 255)
+      .map(channel => channel <= .03928 ? channel / 12.92 : Math.pow((channel + .055) / 1.055, 2.4));
+    return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+  };
+  const contrastRatio = (a, b) => {
+    const l1 = relativeLuminance(a);
+    const l2 = relativeLuminance(b);
+    return (Math.max(l1, l2) + .05) / (Math.min(l1, l2) + .05);
+  };
+  const isScannable = (dark, light) => isHex(dark) && isHex(light) && relativeLuminance(dark) < relativeLuminance(light) && contrastRatio(dark, light) >= 4.5;
+
+  function paint(input) {
+    const value = input.value.trim();
+    if (!isHex(value)) return;
+    input.style.background = value;
+    input.style.color = relativeLuminance(value) > .35 ? "#000" : "#fff";
+  }
+
+  function updateContrast(mode) {
+    const dark = mode === "color" ? $("c1").value : $("w1").value;
+    const light = mode === "color" ? $("c2").value : $("w2").value;
+    const target = mode === "color" ? $("contrastColor") : $("contrastWifi");
+    if (!target || !T[currentLang]) return false;
+    const valid = isScannable(dark, light);
+    target.textContent = valid ? T[currentLang].contrastGood : T[currentLang].contrastBad;
+    target.classList.toggle("good", valid);
+    target.classList.toggle("bad", !valid);
+    return valid;
+  }
+
+  function bind(picker, text, mode) {
+    picker.addEventListener("input", () => {
+      text.value = picker.value;
+      text.setAttribute("aria-invalid", "false");
+      paint(text);
+      updateContrast(mode);
+    });
+    text.addEventListener("input", () => {
+      const value = text.value.trim();
+      const valid = isHex(value);
+      text.setAttribute("aria-invalid", String(!valid));
+      if (valid) {
+        picker.value = "#" + toHex6(value);
+        paint(text);
+      }
+      updateContrast(mode);
+    });
     paint(text);
   }
-  bind($("c1"),$("c1t")); bind($("c2"),$("c2t"));
-  bind($("w1"),$("w1t")); bind($("w2"),$("w2t"));
+  bind($("c1"), $("c1t"), "color");
+  bind($("c2"), $("c2t"), "color");
+  bind($("w1"), $("w1t"), "wifi");
+  bind($("w2"), $("w2t"), "wifi");
 
-  function swap(p1,t1,p2,t2){ const a=p1.value,b=p2.value; p1.value=b;p2.value=a;t1.value=b;t2.value=a; paint(t1);paint(t2); }
-  $("swapC").addEventListener("click", ()=>swap($("c1"),$("c1t"),$("c2"),$("c2t")));
-  $("swapW").addEventListener("click", ()=>swap($("w1"),$("w1t"),$("w2"),$("w2t")));
+  function swap(p1, t1, p2, t2, mode) {
+    const first = p1.value;
+    const second = p2.value;
+    p1.value = second; p2.value = first;
+    t1.value = second; t2.value = first;
+    paint(t1); paint(t2); updateContrast(mode);
+  }
+  $("swapC").addEventListener("click", () => swap($("c1"), $("c1t"), $("c2"), $("c2t"), "color"));
+  $("swapW").addEventListener("click", () => swap($("w1"), $("w1t"), $("w2"), $("w2t"), "wifi"));
 
-  const randHex = () => "#"+Math.floor(Math.random()*0xFFFFFF).toString(16).padStart(6,"0");
-  const lum = hex => { const c=hex.replace("#",""),r=parseInt(c.slice(0,2),16),g=parseInt(c.slice(2,4),16),b=parseInt(c.slice(4,6),16); return (r*299+g*587+b*114)/1000; };
-  function randomPair(){ let a=randHex(),b=randHex(),t=0; while(Math.abs(lum(a)-lum(b))<70&&t<40){b=randHex();t++;} return [a,b]; }
-  function applyColors(p1,t1,p2,t2){ const [a,b]=randomPair(); p1.value=a;t1.value=a;paint(t1); p2.value=b;t2.value=b;paint(t2); }
-  $("randC").addEventListener("click", ()=>applyColors($("c1"),$("c1t"),$("c2"),$("c2t")));
-  $("randW").addEventListener("click", ()=>applyColors($("w1"),$("w1t"),$("w2"),$("w2t")));
+  const randHex = () => "#" + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, "0");
+  function randomPair() {
+    for (let attempt = 0; attempt < 120; attempt += 1) {
+      let a = randHex();
+      let b = randHex();
+      if (relativeLuminance(a) > relativeLuminance(b)) [a, b] = [b, a];
+      if (isScannable(a, b)) return [a, b];
+    }
+    return ["#1f2937", "#ffffff"];
+  }
+  function applyColors(p1, t1, p2, t2, mode) {
+    const [dark, light] = randomPair();
+    p1.value = dark; t1.value = dark; paint(t1);
+    p2.value = light; t2.value = light; paint(t2);
+    updateContrast(mode);
+  }
+  $("randC").addEventListener("click", () => applyColors($("c1"), $("c1t"), $("c2"), $("c2t"), "color"));
+  $("randW").addEventListener("click", () => applyColors($("w1"), $("w1t"), $("w2"), $("w2t"), "wifi"));
 
   const safeName = s => (s||"qrcode").replace(/https?:\/\//gi,"").replace(/[^a-z0-9]+/gi,"_").replace(/^_+|_+$/g,"").slice(0,80)||"qrcode";
 
   async function renderQR(data, dark, light, margin, filename){
     const t = T[currentLang];
+    if (!isScannable(dark, light)) {
+      alert(t.alertContrast);
+      return;
+    }
     $("dl").style.display = "none";
     $("status").textContent = t.statusGen;
     $("status").dataset.state = "gen";
@@ -709,19 +841,29 @@
 
   $("genColor").addEventListener("click", ()=>{
     const url=$("url").value.trim();
-    if(!url) return alert(T[currentLang].alertUrl);
+    try { new URL(url); } catch (_) { return alert(T[currentLang].alertUrl); }
     const dark=isHex($("c1").value)?$("c1").value:"#000000";
     const light=isHex($("c2").value)?$("c2").value:"#ffffff";
     renderQR(url, dark, light, $("m1").checked, `ColorQR_${safeName(url)}.png`);
   });
   $("formColor").addEventListener("submit", e=>{ e.preventDefault(); $("genColor").click(); });
 
+  function syncPasswordState() {
+    const noPassword = $("sec").value === "nopass";
+    $("pass").disabled = noPassword;
+    $("pass").required = !noPassword;
+  }
+  $("sec").addEventListener("change", syncPasswordState);
+  syncPasswordState();
+
   $("genWifi").addEventListener("click", ()=>{
     const ssid=$("ssid").value.trim();
     const pass=$("pass").value.trim();
     const sec=$("sec").value;
     if(!ssid) return alert(T[currentLang].alertSsid);
-    const data=`WIFI:T:${sec};S:${ssid};${sec!=="nopass"?`P:${pass};`:""};`;
+    if(sec!=="nopass" && !pass) return alert(T[currentLang].alertPass);
+    const escapeWifi = value => value.replace(/([\\;,:"])/g, "\\$1");
+    const data=`WIFI:T:${sec};S:${escapeWifi(ssid)};${sec!=="nopass"?`P:${escapeWifi(pass)};`:""};`;
     const dark=isHex($("w1").value)?$("w1").value:"#000000";
     const light=isHex($("w2").value)?$("w2").value:"#ffffff";
     renderQR(data, dark, light, $("m2").checked, `WiFiQR_${safeName(ssid)}.png`);

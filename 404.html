@@ -4,8 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>404 — ArchiveFever.Work</title>
+  <meta name="description" content="Cette page n’existe pas ou a été déplacée. Retournez à l’accueil d’ArchiveFever.Work." />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#0a0a0a" />
   <link rel="icon" href="IMG/Jerome.webp" type="image/webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a0a0a;
@@ -87,7 +93,8 @@
       appearance: none; border: 0;
       border-right: 1px solid var(--border);
       background: transparent; color: var(--txt3);
-      padding: 7px 12px; font: inherit; font-size: 11px;
+      min-width: 44px; min-height: 44px;
+      padding: 7px 12px; font: inherit; font-size: 12px;
       letter-spacing: .5px; text-transform: uppercase;
       cursor: pointer; transition: color .15s; outline: none; font-weight: 700;
     }
@@ -138,6 +145,11 @@
       transition: border-color .15s, color .15s;
     }
     .back-link:hover { border-color: var(--accent); color: var(--accent); }
+    .back-link:focus-visible,
+    .lang button:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
 
     @media (max-width: 400px) {
       .card-top { flex-wrap: wrap; }
@@ -151,12 +163,12 @@
 </head>
 <body>
 
-<div class="page">
-  <div class="card-wrap">
+<main class="page">
+  <article class="card-wrap" aria-labelledby="errorTitle">
 
     <div class="card-top">
-      <div class="site-name">Archive<span>Fever</span>.Work</div>
-      <div class="lang" role="group" aria-label="Language">
+      <a class="site-name" href="index.html" style="text-decoration:none">Archive<span>Fever</span>.Work</a>
+      <div class="lang" role="group" aria-label="Choisir la langue">
         <button id="btnFR" type="button" aria-pressed="true">FR</button>
         <button id="btnEN" type="button" aria-pressed="false">EN</button>
       </div>
@@ -165,16 +177,16 @@
     <div class="card-body">
 
       <div class="text-block">
-        <div class="error-code">404</div>
+        <h1 class="error-code" id="errorTitle">404</h1>
         <div class="section-title" id="pageTitle">Page introuvable</div>
         <div class="section-msg" id="pageMsg">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</div>
       </div>
 
-      <a class="back-link" href="/index.html" id="backLink">Retour</a>
+      <a class="back-link" href="index.html" id="backLink">Retour</a>
 
     </div>
-  </div>
-</div>
+  </article>
+</main>
 
 <script>
   const $ = id => document.getElementById(id);
@@ -195,9 +207,12 @@
   let currentLang = "fr";
 
   function setLang(lang) {
+    if (!T[lang]) lang = "fr";
     currentLang = lang;
     const t = T[lang];
     document.documentElement.lang = lang;
+    document.title = lang === "fr" ? "404 — ArchiveFever.Work" : "404 — ArchiveFever.Work";
+    document.querySelector(".lang").setAttribute("aria-label", lang === "fr" ? "Choisir la langue" : "Choose language");
     $("pageTitle").textContent = t.pageTitle;
     $("pageMsg").textContent   = t.pageMsg;
     $("backLink").textContent  = t.backLink;

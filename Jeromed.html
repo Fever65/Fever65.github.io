@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ArchiveFever.Work</title>
+  <title>Get Jeromed! — ArchiveFever.Work</title>
+  <meta name="description" content="A playful ArchiveFever.Work Easter egg starring Jerome." />
+  <meta name="robots" content="noindex, follow" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <link rel="canonical" href="https://archivefever.work/Jeromed.html" />
   <link rel="icon" href="IMG/Jerome.webp" type="image/webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -28,10 +35,12 @@
     }
 
     .label {
-      font-size: 11px;
+      max-width: min(34rem, 86vw);
+      font-size: 13px;
       letter-spacing: .25em;
       text-transform: uppercase;
-      color: #3a3a3a;
+      color: #85858b;
+      text-align: center;
     }
 
     .go-btn {
@@ -50,6 +59,11 @@
       transition: border-color .15s, color .15s;
     }
     .go-btn:hover { border-color: #ff8c00; color: #ff8c00; }
+    .go-btn:focus-visible,
+    .support-link:focus-visible {
+      outline: 3px solid #ff8c00;
+      outline-offset: 4px;
+    }
 
     .loading-bar-wrap {
       display: none;
@@ -91,6 +105,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      flex-direction: column;
     }
 
     .jerome-main {
@@ -128,6 +143,27 @@
       z-index: 15;
     }
 
+    .support-link {
+      position: absolute;
+      bottom: 4%;
+      z-index: 30;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 16px;
+      border: 1px solid #ff8c00;
+      border-radius: 9px;
+      color: #ff8c00;
+      background: rgba(10,10,10,.82);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .support-link:hover { color: #000; background: #ff8c00; }
+
     @keyframes float1 {
       0%,100% { transform: translate(0,0) rotate(0deg); }
       25%     { transform: translate(12px,-14px) rotate(6deg); }
@@ -145,25 +181,34 @@
       33%     { transform: translate(8px,14px) rotate(4deg); }
       66%     { transform: translate(-12px,-8px) rotate(-6deg); }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
   </style>
 </head>
 <body>
 
-<div class="page" id="mainPage">
-  <div class="label">Thank you for scanning this QR code.</div>
+<main class="page" id="mainPage">
+  <h1 class="label">Thank you for scanning this QR code.</h1>
   <button class="go-btn" id="goBtn">GO</button>
-  <div class="loading-bar-wrap" id="loadingWrap">
+  <div class="loading-bar-wrap" id="loadingWrap" role="status" aria-live="polite">
     <div class="loading-txt" id="loadingTxt">Initializing…</div>
-    <div class="loading-bar-bg">
+    <div class="loading-bar-bg" id="loadingBar" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
       <div class="loading-bar-fill" id="barFill"></div>
     </div>
   </div>
-</div>
+</main>
 
-<div class="chaos" id="chaos">
-  <img src="IMG/Jerome.webp" class="jerome-main" alt="" />
+<section class="chaos" id="chaos" aria-label="Jerome reveal" aria-hidden="true">
+  <img src="IMG/Jerome.webp" class="jerome-main" alt="Jerome, the ArchiveFever.Work mascot" />
   <div class="jerome-label">GET JEROMED!</div>
-</div>
+  <a class="support-link" href="Donations/index.html">Support ArchiveFever.Work</a>
+</section>
 
 <script>
   const floatAnims = ["float1", "float2", "float3"];
@@ -206,6 +251,7 @@
       setTimeout(() => {
         fill.style.width = pct + "%";
         txt.textContent  = t;
+        document.getElementById("loadingBar").setAttribute("aria-valuenow", String(pct));
       }, delay);
     });
 
@@ -217,10 +263,7 @@
 
       const chaos = document.getElementById("chaos");
       chaos.style.display = "flex";
-      chaos.style.cursor = "pointer";
-      chaos.addEventListener("click", () => {
-        window.location.href = "https://www.paypal.com/paypalme/Fever65";
-      });
+      chaos.setAttribute("aria-hidden", "false");
 
       positions.forEach(({ top, left, size }, i) => {
         setTimeout(() => {

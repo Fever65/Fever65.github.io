@@ -1,0 +1,1163 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Une recherche documentée de seeds Minecraft Beta 1.7.3 avec un spawner de zombie en Y2 et un bloc de spawner de squelette en Y112.">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://archivefever.work/MINECRAFT-BETA/">
+  <meta property="og:title" content="Les donjons les plus hauts et les plus bas de la Beta 1.7.3">
+  <meta property="og:description" content="Les spawners de donjon les plus bas et les plus hauts vérifiés pendant nos recherches de seeds Minecraft Beta 1.7.3.">
+  <meta property="og:type" content="article">
+  <title>Les donjons les plus hauts et les plus bas de la Beta 1.7.3 | ArchiveFever.Work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #161616;
+      --surface-2: #1e1e1e;
+      --border: #2a2a2a;
+      --border-soft: #242424;
+      --accent: #ff8c00;
+      --text: #f5f5f7;
+      --text-2: #a1a1a6;
+      --text-3: #77777d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      color-scheme: dark;
+    }
+
+    body {
+      position: relative;
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      padding: 30px 16px;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 14% 8%, rgba(255, 140, 0, 0.12), transparent 28rem),
+        radial-gradient(circle at 88% 34%, rgba(89, 142, 255, 0.08), transparent 30rem),
+        radial-gradient(circle at 42% 92%, rgba(255, 140, 0, 0.06), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family: "Source Code Pro", ui-monospace, monospace;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    body::before {
+      top: 10vh;
+      left: -8rem;
+      width: 22rem;
+      height: 22rem;
+      background: rgba(255, 140, 0, 0.08);
+    }
+
+    body::after {
+      right: -10rem;
+      bottom: 8vh;
+      width: 28rem;
+      height: 28rem;
+      background: rgba(80, 126, 218, 0.055);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+      width: min(920px, 100%);
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      background: rgba(22, 22, 22, 0.82);
+      box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.46),
+        0 1px 0 rgba(255, 255, 255, 0.06) inset;
+      backdrop-filter: blur(24px) saturate(125%);
+      -webkit-backdrop-filter: blur(24px) saturate(125%);
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: -12rem;
+      right: -14rem;
+      width: 34rem;
+      height: 34rem;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.065), transparent 68%);
+      pointer-events: none;
+    }
+
+    .site-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 70px;
+      padding: 0 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+      background: rgba(18, 18, 18, 0.62);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.025) inset;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      color: var(--accent);
+    }
+
+    .back-link {
+      color: var(--text-2);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang {
+      display: inline-flex;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--bg);
+    }
+
+    .lang button {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 7px 12px;
+      appearance: none;
+      border: 0;
+      border-right: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-3);
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .lang button:last-child {
+      border-right: 0;
+    }
+
+    .lang button:hover {
+      color: var(--text);
+    }
+
+    .lang button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(255, 140, 0, 0.35) inset;
+    }
+
+    .lang button[aria-pressed="true"] {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible,
+    .text-link:hover,
+    .text-link:focus-visible {
+      color: var(--accent);
+    }
+
+    .hero,
+    .section {
+      position: relative;
+      padding: 54px;
+    }
+
+    .hero {
+      background:
+        linear-gradient(125deg, rgba(255, 255, 255, 0.025), transparent 58%),
+        radial-gradient(circle at 92% 2%, rgba(255, 140, 0, 0.075), transparent 22rem);
+    }
+
+    .section {
+      border-top: 1px solid rgba(255, 255, 255, 0.085);
+    }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 22px;
+      font-size: clamp(34px, 7vw, 60px);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+    }
+
+    h2 {
+      margin-bottom: 12px;
+      font-size: clamp(25px, 4.5vw, 36px);
+      line-height: 1.15;
+      letter-spacing: -0.04em;
+    }
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 17px;
+      line-height: 1.35;
+    }
+
+    p {
+      margin-bottom: 18px;
+    }
+
+    .intro {
+      max-width: 730px;
+      margin-bottom: 28px;
+      color: var(--text-2);
+      font-size: 17px;
+    }
+
+    .scope-note,
+    .coordinate-note {
+      margin: 0;
+      padding: 17px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      background: linear-gradient(115deg, rgba(255, 140, 0, 0.09), rgba(255, 255, 255, 0.025));
+      color: var(--text-2);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .scope-note strong,
+    .coordinate-note strong {
+      color: var(--text);
+    }
+
+    .result-intro {
+      max-width: 720px;
+      margin-bottom: 0;
+      color: var(--text-2);
+    }
+
+    .origin-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(280px, 1.1fr);
+      gap: 34px;
+      align-items: start;
+      margin-top: 28px;
+    }
+
+    .origin-copy,
+    .origin-result {
+      margin: 0;
+      color: var(--text-2);
+    }
+
+    .origin-result {
+      position: relative;
+      padding: 24px 25px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 16px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018)),
+        rgba(20, 20, 20, 0.42);
+      box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.23),
+        0 1px 0 rgba(255, 255, 255, 0.08) inset;
+      backdrop-filter: blur(16px) saturate(130%);
+      -webkit-backdrop-filter: blur(16px) saturate(130%);
+    }
+
+    .origin-result::before {
+      content: "";
+      position: absolute;
+      top: -4rem;
+      right: -4rem;
+      width: 10rem;
+      height: 10rem;
+      border-radius: 50%;
+      background: rgba(255, 140, 0, 0.12);
+      filter: blur(28px);
+      pointer-events: none;
+    }
+
+    .origin-result strong {
+      color: var(--text);
+    }
+
+    .youtube-preview {
+      position: relative;
+      display: block;
+      aspect-ratio: 16 / 9;
+      margin: 28px 0 30px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      background: #080808;
+      box-shadow:
+        0 18px 44px rgba(0, 0, 0, 0.31),
+        0 1px 0 rgba(255, 255, 255, 0.06) inset;
+      text-decoration: none;
+    }
+
+    .youtube-preview img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.78;
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .youtube-preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.04) 55%);
+      pointer-events: none;
+    }
+
+    .youtube-preview:hover img,
+    .youtube-preview:focus-visible img {
+      opacity: 0.92;
+      transform: scale(1.01);
+    }
+
+    .youtube-preview:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .play {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 50%;
+      width: 62px;
+      height: 46px;
+      transform: translate(-50%, -50%);
+      border-radius: 10px;
+      background: var(--accent);
+    }
+
+    .play::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 52%;
+      transform: translate(-50%, -50%);
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+      border-left: 15px solid #111;
+    }
+
+    .watch-label {
+      position: absolute;
+      z-index: 1;
+      right: 20px;
+      bottom: 16px;
+      left: 20px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .facts {
+      margin: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .fact {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr);
+      gap: 24px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fact dt {
+      color: var(--text-3);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .fact dd {
+      margin: 0;
+      color: var(--text);
+      font-weight: 600;
+      overflow-wrap: anywhere;
+    }
+
+    .fact .accent-value {
+      color: var(--accent);
+    }
+
+    .explanation {
+      margin-top: 30px;
+    }
+
+    .explanation p {
+      color: var(--text-2);
+    }
+
+    .explanation p:last-child {
+      margin-bottom: 0;
+    }
+
+    .text-link {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+      text-underline-offset: 4px;
+    }
+
+    .research-table {
+      width: 100%;
+      margin-top: 28px;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    .research-table th,
+    .research-table td {
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .research-table th {
+      color: var(--text-3);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .research-table td {
+      color: var(--text-2);
+      font-size: 13px;
+      transition: background 160ms ease;
+    }
+
+    .research-table tbody tr:hover td {
+      background: rgba(255, 255, 255, 0.018);
+    }
+
+    .research-table td:first-child {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .section-copy {
+      max-width: 760px;
+      color: var(--text-2);
+    }
+
+    .steps,
+    .limits {
+      max-width: 760px;
+      margin: 26px 0 0;
+      padding-left: 24px;
+      color: var(--text-2);
+    }
+
+    .steps li,
+    .limits li {
+      margin-bottom: 13px;
+      padding-left: 5px;
+    }
+
+    .steps li::marker,
+    .limits li::marker {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .steps strong,
+    .limits strong {
+      color: var(--text);
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px 32px;
+      border-top: 1px solid var(--border);
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .footer p {
+      margin: 0;
+    }
+
+    .footer a {
+      color: var(--text-2);
+      text-underline-offset: 3px;
+    }
+
+    .footer a:hover,
+    .footer a:focus-visible {
+      color: var(--accent);
+    }
+
+    @media (max-width: 680px) {
+      body {
+        padding: 0;
+      }
+
+      .page {
+        border-inline: 0;
+        border-radius: 0;
+      }
+
+      .site-header {
+        min-height: 62px;
+        padding-inline: 20px;
+      }
+
+      .top-actions {
+        gap: 8px;
+      }
+
+      .back-link span:first-child {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+
+      .lang button {
+        min-width: 40px;
+        min-height: 40px;
+        padding-inline: 9px;
+      }
+
+      .hero,
+      .section {
+        padding: 40px 22px;
+      }
+
+      .origin-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .origin-result {
+        padding: 20px;
+      }
+
+      .intro {
+        font-size: 15px;
+      }
+
+      .fact {
+        grid-template-columns: 1fr;
+        gap: 2px;
+      }
+
+      .research-table,
+      .research-table tbody,
+      .research-table tr,
+      .research-table th,
+      .research-table td {
+        display: block;
+      }
+
+      .research-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+
+      .research-table tr {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .research-table td {
+        padding: 3px 0;
+        border: 0;
+      }
+
+      .research-table td::before {
+        content: attr(data-label) ": ";
+        color: var(--text-3);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .footer {
+        flex-direction: column;
+        padding-inline: 22px;
+      }
+
+      .watch-label {
+        right: 14px;
+        bottom: 11px;
+        left: 14px;
+        font-size: 10px;
+      }
+
+      .play {
+        width: 54px;
+        height: 40px;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .site-header {
+        padding-inline: 16px;
+      }
+
+      .brand {
+        font-size: 11px;
+      }
+
+      .top-actions {
+        gap: 6px;
+      }
+
+      .lang button {
+        min-width: 38px;
+        padding-inline: 7px;
+      }
+
+      .hero,
+      .section {
+        padding-inline: 18px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .youtube-preview {
+        border-radius: 10px;
+      }
+    }
+
+    @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+      .page,
+      .site-header,
+      .scope-note,
+      .coordinate-note,
+      .origin-result {
+        background-color: var(--surface);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <a class="brand" href="https://archivefever.work/">ArchiveFever<span>.Work</span></a>
+      <div class="top-actions">
+        <a class="back-link" id="backLink" href="../TROPHIES/index.html" aria-label="Retour à la salle des trophées" data-i18n-aria="backAria">
+          <span data-i18n="backLabel">Trophées</span>
+          <span aria-hidden="true">↩</span>
+        </a>
+        <div class="lang" id="langGroup" role="group" aria-label="Choisir la langue" data-i18n-aria="languageLabel">
+          <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
+          <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <article>
+        <header class="hero">
+          <p class="kicker" data-i18n="heroKicker">Minecraft Beta 1.7.3 · Recherche de seeds</p>
+          <h1 data-i18n="heroTitle">Les donjons les plus hauts et les plus bas de la Beta 1.7.3</h1>
+          <p class="intro" data-i18n="heroIntro">Nous avons exploré Minecraft Beta 1.7.3 à la recherche de donjons générés à des hauteurs inhabituelles. Cette page documente les spawners les plus bas et les plus hauts que nous avons vérifiés : un spawner de zombie en Y2 et un bloc de spawner de squelette en Y112.</p>
+          <p class="scope-note" data-i18n-html="scopeNote"><strong>Important :</strong> il s’agit de records issus des recherches présentées dans cette page. Ils ne sont pas présentés comme des limites mathématiquement prouvées pour toutes les seeds possibles de Minecraft.</p>
+        </header>
+
+        <section class="section" aria-labelledby="origin-title">
+          <p class="kicker" data-i18n="originKicker">Le point de départ</p>
+          <h2 id="origin-title" data-i18n="originTitle">J’ai eu l’idée de demander l’aide de ChatGPT</h2>
+          <div class="origin-grid">
+            <p class="origin-copy" data-i18n="originCopy">J’ai eu l’idée de demander l’aide de ChatGPT pour transformer une question simple en recherche reproductible. Je voulais savoir jusqu’où un donjon pouvait réellement apparaître dans la génération de la Beta 1.7.3. J’ai choisi les pistes, testé les mondes et contrôlé les résultats. ChatGPT/Codex m’a aidé à construire et faire tourner les outils de recherche.</p>
+            <p class="origin-result" data-i18n-html="originResult"><strong>Le résultat a largement dépassé les références documentées que nous avions retrouvées.</strong> Le Y112 repoussait nettement la hauteur observée, tandis que le Y2 arrivait à seulement un bloc de la limite basse théorique. C’est un résultat assez fou pour une idée née d’une simple curiosité. Il s’agit toutefois de records de notre recherche et de notre documentation, pas d’une proclamation de record mondial absolu.</p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="low-title">
+          <p class="kicker" data-i18n="lowKicker">Résultat 01 · Plus bas vérifié</p>
+          <h2 id="low-title" data-i18n="lowTitle">Spawner de zombie en Y2</h2>
+          <p class="result-intro" data-i18n="lowIntro">Un donjon généré directement dans la couche de bedrock. Cette seed est aussi facile à visiter : le spawner se trouve à environ 58 blocs du point d’apparition du monde.</p>
+
+          <a class="youtube-preview" href="https://www.youtube.com/watch?v=DAZchmHTO7U" target="_blank" rel="noopener noreferrer" aria-label="Voir sur YouTube la vidéo du spawner de zombie en Y2" data-i18n-aria="lowVideoAria">
+            <img src="https://i.ytimg.com/vi/DAZchmHTO7U/hqdefault.jpg" alt="Aperçu de la vidéo du spawner de zombie en Y2 dans Minecraft Beta 1.7.3" data-i18n-alt="lowVideoAlt" loading="lazy">
+            <span class="play" aria-hidden="true"></span>
+            <span class="watch-label" data-i18n="lowWatchLabel">Voir la découverte en Y2 sur YouTube ↗</span>
+          </a>
+
+          <dl class="facts">
+            <div class="fact">
+              <dt data-i18n="seedLabel">Seed</dt>
+              <dd>800000006596469</dd>
+            </div>
+            <div class="fact">
+              <dt data-i18n="spawnerBlockLabel">Bloc du spawner</dt>
+              <dd class="accent-value">X -1, Y 2, Z 4</dd>
+            </div>
+            <div class="fact">
+              <dt data-i18n="spawnerTypeLabel">Type de spawner</dt>
+              <dd data-i18n="zombie">Zombie</dd>
+            </div>
+            <div class="fact">
+              <dt data-i18n="worldSpawnLabel">Point d’apparition</dt>
+              <dd data-i18n="lowSpawnValue">Environ X -59, Z 3</dd>
+            </div>
+            <div class="fact">
+              <dt data-i18n="loadOrderLabel">Ordre de chargement</dt>
+              <dd data-i18n="loadOrderValue">Stable dans 16 ordres de chargement de chunks sur 16</dd>
+            </div>
+          </dl>
+
+          <div class="explanation">
+            <h3 data-i18n="lowWhyTitle">Pourquoi Y2 est remarquable</h3>
+            <p data-i18n="lowWhyText">Une salle de donjon a besoin d’un sol solide sous elle, ce qui exclut un spawner en Y0. Une génération en Y1 reste théoriquement possible selon les règles du jeu, mais la campagne de recherche en basse altitude n’en a trouvé aucun exemple vérifié. Plusieurs donjons en Y2 ont été découverts ; cette seed est présentée ici parce qu’elle se trouve exceptionnellement près du point d’apparition.</p>
+            <p><a class="text-link" href="https://www.youtube.com/watch?v=DAZchmHTO7U" target="_blank" rel="noopener noreferrer" data-i18n="directYoutubeLink">Lien YouTube direct ↗</a></p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="high-title">
+          <p class="kicker" data-i18n="highKicker">Résultat 02 · Plus haut vérifié</p>
+          <h2 id="high-title" data-i18n="highTitle">Bloc de spawner de squelette en Y112</h2>
+          <p class="result-intro" data-i18n="highIntro">Un donjon de squelette avec deux coffres, généré près du sommet d’une montagne dont la surface atteint Y123. Lors du dernier lot de recherche exacte, il s’agissait du seul résultat trouvé en Y112.</p>
+
+          <a class="youtube-preview" href="https://www.youtube.com/watch?v=yi7_WKfddUE" target="_blank" rel="noopener noreferrer" aria-label="Voir sur YouTube la vidéo du spawner de squelette dans la montagne" data-i18n-aria="highVideoAria">
+            <img src="https://i.ytimg.com/vi/yi7_WKfddUE/hqdefault.jpg" alt="Aperçu de la vidéo du spawner de squelette dans une montagne de Minecraft Beta 1.7.3" data-i18n-alt="highVideoAlt" loading="lazy">
+            <span class="play" aria-hidden="true"></span>
+            <span class="watch-label" data-i18n="highWatchLabel">Voir la découverte dans la montagne sur YouTube ↗</span>
+          </a>
+
+          <dl class="facts">
+            <div class="fact">
+              <dt data-i18n="seedLabel">Seed</dt>
+              <dd>40000000000817</dd>
+            </div>
+            <div class="fact">
+              <dt data-i18n="spawnerBlockLabel">Bloc du spawner</dt>
+              <dd class="accent-value">X -43, Y 112, Z 62</dd>
+            </div>
+            <div class="fact">
+              <dt data-i18n="spawnerTypeLabel">Type de spawner</dt>
+              <dd data-i18n="skeleton">Squelette</dd>
+            </div>
+            <div class="fact">
+              <dt data-i18n="dungeonLabel">Donjon</dt>
+              <dd data-i18n="highDungeonValue">Deux coffres · Surface de la montagne en Y123</dd>
+            </div>
+            <div class="fact">
+              <dt data-i18n="loadOrderLabel">Ordre de chargement</dt>
+              <dd data-i18n="loadOrderValue">Stable dans 16 ordres de chargement de chunks sur 16</dd>
+            </div>
+          </dl>
+
+          <div class="explanation">
+            <h3 data-i18n="highWhyTitle">Pourquoi la vidéo indique Y113</h3>
+            <p class="coordinate-note" data-i18n-html="coordinateNote">Le Y113 de la vidéo correspond à la <strong>coordonnée affichée du joueur</strong> lorsqu’il se tient sur le bloc qui couvre le spawner. L’inspection directe de la sauvegarde place le <strong>bloc réel du spawner en Y112</strong>.</p>
+            <p data-i18n="coordinateExplanation">Cette différence est importante lorsqu’on documente la hauteur d’une structure : les pieds du joueur et le bloc mesuré n’occupent pas la même coordonnée verticale.</p>
+            <p><a class="text-link" href="https://www.youtube.com/watch?v=yi7_WKfddUE" target="_blank" rel="noopener noreferrer" data-i18n="directYoutubeLink">Lien YouTube direct ↗</a></p>
+          </div>
+        </section>
+
+        <section class="section" aria-labelledby="data-title">
+          <p class="kicker" data-i18n="dataKicker">Les chiffres</p>
+          <h2 id="data-title" data-i18n="dataTitle">Ce qui a réellement été exploré</h2>
+          <p class="section-copy" data-i18n="dataIntro">Les deux campagnes ont utilisé des filtres ciblés au lieu de générer des mondes complets au hasard. Le tableau sépare les résultats réellement observés de ce qui reste seulement possible en théorie.</p>
+
+          <table class="research-table">
+            <thead>
+              <tr>
+                <th data-i18n="stageHeader">Étape de recherche</th>
+                <th data-i18n="scopeHeader">Périmètre</th>
+                <th data-i18n="resultHeader">Résultat observé</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Étape" data-i18n-label="stageMobile" data-i18n="lowCampaign">Campagne en basse altitude</td>
+                <td data-label="Périmètre" data-i18n-label="scopeMobile" data-i18n="lowCampaignScope">Plus de 36 millions de seeds ciblées</td>
+                <td data-label="Résultat" data-i18n-label="resultMobile" data-i18n="lowCampaignResult">Plusieurs donjons en Y2 ; aucun donjon en Y1 trouvé</td>
+              </tr>
+              <tr>
+                <td data-label="Étape" data-i18n-label="stageMobile" data-i18n="highBatch">Dernier lot en haute altitude</td>
+                <td data-label="Périmètre" data-i18n-label="scopeMobile" data-i18n="highBatchScope">24 000 seeds exactes</td>
+                <td data-label="Résultat" data-i18n-label="resultMobile" data-i18n="highBatchResult">Un résultat en Y112 : seed 40000000000817</td>
+              </tr>
+              <tr>
+                <td data-label="Étape" data-i18n-label="stageMobile" data-i18n="highFollowUp">Recherche complémentaire en haute altitude</td>
+                <td data-label="Périmètre" data-i18n-label="scopeMobile" data-i18n="highFollowUpScope">102 000 seeds exactes · 8,04 millions de chunks de population</td>
+                <td data-label="Résultat" data-i18n-label="resultMobile" data-i18n="highFollowUpResult">Aucun donjon en Y113 ou plus dans les zones testées près du spawn</td>
+              </tr>
+              <tr>
+                <td data-label="Étape" data-i18n-label="stageMobile" data-i18n="orderCheck">Vérification de l’ordre des chunks</td>
+                <td data-label="Périmètre" data-i18n-label="scopeMobile" data-i18n="orderCheckScope">16 ordres de chargement par seed présentée</td>
+                <td data-label="Résultat" data-i18n-label="resultMobile" data-i18n="orderCheckResult">Les deux donjons ont été reproduits 16 fois sur 16</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section class="section" aria-labelledby="method-title">
+          <p class="kicker" data-i18n="methodKicker">Méthode</p>
+          <h2 id="method-title" data-i18n="methodTitle">De la seed candidate au monde vérifié</h2>
+          <p class="section-copy" data-i18n="methodIntro">La plupart des seeds peuvent être éliminées avant de générer un monde complet. Les candidates qui passent les premiers filtres sont ensuite vérifiées avec des versions de plus en plus exactes du processus de génération de la Beta 1.7.3.</p>
+          <ol class="steps">
+            <li data-i18n-html="methodStep1"><strong>Filtre de hauteur.</strong> Identifier les seeds et les chunks de population capables de tenter un donjon au niveau Y recherché.</li>
+            <li data-i18n-html="methodStep2"><strong>Filtre de terrain.</strong> Éliminer les emplacements sans le sol, le plafond et les ouvertures murales nécessaires à une salle de donjon valide.</li>
+            <li data-i18n-html="methodStep3"><strong>Génération exacte.</strong> Tester les candidates restantes avec le générateur historique, y compris les structures voisines susceptibles de modifier le résultat.</li>
+            <li data-i18n-html="methodStep4"><strong>Inspection de la sauvegarde.</strong> Confirmer le bloc du spawner, le type de monstre et les coordonnées dans les données du monde généré.</li>
+            <li data-i18n-html="methodStep5"><strong>Test de l’ordre de chargement.</strong> Régénérer les chunks environnants dans 16 ordres différents pour vérifier la stabilité du résultat.</li>
+          </ol>
+        </section>
+
+        <section class="section" aria-labelledby="limits-title">
+          <p class="kicker" data-i18n="limitsKicker">Rigueur scientifique</p>
+          <h2 id="limits-title" data-i18n="limitsTitle">Ce que ces résultats prouvent et ce qu’ils ne prouvent pas</h2>
+          <ul class="limits">
+            <li data-i18n-html="limit1"><strong>Y2 et Y112 sont des records vérifiés de nos recherches.</strong> Ils ne sont pas présentés comme des records absolus sur l’ensemble des seeds Java.</li>
+            <li data-i18n-html="limit2"><strong>Y0 est exclu par l’obligation d’avoir un sol sous le donjon.</strong> Y1 reste théoriquement possible, même si aucun exemple n’a été trouvé.</li>
+            <li data-i18n-html="limit3"><strong>La limite programmée du bloc de spawner est Y123.</strong> Les tentatives de donjon sont limitées à Y127 et la salle nécessite un plafond solide situé quatre blocs plus haut que le spawner.</li>
+            <li data-i18n-html="limit4"><strong>Aucun résultat en Y113 ou plus n’a été trouvé dans le périmètre exact du suivi.</strong> Cela ne prouve pas qu’il n’en existe aucun ailleurs.</li>
+          </ul>
+        </section>
+
+        <section class="section" aria-labelledby="reproduce-title">
+          <p class="kicker" data-i18n="reproduceKicker">Reproduction</p>
+          <h2 id="reproduce-title" data-i18n="reproduceTitle">Visiter directement les donjons</h2>
+          <ol class="steps">
+            <li data-i18n-html="reproduceStep1">Lancer le client original <strong>Minecraft Java Edition Beta 1.7.3</strong>.</li>
+            <li data-i18n="reproduceStep2">Créer un nouveau monde et saisir l’une des seeds exactement comme elle est écrite dans les sections précédentes.</li>
+            <li data-i18n="reproduceStep3">Se rendre aux coordonnées correspondantes du spawner.</li>
+            <li data-i18n="reproduceStep4">Pour le donjon de la montagne, inspecter le bloc situé sous la position Y113 du joueur visible dans la vidéo.</li>
+          </ol>
+        </section>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <p data-i18n-html="footerCredit">J’ai dirigé la recherche et vérifié les mondes.<br>Les outils de recherche et l’analyse ont été développés avec ChatGPT/Codex.</p>
+      <p><a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener noreferrer" data-i18n="footerYoutube">Ma chaîne YouTube ↗</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const T = {
+      fr: {
+        documentTitle: `Les donjons les plus hauts et les plus bas de la Beta 1.7.3 | ArchiveFever.Work`,
+        description: `Une recherche documentée de seeds Minecraft Beta 1.7.3 avec un spawner de zombie en Y2 et un bloc de spawner de squelette en Y112.`,
+        ogTitle: `Les donjons les plus hauts et les plus bas de la Beta 1.7.3`,
+        ogDescription: `Les spawners de donjon les plus bas et les plus hauts vérifiés pendant nos recherches de seeds Minecraft Beta 1.7.3.`,
+        backLabel: `Trophées`,
+        backAria: `Retour à la salle des trophées`,
+        languageLabel: `Choisir la langue`,
+        heroKicker: `Minecraft Beta 1.7.3 · Recherche de seeds`,
+        heroTitle: `Les donjons les plus hauts et les plus bas de la Beta 1.7.3`,
+        heroIntro: `Nous avons exploré Minecraft Beta 1.7.3 à la recherche de donjons générés à des hauteurs inhabituelles. Cette page documente les spawners les plus bas et les plus hauts que nous avons vérifiés : un spawner de zombie en Y2 et un bloc de spawner de squelette en Y112.`,
+        scopeNote: `<strong>Important :</strong> il s’agit de records issus des recherches présentées dans cette page. Ils ne sont pas présentés comme des limites mathématiquement prouvées pour toutes les seeds possibles de Minecraft.`,
+        originKicker: `Le point de départ`,
+        originTitle: `J’ai eu l’idée de demander l’aide de ChatGPT`,
+        originCopy: `J’ai eu l’idée de demander l’aide de ChatGPT pour transformer une question simple en recherche reproductible. Je voulais savoir jusqu’où un donjon pouvait réellement apparaître dans la génération de la Beta 1.7.3. J’ai choisi les pistes, testé les mondes et contrôlé les résultats. ChatGPT/Codex m’a aidé à construire et faire tourner les outils de recherche.`,
+        originResult: `<strong>Le résultat a largement dépassé les références documentées que nous avions retrouvées.</strong> Le Y112 repoussait nettement la hauteur observée, tandis que le Y2 arrivait à seulement un bloc de la limite basse théorique. C’est un résultat assez fou pour une idée née d’une simple curiosité. Il s’agit toutefois de records de notre recherche et de notre documentation, pas d’une proclamation de record mondial absolu.`,
+        lowKicker: `Résultat 01 · Plus bas vérifié`,
+        lowTitle: `Spawner de zombie en Y2`,
+        lowIntro: `Un donjon généré directement dans la couche de bedrock. Cette seed est aussi facile à visiter : le spawner se trouve à environ 58 blocs du point d’apparition du monde.`,
+        lowVideoAria: `Voir sur YouTube la vidéo du spawner de zombie en Y2`,
+        lowVideoAlt: `Aperçu de la vidéo du spawner de zombie en Y2 dans Minecraft Beta 1.7.3`,
+        lowWatchLabel: `Voir la découverte en Y2 sur YouTube ↗`,
+        seedLabel: `Seed`,
+        spawnerBlockLabel: `Bloc du spawner`,
+        spawnerTypeLabel: `Type de spawner`,
+        zombie: `Zombie`,
+        skeleton: `Squelette`,
+        worldSpawnLabel: `Point d’apparition`,
+        lowSpawnValue: `Environ X -59, Z 3`,
+        loadOrderLabel: `Ordre de chargement`,
+        loadOrderValue: `Stable dans 16 ordres de chargement de chunks sur 16`,
+        lowWhyTitle: `Pourquoi Y2 est remarquable`,
+        lowWhyText: `Une salle de donjon a besoin d’un sol solide sous elle, ce qui exclut un spawner en Y0. Une génération en Y1 reste théoriquement possible selon les règles du jeu, mais la campagne de recherche en basse altitude n’en a trouvé aucun exemple vérifié. Plusieurs donjons en Y2 ont été découverts ; cette seed est présentée ici parce qu’elle se trouve exceptionnellement près du point d’apparition.`,
+        directYoutubeLink: `Lien YouTube direct ↗`,
+        highKicker: `Résultat 02 · Plus haut vérifié`,
+        highTitle: `Bloc de spawner de squelette en Y112`,
+        highIntro: `Un donjon de squelette avec deux coffres, généré près du sommet d’une montagne dont la surface atteint Y123. Lors du dernier lot de recherche exacte, il s’agissait du seul résultat trouvé en Y112.`,
+        highVideoAria: `Voir sur YouTube la vidéo du spawner de squelette dans la montagne`,
+        highVideoAlt: `Aperçu de la vidéo du spawner de squelette dans une montagne de Minecraft Beta 1.7.3`,
+        highWatchLabel: `Voir la découverte dans la montagne sur YouTube ↗`,
+        dungeonLabel: `Donjon`,
+        highDungeonValue: `Deux coffres · Surface de la montagne en Y123`,
+        highWhyTitle: `Pourquoi la vidéo indique Y113`,
+        coordinateNote: `Le Y113 de la vidéo correspond à la <strong>coordonnée affichée du joueur</strong> lorsqu’il se tient sur le bloc qui couvre le spawner. L’inspection directe de la sauvegarde place le <strong>bloc réel du spawner en Y112</strong>.`,
+        coordinateExplanation: `Cette différence est importante lorsqu’on documente la hauteur d’une structure : les pieds du joueur et le bloc mesuré n’occupent pas la même coordonnée verticale.`,
+        dataKicker: `Les chiffres`,
+        dataTitle: `Ce qui a réellement été exploré`,
+        dataIntro: `Les deux campagnes ont utilisé des filtres ciblés au lieu de générer des mondes complets au hasard. Le tableau sépare les résultats réellement observés de ce qui reste seulement possible en théorie.`,
+        stageHeader: `Étape de recherche`,
+        scopeHeader: `Périmètre`,
+        resultHeader: `Résultat observé`,
+        stageMobile: `Étape`,
+        scopeMobile: `Périmètre`,
+        resultMobile: `Résultat`,
+        lowCampaign: `Campagne en basse altitude`,
+        lowCampaignScope: `Plus de 36 millions de seeds ciblées`,
+        lowCampaignResult: `Plusieurs donjons en Y2 ; aucun donjon en Y1 trouvé`,
+        highBatch: `Dernier lot en haute altitude`,
+        highBatchScope: `24 000 seeds exactes`,
+        highBatchResult: `Un résultat en Y112 : seed 40000000000817`,
+        highFollowUp: `Recherche complémentaire en haute altitude`,
+        highFollowUpScope: `102 000 seeds exactes · 8,04 millions de chunks de population`,
+        highFollowUpResult: `Aucun donjon en Y113 ou plus dans les zones testées près du spawn`,
+        orderCheck: `Vérification de l’ordre des chunks`,
+        orderCheckScope: `16 ordres de chargement par seed présentée`,
+        orderCheckResult: `Les deux donjons ont été reproduits 16 fois sur 16`,
+        methodKicker: `Méthode`,
+        methodTitle: `De la seed candidate au monde vérifié`,
+        methodIntro: `La plupart des seeds peuvent être éliminées avant de générer un monde complet. Les candidates qui passent les premiers filtres sont ensuite vérifiées avec des versions de plus en plus exactes du processus de génération de la Beta 1.7.3.`,
+        methodStep1: `<strong>Filtre de hauteur.</strong> Identifier les seeds et les chunks de population capables de tenter un donjon au niveau Y recherché.`,
+        methodStep2: `<strong>Filtre de terrain.</strong> Éliminer les emplacements sans le sol, le plafond et les ouvertures murales nécessaires à une salle de donjon valide.`,
+        methodStep3: `<strong>Génération exacte.</strong> Tester les candidates restantes avec le générateur historique, y compris les structures voisines susceptibles de modifier le résultat.`,
+        methodStep4: `<strong>Inspection de la sauvegarde.</strong> Confirmer le bloc du spawner, le type de monstre et les coordonnées dans les données du monde généré.`,
+        methodStep5: `<strong>Test de l’ordre de chargement.</strong> Régénérer les chunks environnants dans 16 ordres différents pour vérifier la stabilité du résultat.`,
+        limitsKicker: `Rigueur scientifique`,
+        limitsTitle: `Ce que ces résultats prouvent et ce qu’ils ne prouvent pas`,
+        limit1: `<strong>Y2 et Y112 sont des records vérifiés de nos recherches.</strong> Ils ne sont pas présentés comme des records absolus sur l’ensemble des seeds Java.`,
+        limit2: `<strong>Y0 est exclu par l’obligation d’avoir un sol sous le donjon.</strong> Y1 reste théoriquement possible, même si aucun exemple n’a été trouvé.`,
+        limit3: `<strong>La limite programmée du bloc de spawner est Y123.</strong> Les tentatives de donjon sont limitées à Y127 et la salle nécessite un plafond solide situé quatre blocs plus haut que le spawner.`,
+        limit4: `<strong>Aucun résultat en Y113 ou plus n’a été trouvé dans le périmètre exact du suivi.</strong> Cela ne prouve pas qu’il n’en existe aucun ailleurs.`,
+        reproduceKicker: `Reproduction`,
+        reproduceTitle: `Visiter directement les donjons`,
+        reproduceStep1: `Lancer le client original <strong>Minecraft Java Edition Beta 1.7.3</strong>.`,
+        reproduceStep2: `Créer un nouveau monde et saisir l’une des seeds exactement comme elle est écrite dans les sections précédentes.`,
+        reproduceStep3: `Se rendre aux coordonnées correspondantes du spawner.`,
+        reproduceStep4: `Pour le donjon de la montagne, inspecter le bloc situé sous la position Y113 du joueur visible dans la vidéo.`,
+        footerCredit: `J’ai dirigé la recherche et vérifié les mondes.<br>Les outils de recherche et l’analyse ont été développés avec ChatGPT/Codex.`,
+        footerYoutube: `Ma chaîne YouTube ↗`
+      },
+      en: {
+        documentTitle: `The Highest and Lowest Dungeons in Beta 1.7.3 | ArchiveFever.Work`,
+        description: `A documented Minecraft Beta 1.7.3 seed search featuring a zombie spawner at Y2 and a skeleton spawner block at Y112.`,
+        ogTitle: `The Highest and Lowest Dungeons in Beta 1.7.3`,
+        ogDescription: `The lowest and highest dungeon spawners verified during our Minecraft Beta 1.7.3 seed searches.`,
+        backLabel: `Trophies`,
+        backAria: `Back to the Trophy Room`,
+        languageLabel: `Choose language`,
+        heroKicker: `Minecraft Beta 1.7.3 · Seed research`,
+        heroTitle: `The highest and lowest dungeons in Beta 1.7.3`,
+        heroIntro: `We searched Minecraft Beta 1.7.3 for dungeons generated at unusual heights. This page documents the lowest and highest spawners we verified: a zombie spawner at Y2 and a skeleton spawner block at Y112.`,
+        scopeNote: `<strong>Important:</strong> these are records from the searches described below. They are not presented as mathematically proven limits across every possible Minecraft seed.`,
+        originKicker: `Where it started`,
+        originTitle: `I had the idea of asking ChatGPT for help`,
+        originCopy: `I had the idea of asking ChatGPT for help turning a simple question into a reproducible search. How far can a dungeon really appear toward the limits of Beta 1.7.3 generation? I chose the leads, tested the worlds and checked the results. ChatGPT/Codex helped me build and run the search tools.`,
+        originResult: `<strong>The results went far beyond the documented reference points we had found.</strong> Y112 substantially raised the observed high point, while Y2 came within a single block of the theoretical low. That is a remarkable outcome for an idea born from simple curiosity. Even so, these remain records within our research and documentation, not a claim to an absolute world record.`,
+        lowKicker: `Result 01 · Lowest verified`,
+        lowTitle: `Zombie spawner at Y2`,
+        lowIntro: `A dungeon generated directly inside the bedrock layer. This particular seed is also convenient to visit: the spawner is approximately 58 blocks from the world spawn.`,
+        lowVideoAria: `Watch the Y2 zombie spawner video on YouTube`,
+        lowVideoAlt: `Preview of the Minecraft Beta 1.7.3 zombie spawner at Y2 video`,
+        lowWatchLabel: `Watch the Y2 discovery on YouTube ↗`,
+        seedLabel: `Seed`,
+        spawnerBlockLabel: `Spawner block`,
+        spawnerTypeLabel: `Spawner type`,
+        zombie: `Zombie`,
+        skeleton: `Skeleton`,
+        worldSpawnLabel: `World spawn`,
+        lowSpawnValue: `Approximately X -59, Z 3`,
+        loadOrderLabel: `Chunk loading test`,
+        loadOrderValue: `Stable in 16 out of 16 tested chunk loading orders`,
+        lowWhyTitle: `Why Y2 matters`,
+        lowWhyText: `A dungeon room needs a solid floor below it, which rules out a spawner at Y0. A Y1 placement remains theoretically possible under the generation rules, but the low altitude campaign found no verified example. Several Y2 dungeons were found. This seed is the featured result because it is unusually close to spawn.`,
+        directYoutubeLink: `Direct YouTube link ↗`,
+        highKicker: `Result 02 · Highest verified`,
+        highTitle: `Skeleton spawner block at Y112`,
+        highIntro: `A skeleton dungeon with two chests generated near the top of a mountain whose surface reaches Y123. In the final exact search batch, this was the only result at Y112.`,
+        highVideoAria: `Watch the mountain skeleton spawner video on YouTube`,
+        highVideoAlt: `Preview of the Minecraft Beta 1.7.3 mountain skeleton spawner video`,
+        highWatchLabel: `Watch the mountain discovery on YouTube ↗`,
+        dungeonLabel: `Dungeon`,
+        highDungeonValue: `Two chests · Mountain surface at Y123`,
+        highWhyTitle: `Why the video says Y113`,
+        coordinateNote: `The video's Y113 is the <strong>player's displayed coordinate</strong> while standing above the spawner. Direct inspection of the saved world places the <strong>actual spawner block at Y112</strong>.`,
+        coordinateExplanation: `This distinction matters when documenting structure height: the player's feet and the block being measured do not occupy the same vertical coordinate.`,
+        dataKicker: `The numbers`,
+        dataTitle: `What was actually searched`,
+        dataIntro: `The two campaigns used targeted filters rather than blindly creating complete worlds. The table separates the observed results from what remains theoretically possible.`,
+        stageHeader: `Search stage`,
+        scopeHeader: `Scope`,
+        resultHeader: `Observed result`,
+        stageMobile: `Stage`,
+        scopeMobile: `Scope`,
+        resultMobile: `Result`,
+        lowCampaign: `Low altitude campaign`,
+        lowCampaignScope: `More than 36 million targeted seeds`,
+        lowCampaignResult: `Multiple Y2 dungeons; no Y1 dungeon found`,
+        highBatch: `Final high altitude batch`,
+        highBatchScope: `24,000 exact seeds`,
+        highBatchResult: `One Y112 hit: seed 40000000000817`,
+        highFollowUp: `High altitude follow up`,
+        highFollowUpScope: `102,000 exact seeds · 8.04 million population chunks`,
+        highFollowUpResult: `No dungeon at Y113 or above in the tested zones near spawn`,
+        orderCheck: `Chunk loading order verification`,
+        orderCheckScope: `16 loading orders per featured seed`,
+        orderCheckResult: `Both featured dungeons reproduced 16 out of 16 times`,
+        methodKicker: `Method`,
+        methodTitle: `From candidate seed to verified world`,
+        methodIntro: `Most seeds can be rejected before a complete world is generated. Candidates that survive the early filters are then checked with increasingly exact versions of the Beta 1.7.3 generation process.`,
+        methodStep1: `<strong>Height filter.</strong> Identify seeds and population chunks capable of attempting a dungeon at the target Y level.`,
+        methodStep2: `<strong>Terrain filter.</strong> Reject locations without the solid floor, ceiling and wall openings required by a valid dungeon room.`,
+        methodStep3: `<strong>Exact generation.</strong> Run the remaining candidates through the legacy generator, including nearby features that may change the result.`,
+        methodStep4: `<strong>Saved world inspection.</strong> Confirm the spawner block, mob entity and coordinates in generated world data.`,
+        methodStep5: `<strong>Chunk loading test.</strong> Regenerate the surrounding chunks in 16 orders to check that the result is stable.`,
+        limitsKicker: `Scientific honesty`,
+        limitsTitle: `What the results prove and what they do not prove`,
+        limit1: `<strong>Y2 and Y112 are verified search records.</strong> They are not claimed as absolute records across the full Java seed space.`,
+        limit2: `<strong>Y0 is ruled out by the dungeon floor requirement.</strong> Y1 remains theoretically possible, although none was found.`,
+        limit3: `<strong>The programmed upper bound for the spawner block is Y123.</strong> Dungeon attempts are capped at Y127 and the room needs a solid ceiling four blocks above the spawner.`,
+        limit4: `<strong>No result at Y113 or above was found during the exact follow up.</strong> That does not prove that one cannot exist elsewhere.`,
+        reproduceKicker: `Reproduction`,
+        reproduceTitle: `Visit the dungeons yourself`,
+        reproduceStep1: `Launch the original <strong>Minecraft Java Edition Beta 1.7.3</strong> client.`,
+        reproduceStep2: `Create a new world and enter one of the seeds exactly as written above.`,
+        reproduceStep3: `Travel to the corresponding spawner coordinates.`,
+        reproduceStep4: `For the mountain dungeon, inspect the block below the Y113 player position shown in the video.`,
+        footerCredit: `I directed the search and verified the worlds.<br>The search tools and analysis were developed with ChatGPT/Codex.`,
+        footerYoutube: `My YouTube channel ↗`
+      }
+    };
+
+    function setLanguage(language) {
+      const safeLanguage = T[language] ? language : "fr";
+      const translation = T[safeLanguage];
+
+      document.documentElement.lang = safeLanguage;
+      document.title = translation.documentTitle;
+
+      const description = document.querySelector('meta[name="description"]');
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      const ogDescription = document.querySelector('meta[property="og:description"]');
+
+      if (description) description.content = translation.description;
+      if (ogTitle) ogTitle.content = translation.ogTitle;
+      if (ogDescription) ogDescription.content = translation.ogDescription;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const value = translation[element.dataset.i18n];
+        if (value !== undefined) element.textContent = value;
+      });
+
+      document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+        const value = translation[element.dataset.i18nHtml];
+        if (value !== undefined) element.innerHTML = value;
+      });
+
+      document.querySelectorAll("[data-i18n-aria]").forEach((element) => {
+        const value = translation[element.dataset.i18nAria];
+        if (value !== undefined) element.setAttribute("aria-label", value);
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach((element) => {
+        const value = translation[element.dataset.i18nAlt];
+        if (value !== undefined) element.setAttribute("alt", value);
+      });
+
+      document.querySelectorAll("[data-i18n-label]").forEach((element) => {
+        const value = translation[element.dataset.i18nLabel];
+        if (value !== undefined) element.setAttribute("data-label", value);
+      });
+
+      document.getElementById("btnFR").setAttribute("aria-pressed", String(safeLanguage === "fr"));
+      document.getElementById("btnEN").setAttribute("aria-pressed", String(safeLanguage === "en"));
+
+      try {
+        localStorage.setItem("af_lang", safeLanguage);
+      } catch (error) {}
+    }
+
+    document.getElementById("btnFR").addEventListener("click", () => setLanguage("fr"));
+    document.getElementById("btnEN").addEventListener("click", () => setLanguage("en"));
+
+    let savedLanguage = "fr";
+    try {
+      savedLanguage = localStorage.getItem("af_lang") || "fr";
+    } catch (error) {}
+
+    setLanguage(savedLanguage);
+  </script>
+</body>
+</html>
+

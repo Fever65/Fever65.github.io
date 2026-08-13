@@ -335,6 +335,19 @@
           </div>
         </section>
 
+        <section class="section" aria-labelledby="archiveLabel">
+          <h2 class="section-label" id="archiveLabel">Archive personnelle</h2>
+          <div class="pages-list">
+            <a class="page-link" href="TROPHIES/index.html">
+              <span class="page-link-copy">
+                <span class="page-link-title" id="trophyLabel">Salle des trophées</span>
+                <span class="page-link-desc" id="trophyDesc">Mes trouvailles, mes exploits et les souvenirs que je veux garder.</span>
+              </span>
+              <span class="page-link-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+
         <section aria-labelledby="socialsLabel">
           <button class="socials-btn" id="socialsBtn" type="button" aria-expanded="false" aria-controls="socialsPanel">
             <span id="socialsLabel">Mes réseaux</span><span id="socialsArrow" aria-hidden="true">↓</span>
@@ -374,6 +387,9 @@
         qrDesc: "Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.",
         timerLabel: "Minuteur",
         timerDesc: "Lance un compte à rebours avec raccourcis et alerte sonore.",
+        archiveLabel: "Archive personnelle",
+        trophyLabel: "Salle des trophées",
+        trophyDesc: "Mes trouvailles, mes exploits et les souvenirs que je veux garder.",
         socialsLabel: "Mes réseaux",
         surpriseLink: "Surprise",
         supportTitle: "Soutenir le projet",
@@ -392,6 +408,9 @@
         qrDesc: "Create a custom QR code or a downloadable Wi-Fi QR code.",
         timerLabel: "Timer",
         timerDesc: "Start a countdown with shortcuts and a final sound alert.",
+        archiveLabel: "Personal archive",
+        trophyLabel: "Trophy Room",
+        trophyDesc: "My discoveries, achievements and the memories I want to keep.",
         socialsLabel: "My socials",
         surpriseLink: "Surprise",
         supportTitle: "Support the project",
@@ -407,7 +426,7 @@
       document.documentElement.lang = safeLang;
       document.title = t.documentTitle;
       document.querySelector('meta[name="description"]').content = t.description;
-      ["statusLabel", "mainTitle", "statusMsg", "learnMoreLabel", "toolsLabel", "qrDesc", "timerLabel", "timerDesc", "socialsLabel", "surpriseLink", "supportTitle", "supportDesc", "donationsLabel"].forEach(id => {
+      ["statusLabel", "mainTitle", "statusMsg", "learnMoreLabel", "toolsLabel", "qrDesc", "timerLabel", "timerDesc", "archiveLabel", "trophyLabel", "trophyDesc", "socialsLabel", "surpriseLink", "supportTitle", "supportDesc", "donationsLabel"].forEach(id => {
         $(id).textContent = t[id];
       });
       document.querySelector(".lang").setAttribute("aria-label", t.languageLabel);

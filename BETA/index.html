@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="L’histoire de Fever et de sa recherche des donjons les plus hauts et les plus bas de Minecraft Beta 1.7.3.">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://archivefever.work/BETA/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Beta Records — Minecraft Beta 1.7.3">
+  <meta property="og:description" content="De Y2 à Y116 : l’histoire et la méthode derrière la recherche de Fever.">
+  <meta property="og:url" content="https://archivefever.work/BETA/">
+  <title>Beta Records | ArchiveFever.Work</title>
+  <link rel="icon" href="../IMG/Jerome.webp" type="image/webp">
+  <link rel="apple-touch-icon" href="/IMG/Jerome.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #151515;
+      --surface-2: #1c1c1c;
+      --border: #2b2b2b;
+      --accent: #ff8c00;
+      --text: #f5f5f7;
+      --text-2: #aaaab0;
+      --text-3: #75757b;
+    }
+
+    * { box-sizing: border-box; }
+    html { color-scheme: dark; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      min-height: 100vh;
+      padding: 30px 16px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Source Code Pro", ui-monospace, monospace;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      width: min(820px, 100%);
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, .42);
+    }
+
+    .site-header {
+      display: flex;
+      min-height: 70px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 28px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    .brand {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .brand span { color: var(--accent); }
+    .top-actions { display: flex; align-items: center; gap: 12px; }
+
+    .back-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      color: var(--text-2);
+      font-size: 12px;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible,
+    .story a:hover,
+    .story a:focus-visible,
+    .footer a:hover,
+    .footer a:focus-visible { color: var(--accent); }
+
+    .lang {
+      display: inline-flex;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: var(--bg);
+    }
+
+    .lang button {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 7px 12px;
+      appearance: none;
+      border: 0;
+      border-right: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-3);
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .lang button:last-child { border-right: 0; }
+    .lang button:hover { color: var(--text); }
+    .lang button[aria-pressed="true"] { background: var(--accent); color: #000; }
+
+    main { padding: 62px 54px 70px; }
+
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 700px;
+      margin: 0 0 22px;
+      font-size: clamp(38px, 8vw, 68px);
+      line-height: 1;
+      letter-spacing: -.065em;
+    }
+
+    .lead {
+      max-width: 670px;
+      margin: 0 0 42px;
+      color: var(--text-2);
+      font-size: 17px;
+    }
+
+    .record-line {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin: 0 0 54px;
+      border-block: 1px solid var(--border);
+    }
+
+    .record {
+      padding: 18px 14px;
+      border-right: 1px solid var(--border);
+    }
+
+    .record:first-child { padding-left: 0; }
+    .record:last-child { padding-right: 0; border-right: 0; }
+    .record-label { display: block; color: var(--text-3); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .record-value { display: block; margin-top: 4px; color: var(--text); font-size: 20px; font-weight: 800; }
+    .record-value.accent { color: var(--accent); }
+
+    .story { color: var(--text-2); font-size: 15px; }
+    .story h2 {
+      margin: 50px 0 14px;
+      color: var(--text);
+      font-size: clamp(22px, 4vw, 30px);
+      line-height: 1.25;
+      letter-spacing: -.035em;
+    }
+
+    .story h2:first-child { margin-top: 0; }
+    .story p { margin: 0 0 20px; }
+    .story strong { color: var(--text); }
+
+    .story a {
+      color: var(--text);
+      font-weight: 700;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .note {
+      margin: 30px 0;
+      padding: 18px 20px;
+      border-left: 3px solid var(--accent);
+      background: rgba(255, 140, 0, .06);
+      color: var(--text-2);
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 28px 0 34px;
+      border-top: 1px solid var(--border);
+    }
+
+    .fact {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fact:nth-child(odd) { padding-right: 20px; }
+    .fact:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--border); }
+    .fact dt { margin-bottom: 3px; color: var(--text-3); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .fact dd { margin: 0; color: var(--text); font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 25px 28px;
+      border-top: 1px solid var(--border);
+      color: var(--text-3);
+      font-size: 11px;
+    }
+
+    .footer p { margin: 0; }
+    .footer a { color: var(--text-2); text-underline-offset: 3px; }
+    [hidden] { display: none !important; }
+
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    @media (max-width: 620px) {
+      body { padding: 0; }
+      .page { min-height: 100vh; border-inline: 0; border-radius: 0; }
+      .site-header { min-height: 62px; padding-inline: 18px; }
+      .top-actions { gap: 8px; }
+      .back-link span:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .lang button { min-width: 40px; min-height: 40px; padding-inline: 9px; }
+      main { padding: 46px 22px 56px; }
+      .lead { font-size: 15px; }
+      .record-line { grid-template-columns: 1fr; }
+      .record, .record:first-child, .record:last-child { padding: 13px 0; border-right: 0; border-bottom: 1px solid var(--border); }
+      .record:last-child { border-bottom: 0; }
+      .facts { grid-template-columns: 1fr; }
+      .fact:nth-child(odd), .fact:nth-child(even) { padding: 13px 0; border-left: 0; }
+      .footer { flex-direction: column; padding-inline: 22px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <a class="brand" href="../index.html">ArchiveFever<span>.Work</span></a>
+      <div class="top-actions">
+        <a class="back-link" href="../index.html" id="backLink" aria-label="Retour à l’accueil">
+          <span id="backLabel">Accueil</span><span aria-hidden="true"> ↩</span>
+        </a>
+        <div class="lang" role="group" aria-label="Choisir la langue" id="languageGroup">
+          <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
+          <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="contentFR" lang="fr" aria-labelledby="titleFR">
+        <p class="kicker">Minecraft Beta 1.7.3 · Recherche de seeds</p>
+        <h1 id="titleFR">Beta Records</h1>
+        <p class="lead">Je suis Fever. Voici comment une simple curiosité au sujet d’un spawner en Y81 est devenue une recherche exacte allant du fond du monde jusqu’aux montagnes les plus hautes de la Beta 1.7.3.</p>
+
+        <div class="record-line" aria-label="Résumé des résultats">
+          <div class="record"><span class="record-label">Plus bas vérifié</span><span class="record-value">Y2</span></div>
+          <div class="record"><span class="record-label">Plus haut vérifié</span><span class="record-value accent">Y116</span></div>
+          <div class="record"><span class="record-label">Maximum théorique</span><span class="record-value">Y123</span></div>
+        </div>
+
+        <article class="story">
+          <h2>Pourquoi j’ai commencé</h2>
+          <p>J’aime énormément Minecraft Beta 1.7.3 pour son ambiance, sa simplicité et surtout sa génération de terrain imprévisible. En lisant d’anciens messages de la communauté, j’ai trouvé des personnes qui parlaient de spawners vers Y81 comme de découvertes exceptionnellement hautes. Cela ne me paraissait pas si fou : la Beta peut produire des montagnes bien plus hautes. J’ai donc publié une première vidéo pour expliquer que <a href="https://www.youtube.com/watch?v=CwXsFb-dAXM" target="_blank" rel="noopener noreferrer">je cherchais un donjon dépassant Y81</a>.</p>
+          <p>Ma question était simple : <strong>jusqu’où un donjon peut-il réellement monter dans Minecraft Beta 1.7.3 ?</strong> Ce qui devait être une petite recherche est progressivement devenu un véritable projet.</p>
+
+          <h2>La progression</h2>
+          <p>Mes premières recherches ont rapidement dépassé les anciennes références. J’ai d’abord documenté <a href="https://www.youtube.com/watch?v=yi7_WKfddUE" target="_blank" rel="noopener noreferrer">un spawner à Y112</a>. Ensuite sont arrivés <a href="https://www.youtube.com/watch?v=nlbFYd6POAU" target="_blank" rel="noopener noreferrer">le jalon Y113</a>, <a href="https://www.youtube.com/watch?v=fVRbTek_MPU" target="_blank" rel="noopener noreferrer">Y114</a>, puis <a href="https://www.youtube.com/watch?v=yk5mMQyNvho" target="_blank" rel="noopener noreferrer">Y115</a>. Chaque résultat prouvait que le précédent n’était pas la vraie limite.</p>
+          <p>La recherche optimisée a finalement trouvé <a href="https://www.youtube.com/watch?v=SQGjBac8hjk" target="_blank" rel="noopener noreferrer">notre résultat actuel à Y116</a>. Cette progression de Y112 à Y116 est ce qui a transformé mon intuition de départ en une recherche suivie, documentée et reproductible.</p>
+
+          <h2>L’autre extrême</h2>
+          <p>Je ne voulais pas uniquement chercher vers le haut. Nous avons également étudié le bas du monde. Après avoir trouvé <a href="https://www.youtube.com/watch?v=nYqflXcOhhI" target="_blank" rel="noopener noreferrer">un spawner à Y3 accompagné d’un trou dans la bedrock</a>, la recherche a atteint <a href="https://www.youtube.com/watch?v=DAZchmHTO7U" target="_blank" rel="noopener noreferrer">un spawner de zombie à Y2</a>.</p>
+          <p>La seed Y2 est <strong>800000006596469</strong>. Le bloc du spawner se trouve en <strong>X -1, Y 2, Z 4</strong>, à environ 58 blocs du point d’apparition. Il a été reproduit dans 16 ordres de chargement de chunks sur 16. Aucun Y1 n’a été confirmé pendant la campagne basse altitude ; Y2 reste donc notre résultat le plus bas.</p>
+
+          <h2>Les règles que j’ai imposées</h2>
+          <p>Le donjon devait être naturel, reproductible dans le client original Java Beta 1.7.3, totalement hors des Far Lands et situé à une distance raisonnable. La recherche a d’abord été limitée à environ 1 000 blocs, puis étendue jusqu’à environ 5 000 blocs depuis l’origine. Je ne voulais ni apparaître directement sur le donjon, ni devoir traverser des millions de blocs pour le rejoindre.</p>
+          <p>Le maximum approximatif du bloc de spawner est Y123. Le monde s’arrête à Y127 et la salle a encore besoin de placer son plafond quatre blocs au-dessus du spawner. Au-delà, le donjon ne peut plus tenir entièrement dans le monde.</p>
+
+          <h2>Pourquoi un donjon aussi haut est rare</h2>
+          <p>À ces altitudes, presque tout est de l’air. Une tentative de donjon a pourtant besoin d’un sol solide, d’un plafond solide, d’une salle complète et de une à cinq ouvertures de deux blocs de haut dans les murs. Les grottes et les lacs peuvent aussi retirer ou remplacer des blocs avant la tentative.</p>
+          <p>Chercher directement de la cobblestone, de la mossy cobblestone ou un spawner ne simplifie pas le problème : ces blocs ne sont placés qu’après la validation complète de la salle. Il faut donc d’abord reproduire les conditions qui autorisent le donjon à exister.</p>
+
+          <h2>Comment Codex et moi avons travaillé</h2>
+          <p>L’idée, les objectifs et les contraintes viennent de moi. J’ai dirigé la recherche et choisi les pistes à poursuivre. OpenAI Codex a réalisé le travail technique sous ma direction : reproduction des règles de génération, développement du scanner, optimisation, exécution des recherches et vérification des résultats.</p>
+          <p>Le programme reproduit les tentatives de placement, les dimensions de la salle, le terrain, les grottes, les lacs, le sol, le plafond et les ouvertures. La première version exacte était trop lente : elle recalculait les mêmes grottes et manipulait de grands blocs de mémoire pour chaque candidat.</p>
+          <p>Codex a remplacé ces volumes par des masques compacts, mis en cache les calculs communs à une seed, généré les grottes normales une seule fois pour toute la région et vérifié les ouvertures les moins coûteuses avant le reste. Plusieurs seeds ont ensuite été traitées par lot et réparties entre plusieurs cœurs du processeur.</p>
+          <p>Sur la zone de recherche initiale, la vitesse d’un cœur est passée d’environ 8–9 seeds par seconde à 34–38. En parallèle, le meilleur équilibre se situait autour de 12 tâches ; en lancer davantage ralentissait Windows à cause de la concurrence entre les cœurs et la mémoire. Une version GPU a été envisagée avec la RTX 2080, mais elle aurait risqué de modifier les calculs aléatoires et flottants de Java. L’exactitude a donc été privilégiée.</p>
+
+          <h2>La validation</h2>
+          <p>Chaque optimisation a été comparée à la méthode exacte. Le scanner a reproduit les anciens résultats et a été confronté à 29 742 candidats pendant une étape importante de validation. Les différences ont été corrigées avant de lancer la grande recherche.</p>
+          <p>La zone finale couvre 441 × 441 chunks, soit 194 481 chunks par seed, des chunks -220 à +220. Cette surface reste dans la limite d’environ 5 000 blocs fixée pour le projet.</p>
+
+          <h2>Le résultat Y116</h2>
+          <dl class="facts">
+            <div class="fact"><dt>Seed</dt><dd>3570</dd></div>
+            <div class="fact"><dt>Spawner</dt><dd>X 2817 · Y 116 · Z 1823</dd></div>
+            <div class="fact"><dt>Distance</dt><dd>Environ 3 355 blocs</dd></div>
+            <div class="fact"><dt>Salle</dt><dd>7 × 5 blocs · 5 ouvertures</dd></div>
+            <div class="fact"><dt>Chunk de population</dt><dd>X 175 · Z 113</dd></div>
+            <div class="fact"><dt>Tentative</dt><dd>4e tentative · aucun lac</dd></div>
+          </dl>
+          <p>La partie supérieure de la salle atteint approximativement Y123. Une seconde exécution, limitée uniquement à la seed et au chunk concernés, a reproduit exactement le même donjon. Le résultat n’est donc pas un faux positif du balayage général.</p>
+
+          <h2>Ce qui a été cherché ensuite</h2>
+          <p>Après Y116, une recherche normale à Y117 a parcouru environ 12 000 seeds sur la grande zone, soit environ 2,334 milliards de positions de chunks, sans trouver de donjon valide. Une autre voie a étudié les cas extrêmement rares où un lac pourrait créer les blocs ou les ouvertures nécessaires. Plusieurs coquilles de terrain plausibles ont été détectées, mais aucune n’a satisfait simultanément le sol, le plafond et les entrées.</p>
+          <p>Notre plage restante va de Y117 à Y123. L’absence de résultat ne prouve pas qu’un donjon plus haut n’existe pas ; elle montre seulement que la combinaison nécessaire devient extraordinairement rare.</p>
+
+          <p class="note"><strong>Précision importante :</strong> Y2 et Y116 sont les records confirmés de notre propre recherche. Je ne les présente pas automatiquement comme des records mondiaux absolus sans comparaison exhaustive avec toutes les découvertes de la communauté.</p>
+
+          <h2>Crédit du projet</h2>
+          <p>Je suis Fever. L’idée est née de ma passion pour la Beta 1.7.3 et de mon impression que Y81 était loin de la vraie limite. J’ai lancé et dirigé l’enquête. Codex a développé, optimisé et utilisé les outils spécialisés qui ont permis de passer de cette intuition à des résultats vérifiés.</p>
+          <p><a href="https://www.youtube.com/playlist?list=PLGEuEha_uXWY" target="_blank" rel="noopener noreferrer">Voir la playlist complète Beta Spawner sur YouTube ↗</a></p>
+        </article>
+      </section>
+
+      <section id="contentEN" lang="en" aria-labelledby="titleEN" hidden>
+        <p class="kicker">Minecraft Beta 1.7.3 · Seed research</p>
+        <h1 id="titleEN">Beta Records</h1>
+        <p class="lead">I am Fever. This is how a simple curiosity about a Y81 spawner became an exact search stretching from the bottom of the world to the highest mountains of Beta 1.7.3.</p>
+
+        <div class="record-line" aria-label="Result summary">
+          <div class="record"><span class="record-label">Lowest verified</span><span class="record-value">Y2</span></div>
+          <div class="record"><span class="record-label">Highest verified</span><span class="record-value accent">Y116</span></div>
+          <div class="record"><span class="record-label">Theoretical maximum</span><span class="record-value">Y123</span></div>
+        </div>
+
+        <article class="story">
+          <h2>Why I started</h2>
+          <p>I love Minecraft Beta 1.7.3 for its atmosphere, simplicity and, above all, its unpredictable terrain generation. While reading old community posts, I found people discussing dungeon spawners around Y81 as exceptionally high discoveries. That did not seem especially extreme to me: Beta can generate mountains far above that level. I therefore published an early video explaining that <a href="https://www.youtube.com/watch?v=CwXsFb-dAXM" target="_blank" rel="noopener noreferrer">I was looking for a dungeon higher than Y81</a>.</p>
+          <p>My question was simple: <strong>how high can a dungeon actually generate in Minecraft Beta 1.7.3?</strong> What was supposed to be a small search gradually became a real research project.</p>
+
+          <h2>The progression</h2>
+          <p>My first searches quickly exceeded the old references. I initially documented <a href="https://www.youtube.com/watch?v=yi7_WKfddUE" target="_blank" rel="noopener noreferrer">a spawner at Y112</a>. That was followed by <a href="https://www.youtube.com/watch?v=nlbFYd6POAU" target="_blank" rel="noopener noreferrer">the Y113 milestone</a>, <a href="https://www.youtube.com/watch?v=fVRbTek_MPU" target="_blank" rel="noopener noreferrer">Y114</a>, and then <a href="https://www.youtube.com/watch?v=yk5mMQyNvho" target="_blank" rel="noopener noreferrer">Y115</a>. Every result proved that the previous one was not the real limit.</p>
+          <p>The optimized search eventually produced <a href="https://www.youtube.com/watch?v=SQGjBac8hjk" target="_blank" rel="noopener noreferrer">our current Y116 result</a>. This progression from Y112 to Y116 transformed my initial intuition into a continuous, documented and reproducible investigation.</p>
+
+          <h2>The opposite extreme</h2>
+          <p>I did not want to search only upward. We also investigated the bottom of the world. After finding <a href="https://www.youtube.com/watch?v=nYqflXcOhhI" target="_blank" rel="noopener noreferrer">a Y3 spawner with a hole in the bedrock</a>, the search reached <a href="https://www.youtube.com/watch?v=DAZchmHTO7U" target="_blank" rel="noopener noreferrer">a zombie spawner at Y2</a>.</p>
+          <p>The Y2 seed is <strong>800000006596469</strong>. Its spawner block is located at <strong>X -1, Y 2, Z 4</strong>, approximately 58 blocks from the world spawn. It reproduced successfully in all 16 tested chunk-loading orders. No Y1 dungeon was confirmed during the low-altitude campaign, so Y2 remains our lowest result.</p>
+
+          <h2>The rules I established</h2>
+          <p>The dungeon had to be natural, reproducible in the original Java Beta 1.7.3 client, completely outside the Far Lands and within a reasonable travel distance. The search was initially limited to approximately 1,000 blocks and later expanded to around 5,000 blocks from the origin. I did not need to spawn directly beside the dungeon, but I also did not want a result millions of blocks away.</p>
+          <p>The approximate upper limit for the spawner block is Y123. The world ends at Y127, and the room still needs to place its ceiling four blocks above the spawner. Beyond that level, the complete dungeon can no longer fit inside the world.</p>
+
+          <h2>Why extremely high dungeons are rare</h2>
+          <p>At these altitudes, almost the entire world is air. A successful dungeon attempt still requires a solid floor, a solid ceiling, a complete room and between one and five two-block-high openings in its walls. Caves and lakes may also remove or replace blocks before the attempt occurs.</p>
+          <p>Searching directly for cobblestone, mossy cobblestone or the spawner does not simplify the problem. Those blocks are only placed after the complete room has passed every validation step. We first have to reproduce the conditions that allow the dungeon to exist.</p>
+
+          <h2>How Codex and I worked</h2>
+          <p>The idea, objectives and constraints came from me. I directed the investigation and selected the leads worth pursuing. OpenAI Codex performed the technical work under my direction: reproducing the generation rules, developing the scanner, optimizing it, running the searches and verifying the results.</p>
+          <p>The program reproduces the placement attempts, room dimensions, terrain, caves, lakes, floor, ceiling and entrances. The first exact implementation was too slow because it repeatedly generated overlapping caves and manipulated large memory buffers for every candidate.</p>
+          <p>Codex replaced those buffers with compact masks, cached calculations shared by a world seed, generated normal cave data once for the entire region and checked inexpensive entrance conditions before the rest. Multiple seeds were then processed in batches and distributed across several CPU cores.</p>
+          <p>On the original search area, single-core speed increased from approximately 8–9 seeds per second to 34–38. Around 12 parallel workers provided the best balance; using more could slow Windows down because the workers competed for the same processor and memory resources. A GPU version was considered for the RTX 2080, but it risked changing Java’s random-number and floating-point behavior. Exactness was more important than an unreliable speed increase.</p>
+
+          <h2>Validation</h2>
+          <p>Every optimization was compared against the exact reference method. The scanner reproduced previous results and was checked against 29,742 candidates during one important validation stage. Every discrepancy was corrected before the large search began.</p>
+          <p>The final region covers 441 × 441 chunks, or 194,481 chunks per seed, from chunk -220 to +220. This area remains inside the project’s approximate 5,000-block travel limit.</p>
+
+          <h2>The Y116 result</h2>
+          <dl class="facts">
+            <div class="fact"><dt>Seed</dt><dd>3570</dd></div>
+            <div class="fact"><dt>Spawner</dt><dd>X 2817 · Y 116 · Z 1823</dd></div>
+            <div class="fact"><dt>Distance</dt><dd>Approximately 3,355 blocks</dd></div>
+            <div class="fact"><dt>Room</dt><dd>7 × 5 blocks · 5 openings</dd></div>
+            <div class="fact"><dt>Population chunk</dt><dd>X 175 · Z 113</dd></div>
+            <div class="fact"><dt>Attempt</dt><dd>Fourth attempt · no lake</dd></div>
+          </dl>
+          <p>The upper part of the room reaches approximately Y123. A second run targeting only the relevant seed and chunk reproduced the exact same dungeon. The result is therefore not a false positive from the broad scan.</p>
+
+          <h2>What we searched next</h2>
+          <p>After Y116, a normal Y117 search examined approximately 12,000 seeds across the large region, representing about 2.334 billion chunk positions, without confirming a valid dungeon. Another path investigated extremely rare situations in which a lake could create the required blocks or openings. Several plausible terrain shells were detected, but none satisfied the floor, ceiling and entrance requirements at the same time.</p>
+          <p>Our remaining target range is Y117 to Y123. The lack of a higher result does not prove that one cannot exist. It shows how extraordinarily rare the required combination becomes.</p>
+
+          <p class="note"><strong>Important distinction:</strong> Y2 and Y116 are confirmed records within our own research. I do not automatically present them as absolute world records without an exhaustive comparison against every documented community discovery.</p>
+
+          <h2>Project credit</h2>
+          <p>I am Fever. The idea came from my passion for Beta 1.7.3 and my belief that Y81 was far from the real limit. I started and directed the investigation. Codex developed, optimized and operated the specialized tools that turned this intuition into verified results.</p>
+          <p><a href="https://www.youtube.com/playlist?list=PLGEuEha_uXWY" target="_blank" rel="noopener noreferrer">Watch the complete Beta Spawner playlist on YouTube ↗</a></p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p id="footerCredit">Une idée et une recherche de Fever · Outils développés avec OpenAI Codex.</p>
+      <p><a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener noreferrer" id="youtubeLink">Ma chaîne YouTube ↗</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const translations = {
+      fr: {
+        title: "Beta Records | ArchiveFever.Work",
+        description: "L’histoire de Fever et de sa recherche des donjons les plus hauts et les plus bas de Minecraft Beta 1.7.3.",
+        ogDescription: "De Y2 à Y116 : l’histoire et la méthode derrière la recherche de Fever.",
+        backLabel: "Accueil",
+        backAria: "Retour à l’accueil",
+        languageLabel: "Choisir la langue",
+        footerCredit: "Une idée et une recherche de Fever · Outils développés avec OpenAI Codex.",
+        youtubeLink: "Ma chaîne YouTube ↗"
+      },
+      en: {
+        title: "Beta Records | ArchiveFever.Work",
+        description: "Fever’s search for the highest and lowest dungeon spawners in Minecraft Beta 1.7.3.",
+        ogDescription: "From Y2 to Y116: the story and method behind Fever’s search.",
+        backLabel: "Home",
+        backAria: "Back to home",
+        languageLabel: "Choose language",
+        footerCredit: "An idea and investigation by Fever · Tools developed with OpenAI Codex.",
+        youtubeLink: "My YouTube channel ↗"
+      }
+    };
+
+    function setLanguage(language) {
+      const safeLanguage = translations[language] ? language : "fr";
+      const text = translations[safeLanguage];
+      document.documentElement.lang = safeLanguage;
+      document.title = text.title;
+      document.getElementById("contentFR").hidden = safeLanguage !== "fr";
+      document.getElementById("contentEN").hidden = safeLanguage !== "en";
+      document.getElementById("backLabel").textContent = text.backLabel;
+      document.getElementById("backLink").setAttribute("aria-label", text.backAria);
+      document.getElementById("languageGroup").setAttribute("aria-label", text.languageLabel);
+      document.getElementById("footerCredit").textContent = text.footerCredit;
+      document.getElementById("youtubeLink").textContent = text.youtubeLink;
+      document.querySelector('meta[name="description"]').content = text.description;
+      document.querySelector('meta[property="og:description"]').content = text.ogDescription;
+      document.getElementById("btnFR").setAttribute("aria-pressed", String(safeLanguage === "fr"));
+      document.getElementById("btnEN").setAttribute("aria-pressed", String(safeLanguage === "en"));
+      try { localStorage.setItem("af_lang", safeLanguage); } catch (error) {}
+    }
+
+    document.getElementById("btnFR").addEventListener("click", () => setLanguage("fr"));
+    document.getElementById("btnEN").addEventListener("click", () => setLanguage("en"));
+
+    let savedLanguage = "fr";
+    try { savedLanguage = localStorage.getItem("af_lang") || "fr"; } catch (error) {}
+    setLanguage(savedLanguage);
+  </script>
+</body>
+</html>

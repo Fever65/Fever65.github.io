@@ -335,13 +335,13 @@
           </div>
         </section>
 
-        <section class="section" aria-labelledby="archiveLabel">
-          <h2 class="section-label" id="archiveLabel">Archive personnelle</h2>
+        <section class="section" aria-labelledby="researchLabel">
+          <h2 class="section-label" id="researchLabel">Recherche</h2>
           <div class="pages-list">
-            <a class="page-link" href="TROPHIES/index.html">
+            <a class="page-link" href="BETA/index.html">
               <span class="page-link-copy">
-                <span class="page-link-title" id="trophyLabel">Salle des trophées</span>
-                <span class="page-link-desc" id="trophyDesc">Mes trouvailles, mes exploits et les souvenirs que je veux garder.</span>
+                <span class="page-link-title" id="betaLabel">Beta Records</span>
+                <span class="page-link-desc" id="betaDesc">De Y2 à Y116 : ma recherche des donjons extrêmes de Minecraft Beta 1.7.3.</span>
               </span>
               <span class="page-link-arrow" aria-hidden="true">→</span>
             </a>
@@ -387,9 +387,9 @@
         qrDesc: "Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.",
         timerLabel: "Minuteur",
         timerDesc: "Lance un compte à rebours avec raccourcis et alerte sonore.",
-        archiveLabel: "Archive personnelle",
-        trophyLabel: "Salle des trophées",
-        trophyDesc: "Mes trouvailles, mes exploits et les souvenirs que je veux garder.",
+        researchLabel: "Recherche",
+        betaLabel: "Beta Records",
+        betaDesc: "De Y2 à Y116 : ma recherche des donjons extrêmes de Minecraft Beta 1.7.3.",
         socialsLabel: "Mes réseaux",
         surpriseLink: "Surprise",
         supportTitle: "Soutenir le projet",
@@ -408,9 +408,9 @@
         qrDesc: "Create a custom QR code or a downloadable Wi-Fi QR code.",
         timerLabel: "Timer",
         timerDesc: "Start a countdown with shortcuts and a final sound alert.",
-        archiveLabel: "Personal archive",
-        trophyLabel: "Trophy Room",
-        trophyDesc: "My discoveries, achievements and the memories I want to keep.",
+        researchLabel: "Research",
+        betaLabel: "Beta Records",
+        betaDesc: "From Y2 to Y116: my search for extreme dungeons in Minecraft Beta 1.7.3.",
         socialsLabel: "My socials",
         surpriseLink: "Surprise",
         supportTitle: "Support the project",
@@ -426,7 +426,7 @@
       document.documentElement.lang = safeLang;
       document.title = t.documentTitle;
       document.querySelector('meta[name="description"]').content = t.description;
-      ["statusLabel", "mainTitle", "statusMsg", "learnMoreLabel", "toolsLabel", "qrDesc", "timerLabel", "timerDesc", "archiveLabel", "trophyLabel", "trophyDesc", "socialsLabel", "surpriseLink", "supportTitle", "supportDesc", "donationsLabel"].forEach(id => {
+      ["statusLabel", "mainTitle", "statusMsg", "learnMoreLabel", "toolsLabel", "qrDesc", "timerLabel", "timerDesc", "researchLabel", "betaLabel", "betaDesc", "socialsLabel", "surpriseLink", "supportTitle", "supportDesc", "donationsLabel"].forEach(id => {
         $(id).textContent = t[id];
       });
       document.querySelector(".lang").setAttribute("aria-label", t.languageLabel);

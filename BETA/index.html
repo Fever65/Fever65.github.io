@@ -1,251 +1,358 @@
 <!doctype html>
-<html lang="fr">
+<html lang="fr" data-lang="fr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="L’histoire de Fever et de sa recherche des donjons les plus hauts et les plus bas de Minecraft Beta 1.7.3.">
-  <meta name="theme-color" content="#0a0a0a">
+  <meta name="description" content="Un seed de donjon pour chaque hauteur de Y2 à Y118 dans Minecraft Java Beta 1.7.3, avec la base complète et la recherche du très rare Y119 hors Far Lands.">
+  <meta name="theme-color" content="#090908">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://archivefever.work/BETA/">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="Beta Records — Minecraft Beta 1.7.3">
-  <meta property="og:description" content="De Y2 à Y116 : l’histoire et la méthode derrière la recherche de Fever.">
+  <meta property="og:title" content="Every Y Found — Minecraft Beta 1.7.3">
+  <meta property="og:description" content="Chaque hauteur de Y2 à Y118 possède désormais son seed. Prochaine cible : Y119 hors Far Lands.">
   <meta property="og:url" content="https://archivefever.work/BETA/">
-  <title>Beta Records | ArchiveFever.Work</title>
+  <title>Every Y Found | ArchiveFever.Work</title>
   <link rel="icon" href="../IMG/Jerome.webp" type="image/webp">
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0a0a0a;
-      --surface: #151515;
-      --surface-2: #1c1c1c;
-      --border: #2b2b2b;
-      --accent: #ff8c00;
-      --text: #f5f5f7;
-      --text-2: #aaaab0;
-      --text-3: #75757b;
+      --bg: #090908;
+      --surface: #11110f;
+      --surface-2: #171714;
+      --surface-3: #1e1e1a;
+      --border: #303029;
+      --border-soft: #24241f;
+      --accent: #ff9d2e;
+      --accent-strong: #ff7a00;
+      --accent-soft: rgba(255, 157, 46, .12);
+      --rare: #ff5f57;
+      --rare-soft: rgba(255, 95, 87, .1);
+      --success: #8bd450;
+      --text: #f7f4ec;
+      --text-2: #b7b4aa;
+      --text-3: #77756e;
+      --shadow: 0 28px 90px rgba(0, 0, 0, .46);
     }
-
     * { box-sizing: border-box; }
     html { color-scheme: dark; scroll-behavior: smooth; }
-
     body {
       margin: 0;
       min-width: 320px;
-      min-height: 100vh;
-      padding: 30px 16px;
-      background: var(--bg);
+      background:
+        radial-gradient(circle at 16% 0%, rgba(255, 157, 46, .08), transparent 34rem),
+        linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px),
+        var(--bg);
+      background-size: auto, 32px 32px, 32px 32px, auto;
       color: var(--text);
-      font-family: "Source Code Pro", ui-monospace, monospace;
-      line-height: 1.8;
+      font-family: "Source Code Pro", ui-monospace, SFMono-Regular, Consolas, monospace;
+      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
-
     a { color: inherit; }
-
-    .page {
-      width: min(820px, 100%);
-      margin: 0 auto;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: var(--surface);
-      box-shadow: 0 28px 80px rgba(0, 0, 0, .42);
+    button, input { font: inherit; }
+    [data-lang-content] { display: revert; }
+    html[data-lang="fr"] [data-lang-content="en"],
+    html[data-lang="en"] [data-lang-content="fr"] { display: none !important; }
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 100;
+      padding: 10px 14px;
+      transform: translateY(-150%);
+      border-radius: 8px;
+      background: var(--accent);
+      color: #111;
+      font-weight: 800;
     }
-
+    .skip-link:focus { transform: translateY(0); }
+    .shell { width: min(1180px, calc(100% - 32px)); margin: 0 auto; }
     .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      border-bottom: 1px solid rgba(48, 48, 41, .85);
+      background: rgba(9, 9, 8, .88);
+      backdrop-filter: blur(18px);
+    }
+    .header-inner {
+      min-height: 72px;
       display: flex;
-      min-height: 70px;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
-      padding: 0 28px;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface-2);
+      gap: 24px;
     }
-
     .brand {
+      flex: 0 0 auto;
       font-size: 13px;
       font-weight: 800;
       letter-spacing: -.04em;
       text-decoration: none;
       text-transform: uppercase;
     }
-
     .brand span { color: var(--accent); }
-    .top-actions { display: flex; align-items: center; gap: 12px; }
-
-    .back-link {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
+    .header-actions { display: flex; align-items: center; gap: 22px; }
+    .nav { display: flex; gap: 22px; }
+    .nav a {
       color: var(--text-2);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
+      letter-spacing: .06em;
       text-decoration: none;
       text-transform: uppercase;
     }
-
-    .back-link:hover,
-    .back-link:focus-visible,
-    .story a:hover,
-    .story a:focus-visible,
-    .footer a:hover,
-    .footer a:focus-visible { color: var(--accent); }
-
-    .lang {
+    .nav a:hover, .nav a:focus-visible { color: var(--accent); }
+    .language-switcher {
       display: inline-flex;
       overflow: hidden;
       border: 1px solid var(--border);
       border-radius: 9px;
-      background: var(--bg);
+      background: var(--surface);
     }
-
-    .lang button {
-      min-width: 44px;
-      min-height: 44px;
-      padding: 7px 12px;
-      appearance: none;
+    .language-switcher button {
+      min-width: 42px;
+      min-height: 40px;
+      padding: 6px 10px;
       border: 0;
       border-right: 1px solid var(--border);
       background: transparent;
       color: var(--text-3);
       cursor: pointer;
-      font: inherit;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
     }
-
-    .lang button:last-child { border-right: 0; }
-    .lang button:hover { color: var(--text); }
-    .lang button[aria-pressed="true"] { background: var(--accent); color: #000; }
-
-    main { padding: 62px 54px 70px; }
-
-    .kicker {
-      margin: 0 0 12px;
+    .language-switcher button:last-child { border-right: 0; }
+    .language-switcher button[aria-pressed="true"] { background: var(--accent); color: #111; }
+    main { overflow: hidden; }
+    .hero { padding: 112px 0 76px; }
+    .eyebrow {
+      margin: 0 0 16px;
       color: var(--accent);
       font-size: 11px;
       font-weight: 800;
       letter-spacing: .16em;
       text-transform: uppercase;
     }
-
     h1 {
-      max-width: 700px;
-      margin: 0 0 22px;
-      font-size: clamp(38px, 8vw, 68px);
-      line-height: 1;
-      letter-spacing: -.065em;
+      max-width: 980px;
+      margin: 0;
+      font-size: clamp(52px, 10vw, 112px);
+      line-height: .9;
+      letter-spacing: -.085em;
+      text-wrap: balance;
     }
-
-    .lead {
-      max-width: 670px;
-      margin: 0 0 42px;
-      color: var(--text-2);
-      font-size: 17px;
-    }
-
-    .record-line {
+    h1 .outline { color: transparent; -webkit-text-stroke: 1px var(--accent); }
+    .hero-copy {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      margin: 0 0 54px;
+      grid-template-columns: minmax(0, 1.3fr) minmax(280px, .7fr);
+      gap: 70px;
+      align-items: end;
+      margin-top: 46px;
+    }
+    .lead { max-width: 720px; margin: 0; color: var(--text-2); font-size: clamp(16px, 2vw, 20px); }
+    .lead strong { color: var(--text); }
+    .hero-status {
+      padding: 18px 20px;
+      border: 1px solid rgba(255, 157, 46, .3);
+      border-radius: 12px;
+      background: var(--accent-soft);
+    }
+    .hero-status span { display: block; }
+    .status-label { color: var(--accent); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .status-value { margin-top: 4px; font-size: 16px; font-weight: 800; }
+    .status-detail { margin-top: 5px; color: var(--text-2); font-size: 12px; }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-bottom: 96px;
       border-block: 1px solid var(--border);
     }
-
-    .record {
-      padding: 18px 14px;
-      border-right: 1px solid var(--border);
+    .metric { min-width: 0; padding: 24px 22px; border-right: 1px solid var(--border); }
+    .metric:first-child { padding-left: 0; }
+    .metric:last-child { border-right: 0; }
+    .metric-value { display: block; color: var(--text); font-size: clamp(26px, 4vw, 42px); font-weight: 800; line-height: 1; letter-spacing: -.06em; }
+    .metric-value.accent { color: var(--accent); }
+    .metric-label { display: block; margin-top: 10px; color: var(--text-3); font-size: 10px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+    .section { padding: 88px 0; border-top: 1px solid var(--border-soft); }
+    .section-grid { display: grid; grid-template-columns: minmax(230px, .42fr) minmax(0, 1fr); gap: 80px; }
+    .section-index { color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    h2 { margin: 0 0 28px; font-size: clamp(30px, 5vw, 54px); line-height: 1.05; letter-spacing: -.055em; text-wrap: balance; }
+    .prose { max-width: 760px; color: var(--text-2); font-size: 15px; }
+    .prose p { margin: 0 0 22px; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose strong { color: var(--text); }
+    .rare-card {
+      margin-top: 38px;
+      padding: 26px;
+      border: 1px solid rgba(255, 95, 87, .34);
+      border-radius: 15px;
+      background: linear-gradient(135deg, var(--rare-soft), rgba(255, 157, 46, .04));
     }
-
-    .record:first-child { padding-left: 0; }
-    .record:last-child { padding-right: 0; border-right: 0; }
-    .record-label { display: block; color: var(--text-3); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-    .record-value { display: block; margin-top: 4px; color: var(--text); font-size: 20px; font-weight: 800; }
-    .record-value.accent { color: var(--accent); }
-
-    .story { color: var(--text-2); font-size: 15px; }
-    .story h2 {
-      margin: 50px 0 14px;
-      color: var(--text);
-      font-size: clamp(22px, 4vw, 30px);
-      line-height: 1.25;
-      letter-spacing: -.035em;
-    }
-
-    .story h2:first-child { margin-top: 0; }
-    .story p { margin: 0 0 20px; }
-    .story strong { color: var(--text); }
-
-    .story a {
-      color: var(--text);
-      font-weight: 700;
-      text-decoration-color: var(--accent);
-      text-decoration-thickness: 1px;
-      text-underline-offset: 4px;
-    }
-
-    .note {
-      margin: 30px 0;
-      padding: 18px 20px;
-      border-left: 3px solid var(--accent);
-      background: rgba(255, 140, 0, .06);
+    .rare-top { display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+    .rare-badge { color: var(--rare); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .rare-title { margin: 5px 0 0; color: var(--text); font-size: 22px; font-weight: 800; letter-spacing: -.04em; }
+    .rare-card p { margin: 17px 0 0; color: var(--text-2); font-size: 13px; }
+    .rarity-meter { display: flex; gap: 4px; min-width: 160px; }
+    .rarity-meter i { display: block; width: 100%; height: 6px; border-radius: 99px; background: var(--rare); opacity: .18; }
+    .rarity-meter i:nth-last-child(-n+2) { opacity: 1; }
+    .results-section { padding-bottom: 100px; }
+    .results-head { display: flex; align-items: end; justify-content: space-between; gap: 36px; margin-bottom: 30px; }
+    .results-head h2 { margin-bottom: 12px; }
+    .results-subtitle { max-width: 720px; margin: 0; color: var(--text-2); font-size: 14px; }
+    .data-badge {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 99px;
       color: var(--text-2);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
     }
-
-    .facts {
+    .controls {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      margin: 28px 0 34px;
-      border-top: 1px solid var(--border);
+      grid-template-columns: minmax(220px, 1fr) auto auto;
+      gap: 10px;
+      margin-bottom: 12px;
     }
-
-    .fact {
-      padding: 15px 0;
-      border-bottom: 1px solid var(--border);
+    .search-wrap { position: relative; }
+    .search-wrap svg { position: absolute; top: 50%; left: 15px; width: 17px; height: 17px; transform: translateY(-50%); color: var(--text-3); pointer-events: none; }
+    .search-input {
+      width: 100%;
+      min-height: 48px;
+      padding: 10px 15px 10px 43px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13px;
     }
-
-    .fact:nth-child(odd) { padding-right: 20px; }
-    .fact:nth-child(even) { padding-left: 20px; border-left: 1px solid var(--border); }
-    .fact dt { margin-bottom: 3px; color: var(--text-3); font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-    .fact dd { margin: 0; color: var(--text); font-size: 13px; font-weight: 700; overflow-wrap: anywhere; }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 22px;
-      padding: 25px 28px;
-      border-top: 1px solid var(--border);
-      color: var(--text-3);
+    .search-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .control-button {
+      min-height: 48px;
+      padding: 10px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text-2);
+      cursor: pointer;
       font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
     }
-
-    .footer p { margin: 0; }
-    .footer a { color: var(--text-2); text-underline-offset: 3px; }
-    [hidden] { display: none !important; }
-
+    .control-button:hover, .control-button:focus-visible { border-color: var(--accent); color: var(--text); }
+    .control-button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+    .table-meta { display: flex; justify-content: space-between; gap: 20px; margin: 0 2px 12px; color: var(--text-3); font-size: 11px; }
+    .table-wrap {
+      max-height: 720px;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      scrollbar-color: var(--border) var(--surface);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    th, td { padding: 13px 16px; border-bottom: 1px solid var(--border-soft); text-align: left; vertical-align: middle; }
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background: #1b1b17;
+      color: var(--text-3);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+    tbody tr:hover { background: rgba(255, 157, 46, .045); }
+    tbody tr:last-child td { border-bottom: 0; }
+    .y-cell { width: 78px; color: var(--accent); font-size: 14px; font-weight: 800; }
+    .seed-cell { width: 31%; color: var(--text); font-weight: 700; overflow-wrap: anywhere; }
+    .coords-cell { width: 31%; color: var(--text-2); white-space: nowrap; }
+    .video-cell { width: 150px; }
+    .video-link { display: inline-flex; align-items: center; gap: 6px; color: var(--text); font-weight: 700; text-decoration-color: var(--accent); text-underline-offset: 4px; }
+    .video-link:hover, .video-link:focus-visible { color: var(--accent); }
+    .muted { color: var(--text-3); }
+    .row-badge { margin-left: 7px; padding: 3px 6px; border: 1px solid var(--border); border-radius: 99px; color: var(--text-3); font-size: 8px; text-transform: uppercase; }
+    .farlands-divider td {
+      padding-block: 15px;
+      background: repeating-linear-gradient(135deg, rgba(255,95,87,.06), rgba(255,95,87,.06) 8px, transparent 8px, transparent 16px);
+      color: var(--rare);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .farlands-record { background: var(--rare-soft); }
+    .farlands-record .y-cell { color: var(--rare); }
+    .empty-state { display: none; padding: 34px 20px; color: var(--text-2); text-align: center; }
+    .source-note { margin: 18px 0 0; color: var(--text-3); font-size: 11px; }
+    .continue-panel {
+      display: grid;
+      grid-template-columns: 1fr minmax(280px, .55fr);
+      gap: 60px;
+      align-items: center;
+      padding: 42px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(145deg, var(--surface-2), var(--surface));
+      box-shadow: var(--shadow);
+    }
+    .continue-panel h2 { margin-bottom: 18px; }
+    .continue-panel p { margin: 0; color: var(--text-2); font-size: 14px; }
+    .next-target { padding: 28px; border-left: 1px solid var(--border); text-align: center; }
+    .next-target small { display: block; color: var(--text-3); font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .next-target strong { display: block; margin: 4px 0 8px; color: var(--accent); font-size: 70px; line-height: 1; letter-spacing: -.08em; }
+    .next-target span { color: var(--rare); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .site-footer { padding: 34px 0 42px; border-top: 1px solid var(--border-soft); color: var(--text-3); font-size: 11px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 28px; }
+    .site-footer p { margin: 0; }
+    .site-footer a { color: var(--text-2); text-underline-offset: 4px; }
+    .site-footer a:hover, .site-footer a:focus-visible { color: var(--accent); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-
-    @media (max-width: 620px) {
-      body { padding: 0; }
-      .page { min-height: 100vh; border-inline: 0; border-radius: 0; }
-      .site-header { min-height: 62px; padding-inline: 18px; }
-      .top-actions { gap: 8px; }
-      .back-link span:first-child { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-      .lang button { min-width: 40px; min-height: 40px; padding-inline: 9px; }
-      main { padding: 46px 22px 56px; }
-      .lead { font-size: 15px; }
-      .record-line { grid-template-columns: 1fr; }
-      .record, .record:first-child, .record:last-child { padding: 13px 0; border-right: 0; border-bottom: 1px solid var(--border); }
-      .record:last-child { border-bottom: 0; }
-      .facts { grid-template-columns: 1fr; }
-      .fact:nth-child(odd), .fact:nth-child(even) { padding: 13px 0; border-left: 0; }
-      .footer { flex-direction: column; padding-inline: 22px; }
+    @media (max-width: 900px) {
+      .nav { display: none; }
+      .hero { padding-top: 86px; }
+      .hero-copy, .section-grid, .continue-panel { grid-template-columns: 1fr; gap: 34px; }
+      .metrics { grid-template-columns: repeat(2, 1fr); }
+      .metric:nth-child(2) { border-right: 0; }
+      .metric:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .metric:nth-child(3) { padding-left: 0; }
+      .next-target { border-top: 1px solid var(--border); border-left: 0; }
     }
-
+    @media (max-width: 680px) {
+      .shell { width: min(100% - 24px, 1180px); }
+      .header-inner { min-height: 62px; }
+      .header-actions { gap: 10px; }
+      h1 { font-size: clamp(48px, 18vw, 76px); }
+      .hero { padding: 70px 0 54px; }
+      .hero-copy { margin-top: 34px; }
+      .metrics { margin-bottom: 64px; }
+      .metric { padding: 18px 14px; }
+      .section { padding: 64px 0; }
+      .controls { grid-template-columns: 1fr 1fr; }
+      .search-wrap { grid-column: 1 / -1; }
+      .control-button { padding-inline: 10px; }
+      .results-head { display: block; }
+      .data-badge { display: inline-block; margin-top: 18px; }
+      .table-wrap { max-height: 68vh; border-radius: 10px; }
+      table { min-width: 760px; }
+      th, td { padding-inline: 12px; }
+      .rare-top { align-items: flex-start; flex-direction: column; }
+      .rarity-meter { width: 100%; }
+      .continue-panel { padding: 26px 22px; }
+      .footer-inner { flex-direction: column; }
+    }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition: none !important; }
@@ -253,203 +360,435 @@
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="site-header">
+  <a class="skip-link" href="#mainContent">
+    <span data-lang-content="fr">Aller au contenu</span><span data-lang-content="en">Skip to content</span>
+  </a>
+  <header class="site-header">
+    <div class="shell header-inner">
       <a class="brand" href="../index.html">ArchiveFever<span>.Work</span></a>
-      <div class="top-actions">
-        <a class="back-link" href="../index.html" id="backLink" aria-label="Retour à l’accueil">
-          <span id="backLabel">Accueil</span><span aria-hidden="true"> ↩</span>
-        </a>
-        <div class="lang" role="group" aria-label="Choisir la langue" id="languageGroup">
+      <div class="header-actions">
+        <nav class="nav" aria-label="Navigation principale" id="mainNav">
+          <a href="#discovery"><span data-lang-content="fr">Découverte</span><span data-lang-content="en">Discovery</span></a>
+          <a href="#database"><span data-lang-content="fr">Tous les seeds</span><span data-lang-content="en">All seeds</span></a>
+          <a href="#next"><span data-lang-content="fr">Suite</span><span data-lang-content="en">Next</span></a>
+        </nav>
+        <div class="language-switcher" role="group" aria-label="Choisir la langue" id="languageGroup">
           <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
           <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main>
-      <section id="contentFR" lang="fr" aria-labelledby="titleFR">
-        <p class="kicker">Minecraft Beta 1.7.3 · Recherche de seeds</p>
-        <h1 id="titleFR">Beta Records</h1>
-        <p class="lead">Je suis Fever. Voici comment une simple curiosité au sujet d’un spawner en Y81 est devenue une recherche exacte allant du fond du monde jusqu’aux montagnes les plus hautes de la Beta 1.7.3.</p>
+  <main id="mainContent">
+    <section class="hero shell" aria-labelledby="pageTitle">
+      <p class="eyebrow">
+        <span data-lang-content="fr">Minecraft Java Beta 1.7.3 · Archive complète</span>
+        <span data-lang-content="en">Minecraft Java Beta 1.7.3 · Complete archive</span>
+      </p>
+      <h1 id="pageTitle">
+        <span data-lang-content="fr">CHAQUE Y<br><span class="outline">A SON SEED.</span></span>
+        <span data-lang-content="en">EVERY Y<br><span class="outline">HAS A SEED.</span></span>
+      </h1>
+      <div class="hero-copy">
+        <p class="lead" data-lang-content="fr">La recherche couvre désormais <strong>chaque hauteur de Y2 à Y118</strong>. Pour chacune, j’ai trouvé au moins un seed de donjon reproductible dans Minecraft Beta 1.7.3. Le prochain mur est Y119 hors Far Lands.</p>
+        <p class="lead" data-lang-content="en">The search now covers <strong>every height from Y2 to Y118</strong>. For each one, I found at least one reproducible dungeon seed in Minecraft Beta 1.7.3. The next wall is Y119 outside the Far Lands.</p>
+        <aside class="hero-status" aria-label="Statut de la recherche" id="researchStatus">
+          <span class="status-label"><span data-lang-content="fr">Recherche active</span><span data-lang-content="en">Active research</span></span>
+          <span class="status-value"><span data-lang-content="fr">Y119 est possible.</span><span data-lang-content="en">Y119 is possible.</span></span>
+          <span class="status-detail"><span data-lang-content="fr">Mais ultra rare — le scan peut être très long.</span><span data-lang-content="en">But ultra rare — scanning may take a very long time.</span></span>
+        </aside>
+      </div>
+    </section>
 
-        <div class="record-line" aria-label="Résumé des résultats">
-          <div class="record"><span class="record-label">Plus bas vérifié</span><span class="record-value">Y2</span></div>
-          <div class="record"><span class="record-label">Plus haut vérifié</span><span class="record-value accent">Y116</span></div>
-          <div class="record"><span class="record-label">Maximum théorique</span><span class="record-value">Y123</span></div>
+    <div class="shell metrics" aria-label="Résumé des résultats" id="metricsSummary">
+      <div class="metric"><span class="metric-value">Y2</span><span class="metric-label"><span data-lang-content="fr">Plus bas trouvé</span><span data-lang-content="en">Lowest found</span></span></div>
+      <div class="metric"><span class="metric-value accent">Y118</span><span class="metric-label"><span data-lang-content="fr">Plus haut hors Far Lands</span><span data-lang-content="en">Highest outside Far Lands</span></span></div>
+      <div class="metric"><span class="metric-value">117</span><span class="metric-label"><span data-lang-content="fr">Hauteurs consécutives</span><span data-lang-content="en">Consecutive heights</span></span></div>
+      <div class="metric"><span class="metric-value">Y119</span><span class="metric-label"><span data-lang-content="fr">Prochaine cible</span><span data-lang-content="en">Next target</span></span></div>
+    </div>
+
+    <section class="section" id="discovery">
+      <div class="shell section-grid">
+        <div class="section-index">01 — <span data-lang-content="fr">Le cap</span><span data-lang-content="en">The milestone</span></div>
+        <div>
+          <div data-lang-content="fr">
+            <h2>Ce n’est plus une suite de records isolés.</h2>
+            <div class="prose">
+              <p>Après avoir poussé le record vers le haut, j’ai voulu combler tous les espaces. Le résultat est maintenant complet : <strong>de Y2 à Y118, aucun niveau ne manque</strong>. Chaque Y possède son seed et ses coordonnées de spawner.</p>
+              <p>La base ci-dessous réunit toutes les valeurs de recherche : les seeds, les positions F3 au format X/Y/Z et les vidéos disponibles. Elle inclut aussi un second candidat Y117 ainsi que le cas Y119 des Far Lands, séparé du record principal.</p>
+            </div>
+          </div>
+          <div data-lang-content="en">
+            <h2>This is no longer a collection of isolated records.</h2>
+            <div class="prose">
+              <p>After pushing the high-altitude record, I wanted to fill every gap. The result is now complete: <strong>from Y2 through Y118, not a single level is missing</strong>. Every Y has its own seed and spawner coordinates.</p>
+              <p>The database below contains every research value: seeds, F3 positions in X/Y/Z format and every available video. It also includes a second Y117 candidate and the Far Lands Y119 case, kept separate from the main record.</p>
+            </div>
+          </div>
+          <div class="rare-card">
+            <div class="rare-top">
+              <div>
+                <div class="rare-badge">Ultra rare</div>
+                <p class="rare-title"><span data-lang-content="fr">Pourquoi Y119 prend autant de temps</span><span data-lang-content="en">Why Y119 takes so long</span></p>
+              </div>
+              <div class="rarity-meter" aria-label="Rareté extrême"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+            <p data-lang-content="fr">À cette altitude, presque tout est de l’air. Un donjon doit pourtant trouver en même temps un sol et un plafond solides, une salle complète et le bon nombre d’ouvertures. Y119 n’est pas interdit par la génération hors Far Lands ; la combinaison nécessaire est simplement si improbable qu’il faut examiner une quantité immense de seeds.</p>
+            <p data-lang-content="en">At this altitude, almost everything is air. A dungeon still needs a solid floor and ceiling, a complete room and the correct number of openings at the same time. Generation does not forbid Y119 outside the Far Lands; the required combination is simply so unlikely that an immense number of seeds must be examined.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section results-section" id="database" aria-labelledby="databaseTitle">
+      <div class="shell">
+        <div class="results-head">
+          <div>
+            <div class="section-index">02 — <span data-lang-content="fr">Les données</span><span data-lang-content="en">The data</span></div>
+            <h2 id="databaseTitle"><span data-lang-content="fr">Tous les seeds, de Y2 à Y119.</span><span data-lang-content="en">Every seed, from Y2 to Y119.</span></h2>
+            <p class="results-subtitle" data-lang-content="fr">Y2 à Y118 forment la série complète hors Far Lands. La ligne Y119 est conservée comme preuve Far Lands, mais elle est exclue du record recherché.</p>
+            <p class="results-subtitle" data-lang-content="en">Y2 through Y118 form the complete outside-Far-Lands sequence. The Y119 line is preserved as a Far Lands proof, but it is excluded from the target record.</p>
+          </div>
+          <span class="data-badge"><span data-lang-content="fr">119 seeds · 10 vidéos</span><span data-lang-content="en">119 seeds · 10 videos</span></span>
         </div>
 
-        <article class="story">
-          <h2>Pourquoi j’ai commencé</h2>
-          <p>J’aime énormément Minecraft Beta 1.7.3 pour son ambiance, sa simplicité et surtout sa génération de terrain imprévisible. En lisant d’anciens messages de la communauté, j’ai trouvé des personnes qui parlaient de spawners vers Y81 comme de découvertes exceptionnellement hautes. Cela ne me paraissait pas si fou : la Beta peut produire des montagnes bien plus hautes. J’ai donc publié une première vidéo pour expliquer que <a href="https://www.youtube.com/watch?v=CwXsFb-dAXM" target="_blank" rel="noopener noreferrer">je cherchais un donjon dépassant Y81</a>.</p>
-          <p>Ma question était simple : <strong>jusqu’où un donjon peut-il réellement monter dans Minecraft Beta 1.7.3 ?</strong> Ce qui devait être une petite recherche est progressivement devenu un véritable projet.</p>
-
-          <h2>La progression</h2>
-          <p>Mes premières recherches ont rapidement dépassé les anciennes références. J’ai d’abord documenté <a href="https://www.youtube.com/watch?v=yi7_WKfddUE" target="_blank" rel="noopener noreferrer">un spawner à Y112</a>. Ensuite sont arrivés <a href="https://www.youtube.com/watch?v=nlbFYd6POAU" target="_blank" rel="noopener noreferrer">le jalon Y113</a>, <a href="https://www.youtube.com/watch?v=fVRbTek_MPU" target="_blank" rel="noopener noreferrer">Y114</a>, puis <a href="https://www.youtube.com/watch?v=yk5mMQyNvho" target="_blank" rel="noopener noreferrer">Y115</a>. Chaque résultat prouvait que le précédent n’était pas la vraie limite.</p>
-          <p>La recherche optimisée a finalement trouvé <a href="https://www.youtube.com/watch?v=SQGjBac8hjk" target="_blank" rel="noopener noreferrer">notre résultat actuel à Y116</a>. Cette progression de Y112 à Y116 est ce qui a transformé mon intuition de départ en une recherche suivie, documentée et reproductible.</p>
-
-          <h2>L’autre extrême</h2>
-          <p>Je ne voulais pas uniquement chercher vers le haut. Nous avons également étudié le bas du monde. Après avoir trouvé <a href="https://www.youtube.com/watch?v=nYqflXcOhhI" target="_blank" rel="noopener noreferrer">un spawner à Y3 accompagné d’un trou dans la bedrock</a>, la recherche a atteint <a href="https://www.youtube.com/watch?v=DAZchmHTO7U" target="_blank" rel="noopener noreferrer">un spawner de zombie à Y2</a>.</p>
-          <p>La seed Y2 est <strong>800000006596469</strong>. Le bloc du spawner se trouve en <strong>X -1, Y 2, Z 4</strong>, à environ 58 blocs du point d’apparition. Il a été reproduit dans 16 ordres de chargement de chunks sur 16. Aucun Y1 n’a été confirmé pendant la campagne basse altitude ; Y2 reste donc notre résultat le plus bas.</p>
-
-          <h2>Les règles que j’ai imposées</h2>
-          <p>Le donjon devait être naturel, reproductible dans le client original Java Beta 1.7.3, totalement hors des Far Lands et situé à une distance raisonnable. La recherche a d’abord été limitée à environ 1 000 blocs, puis étendue jusqu’à environ 5 000 blocs depuis l’origine. Je ne voulais ni apparaître directement sur le donjon, ni devoir traverser des millions de blocs pour le rejoindre.</p>
-          <p>Le maximum approximatif du bloc de spawner est Y123. Le monde s’arrête à Y127 et la salle a encore besoin de placer son plafond quatre blocs au-dessus du spawner. Au-delà, le donjon ne peut plus tenir entièrement dans le monde.</p>
-
-          <h2>Pourquoi un donjon aussi haut est rare</h2>
-          <p>À ces altitudes, presque tout est de l’air. Une tentative de donjon a pourtant besoin d’un sol solide, d’un plafond solide, d’une salle complète et de une à cinq ouvertures de deux blocs de haut dans les murs. Les grottes et les lacs peuvent aussi retirer ou remplacer des blocs avant la tentative.</p>
-          <p>Chercher directement de la cobblestone, de la mossy cobblestone ou un spawner ne simplifie pas le problème : ces blocs ne sont placés qu’après la validation complète de la salle. Il faut donc d’abord reproduire les conditions qui autorisent le donjon à exister.</p>
-
-          <h2>Comment Codex et moi avons travaillé</h2>
-          <p>L’idée, les objectifs et les contraintes viennent de moi. J’ai dirigé la recherche et choisi les pistes à poursuivre. OpenAI Codex a réalisé le travail technique sous ma direction : reproduction des règles de génération, développement du scanner, optimisation, exécution des recherches et vérification des résultats.</p>
-          <p>Le programme reproduit les tentatives de placement, les dimensions de la salle, le terrain, les grottes, les lacs, le sol, le plafond et les ouvertures. La première version exacte était trop lente : elle recalculait les mêmes grottes et manipulait de grands blocs de mémoire pour chaque candidat.</p>
-          <p>Codex a remplacé ces volumes par des masques compacts, mis en cache les calculs communs à une seed, généré les grottes normales une seule fois pour toute la région et vérifié les ouvertures les moins coûteuses avant le reste. Plusieurs seeds ont ensuite été traitées par lot et réparties entre plusieurs cœurs du processeur.</p>
-          <p>Sur la zone de recherche initiale, la vitesse d’un cœur est passée d’environ 8–9 seeds par seconde à 34–38. En parallèle, le meilleur équilibre se situait autour de 12 tâches ; en lancer davantage ralentissait Windows à cause de la concurrence entre les cœurs et la mémoire. Une version GPU a été envisagée avec la RTX 2080, mais elle aurait risqué de modifier les calculs aléatoires et flottants de Java. L’exactitude a donc été privilégiée.</p>
-
-          <h2>La validation</h2>
-          <p>Chaque optimisation a été comparée à la méthode exacte. Le scanner a reproduit les anciens résultats et a été confronté à 29 742 candidats pendant une étape importante de validation. Les différences ont été corrigées avant de lancer la grande recherche.</p>
-          <p>La zone finale couvre 441 × 441 chunks, soit 194 481 chunks par seed, des chunks -220 à +220. Cette surface reste dans la limite d’environ 5 000 blocs fixée pour le projet.</p>
-
-          <h2>Le résultat Y116</h2>
-          <dl class="facts">
-            <div class="fact"><dt>Seed</dt><dd>3570</dd></div>
-            <div class="fact"><dt>Spawner</dt><dd>X 2817 · Y 116 · Z 1823</dd></div>
-            <div class="fact"><dt>Distance</dt><dd>Environ 3 355 blocs</dd></div>
-            <div class="fact"><dt>Salle</dt><dd>7 × 5 blocs · 5 ouvertures</dd></div>
-            <div class="fact"><dt>Chunk de population</dt><dd>X 175 · Z 113</dd></div>
-            <div class="fact"><dt>Tentative</dt><dd>4e tentative · aucun lac</dd></div>
-          </dl>
-          <p>La partie supérieure de la salle atteint approximativement Y123. Une seconde exécution, limitée uniquement à la seed et au chunk concernés, a reproduit exactement le même donjon. Le résultat n’est donc pas un faux positif du balayage général.</p>
-
-          <h2>Ce qui a été cherché ensuite</h2>
-          <p>Après Y116, une recherche normale à Y117 a parcouru environ 12 000 seeds sur la grande zone, soit environ 2,334 milliards de positions de chunks, sans trouver de donjon valide. Une autre voie a étudié les cas extrêmement rares où un lac pourrait créer les blocs ou les ouvertures nécessaires. Plusieurs coquilles de terrain plausibles ont été détectées, mais aucune n’a satisfait simultanément le sol, le plafond et les entrées.</p>
-          <p>Notre plage restante va de Y117 à Y123. L’absence de résultat ne prouve pas qu’un donjon plus haut n’existe pas ; elle montre seulement que la combinaison nécessaire devient extraordinairement rare.</p>
-
-          <p class="note"><strong>Précision importante :</strong> Y2 et Y116 sont les records confirmés de notre propre recherche. Je ne les présente pas automatiquement comme des records mondiaux absolus sans comparaison exhaustive avec toutes les découvertes de la communauté.</p>
-
-          <h2>Crédit du projet</h2>
-          <p>Je suis Fever. L’idée est née de ma passion pour la Beta 1.7.3 et de mon impression que Y81 était loin de la vraie limite. J’ai lancé et dirigé l’enquête. Codex a développé, optimisé et utilisé les outils spécialisés qui ont permis de passer de cette intuition à des résultats vérifiés.</p>
-          <p><a href="https://www.youtube.com/playlist?list=PLGEuEha_uXWY" target="_blank" rel="noopener noreferrer">Voir la playlist complète Beta Spawner sur YouTube ↗</a></p>
-        </article>
-      </section>
-
-      <section id="contentEN" lang="en" aria-labelledby="titleEN" hidden>
-        <p class="kicker">Minecraft Beta 1.7.3 · Seed research</p>
-        <h1 id="titleEN">Beta Records</h1>
-        <p class="lead">I am Fever. This is how a simple curiosity about a Y81 spawner became an exact search stretching from the bottom of the world to the highest mountains of Beta 1.7.3.</p>
-
-        <div class="record-line" aria-label="Result summary">
-          <div class="record"><span class="record-label">Lowest verified</span><span class="record-value">Y2</span></div>
-          <div class="record"><span class="record-label">Highest verified</span><span class="record-value accent">Y116</span></div>
-          <div class="record"><span class="record-label">Theoretical maximum</span><span class="record-value">Y123</span></div>
+        <div class="controls">
+          <label class="search-wrap">
+            <span class="sr-only"><span data-lang-content="fr">Rechercher dans les seeds</span><span data-lang-content="en">Search the seed database</span></span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.4-3.4"></path></svg>
+            <input class="search-input" id="seedSearch" type="search" autocomplete="off" placeholder="Rechercher un Y, un seed ou une coordonnée…">
+          </label>
+          <button class="control-button" id="videoFilter" type="button" aria-pressed="false"><span data-lang-content="fr">Avec vidéo</span><span data-lang-content="en">With video</span></button>
+          <button class="control-button" id="copyAll" type="button"><span data-lang-content="fr">Copier la liste</span><span data-lang-content="en">Copy list</span></button>
+        </div>
+        <div class="table-meta">
+          <span id="resultCount" aria-live="polite">119 / 119 résultats</span>
+          <span><span data-lang-content="fr">Coordonnées : X, Y, Z</span><span data-lang-content="en">Coordinates: X, Y, Z</span></span>
         </div>
 
-        <article class="story">
-          <h2>Why I started</h2>
-          <p>I love Minecraft Beta 1.7.3 for its atmosphere, simplicity and, above all, its unpredictable terrain generation. While reading old community posts, I found people discussing dungeon spawners around Y81 as exceptionally high discoveries. That did not seem especially extreme to me: Beta can generate mountains far above that level. I therefore published an early video explaining that <a href="https://www.youtube.com/watch?v=CwXsFb-dAXM" target="_blank" rel="noopener noreferrer">I was looking for a dungeon higher than Y81</a>.</p>
-          <p>My question was simple: <strong>how high can a dungeon actually generate in Minecraft Beta 1.7.3?</strong> What was supposed to be a small search gradually became a real research project.</p>
+        <div class="table-wrap" id="tableWrap">
+          <table id="seedTable">
+            <caption><span data-lang-content="fr">Seeds de donjons Beta 1.7.3 par hauteur Y</span><span data-lang-content="en">Beta 1.7.3 dungeon seeds by Y height</span></caption>
+            <thead>
+              <tr>
+                <th scope="col">Y</th>
+                <th scope="col">Seed</th>
+                <th scope="col"><span data-lang-content="fr">Position F3</span><span data-lang-content="en">F3 position</span></th>
+                <th scope="col"><span data-lang-content="fr">Preuve vidéo</span><span data-lang-content="en">Video proof</span></th>
+              </tr>
+            </thead>
+            <tbody id="seedRows"></tbody>
+          </table>
+          <div class="empty-state" id="emptyState"><span data-lang-content="fr">Aucun résultat pour cette recherche.</span><span data-lang-content="en">No result matches this search.</span></div>
+        </div>
+        <noscript><p class="source-note">JavaScript est nécessaire pour afficher et filtrer la base complète intégrée à cette page.</p></noscript>
+        <p class="source-note"><span data-lang-content="fr">Les nombres sont reproduits tels qu’ils figurent dans la base de recherche fournie. Le cas Y119 est situé dans les Far Lands et n’est pas compté comme record hors Far Lands.</span><span data-lang-content="en">Numbers are reproduced as listed in the supplied research database. The Y119 case is located in the Far Lands and is not counted as an outside-Far-Lands record.</span></p>
+      </div>
+    </section>
 
-          <h2>The progression</h2>
-          <p>My first searches quickly exceeded the old references. I initially documented <a href="https://www.youtube.com/watch?v=yi7_WKfddUE" target="_blank" rel="noopener noreferrer">a spawner at Y112</a>. That was followed by <a href="https://www.youtube.com/watch?v=nlbFYd6POAU" target="_blank" rel="noopener noreferrer">the Y113 milestone</a>, <a href="https://www.youtube.com/watch?v=fVRbTek_MPU" target="_blank" rel="noopener noreferrer">Y114</a>, and then <a href="https://www.youtube.com/watch?v=yk5mMQyNvho" target="_blank" rel="noopener noreferrer">Y115</a>. Every result proved that the previous one was not the real limit.</p>
-          <p>The optimized search eventually produced <a href="https://www.youtube.com/watch?v=SQGjBac8hjk" target="_blank" rel="noopener noreferrer">our current Y116 result</a>. This progression from Y112 to Y116 transformed my initial intuition into a continuous, documented and reproducible investigation.</p>
+    <section class="section" id="next">
+      <div class="shell continue-panel">
+        <div data-lang-content="fr">
+          <div class="section-index">03 — La suite</div>
+          <h2>La recherche continue.</h2>
+          <p>Le Y119 des Far Lands montre qu’une salle peut exister à cette hauteur, mais les Far Lands restent volontairement exclues. Je vais donc continuer les scans hors Far Lands avec Codex, tester les cas rares plus efficacement et valider chaque candidat dans le client Java Beta 1.7.3 d’origine. Trouver Y119 peut prendre longtemps ; cela ne signifie pas qu’il est impossible.</p>
+        </div>
+        <div data-lang-content="en">
+          <div class="section-index">03 — What comes next</div>
+          <h2>The search continues.</h2>
+          <p>The Far Lands Y119 proves that a room can exist at that height, but the Far Lands remain deliberately excluded. I will keep scanning outside the Far Lands with Codex, test rare cases more efficiently and validate every candidate in the original Java Beta 1.7.3 client. Finding Y119 may take a long time; that does not make it impossible.</p>
+        </div>
+        <div class="next-target" aria-label="Prochaine cible Y119" id="nextTarget">
+          <small><span data-lang-content="fr">Prochaine cible hors Far Lands</span><span data-lang-content="en">Next target outside Far Lands</span></small>
+          <strong>Y119</strong>
+          <span><span data-lang-content="fr">Possible · non trouvé · recherche active</span><span data-lang-content="en">Possible · not found · active search</span></span>
+        </div>
+      </div>
+    </section>
+  </main>
 
-          <h2>The opposite extreme</h2>
-          <p>I did not want to search only upward. We also investigated the bottom of the world. After finding <a href="https://www.youtube.com/watch?v=nYqflXcOhhI" target="_blank" rel="noopener noreferrer">a Y3 spawner with a hole in the bedrock</a>, the search reached <a href="https://www.youtube.com/watch?v=DAZchmHTO7U" target="_blank" rel="noopener noreferrer">a zombie spawner at Y2</a>.</p>
-          <p>The Y2 seed is <strong>800000006596469</strong>. Its spawner block is located at <strong>X -1, Y 2, Z 4</strong>, approximately 58 blocks from the world spawn. It reproduced successfully in all 16 tested chunk-loading orders. No Y1 dungeon was confirmed during the low-altitude campaign, so Y2 remains our lowest result.</p>
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <p><span data-lang-content="fr">Recherche et données : Fever · Outils développés avec OpenAI Codex.</span><span data-lang-content="en">Research and data: Fever · Tools developed with OpenAI Codex.</span></p>
+      <p><a href="https://www.youtube.com/playlist?list=PLGEuEha_uXWY" target="_blank" rel="noopener noreferrer"><span data-lang-content="fr">Playlist Beta Spawner sur YouTube ↗</span><span data-lang-content="en">Beta Spawner playlist on YouTube ↗</span></a></p>
+    </div>
+  </footer>
 
-          <h2>The rules I established</h2>
-          <p>The dungeon had to be natural, reproducible in the original Java Beta 1.7.3 client, completely outside the Far Lands and within a reasonable travel distance. The search was initially limited to approximately 1,000 blocks and later expanded to around 5,000 blocks from the origin. I did not need to spawn directly beside the dungeon, but I also did not want a result millions of blocks away.</p>
-          <p>The approximate upper limit for the spawner block is Y123. The world ends at Y127, and the room still needs to place its ceiling four blocks above the spawner. Beyond that level, the complete dungeon can no longer fit inside the world.</p>
-
-          <h2>Why extremely high dungeons are rare</h2>
-          <p>At these altitudes, almost the entire world is air. A successful dungeon attempt still requires a solid floor, a solid ceiling, a complete room and between one and five two-block-high openings in its walls. Caves and lakes may also remove or replace blocks before the attempt occurs.</p>
-          <p>Searching directly for cobblestone, mossy cobblestone or the spawner does not simplify the problem. Those blocks are only placed after the complete room has passed every validation step. We first have to reproduce the conditions that allow the dungeon to exist.</p>
-
-          <h2>How Codex and I worked</h2>
-          <p>The idea, objectives and constraints came from me. I directed the investigation and selected the leads worth pursuing. OpenAI Codex performed the technical work under my direction: reproducing the generation rules, developing the scanner, optimizing it, running the searches and verifying the results.</p>
-          <p>The program reproduces the placement attempts, room dimensions, terrain, caves, lakes, floor, ceiling and entrances. The first exact implementation was too slow because it repeatedly generated overlapping caves and manipulated large memory buffers for every candidate.</p>
-          <p>Codex replaced those buffers with compact masks, cached calculations shared by a world seed, generated normal cave data once for the entire region and checked inexpensive entrance conditions before the rest. Multiple seeds were then processed in batches and distributed across several CPU cores.</p>
-          <p>On the original search area, single-core speed increased from approximately 8–9 seeds per second to 34–38. Around 12 parallel workers provided the best balance; using more could slow Windows down because the workers competed for the same processor and memory resources. A GPU version was considered for the RTX 2080, but it risked changing Java’s random-number and floating-point behavior. Exactness was more important than an unreliable speed increase.</p>
-
-          <h2>Validation</h2>
-          <p>Every optimization was compared against the exact reference method. The scanner reproduced previous results and was checked against 29,742 candidates during one important validation stage. Every discrepancy was corrected before the large search began.</p>
-          <p>The final region covers 441 × 441 chunks, or 194,481 chunks per seed, from chunk -220 to +220. This area remains inside the project’s approximate 5,000-block travel limit.</p>
-
-          <h2>The Y116 result</h2>
-          <dl class="facts">
-            <div class="fact"><dt>Seed</dt><dd>3570</dd></div>
-            <div class="fact"><dt>Spawner</dt><dd>X 2817 · Y 116 · Z 1823</dd></div>
-            <div class="fact"><dt>Distance</dt><dd>Approximately 3,355 blocks</dd></div>
-            <div class="fact"><dt>Room</dt><dd>7 × 5 blocks · 5 openings</dd></div>
-            <div class="fact"><dt>Population chunk</dt><dd>X 175 · Z 113</dd></div>
-            <div class="fact"><dt>Attempt</dt><dd>Fourth attempt · no lake</dd></div>
-          </dl>
-          <p>The upper part of the room reaches approximately Y123. A second run targeting only the relevant seed and chunk reproduced the exact same dungeon. The result is therefore not a false positive from the broad scan.</p>
-
-          <h2>What we searched next</h2>
-          <p>After Y116, a normal Y117 search examined approximately 12,000 seeds across the large region, representing about 2.334 billion chunk positions, without confirming a valid dungeon. Another path investigated extremely rare situations in which a lake could create the required blocks or openings. Several plausible terrain shells were detected, but none satisfied the floor, ceiling and entrance requirements at the same time.</p>
-          <p>Our remaining target range is Y117 to Y123. The lack of a higher result does not prove that one cannot exist. It shows how extraordinarily rare the required combination becomes.</p>
-
-          <p class="note"><strong>Important distinction:</strong> Y2 and Y116 are confirmed records within our own research. I do not automatically present them as absolute world records without an exhaustive comparison against every documented community discovery.</p>
-
-          <h2>Project credit</h2>
-          <p>I am Fever. The idea came from my passion for Beta 1.7.3 and my belief that Y81 was far from the real limit. I started and directed the investigation. Codex developed, optimized and operated the specialized tools that turned this intuition into verified results.</p>
-          <p><a href="https://www.youtube.com/playlist?list=PLGEuEha_uXWY" target="_blank" rel="noopener noreferrer">Watch the complete Beta Spawner playlist on YouTube ↗</a></p>
-        </article>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <p id="footerCredit">Une idée et une recherche de Fever · Outils développés avec OpenAI Codex.</p>
-      <p><a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener noreferrer" id="youtubeLink">Ma chaîne YouTube ↗</a></p>
-    </footer>
-  </div>
-
+  <script id="seedData" type="application/json">
+[
+  {"y":"2","seed":"800000006596469","coords":"(-1, 2, 4)","video":"https://www.youtube.com/watch?v=DAZchmHTO7U"},
+  {"y":"3","seed":"500000000030321","coords":"(-1, 3, 0)","video":"https://www.youtube.com/watch?v=nYqflXcOhhI"},
+  {"y":"4","seed":"545","coords":"(76, 4, 49)","video":""},
+  {"y":"5","seed":"52","coords":"(-43, 5, 44)","video":""},
+  {"y":"6","seed":"2281","coords":"(-50, 6, 43)","video":""},
+  {"y":"7","seed":"1897","coords":"(70, 7, 75)","video":""},
+  {"y":"8","seed":"2196","coords":"(41, 8, 0)","video":""},
+  {"y":"9","seed":"1497","coords":"(-30, 9, -32)","video":""},
+  {"y":"10","seed":"2080","coords":"(-18, 10, 69)","video":""},
+  {"y":"11","seed":"67","coords":"(-49, 11, -2)","video":"https://youtu.be/GM7oGBzP1Lo"},
+  {"y":"12","seed":"300","coords":"(-13, 12, -40)","video":""},
+  {"y":"13","seed":"328","coords":"(-19, 13, -30)","video":""},
+  {"y":"14","seed":"245","coords":"(16, 14, 22)","video":""},
+  {"y":"15","seed":"19","coords":"(50, 15, 23)","video":""},
+  {"y":"16","seed":"10","coords":"(7, 16, -32)","video":""},
+  {"y":"17","seed":"32","coords":"(46, 17, -40)","video":""},
+  {"y":"18","seed":"52","coords":"(32, 18, -15)","video":""},
+  {"y":"19","seed":"199759026695750900","coords":"(13, 19, 20)","video":""},
+  {"y":"20","seed":"10","coords":"(58, 20, 0)","video":""},
+  {"y":"21","seed":"76","coords":"(-8, 21, 67)","video":""},
+  {"y":"22","seed":"92","coords":"(-13, 22, 1)","video":""},
+  {"y":"23","seed":"9","coords":"(23, 23, -53)","video":""},
+  {"y":"24","seed":"8","coords":"(7, 24, 59)","video":""},
+  {"y":"25","seed":"95","coords":"(59, 25, 53)","video":""},
+  {"y":"26","seed":"65","coords":"(-39, 26, 45)","video":""},
+  {"y":"27","seed":"987","coords":"(-10, 27, -31)","video":""},
+  {"y":"28","seed":"19","coords":"(71, 28, 2)","video":""},
+  {"y":"29","seed":"43","coords":"(55, 29, 48)","video":""},
+  {"y":"30","seed":"10","coords":"(-40, 30, -33)","video":""},
+  {"y":"31","seed":"42","coords":"(50, 31, -33)","video":""},
+  {"y":"32","seed":"31","coords":"(71, 32, 71)","video":""},
+  {"y":"33","seed":"32","coords":"(-30, 33, 9)","video":""},
+  {"y":"34","seed":"10","coords":"(51, 34, 26)","video":""},
+  {"y":"35","seed":"38","coords":"(29, 35, 63)","video":""},
+  {"y":"36","seed":"99","coords":"(39, 36, 31)","video":""},
+  {"y":"37","seed":"66","coords":"(57,37, 37)","video":""},
+  {"y":"38","seed":"55","coords":"(53, 38, -33)","video":""},
+  {"y":"39","seed":"992","coords":"(-2, 39, 8)","video":""},
+  {"y":"40","seed":"110","coords":"(68, 40, 21)","video":""},
+  {"y":"41","seed":"164","coords":"(-23, 41, 18)","video":""},
+  {"y":"42","seed":"25","coords":"(-10, 42, -10)","video":""},
+  {"y":"43","seed":"6","coords":"(27, 43, -4)","video":""},
+  {"y":"44","seed":"15","coords":"(1, 44, 2)","video":""},
+  {"y":"45","seed":"10","coords":"(-22, 45, 3)","video":""},
+  {"y":"46","seed":"67","coords":"(-6, 46, 25)","video":""},
+  {"y":"47","seed":"31","coords":"(50, 47, -24)","video":""},
+  {"y":"48","seed":"24","coords":"(-7, 48, 1)","video":""},
+  {"y":"49","seed":"16","coords":"(63, 49, 61)","video":""},
+  {"y":"50","seed":"44","coords":"(-13, 50, 14)","video":""},
+  {"y":"51","seed":"34","coords":"(-3, 51, 34)","video":""},
+  {"y":"52","seed":"18","coords":"(32, 52, 48)","video":""},
+  {"y":"53","seed":"41","coords":"(-20, 53, 31)","video":""},
+  {"y":"54","seed":"57","coords":"(43, 54, 44)","video":""},
+  {"y":"55","seed":"157","coords":"(63, 55, 31)","video":""},
+  {"y":"56","seed":"52","coords":"(71, 56, -30)","video":""},
+  {"y":"57","seed":"52","coords":"(35, 57, 34)","video":""},
+  {"y":"58","seed":"354738866336982400","coords":"(-99, 58, -320)","video":""},
+  {"y":"59","seed":"52","coords":"(27, 59, -3)","video":""},
+  {"y":"60","seed":"259","coords":"(62, 60, 70)","video":""},
+  {"y":"61","seed":"312","coords":"(-31, 61, -37)","video":""},
+  {"y":"62","seed":"356","coords":"(35, 62, -40)","video":""},
+  {"y":"63","seed":"59","coords":"(41, 63, 67)","video":""},
+  {"y":"64","seed":"186","coords":"(4, 64, -20)","video":""},
+  {"y":"65","seed":"79","coords":"(-35, 65, 12)","video":""},
+  {"y":"66","seed":"223","coords":"(-34, 66, 46)","video":""},
+  {"y":"67","seed":"465","coords":"(51, 67, -25)","video":""},
+  {"y":"68","seed":"2325","coords":"(18, 68, 49)","video":""},
+  {"y":"69","seed":"68","coords":"(-11, 69, 23)","video":""},
+  {"y":"70","seed":"606","coords":"(53, 70, -39)","video":""},
+  {"y":"71","seed":"253","coords":"(-34, 71, -23)","video":""},
+  {"y":"72","seed":"293","coords":"(45, 72, 46)","video":""},
+  {"y":"73","seed":"41","coords":"(30, 73, 63)","video":""},
+  {"y":"74","seed":"998","coords":"(15, 74, -36)","video":""},
+  {"y":"75","seed":"2371","coords":"(-25, 75, -6)","video":""},
+  {"y":"76","seed":"519","coords":"(-39, 76, 29)","video":""},
+  {"y":"77","seed":"701","coords":"(13, 77, -8)","video":""},
+  {"y":"78","seed":"887","coords":"(-14, 78, 20)","video":""},
+  {"y":"79","seed":"1539","coords":"(47, 79, 2)","video":""},
+  {"y":"80","seed":"625","coords":"(5, 80, 37)","video":""},
+  {"y":"81","seed":"6800","coords":"(38, 81, 67)","video":""},
+  {"y":"82","seed":"360","coords":"(-28, 82, -2)","video":""},
+  {"y":"83","seed":"973","coords":"(-27, 83, 14)","video":""},
+  {"y":"84","seed":"175","coords":"(44, 84, -20)","video":""},
+  {"y":"85","seed":"8807","coords":"(51, 85, 53)","video":""},
+  {"y":"86","seed":"8698","coords":"(24, 86, 37)","video":""},
+  {"y":"87","seed":"9040","coords":"(66, 87, 15)","video":""},
+  {"y":"88","seed":"4192","coords":"(54, 88, 18)","video":""},
+  {"y":"89","seed":"397","coords":"(50, 89, -35)","video":""},
+  {"y":"90","seed":"7175","coords":"(57, 90, -18)","video":""},
+  {"y":"91","seed":"31863","coords":"(14, 91, 41)","video":""},
+  {"y":"92","seed":"23868","coords":"(-35, 92, 26)","video":""},
+  {"y":"93","seed":"7000000004668","coords":"(10, 93, 19)","video":""},
+  {"y":"94","seed":"724","coords":"(14, 94, 6)","video":""},
+  {"y":"95","seed":"35479","coords":"(-25, 95, -2)","video":""},
+  {"y":"96","seed":"7014","coords":"(-29, 96, 42)","video":""},
+  {"y":"97","seed":"4000000049148","coords":"(20, 97, 14)","video":""},
+  {"y":"98","seed":"99418","coords":"(29, 98, 52)","video":""},
+  {"y":"99","seed":"114760","coords":"(-9, 99, -12)","video":""},
+  {"y":"100","seed":"81871","coords":"(1, 100, 41)","video":""},
+  {"y":"101","seed":"4371","coords":"(37, 101, -39)","video":""},
+  {"y":"102","seed":"13000000000112","coords":"(-159, 102, 1)","video":""},
+  {"y":"103","seed":"18000000000291","coords":"(116, 103, -24)","video":""},
+  {"y":"104","seed":"101384","coords":"(-32, 104, -13)","video":""},
+  {"y":"105","seed":"629863","coords":"(28, 105, 20)","video":""},
+  {"y":"106","seed":"29773","coords":"(-1, 106, 46)","video":""},
+  {"y":"107","seed":"1645063","coords":"(31, 107, 2)","video":""},
+  {"y":"108","seed":"200802","coords":"(8, 108, 44)","video":""},
+  {"y":"109","seed":"1499974","coords":"(21, 109, -10)","video":""},
+  {"y":"110","seed":"1421304","coords":"(-1, 110, -1)","video":""},
+  {"y":"111","seed":"507416","coords":"(19, 111, -16)","video":""},
+  {"y":"112","seed":"40000000000817","coords":"(-43, 112, 62)","video":"https://www.youtube.com/watch?v=yi7_WKfddUE"},
+  {"y":"113","seed":"395516364","coords":"(10, 113, 14)","video":"https://www.youtube.com/watch?v=nlbFYd6POAU"},
+  {"y":"114","seed":"108383170","coords":"(10, 114, 14)","video":"https://www.youtube.com/watch?v=fVRbTek_MPU"},
+  {"y":"115","seed":"314149598","coords":"(13, 115, 15)","video":"https://www.youtube.com/watch?v=yk5mMQyNvho"},
+  {"y":"116","seed":"3570","coords":"(2817, 116, 1823)","video":"https://www.youtube.com/watch?v=SQGjBac8hjk"},
+  {"y":"117","seed":"1443271995859","coords":"(9, 117, 21)","video":"https://www.youtube.com/watch?v=OJOsyxq2wog"},
+  {"y":"117","seed":"1070467979114189800","coords":"(-566, 117, 280)","video":""},
+  {"y":"118","seed":"539109322897647550","coords":"(-493, 118, -267)","video":"https://www.youtube.com/watch?v=gf4ZneFkQwA"},
+  {"divider":"farlands"},
+  {"y":"119","seed":"539109322897647550","coords":"(12 580 766, 119, 336 078)","video":"","farlands":true}
+]
+  </script>
   <script>
     const translations = {
       fr: {
-        title: "Beta Records | ArchiveFever.Work",
-        description: "L’histoire de Fever et de sa recherche des donjons les plus hauts et les plus bas de Minecraft Beta 1.7.3.",
-        ogDescription: "De Y2 à Y116 : l’histoire et la méthode derrière la recherche de Fever.",
-        backLabel: "Accueil",
-        backAria: "Retour à l’accueil",
+        title: "Every Y Found | ArchiveFever.Work",
+        description: "Un seed de donjon pour chaque hauteur de Y2 à Y118 dans Minecraft Java Beta 1.7.3, avec la base complète et la recherche du très rare Y119 hors Far Lands.",
+        ogDescription: "Chaque hauteur de Y2 à Y118 possède désormais son seed. Prochaine cible : Y119 hors Far Lands.",
         languageLabel: "Choisir la langue",
-        footerCredit: "Une idée et une recherche de Fever · Outils développés avec OpenAI Codex.",
-        youtubeLink: "Ma chaîne YouTube ↗"
+        navLabel: "Navigation principale",
+        researchStatusLabel: "Statut de la recherche",
+        metricsLabel: "Résumé des résultats",
+        nextTargetLabel: "Prochaine cible Y119",
+        searchPlaceholder: "Rechercher un Y, un seed ou une coordonnée…",
+        resultSingular: "résultat",
+        resultPlural: "résultats",
+        videoLabel: "Voir la vidéo",
+        alternative: "alternative",
+        farlandsDivider: "Far Lands — cas conservé, exclu du record",
+        copied: "Liste copiée",
+        copyFailed: "Copie impossible"
       },
       en: {
-        title: "Beta Records | ArchiveFever.Work",
-        description: "Fever’s search for the highest and lowest dungeon spawners in Minecraft Beta 1.7.3.",
-        ogDescription: "From Y2 to Y116: the story and method behind Fever’s search.",
-        backLabel: "Home",
-        backAria: "Back to home",
+        title: "Every Y Found | ArchiveFever.Work",
+        description: "A dungeon seed for every height from Y2 to Y118 in Minecraft Java Beta 1.7.3, plus the complete database and the search for ultra-rare Y119 outside the Far Lands.",
+        ogDescription: "Every height from Y2 through Y118 now has a seed. Next target: Y119 outside the Far Lands.",
         languageLabel: "Choose language",
-        footerCredit: "An idea and investigation by Fever · Tools developed with OpenAI Codex.",
-        youtubeLink: "My YouTube channel ↗"
+        navLabel: "Main navigation",
+        researchStatusLabel: "Research status",
+        metricsLabel: "Result summary",
+        nextTargetLabel: "Next target Y119",
+        searchPlaceholder: "Search a Y level, seed or coordinate…",
+        resultSingular: "result",
+        resultPlural: "results",
+        videoLabel: "Watch video",
+        alternative: "alternative",
+        farlandsDivider: "Far Lands — preserved case, excluded from the record",
+        copied: "List copied",
+        copyFailed: "Copy failed"
       }
     };
 
+    const rawData = JSON.parse(document.getElementById("seedData").textContent);
+    const records = rawData.filter((entry) => !entry.divider);
+    const rowsContainer = document.getElementById("seedRows");
+    const searchInput = document.getElementById("seedSearch");
+    const videoFilter = document.getElementById("videoFilter");
+    const resultCount = document.getElementById("resultCount");
+    const emptyState = document.getElementById("emptyState");
+    const copyButton = document.getElementById("copyAll");
+    let currentLanguage = "fr";
+    let videoOnly = false;
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>'"]/g, (character) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;","\"":"&quot;"})[character]);
+    }
+
+    function renderRows() {
+      const text = translations[currentLanguage];
+      const yOccurrences = new Map();
+      rowsContainer.innerHTML = rawData.map((entry) => {
+        if (entry.divider === "farlands") {
+          return `<tr class="farlands-divider" data-divider="farlands"><td colspan="4">${text.farlandsDivider}</td></tr>`;
+        }
+        const seen = yOccurrences.get(entry.y) || 0;
+        yOccurrences.set(entry.y, seen + 1);
+        const badge = seen > 0 ? ` <span class="row-badge">${text.alternative}</span>` : "";
+        const video = entry.video
+          ? `<a class="video-link" href="${escapeHtml(entry.video)}" target="_blank" rel="noopener noreferrer">${text.videoLabel} ↗</a>`
+          : `<span class="muted">—</span>`;
+        const rowClass = entry.farlands ? "farlands-record" : "";
+        const search = `${entry.y} ${entry.seed} ${entry.coords} ${entry.video || ""} ${entry.farlands ? "farlands" : ""}`.toLowerCase();
+        return `<tr class="${rowClass}" data-seed-row data-search="${escapeHtml(search)}" data-has-video="${Boolean(entry.video)}" data-farlands="${Boolean(entry.farlands)}"><th class="y-cell" scope="row">Y${escapeHtml(entry.y)}${badge}</th><td class="seed-cell">${escapeHtml(entry.seed)}</td><td class="coords-cell">${escapeHtml(entry.coords)}</td><td class="video-cell">${video}</td></tr>`;
+      }).join("");
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      const rows = [...rowsContainer.querySelectorAll("[data-seed-row]")];
+      let visible = 0;
+      let farlandsVisible = false;
+      rows.forEach((row) => {
+        const matchesText = !query || row.dataset.search.includes(query);
+        const matchesVideo = !videoOnly || row.dataset.hasVideo === "true";
+        const show = matchesText && matchesVideo;
+        row.hidden = !show;
+        if (show) {
+          visible += 1;
+          if (row.dataset.farlands === "true") farlandsVisible = true;
+        }
+      });
+      const divider = rowsContainer.querySelector("[data-divider='farlands']");
+      if (divider) divider.hidden = !farlandsVisible;
+      const text = translations[currentLanguage];
+      resultCount.textContent = `${visible} / ${records.length} ${visible === 1 ? text.resultSingular : text.resultPlural}`;
+      emptyState.style.display = visible === 0 ? "block" : "none";
+    }
+
     function setLanguage(language) {
-      const safeLanguage = translations[language] ? language : "fr";
-      const text = translations[safeLanguage];
-      document.documentElement.lang = safeLanguage;
+      currentLanguage = translations[language] ? language : "fr";
+      const text = translations[currentLanguage];
+      document.documentElement.lang = currentLanguage;
+      document.documentElement.dataset.lang = currentLanguage;
       document.title = text.title;
-      document.getElementById("contentFR").hidden = safeLanguage !== "fr";
-      document.getElementById("contentEN").hidden = safeLanguage !== "en";
-      document.getElementById("backLabel").textContent = text.backLabel;
-      document.getElementById("backLink").setAttribute("aria-label", text.backAria);
-      document.getElementById("languageGroup").setAttribute("aria-label", text.languageLabel);
-      document.getElementById("footerCredit").textContent = text.footerCredit;
-      document.getElementById("youtubeLink").textContent = text.youtubeLink;
       document.querySelector('meta[name="description"]').content = text.description;
       document.querySelector('meta[property="og:description"]').content = text.ogDescription;
-      document.getElementById("btnFR").setAttribute("aria-pressed", String(safeLanguage === "fr"));
-      document.getElementById("btnEN").setAttribute("aria-pressed", String(safeLanguage === "en"));
-      try { localStorage.setItem("af_lang", safeLanguage); } catch (error) {}
+      document.getElementById("languageGroup").setAttribute("aria-label", text.languageLabel);
+      document.getElementById("mainNav").setAttribute("aria-label", text.navLabel);
+      document.getElementById("researchStatus").setAttribute("aria-label", text.researchStatusLabel);
+      document.getElementById("metricsSummary").setAttribute("aria-label", text.metricsLabel);
+      document.getElementById("nextTarget").setAttribute("aria-label", text.nextTargetLabel);
+      document.getElementById("btnFR").setAttribute("aria-pressed", String(currentLanguage === "fr"));
+      document.getElementById("btnEN").setAttribute("aria-pressed", String(currentLanguage === "en"));
+      searchInput.placeholder = text.searchPlaceholder;
+      renderRows();
+      try { localStorage.setItem("af_lang", currentLanguage); } catch (error) {}
+    }
+
+    function compactList() {
+      const lines = ["Y | SEED | F3 | YT VIDEO"];
+      rawData.forEach((entry) => {
+        if (entry.divider) {
+          lines.push("FARLAND");
+          return;
+        }
+        lines.push([entry.y, entry.seed, entry.coords, entry.video || ""].join(" | ").replace(/\s+\|\s*$/, ""));
+      });
+      return lines.join("\n");
     }
 
     document.getElementById("btnFR").addEventListener("click", () => setLanguage("fr"));
     document.getElementById("btnEN").addEventListener("click", () => setLanguage("en"));
+    searchInput.addEventListener("input", applyFilters);
+    videoFilter.addEventListener("click", () => {
+      videoOnly = !videoOnly;
+      videoFilter.setAttribute("aria-pressed", String(videoOnly));
+      applyFilters();
+    });
+    copyButton.addEventListener("click", async () => {
+      const text = translations[currentLanguage];
+      try {
+        await navigator.clipboard.writeText(compactList());
+        copyButton.querySelector(`[data-lang-content="${currentLanguage}"]`).textContent = text.copied;
+      } catch (error) {
+        copyButton.querySelector(`[data-lang-content="${currentLanguage}"]`).textContent = text.copyFailed;
+      }
+      window.setTimeout(() => {
+        copyButton.querySelector('[data-lang-content="fr"]').textContent = "Copier la liste";
+        copyButton.querySelector('[data-lang-content="en"]').textContent = "Copy list";
+      }, 1800);
+    });
 
     let savedLanguage = "fr";
     try { savedLanguage = localStorage.getItem("af_lang") || "fr"; } catch (error) {}

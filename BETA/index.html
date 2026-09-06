@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Un seed de donjon pour chaque hauteur de Y1 à Y118 dans Minecraft Java Beta 1.7.3, avec la base complète et la recherche du très rare Y119 hors Far Lands.">
-  <meta name="theme-color" content="#090908">
+  <meta name="theme-color" content="#0b0b0c">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://archivefever.work/BETA/">
   <meta property="og:type" content="article">
@@ -321,7 +321,6 @@
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
     @media (max-width: 900px) {
-      .nav { display: none; }
       .hero { padding-top: 86px; }
       .hero-copy, .section-grid, .continue-panel { grid-template-columns: 1fr; gap: 34px; }
       .metrics { grid-template-columns: repeat(2, 1fr); }
@@ -358,14 +357,16 @@
       *, *::before, *::after { transition: none !important; }
     }
   </style>
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/beta.css">
 </head>
-<body>
+<body class="beta-page">
   <a class="skip-link" href="#mainContent">
     <span data-lang-content="fr">Aller au contenu</span><span data-lang-content="en">Skip to content</span>
   </a>
   <header class="site-header">
     <div class="shell header-inner">
-      <a class="brand" href="../index.html">ArchiveFever<span>.Work</span></a>
+      <a class="brand" href="../index.html">Archive<span>Fever</span>.Work</a>
       <div class="header-actions">
         <nav class="nav" aria-label="Navigation principale" id="mainNav">
           <a href="#discovery"><span data-lang-content="fr">Découverte</span><span data-lang-content="en">Discovery</span></a>
@@ -380,7 +381,7 @@
     </div>
   </header>
 
-  <main id="mainContent">
+  <main id="mainContent" tabindex="-1">
     <section class="hero shell" aria-labelledby="pageTitle">
       <p class="eyebrow">
         <span data-lang-content="fr">Minecraft Java Beta 1.7.3 · Archive complète</span>
@@ -404,7 +405,7 @@
     <div class="shell metrics" aria-label="Résumé des résultats" id="metricsSummary">
       <div class="metric"><span class="metric-value">Y1</span><span class="metric-label"><span data-lang-content="fr">Plus bas trouvé</span><span data-lang-content="en">Lowest found</span></span></div>
       <div class="metric"><span class="metric-value accent">Y118</span><span class="metric-label"><span data-lang-content="fr">Plus haut hors Far Lands</span><span data-lang-content="en">Highest outside Far Lands</span></span></div>
-      <div class="metric"><span class="metric-value">117</span><span class="metric-label"><span data-lang-content="fr">Hauteurs consécutives</span><span data-lang-content="en">Consecutive heights</span></span></div>
+      <div class="metric"><span class="metric-value">118</span><span class="metric-label"><span data-lang-content="fr">Hauteurs consécutives</span><span data-lang-content="en">Consecutive heights</span></span></div>
       <div class="metric"><span class="metric-value">Y119</span><span class="metric-label"><span data-lang-content="fr">Prochaine cible</span><span data-lang-content="en">Next target</span></span></div>
     </div>
 
@@ -450,7 +451,7 @@
             <p class="results-subtitle" data-lang-content="fr">Y1 à Y118 forment la série complète hors Far Lands. La ligne Y119 est conservée comme preuve Far Lands, mais elle est exclue du record recherché.</p>
             <p class="results-subtitle" data-lang-content="en">Y1 through Y118 form the complete outside-Far-Lands sequence. The Y119 line is preserved as a Far Lands proof, but it is excluded from the target record.</p>
           </div>
-          <span class="data-badge"><span data-lang-content="fr">120 seeds · 10 vidéos</span><span data-lang-content="en">12O seeds · 10 videos</span></span>
+          <span class="data-badge"><span data-lang-content="fr">120 seeds · 11 vidéos</span><span data-lang-content="en">120 seeds · 11 videos</span></span>
         </div>
 
         <div class="controls">
@@ -467,7 +468,8 @@
           <span><span data-lang-content="fr">Coordonnées : X, Y, Z</span><span data-lang-content="en">Coordinates: X, Y, Z</span></span>
         </div>
 
-        <div class="table-wrap" id="tableWrap">
+        <p class="table-scroll-hint" id="tableScrollHint"><span data-lang-content="fr">Faites défiler le tableau pour explorer les données. Au clavier, utilisez les flèches.</span><span data-lang-content="en">Scroll the table to explore the data. Use the arrow keys when navigating by keyboard.</span></p>
+        <div class="table-wrap" id="tableWrap" tabindex="0" role="region" aria-labelledby="databaseTitle" aria-describedby="tableScrollHint">
           <table id="seedTable">
             <caption><span data-lang-content="fr">Seeds de donjons Beta 1.7.3 par hauteur Y</span><span data-lang-content="en">Beta 1.7.3 dungeon seeds by Y height</span></caption>
             <thead>
@@ -710,18 +712,21 @@
           : `<span class="muted">—</span>`;
         const rowClass = entry.farlands ? "farlands-record" : "";
         const search = `${entry.y} ${entry.seed} ${entry.coords} ${entry.video || ""} ${entry.farlands ? "farlands" : ""}`.toLowerCase();
-        return `<tr class="${rowClass}" data-seed-row data-search="${escapeHtml(search)}" data-has-video="${Boolean(entry.video)}" data-farlands="${Boolean(entry.farlands)}"><th class="y-cell" scope="row">Y${escapeHtml(entry.y)}${badge}</th><td class="seed-cell">${escapeHtml(entry.seed)}</td><td class="coords-cell">${escapeHtml(entry.coords)}</td><td class="video-cell">${video}</td></tr>`;
+        return `<tr class="${rowClass}" data-seed-row data-y="${escapeHtml(entry.y)}" data-search="${escapeHtml(search)}" data-has-video="${Boolean(entry.video)}" data-farlands="${Boolean(entry.farlands)}"><th class="y-cell" scope="row">Y${escapeHtml(entry.y)}${badge}</th><td class="seed-cell">${escapeHtml(entry.seed)}</td><td class="coords-cell">${escapeHtml(entry.coords)}</td><td class="video-cell">${video}</td></tr>`;
       }).join("");
       applyFilters();
     }
 
     function applyFilters() {
       const query = searchInput.value.trim().toLowerCase();
+      const yQuery = query.match(/^y\s*(\d+)$/);
       const rows = [...rowsContainer.querySelectorAll("[data-seed-row]")];
       let visible = 0;
       let farlandsVisible = false;
       rows.forEach((row) => {
-        const matchesText = !query || row.dataset.search.includes(query);
+        const matchesText = yQuery
+          ? Number(row.dataset.y) === Number(yQuery[1])
+          : !query || row.dataset.search.includes(query);
         const matchesVideo = !videoOnly || row.dataset.hasVideo === "true";
         const show = matchesText && matchesVideo;
         row.hidden = !show;

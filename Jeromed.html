@@ -1,291 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Get Jeromed! — ArchiveFever.Work</title>
-  <meta name="description" content="A playful ArchiveFever.Work Easter egg starring Jerome." />
+  <meta name="description" content="Une petite expérience avec Jérôme, la mascotte d’ArchiveFever.Work." />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="theme-color" content="#0b0b0c" />
   <link rel="canonical" href="https://archivefever.work/Jeromed.html" />
   <link rel="icon" href="IMG/Jerome.webp" type="image/webp" />
-  <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      width: 100%; height: 100%;
-      background: #0a0a0a;
-      color: #a1a1a6;
-      font-family: "Source Code Pro", ui-monospace, monospace;
-      -webkit-font-smoothing: antialiased;
-      overflow: hidden;
-    }
-
-    .page {
-      height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 28px;
-    }
-
-    .label {
-      max-width: min(34rem, 86vw);
-      font-size: 13px;
-      letter-spacing: .25em;
-      text-transform: uppercase;
-      color: #85858b;
-      text-align: center;
-    }
-
-    .go-btn {
-      appearance: none;
-      border: 1px solid #2a2a2a;
-      background: #161616;
-      color: #f5f5f7;
-      padding: 14px 40px;
-      border-radius: 10px;
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: border-color .15s, color .15s;
-    }
-    .go-btn:hover { border-color: #ff8c00; color: #ff8c00; }
-    .go-btn:focus-visible,
-    .support-link:focus-visible {
-      outline: 3px solid #ff8c00;
-      outline-offset: 4px;
-    }
-
-    .loading-bar-wrap {
-      display: none;
-      width: min(260px, 70vw);
-      flex-direction: column;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .loading-txt {
-      font-size: 11px;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      color: #3a3a3a;
-    }
-
-    .loading-bar-bg {
-      width: 100%;
-      height: 2px;
-      background: #1e1e1e;
-      border-radius: 2px;
-      overflow: hidden;
-    }
-
-    .loading-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #ff8c00;
-      border-radius: 2px;
-      transition: width .1s linear;
-    }
-
-    .chaos {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #0a0a0a;
-      z-index: 10;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-direction: column;
-    }
-
-    .jerome-main {
-      width: min(260px, 65vw);
-      border-radius: 50%;
-      position: relative;
-      z-index: 20;
-      animation: popMain .35s cubic-bezier(.16,1,.3,1) both;
-    }
-
-    .jerome-label {
-      position: absolute;
-      bottom: 12%;
-      left: 0; right: 0;
-      text-align: center;
-      font-size: clamp(2rem, 10vw, 4rem);
-      font-weight: 700;
-      letter-spacing: .1em;
-      color: #ff8c00;
-      text-transform: uppercase;
-      z-index: 25;
-      animation: popMain .4s .1s cubic-bezier(.16,1,.3,1) both;
-      text-shadow: 0 0 40px rgba(255,140,0,.6);
-    }
-
-    @keyframes popMain {
-      from { transform: scale(0); opacity: 0; }
-      to   { transform: scale(1); opacity: 1; }
-    }
-
-    .jerome-mini {
-      position: fixed;
-      border-radius: 50%;
-      object-fit: cover;
-      z-index: 15;
-    }
-
-    .support-link {
-      position: absolute;
-      bottom: 4%;
-      z-index: 30;
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 16px;
-      border: 1px solid #ff8c00;
-      border-radius: 9px;
-      color: #ff8c00;
-      background: rgba(10,10,10,.82);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-
-    .support-link:hover { color: #000; background: #ff8c00; }
-
-    @keyframes float1 {
-      0%,100% { transform: translate(0,0) rotate(0deg); }
-      25%     { transform: translate(12px,-14px) rotate(6deg); }
-      50%     { transform: translate(-8px,10px) rotate(-4deg); }
-      75%     { transform: translate(10px,6px) rotate(5deg); }
-    }
-    @keyframes float2 {
-      0%,100% { transform: translate(0,0) rotate(0deg); }
-      25%     { transform: translate(-14px,10px) rotate(-7deg); }
-      50%     { transform: translate(10px,-12px) rotate(5deg); }
-      75%     { transform: translate(-6px,8px) rotate(-3deg); }
-    }
-    @keyframes float3 {
-      0%,100% { transform: translate(0,0) rotate(0deg); }
-      33%     { transform: translate(8px,14px) rotate(4deg); }
-      66%     { transform: translate(-12px,-8px) rotate(-6deg); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-      }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700;800&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <link rel="stylesheet" href="assets/jeromed.css" />
+  <script src="assets/jeromed.js" defer></script>
 </head>
-<body>
-
-<main class="page" id="mainPage">
-  <h1 class="label">Thank you for scanning this QR code.</h1>
-  <button class="go-btn" id="goBtn">GO</button>
-  <div class="loading-bar-wrap" id="loadingWrap" role="status" aria-live="polite">
-    <div class="loading-txt" id="loadingTxt">Initializing…</div>
-    <div class="loading-bar-bg" id="loadingBar" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-      <div class="loading-bar-fill" id="barFill"></div>
+<body class="jeromed-page">
+  <header class="jeromed-header">
+    <a class="site-name" href="index.html">Archive<span>Fever</span>.Work</a>
+    <div class="card-controls">
+      <button class="chip" id="soundBtn" type="button" aria-pressed="true">Son : activé</button>
+      <div class="lang" role="group" aria-label="Langue" id="langGroup">
+        <button id="btnFR" type="button" aria-pressed="true">FR</button>
+        <button id="btnEN" type="button" aria-pressed="false">EN</button>
+      </div>
     </div>
-  </div>
-</main>
-
-<section class="chaos" id="chaos" aria-label="Jerome reveal" aria-hidden="true">
-  <img src="IMG/Jerome.webp" class="jerome-main" alt="Jerome, the ArchiveFever.Work mascot" />
-  <div class="jerome-label">GET JEROMED!</div>
-  <a class="support-link" href="Donations/index.html">Support ArchiveFever.Work</a>
-</section>
-
-<script>
-  const floatAnims = ["float1", "float2", "float3"];
-  const positions = [
-    { top:  "4%",  left: "4%",  size: 80 },
-    { top:  "3%",  left: "72%", size: 70 },
-    { top:  "18%", left: "84%", size: 90 },
-    { top:  "68%", left: "1%",  size: 75 },
-    { top:  "74%", left: "72%", size: 85 },
-    { top:  "84%", left: "34%", size: 65 },
-    { top:  "38%", left: "87%", size: 72 },
-    { top:  "48%", left: "0%",  size: 80 },
-    { top:  "8%",  left: "40%", size: 58 },
-    { top:  "86%", left: "8%",  size: 75 },
-    { top:  "58%", left: "54%", size: 55 },
-    { top:  "28%", left: "8%",  size: 65 },
-  ];
-
-  const steps = [
-    { pct: 15,  txt: "Initializing…",            delay: 100  },
-    { pct: 35,  txt: "Connecting to server…",     delay: 350  },
-    { pct: 55,  txt: "Loading modules…",          delay: 650  },
-    { pct: 75,  txt: "Verifying files…",          delay: 950  },
-    { pct: 90,  txt: "Finalizing…",               delay: 1250 },
-    { pct: 100, txt: "Ready.",                    delay: 1550 },
-  ];
-
-  document.getElementById("goBtn").addEventListener("click", () => {
-    const btn = document.getElementById("goBtn");
-    btn.disabled = true;
-    btn.style.opacity = ".3";
-    btn.style.cursor = "default";
-
-    const wrap = document.getElementById("loadingWrap");
-    const fill = document.getElementById("barFill");
-    const txt  = document.getElementById("loadingTxt");
-    wrap.style.display = "flex";
-
-    steps.forEach(({ pct, txt: t, delay }) => {
-      setTimeout(() => {
-        fill.style.width = pct + "%";
-        txt.textContent  = t;
-        document.getElementById("loadingBar").setAttribute("aria-valuenow", String(pct));
-      }, delay);
-    });
-
-    setTimeout(() => {
-      const audio = new Audio("SOUND/o-o.mp3");
-      audio.volume = 1;
-      audio.loop = true;
-      audio.play().catch(() => {});
-
-      const chaos = document.getElementById("chaos");
-      chaos.style.display = "flex";
-      chaos.setAttribute("aria-hidden", "false");
-
-      positions.forEach(({ top, left, size }, i) => {
-        setTimeout(() => {
-          const img = document.createElement("img");
-          img.src = "IMG/Jerome.webp";
-          img.className = "jerome-mini";
-          img.alt = "";
-          const anim = floatAnims[i % floatAnims.length];
-          const dur  = (3 + Math.random() * 3).toFixed(1) + "s";
-          const del  = (Math.random()).toFixed(2) + "s";
-          img.style.cssText = `
-            top: ${top};
-            left: ${left};
-            width: ${size}px;
-            height: ${size}px;
-            animation: ${anim} ${dur} ${del} ease-in-out infinite;
-          `;
-          chaos.appendChild(img);
-        }, i * 100);
-      });
-    }, 2000);
-  });
-</script>
+  </header>
+  <main class="jeromed-stage">
+    <section class="waiting" id="mainPage" aria-labelledby="introTitle">
+      <p class="eyebrow" id="eyebrow">Petite vérification de routine</p>
+      <h1 id="introTitle">Merci d’avoir scanné ce QR code.</h1>
+      <p class="intro-copy" id="introCopy">Encore un clic. Ça devrait bien se passer.</p>
+      <button class="go-btn" id="goBtn" type="button">GO →</button>
+      <div class="loading-bar-wrap" id="loadingWrap" hidden>
+        <p id="loadingTxt" role="status" aria-live="polite">Initialisation…</p>
+        <div class="loading-bar-bg" id="loadingBar" role="progressbar" aria-label="Vérification" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="loading-bar-fill" id="barFill"></div>
+        </div>
+      </div>
+      <p class="all-clear" id="allClear" hidden>✓ Rien à signaler. Vous pouvez respirer.</p>
+    </section>
+    <section class="chaos" id="chaos" aria-labelledby="revealTitle" hidden>
+      <div class="mascot-scene" aria-hidden="true">
+        <img src="IMG/Jerome.webp" class="jerome-main" alt="" width="260" height="260" />
+        <span class="speech" id="speech">On m’a appelé ?</span>
+        <img src="IMG/Jerome.webp" class="jerome-mini mini-one" alt="" width="72" height="72" />
+        <img src="IMG/Jerome.webp" class="jerome-mini mini-two" alt="" width="58" height="58" />
+        <img src="IMG/Jerome.webp" class="jerome-mini mini-three" alt="" width="48" height="48" />
+      </div>
+      <h1 id="revealTitle" tabindex="-1">GET JEROMED!</h1>
+      <p class="punchline" id="punchline">Le seul bug, c’était Jérôme.</p>
+      <button class="go-btn" id="replayBtn" type="button">Je me ferai pas avoir deux fois →</button>
+      <a class="support-link" id="supportLink" href="Donations/index.html">Offrir un café à l’imposteur ↗</a>
+    </section>
+  </main>
+  <footer class="jeromed-footer"><a href="index.html" id="homeLink">← Retour à l’accueil</a><span id="escapeHint">Échap pour recommencer</span></footer>
 </body>
 </html>

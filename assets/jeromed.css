@@ -1,0 +1,35 @@
+.jeromed-page { display: flex; flex-direction: column; min-height: 100dvh; background: radial-gradient(ellipse at 50% 45%, rgba(255,152,31,.05), transparent 65%), var(--bg); }
+.jeromed-page [hidden] { display: none !important; }
+.jeromed-header, .jeromed-footer { width: min(960px, 100%); margin-inline: auto; padding: 20px max(20px, env(safe-area-inset-right)) 20px max(20px, env(safe-area-inset-left)); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.jeromed-stage { display: grid; place-items: center; flex: 1; padding: 32px 20px; }
+.waiting, .chaos { width: min(580px, 100%); text-align: center; }
+.waiting { display: grid; justify-items: center; gap: 22px; }
+.waiting h1 { margin: 0; max-width: 23ch; font-size: clamp(23px, 4.5vw, 34px); line-height: 1.35; letter-spacing: -.04em; }
+.eyebrow { margin: 0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; color: var(--accent); }
+.intro-copy, .punchline { margin: 0; color: var(--txt2); font-size: 13px; line-height: 1.8; }
+.go-btn { min-height: 52px; max-width: 100%; padding: 14px 24px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface2); color: var(--txt); font: inherit; font-size: 12px; font-weight: 700; line-height: 1.6; cursor: pointer; transition: border-color .2s, background-color .2s, transform .2s; }
+#goBtn { min-width: 152px; margin-top: 6px; border-color: var(--accent); color: var(--accent); }
+.go-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.go-btn:active:not(:disabled) { transform: translateY(1px); }
+.loading-bar-wrap { display: grid; width: min(320px, 100%); gap: 14px; }
+#loadingTxt { min-height: 40px; margin: 0; color: var(--txt2); font-size: 12px; line-height: 1.6; }
+.loading-bar-bg { height: 4px; overflow: hidden; border-radius: 4px; background: var(--surface2); }
+.loading-bar-fill { width: 0; height: 100%; background: var(--accent); transition: width .35s ease; }
+.all-clear { margin: 0; color: #a4d8b4; font-size: 13px; line-height: 1.7; }
+.chaos { display: grid; justify-items: center; gap: 20px; }
+.mascot-scene { position: relative; width: min(360px, 100%); padding: 28px 32px 8px; }
+.jerome-main { display: block; width: min(260px, 100%); height: auto; margin: auto; border-radius: 50%; animation: jerome-pop .45s cubic-bezier(.2,1.4,.4,1) both; filter: drop-shadow(0 12px 30px rgba(255,152,31,.13)); }
+.speech { position: absolute; top: 2px; right: 0; z-index: 2; padding: 10px 14px; border: 1px solid var(--border); border-radius: 12px 12px 12px 2px; background: var(--surface2); color: var(--txt); font-size: 12px; animation: jerome-pop .3s .5s both; }
+.jerome-mini { position: absolute; border-radius: 50%; height: auto; animation: jerome-pop .35s .15s both; }
+.mini-one { left: 0; bottom: 15%; width: 20%; transform: rotate(-16deg); }
+.mini-two { right: 0; top: 36%; width: 16%; animation-delay: .35s; }
+.mini-three { right: 12%; bottom: 0; width: 13%; animation-delay: .65s; }
+#revealTitle { margin: 0; color: var(--accent); font-size: clamp(27px, 7.8vw, 52px); line-height: 1.15; letter-spacing: -.055em; }
+.chaos .support-link { display: inline-flex; align-items: center; font-size: 12px; color: var(--txt2); text-underline-offset: 4px; }
+.jeromed-footer { color: var(--txt3); font-size: 11px; }
+.jeromed-footer a { display: inline-flex; min-height: 44px; align-items: center; color: var(--txt2); text-decoration: none; }
+.jeromed-footer a:hover { color: var(--accent); }
+@keyframes jerome-pop { from { opacity: 0; transform: scale(.3) rotate(-9deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
+@media (max-width: 540px) { .jeromed-header { gap: 8px; padding-top: 12px; } .jeromed-header .card-controls { width: 100%; justify-content: space-between; } .jeromed-stage { padding-block: 24px; } .jeromed-footer { gap: 0; } }
+@media (max-height: 500px) { .jeromed-stage { padding-block: 16px; } .mascot-scene { width: 210px; } .chaos { gap: 12px; } }
+@media (prefers-reduced-motion: reduce) { .jeromed-page *, .jeromed-page *::before, .jeromed-page *::after { animation: none !important; transition: none !important; } }

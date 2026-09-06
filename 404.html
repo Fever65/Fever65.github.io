@@ -6,24 +6,13 @@
   <title>404 — ArchiveFever.Work</title>
   <meta name="description" content="Cette page n’existe pas ou a été déplacée. Retournez à l’accueil d’ArchiveFever.Work." />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#0a0a0a" />
-  <link rel="icon" href="IMG/Jerome.webp" type="image/webp" />
+  <meta name="theme-color" content="#0b0b0c" />
+  <link rel="icon" href="/IMG/Jerome.webp" type="image/webp" />
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #0a0a0a;
-      --surface: #161616;
-      --surface2: #1e1e1e;
-      --border: #2a2a2a;
-      --border-soft: #222;
-      --accent: #ff8c00;
-      --txt: #f5f5f7;
-      --txt2: #a1a1a6;
-      --txt3: #6e6e73;
-    }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -35,72 +24,8 @@
       font-family: "Source Code Pro", ui-monospace, monospace;
       -webkit-font-smoothing: antialiased;
     }
+    .card-wrap { width: min(520px, 100%); }
 
-    .page {
-      min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-    }
-
-    .card-wrap {
-      width: min(520px, 100%);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.03) inset,
-        0 32px 80px -20px rgba(0,0,0,.85),
-        0 8px 24px -8px rgba(0,0,0,.6);
-      animation: rise .55s cubic-bezier(.16,1,.3,1) both;
-    }
-
-    @keyframes rise {
-      from { opacity: 0; transform: translateY(16px) scale(.99); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-
-    .card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 14px 16px;
-      border-bottom: 1px solid var(--border-soft);
-      background: var(--surface2);
-    }
-
-    .site-name {
-      font-weight: 700;
-      font-size: 13px;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      color: var(--txt);
-    }
-
-    .site-name span { color: var(--accent); }
-
-    .lang {
-      display: inline-flex;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      overflow: hidden;
-      background: var(--bg);
-    }
-    .lang button {
-      appearance: none; border: 0;
-      border-right: 1px solid var(--border);
-      background: transparent; color: var(--txt3);
-      min-width: 44px; min-height: 44px;
-      padding: 7px 12px; font: inherit; font-size: 12px;
-      letter-spacing: .5px; text-transform: uppercase;
-      cursor: pointer; transition: color .15s; outline: none; font-weight: 700;
-    }
-    .lang button:last-child { border-right: 0; }
-    .lang button:hover { color: var(--txt); }
-    .lang button[aria-pressed="true"] { color: #000; background: var(--accent); }
 
     .card-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 24px; }
 
@@ -160,14 +85,15 @@
       .card-wrap { animation: none; }
     }
   </style>
+  <link rel="stylesheet" href="/assets/site.css" />
 </head>
-<body>
+<body class="error-page">
 
 <main class="page">
   <article class="card-wrap" aria-labelledby="errorTitle">
 
     <div class="card-top">
-      <a class="site-name" href="index.html" style="text-decoration:none">Archive<span>Fever</span>.Work</a>
+      <a class="site-name" href="/index.html" style="text-decoration:none">Archive<span>Fever</span>.Work</a>
       <div class="lang" role="group" aria-label="Choisir la langue">
         <button id="btnFR" type="button" aria-pressed="true">FR</button>
         <button id="btnEN" type="button" aria-pressed="false">EN</button>
@@ -182,7 +108,7 @@
         <div class="section-msg" id="pageMsg">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</div>
       </div>
 
-      <a class="back-link" href="index.html" id="backLink">Retour</a>
+      <a class="back-link" href="/index.html" id="backLink">Retour</a>
 
     </div>
   </article>

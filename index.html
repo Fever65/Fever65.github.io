@@ -239,6 +239,7 @@
         <section class="section" aria-labelledby="toolsLabel">
           <h2 class="section-label" id="toolsLabel">Outils disponibles</h2>
           <div class="pages-list">
+            <a class="page-link" href="COMPRESS/index.html"><span class="page-link-copy"><span class="page-link-title">FeverCompress</span><span class="page-link-desc" id="compressDesc">Allège tes images et vidéos, ou crée un ZIP de tes dossiers.</span></span><span class="page-link-arrow" aria-hidden="true">→</span></a>
             <a class="page-link" href="QR/index.html">
               <span class="page-link-copy">
                 <span class="page-link-title">ColorQR</span>
@@ -305,6 +306,7 @@
         statusMsg: "Je conçois de petites expériences web accessibles à tous, directement dans le navigateur.",
         learnMoreLabel: "Découvrir le projet",
         toolsLabel: "Outils disponibles",
+        compressDesc: "Allège tes images et vidéos, ou crée un ZIP de tes dossiers.",
         qrDesc: "Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.",
         timerLabel: "Minuteur",
         timerDesc: "Lance un compte à rebours avec raccourcis et alerte sonore.",
@@ -326,6 +328,7 @@
         statusMsg: "I build small web experiences that anyone can use directly in their browser.",
         learnMoreLabel: "Discover the project",
         toolsLabel: "Available tools",
+        compressDesc: "Compress images and videos, or create a ZIP of your folders.",
         qrDesc: "Create a custom QR code or a downloadable Wi-Fi QR code.",
         timerLabel: "Timer",
         timerDesc: "Start a countdown with shortcuts and a final sound alert.",
@@ -347,7 +350,7 @@
       document.documentElement.lang = safeLang;
       document.title = t.documentTitle;
       document.querySelector('meta[name="description"]').content = t.description;
-      ["statusLabel", "mainTitle", "statusMsg", "learnMoreLabel", "toolsLabel", "qrDesc", "timerLabel", "timerDesc", "researchLabel", "betaLabel", "betaDesc", "socialsLabel", "surpriseLink", "supportTitle", "supportDesc", "donationsLabel"].forEach(id => {
+      ["statusLabel", "mainTitle", "statusMsg", "learnMoreLabel", "toolsLabel", "compressDesc", "qrDesc", "timerLabel", "timerDesc", "researchLabel", "betaLabel", "betaDesc", "socialsLabel", "surpriseLink", "supportTitle", "supportDesc", "donationsLabel"].forEach(id => {
         $(id).textContent = t[id];
       });
       document.querySelector(".lang").setAttribute("aria-label", t.languageLabel);

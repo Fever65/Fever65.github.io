@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="À propos d'ArchiveFever.Work : un espace personnel pour tester, créer et partager des outils simples." />
   <title>À propos — ArchiveFever.Work</title>
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0b0b0c" />
+  <meta name="theme-color" content="#09090a" />
   <link rel="canonical" href="https://archivefever.work/ABOUT/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_FR" />
@@ -20,169 +20,91 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
-  <style>
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      width: 100%;
-      min-height: 100dvh;
-      background: var(--bg);
-      color: var(--txt);
-      font-family: "Source Code Pro", ui-monospace, monospace;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body { overflow-x: hidden; }
-    .card-wrap { width: min(620px, 100%); }
-
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--bg);
-      color: var(--txt3);
-      padding: 7px 10px;
-      font: inherit;
-      font-size: 11px;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      text-decoration: none;
-      font-weight: 700;
-      transition: border-color .15s, color .15s;
-      white-space: nowrap;
-      min-height: 44px;
-    }
-
-    .back-link:hover,
-    .back-link:focus-visible {
-      border-color: var(--accent);
-      color: var(--accent);
-      outline: none;
-    }
-
-    .card-body {
-      padding: 28px 24px 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .logo-wrap {
-      display: flex;
-      justify-content: center;
-    }
-
-    .logo-wrap img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-    }
-
-    .intro-block {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      text-align: center;
-    }
-
-    .eyebrow {
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .title {
-      font-size: clamp(22px, 5vw, 34px);
-      line-height: 1.15;
-      letter-spacing: -1px;
-      font-weight: 800;
-      color: var(--txt);
-    }
-
-    .about-copy {
-      max-width: 55ch;
-      margin: 0 auto;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-soft);
-      color: var(--txt2);
-      font-size: 15px;
-      line-height: 1.8;
-      text-align: left;
-    }
-
-    .about-copy p + p { margin-top: 14px; }
-
-    .about-copy strong {
-      color: var(--txt);
-      font-weight: 700;
-    }
-
-    @media (max-width: 520px) {
-      .card-top {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .top-actions {
-        width: 100%;
-        justify-content: space-between;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .card-body { padding: 24px 16px 26px; }
-      .back-link span:first-child { display: none; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card-wrap { animation: none; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/site.css" />
+  <style>
+    .about-page { display: flex; flex-direction: column; min-height: 100dvh; }
+    .af-main { flex: 1; display: grid; align-items: center; }
+    .af-footer { margin-top: 0; padding-block: 16px calc(16px + env(safe-area-inset-bottom)); }
+
+    .about-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(32px, 6vw, 80px); padding-block: clamp(32px, 5vh, 56px); }
+    .about-hero { display: grid; gap: 16px; justify-items: start; }
+    .intro-block { display: grid; gap: 12px; }
+    .logo-wrap img { display: block; width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .eyebrow { margin: 0; }
+    .title { margin: 0; max-width: 14ch; font-size: clamp(34px, 4.4vw, 52px); font-weight: 600; line-height: 1.05; letter-spacing: -.035em; }
+    .hero-sign { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--txt3); font-size: 14px; }
+    .hero-sign b { color: var(--txt); font-weight: 500; }
+    .about-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 8px; }
+    .about-cta p { margin: 0; color: var(--txt2); font-size: 14px; }
+    .about-cta a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 18px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; text-decoration: none; }
+
+    .about-side { display: grid; gap: 24px; }
+    .about-copy { display: grid; gap: 14px; color: var(--txt2); font-size: 15px; line-height: 1.7; }
+    .about-copy p { margin: 0; max-width: 62ch; }
+    .about-copy p:first-child { color: var(--txt); font-size: 17px; line-height: 1.55; }
+    .about-copy strong { color: var(--txt); font-weight: 600; }
+    .principles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 20px 0 0; list-style: none; border-top: 1px solid var(--border-soft); }
+    .principles li { display: grid; align-content: start; gap: 4px; }
+    .principles strong { font-size: 14px; font-weight: 600; }
+    .principles span { color: var(--txt3); font-size: 13px; line-height: 1.5; }
+
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: minmax(0, 1fr); align-items: start; padding-block: 40px 32px; }
+      .af-main { align-items: start; }
+    }
+    @media (max-width: 560px) {
+      .principles { grid-template-columns: minmax(0, 1fr); }
+      .back-link span:last-child { display: none; }
+    }
+</style>
+  <script src="../assets/site.js" defer></script>
 </head>
 <body class="about-page">
 
-<div class="page">
-  <main class="card-wrap" aria-labelledby="aboutTitle">
-
-    <div class="card-top">
-      <a class="site-name" href="../index.html" aria-label="ArchiveFever.Work">Archive<span>Fever</span>.Work</a>
-      <div class="top-actions">
-        <a class="back-link" id="backLink" href="../index.html" aria-label="Retour à l'accueil">
-          <span id="backLabel">Retour</span>
-          <span aria-hidden="true">↩</span>
-        </a>
-        <div class="lang" role="group" id="langGroup" aria-label="Langue">
-          <button id="btnFR" type="button" aria-pressed="true">FR</button>
-          <button id="btnEN" type="button" aria-pressed="false">EN</button>
-        </div>
+<header class="af-nav">
+  <div class="shell af-nav-inner">
+    <div class="af-crumb">
+      <a class="af-brand" href="../index.html" aria-label="ArchiveFever.Work"><img src="../IMG/Jerome.webp" alt="" width="30" height="30" decoding="async" /><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
+      <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page" data-af="about">À propos</span>
+    </div>
+    <nav class="af-links" data-af-label="nav" aria-label="Navigation principale">
+      <a href="../index.html#tools" data-af="tools">Outils</a>
+      <a href="../BETA/index.html" data-af="research">Recherche</a>
+      <a href="../ABOUT/index.html" data-af="about" aria-current="page">À propos</a>
+    </nav>
+    <div class="af-actions">
+      <a class="back-link" id="backLink" href="../index.html" aria-label="Retour à l'accueil">
+        <span aria-hidden="true">←</span>
+        <span id="backLabel">Retour</span>
+      </a>
+      <div class="lang" role="group" id="langGroup" aria-label="Langue">
+        <button id="btnFR" type="button" aria-pressed="true">FR</button>
+        <button id="btnEN" type="button" aria-pressed="false">EN</button>
       </div>
     </div>
+  </div>
+</header>
 
-    <div class="card-body">
+<main class="af-main" aria-labelledby="aboutTitle">
+  <div class="shell about-grid">
 
+    <section class="about-hero">
       <div class="logo-wrap">
-        <img src="../IMG/Jerome.webp" alt="Jerome, la mascotte d’ArchiveFever.Work" width="80" height="80" />
+        <img src="../IMG/Jerome.webp" alt="Jerome, la mascotte d’ArchiveFever.Work" width="48" height="48" fetchpriority="high" decoding="async" />
       </div>
-
-      <section class="intro-block">
+      <div class="intro-block">
         <div class="eyebrow" id="eyebrow">À propos</div>
         <h1 class="title" id="aboutTitle">Je teste, je fabrique, je partage.</h1>
-      </section>
+        <p class="hero-sign"><span class="dot-live" aria-hidden="true"></span><span><b>Fever</b> · <span data-lang="fr">créateur d’ArchiveFever.Work</span><span data-lang="en">maker of ArchiveFever.Work</span></span></p>
+      </div>
+      <div class="about-cta">
+        <a class="primary" href="../index.html#tools"><span id="ctaLink">Voir les outils</span><span aria-hidden="true">→</span></a>
+        <p id="ctaNote">Envie d’essayer ?</p>
+      </div>
+    </section>
 
+    <div class="about-side">
       <section class="about-copy" id="aboutCopy" aria-label="Présentation">
         <p id="p1">
           ArchiveFever.Work est mon espace personnel pour transformer des idées en <strong>outils web simples</strong>, en pages utiles et en petites expériences accessibles directement depuis un navigateur.
@@ -195,9 +117,22 @@
         </p>
       </section>
 
+      <ul class="principles">
+        <li><strong id="pr1t">Sans compte</strong><span id="pr1d">Tu ouvres, tu utilises. Rien à créer.</span></li>
+        <li><strong id="pr2t">Dans ton navigateur</strong><span id="pr2d">Tes fichiers restent sur ton appareil.</span></li>
+        <li><strong id="pr3t">Fait main</strong><span id="pr3d">Petit, soigné, et un peu de Jérôme.</span></li>
+      </ul>
     </div>
-  </main>
-</div>
+
+  </div>
+</main>
+
+<footer class="af-footer">
+  <div class="shell site-footer-mini">
+    <span data-af="made">Fait main · Sans compte · Sans pub</span>
+    <span><a href="../ABOUT/index.html" data-af="about">À propos</a> · <a href="../Donations/index.html" data-af="donate">Dons</a> · © <span data-af-year>2026</span> ArchiveFever.Work</span>
+  </div>
+</footer>
 
 <script>
   const $ = id => document.getElementById(id);
@@ -214,7 +149,11 @@
       presentationAria: "Présentation",
       p1: "ArchiveFever.Work est mon espace personnel pour transformer des idées en <strong>outils web simples</strong>, en pages utiles et en petites expériences accessibles directement depuis un navigateur.",
       p2: "J’y expérimente, j’apprends et j’améliore progressivement ce que je construis. Chaque projet privilégie une interface claire, un fonctionnement sans compte et une utilité immédiate, tout en gardant une identité personnelle.",
-      p3: "Si une page ici te fait gagner du temps, t’aide pour un truc précis, te donne une idée ou te fait juste sourire, alors le site a déjà une raison d’exister."
+      p3: "Si une page ici te fait gagner du temps, t’aide pour un truc précis, te donne une idée ou te fait juste sourire, alors le site a déjà une raison d’exister.",
+      pr1t: "Sans compte", pr1d: "Tu ouvres, tu utilises. Rien à créer.",
+      pr2t: "Dans ton navigateur", pr2d: "Tes fichiers restent sur ton appareil.",
+      pr3t: "Fait main", pr3d: "Petit, soigné, et un peu de Jérôme.",
+      ctaNote: "Envie d’essayer ?", ctaLink: "Voir les outils"
     },
     en: {
       documentTitle: "About — ArchiveFever.Work",
@@ -227,7 +166,11 @@
       presentationAria: "Introduction",
       p1: "ArchiveFever.Work is my personal space for turning ideas into <strong>simple web tools</strong>, useful pages, and small experiences that run directly in a browser.",
       p2: "It is where I experiment, learn, and gradually improve what I build. Each project favors a clear interface, no-account access, and immediate usefulness while keeping a personal identity.",
-      p3: "If a page here saves you time, helps you with something specific, gives you an idea, or simply makes you smile, then the site already has a reason to exist."
+      p3: "If a page here saves you time, helps you with something specific, gives you an idea, or simply makes you smile, then the site already has a reason to exist.",
+      pr1t: "No account", pr1d: "Open it, use it. Nothing to sign up for.",
+      pr2t: "In your browser", pr2d: "Your files stay on your device.",
+      pr3t: "Handmade", pr3d: "Small, polished, and a bit of Jerome.",
+      ctaNote: "Want to try?", ctaLink: "See the tools"
     }
   };
 
@@ -254,6 +197,7 @@
     setText("p1", t.p1, true);
     setText("p2", t.p2);
     setText("p3", t.p3);
+    ["pr1t", "pr1d", "pr2t", "pr2d", "pr3t", "pr3d", "ctaNote", "ctaLink"].forEach(id => setText(id, t[id]));
 
     $("backLink").setAttribute("aria-label", t.backAria);
     $("langGroup").setAttribute("aria-label", t.langAria);

@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Minuteur en ligne — ArchiveFever.Work</title>
   <meta name="description" content="Un minuteur gratuit et sans compte avec raccourcis, progression visuelle et alerte sonore locale." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0b0b0c" />
+  <meta name="theme-color" content="#09090a" />
   <link rel="canonical" href="https://archivefever.work/TIMER/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_FR" />
@@ -20,430 +20,216 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/site.css" />
   <style>
+    .timer-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 320px); align-items: start; gap: 16px; padding-top: clamp(28px, 5vw, 56px); }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .timer-panel, .settings-panel { overflow: hidden; }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 20px; border-bottom: 1px solid var(--border-soft); }
+    .panel-title { margin: 0; font-size: 15px; font-weight: 600; }
+    .status-pill { display: inline-flex; align-items: center; gap: 6px; color: var(--txt3); font-size: 13px; white-space: nowrap; }
+    #stateLabel::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .status-pill.running { color: var(--accent); }
+    .status-pill.done { color: var(--danger); }
 
-    html, body {
-      width: 100%;
-      min-height: 100dvh;
-      background: var(--bg);
-      color: var(--txt);
-      font-family: "Source Code Pro", ui-monospace, monospace;
-      -webkit-font-smoothing: antialiased;
-    }
+    .timer-main { display: flex; flex-direction: column; align-items: center; gap: 28px; padding: clamp(28px, 5vw, 48px) clamp(16px, 3vw, 28px); }
+    .ring-wrap { position: relative; display: grid; place-items: center; width: min(340px, 100%); aspect-ratio: 1; }
+    .ring { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+    .ring-track { fill: none; stroke: var(--border); stroke-width: 2; }
+    .ring-ticks { display: none; }
+    .ring-fill { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset .2s linear; }
+    #ringGrad { display: none; }
+    .ring-center { position: relative; }
+    .display { color: var(--txt); font-size: clamp(52px, 9vw, 88px); font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1; letter-spacing: -.04em; }
+    .display.done { color: var(--accent); animation: pulse 1s ease-in-out infinite; }
+    @keyframes pulse { 50% { opacity: .55; } }
+    .timer-panel:has(.display.done) .ring-fill { stroke: var(--danger); }
 
-    button, input { font: inherit; }
-    .card-wrap { width: min(720px, 100%); }
+    .progress-wrap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: min(440px, 100%); }
+    .timer-extras { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 16px; color: var(--txt3); font-size: 13px; }
+    .kbd-hint { margin: 0; }
+    kbd { display: inline-block; padding: 1px 6px; border: 1px solid var(--border); border-radius: 5px; color: var(--txt2); font: inherit; font-size: 12px; }
 
-
-    .card-body {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 260px;
-      gap: 18px;
-    }
-
-    .timer-panel,
-    .settings-panel {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-    }
-
-    .panel-head {
-      padding: 13px 14px;
-      border-bottom: 1px solid var(--border-soft);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .panel-title {
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--txt3);
-      font-weight: 700;
-    }
-
-    .status-pill {
-      font-size: 10px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--txt3);
-      letter-spacing: .1em;
-      font-weight: 700;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .status-pill.running { border-color: rgba(255,140,0,.45); color: var(--accent); }
-    .status-pill.done { border-color: rgba(255,59,48,.5); color: var(--danger); }
-
-    .timer-main {
-      padding: 24px 18px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      align-items: center;
-    }
-
-    .display {
-      font-size: clamp(2.9rem, 9vw, 5.5rem);
-      line-height: .9;
-      font-weight: 700;
-      letter-spacing: -.08em;
-      color: var(--txt);
-      font-variant-numeric: tabular-nums;
-      text-align: center;
-      text-shadow: 0 0 28px rgba(255,140,0,.08);
-    }
-
-    .display.done {
-      color: var(--accent);
-      animation: pulse .8s ease-in-out infinite;
-      text-shadow: 0 0 40px rgba(255,140,0,.35);
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.025); opacity: .82; }
-    }
-
-    .progress-wrap {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-
-    .progress-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--txt3);
-      font-size: 11px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .progress-bg {
-      width: 100%;
-      height: 5px;
-      border-radius: 999px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      border-radius: 999px;
-      background: var(--accent);
-      transition: width .15s linear;
-    }
-
-    .actions {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-    }
-
-    .btn {
-      border: 0;
-      border-radius: 10px;
-      padding: 12px 10px;
-      cursor: pointer;
-      font-weight: 800;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      min-height: 44px;
-      white-space: nowrap;
-      transition: filter .15s, transform .08s, border-color .15s, color .15s;
-    }
-
-    .btn:active { transform: scale(.99); }
-    .primary { background: var(--accent); color: #000; }
-    .primary:hover { filter: brightness(1.08); }
-
-    .ghost {
-      background: var(--surface);
-      color: var(--txt2);
-      border: 1px solid var(--border);
-    }
-
-    .ghost:hover { color: var(--txt); border-color: #3a3a3a; }
-
-    .settings-body {
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .row { display: flex; flex-direction: column; gap: 7px; }
-
-    label,
-    .group-label {
-      font-size: 11px;
-      color: var(--txt3);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 700;
-    }
-
-    .duration-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-    }
-
-    .time-input {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--txt);
-      padding: 10px 8px;
-      border-radius: 10px;
-      outline: none;
-      font-size: 14px;
-      text-align: center;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
-      transition: border-color .15s, box-shadow .15s;
-    }
-
-    .time-input:focus {
-      border-color: rgba(255,140,0,.55);
-      box-shadow: 0 0 0 3px rgba(255,140,0,.10);
-    }
-
-    .input-caption {
-      display: block;
-      margin-top: 6px;
-      color: var(--txt3);
-      font-size: 10px;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      font-weight: 700;
-    }
-
-    .presets {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .preset {
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--txt2);
-      padding: 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      transition: border-color .15s, color .15s;
-      min-height: 44px;
-    }
-
-    .preset:hover { border-color: var(--accent); color: var(--accent); }
-
-    button:disabled,
-    input:disabled {
-      cursor: not-allowed;
-      opacity: .45;
-    }
-
-    :focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    .hint {
-      color: var(--txt3);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .sound-row {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
+    .settings-body { display: flex; flex-direction: column; gap: 22px; padding: 20px; }
+    .row { display: flex; flex-direction: column; gap: 8px; }
+    label, .group-label { color: var(--txt2); font-size: 13px; font-weight: 500; }
+    .duration-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .af-ui .time-input { padding: 8px 4px; font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; text-align: center; -moz-appearance: textfield; appearance: textfield; }
+    .time-input::-webkit-inner-spin-button, .time-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    .input-caption { display: block; margin-top: 4px; color: var(--txt3); font-size: 12px; font-weight: 400; text-align: center; }
+    .presets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+    .preset { min-height: 38px; padding: 6px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: transparent; color: var(--txt2); font-size: 13px; font-weight: 500; transition: color .15s, background-color .15s, border-color .15s; }
+    .preset:hover { color: var(--txt); background: var(--surface-3); border-color: var(--border-strong); }
+    .sound-row { display: flex; align-items: center; gap: 10px; }
     .sound-row .btn { flex: 1; }
+    .sound-dot { width: 8px; height: 8px; flex-shrink: 0; border-radius: 50%; background: var(--border-strong); }
+    .sound-dot.on { background: var(--success); }
+    .hint { margin: 0; }
 
-    .sound-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--txt3);
-      box-shadow: 0 0 0 0 rgba(255,140,0,0);
-      flex-shrink: 0;
+    .toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); z-index: 40; max-width: min(400px, calc(100vw - 32px)); padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface2); color: var(--txt); font-size: 14px; opacity: 0; pointer-events: none; transform: translateX(-50%) translateY(8px); transition: opacity .2s, transform .2s; }
+    .toast.show { opacity: 1; transform: translateX(-50%); }
+
+    body.focus-mode :is(.af-nav, .af-footer, .settings-panel, .panel-head) { display: none; }
+    body.focus-mode .timer-layout { grid-template-columns: minmax(0, 1fr); min-height: 100dvh; align-items: center; padding: 0; }
+    body.focus-mode .timer-panel { border: 0; background: transparent; }
+    body.focus-mode .ring-wrap { width: min(70vmin, 560px); }
+    body.focus-mode .display { font-size: clamp(64px, 13vmin, 140px); }
+
+    @media (max-width: 860px) { .timer-layout { grid-template-columns: minmax(0, 1fr); } }
+    @media (max-width: 560px) {
+      .ring-wrap { width: min(280px, 100%); }
+      .actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .actions .primary { grid-column: 1 / -1; }
+      .kbd-hint { display: none; }
+      .af-actions .chip span:last-child { display: none; }
     }
-
-    .sound-dot.on {
-      background: var(--accent);
-      box-shadow: 0 0 18px rgba(255,140,0,.55);
+  @media (min-width: 861px) {
+      .timer-page { display: flex; flex-direction: column; min-height: 100dvh; }
+      .af-main { flex: 1; display: grid; align-items: center; }
+      .af-footer { margin-top: 0; padding-block: 14px; }
+      .timer-layout { padding-block: 20px; }
+      .timer-main { gap: 20px; padding: 24px 20px; }
+      .ring-wrap { width: min(340px, 46vh); }
+      .display { font-size: clamp(44px, 8vh, 84px); }
+      .settings-body { gap: 16px; padding: 16px 20px; }
     }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%) translateY(12px);
-      max-width: min(420px, calc(100vw - 32px));
-      background: var(--surface);
-      border: 1px solid rgba(255,140,0,.35);
-      border-radius: 12px;
-      color: var(--txt);
-      padding: 12px 14px;
-      box-shadow: 0 22px 50px rgba(0,0,0,.55);
-      font-size: 12px;
-      line-height: 1.5;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .18s, transform .18s;
-      z-index: 10;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    @media (max-width: 760px) {
-      .card-body { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 460px) {
-      .page { padding: 12px; align-items: flex-start; }
-      .card-wrap { border-radius: 16px; }
-      .card-body { padding: 14px; }
-      .card-top { flex-direction: column; align-items: flex-start; }
-      .card-controls { width: 100%; }
-      .chip { flex: 1; }
-      .actions { grid-template-columns: 1fr; }
-      .duration-grid { grid-template-columns: 1fr; }
-      .display { letter-spacing: -.06em; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card-wrap,
-      .display.done { animation: none; }
-      .progress-fill,
-      .toast { transition: none; }
+    @media (min-width: 861px) and (max-height: 760px) {
+      .timer-layout { padding-block: 12px; }
+      .panel-head { padding-block: 10px; }
+      .settings-body { gap: 12px; padding-block: 12px; }
+      .preset { min-height: 34px; }
+      .timer-main { gap: 16px; padding-block: 18px; }
     }
   </style>
-  <link rel="stylesheet" href="../assets/site.css" />
+  <script src="../assets/site.js" defer></script>
 </head>
-<body class="timer-page">
+<body class="timer-page af-ui">
 
-<main class="page">
-  <article class="card-wrap" aria-labelledby="timerLabel">
-
-    <div class="card-top">
-      <div class="card-title">Archive<span>Fever</span>.Work — <span id="topTitle">Timer</span></div>
-      <div class="card-controls">
-        <div class="lang" role="group" aria-label="Choisir la langue">
-          <button id="btnFR" type="button" aria-pressed="true">FR</button>
-          <button id="btnEN" type="button" aria-pressed="false">EN</button>
-        </div>
-        <a class="chip" href="../index.html" id="backBtn"><span id="backLabel">Retour</span></a>
+<header class="af-nav">
+  <div class="shell af-nav-inner">
+    <div class="af-crumb">
+      <a class="af-brand" href="../index.html" aria-label="ArchiveFever.Work"><img src="../IMG/Jerome.webp" alt="" width="30" height="30" decoding="async" /><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
+      <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page" id="topTitle">Timer</span>
+    </div>
+    <nav class="af-links" data-af-label="nav" aria-label="Navigation principale">
+      <a href="../index.html#tools" data-af="tools">Outils</a>
+      <a href="../BETA/index.html" data-af="research">Recherche</a>
+      <a href="../ABOUT/index.html" data-af="about">À propos</a>
+    </nav>
+    <div class="af-actions card-controls">
+      <div class="lang" role="group" aria-label="Choisir la langue">
+        <button id="btnFR" type="button" aria-pressed="true">FR</button>
+        <button id="btnEN" type="button" aria-pressed="false">EN</button>
       </div>
+      <a class="chip" href="../index.html" id="backBtn"><span aria-hidden="true">←</span><span id="backLabel">Retour</span></a>
     </div>
+  </div>
+</header>
 
-    <div class="card-body">
+<main class="af-main">
+  <div class="shell timer-layout">
 
-      <section class="timer-panel" aria-labelledby="timerLabel">
-        <div class="panel-head">
-          <h1 class="panel-title" id="timerLabel">Minuteur</h1>
-          <div class="status-pill" id="stateLabel" role="status">Prêt</div>
-        </div>
+    <section class="timer-panel panel rise" style="--i:0" aria-labelledby="timerLabel">
+      <div class="panel-head">
+        <h1 class="panel-title" id="timerLabel">Minuteur</h1>
+        <div class="status-pill" id="stateLabel" role="status">Prêt</div>
+      </div>
 
-        <div class="timer-main">
-          <div class="display" id="display" aria-live="polite">25:00</div>
-
-          <div class="progress-wrap">
-            <div class="progress-meta">
-              <span id="progressLabel">Progression</span>
-              <span id="percentLabel">0%</span>
-            </div>
-            <div class="progress-bg" id="progressBar" role="progressbar" aria-labelledby="progressLabel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-              <div class="progress-fill" id="progressFill"></div>
-            </div>
-          </div>
-
-          <div class="actions">
-            <button class="btn primary" type="button" id="startBtn">Démarrer</button>
-            <button class="btn ghost" type="button" id="pauseBtn">Pause</button>
-            <button class="btn ghost" type="button" id="resetBtn">Reset</button>
+      <div class="timer-main">
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 200 200" aria-hidden="true">
+            <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc27a" /><stop offset=".5" stop-color="#ff981f" /><stop offset="1" stop-color="#ff6a00" /></linearGradient></defs>
+            <circle class="ring-track" cx="100" cy="100" r="92" />
+            <circle class="ring-ticks" cx="100" cy="100" r="92" pathLength="100" />
+            <circle class="ring-fill" id="ringFill" cx="100" cy="100" r="92" pathLength="100" />
+          </svg>
+          <div class="ring-center">
+            <div class="display" id="display" aria-live="polite">25:00</div>
           </div>
         </div>
-      </section>
 
-      <aside class="settings-panel" aria-labelledby="settingsLabel">
-        <div class="panel-head">
-          <div class="panel-title" id="settingsLabel">Réglage</div>
-          <div class="status-pill" id="soundLabel">Son</div>
-        </div>
-
-        <div class="settings-body">
-          <div class="row">
-            <div class="group-label" id="durationLabel">Durée</div>
-            <div class="duration-grid" role="group" aria-labelledby="durationLabel">
-              <div>
-                <input class="time-input" id="hours" type="number" min="0" max="23" step="1" value="0" inputmode="numeric" />
-                <label class="input-caption" id="hoursLabel" for="hours">Heures</label>
-              </div>
-              <div>
-                <input class="time-input" id="minutes" type="number" min="0" max="59" step="1" value="25" inputmode="numeric" />
-                <label class="input-caption" id="minutesLabel" for="minutes">Minutes</label>
-              </div>
-              <div>
-                <input class="time-input" id="seconds" type="number" min="0" max="59" step="1" value="0" inputmode="numeric" />
-                <label class="input-caption" id="secondsLabel" for="seconds">Secondes</label>
-              </div>
-            </div>
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span id="progressLabel">Progression</span>
+            <span id="percentLabel">0%</span>
           </div>
-
-          <div class="row">
-            <div class="group-label" id="presetsLabel">Raccourcis</div>
-            <div class="presets" role="group" aria-labelledby="presetsLabel">
-              <button class="preset" type="button" data-min="3">3 min</button>
-              <button class="preset" type="button" data-min="5">5 min</button>
-              <button class="preset" type="button" data-min="15">15 min</button>
-              <button class="preset" type="button" data-min="25">25 min</button>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="group-label" id="soundTestLabel">Son final</div>
-            <div class="sound-row">
-              <span class="sound-dot" id="soundDot" aria-hidden="true"></span>
-              <button class="btn ghost" type="button" id="testSoundBtn">Tester le son</button>
-            </div>
-            <div class="hint" id="hintLabel">Le son est généré localement. Clique une fois sur démarrer ou tester pour l’autoriser.</div>
+          <div class="progress-bg" id="progressBar" role="progressbar" aria-labelledby="progressLabel" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-fill" id="progressFill"></div>
           </div>
         </div>
-      </aside>
 
-    </div>
-  </article>
+        <div class="actions">
+          <button class="btn primary" type="button" id="startBtn">Démarrer</button>
+          <button class="btn ghost" type="button" id="pauseBtn">Pause</button>
+          <button class="btn ghost" type="button" id="resetBtn">Reset</button>
+        </div>
+
+        <div class="timer-extras">
+          <button class="chip" type="button" id="focusBtn" aria-pressed="false"><span aria-hidden="true">⛶</span><span data-lang="fr">Mode focus</span><span data-lang="en">Focus mode</span></button>
+          <p class="kbd-hint"><span data-lang="fr"><kbd>Espace</kbd> démarrer / pause · <kbd>R</kbd> réinitialiser · <kbd>F</kbd> focus</span><span data-lang="en"><kbd>Space</kbd> start / pause · <kbd>R</kbd> reset · <kbd>F</kbd> focus</span></p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="settings-panel panel rise" style="--i:1" aria-labelledby="settingsLabel">
+      <div class="panel-head">
+        <div class="panel-title" id="settingsLabel">Réglage</div>
+        <div class="status-pill" id="soundLabel">Son</div>
+      </div>
+
+      <div class="settings-body">
+        <div class="row">
+          <div class="group-label" id="durationLabel">Durée</div>
+          <div class="duration-grid" role="group" aria-labelledby="durationLabel">
+            <div>
+              <input class="time-input" id="hours" type="number" min="0" max="23" step="1" value="0" inputmode="numeric" />
+              <label class="input-caption" id="hoursLabel" for="hours">Heures</label>
+            </div>
+            <div>
+              <input class="time-input" id="minutes" type="number" min="0" max="59" step="1" value="25" inputmode="numeric" />
+              <label class="input-caption" id="minutesLabel" for="minutes">Minutes</label>
+            </div>
+            <div>
+              <input class="time-input" id="seconds" type="number" min="0" max="59" step="1" value="0" inputmode="numeric" />
+              <label class="input-caption" id="secondsLabel" for="seconds">Secondes</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="group-label" id="presetsLabel">Raccourcis</div>
+          <div class="presets" role="group" aria-labelledby="presetsLabel">
+            <button class="preset" type="button" data-min="3">3 min</button>
+            <button class="preset" type="button" data-min="5">5 min</button>
+            <button class="preset" type="button" data-min="10">10 min</button>
+            <button class="preset" type="button" data-min="15">15 min</button>
+            <button class="preset" type="button" data-min="25">25 min</button>
+            <button class="preset" type="button" data-min="45">45 min</button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="group-label" id="soundTestLabel">Son final</div>
+          <div class="sound-row">
+            <span class="sound-dot" id="soundDot" aria-hidden="true"></span>
+            <button class="btn ghost" type="button" id="testSoundBtn">Tester le son</button>
+          </div>
+          <div class="hint" id="hintLabel">Le son est généré localement. Clique une fois sur démarrer ou tester pour l’autoriser.</div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
 </main>
+
+<footer class="af-footer">
+  <div class="shell site-footer-mini">
+    <span data-af="made">Fait main · Sans compte · Sans pub</span>
+    <span><a href="../ABOUT/index.html" data-af="about">À propos</a> · <a href="../Donations/index.html" data-af="donate">Dons</a> · © <span data-af-year>2026</span> ArchiveFever.Work</span>
+  </div>
+</footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -606,6 +392,7 @@
     const pct = totalMs > 0 ? Math.min(100, Math.max(0, ((totalMs - remainingMs) / totalMs) * 100)) : 0;
     $("display").textContent = formatTime(remainingMs);
     $("progressFill").style.width = pct.toFixed(1) + "%";
+    $("ringFill").style.strokeDashoffset = (100 - pct).toFixed(2);
     $("percentLabel").textContent = Math.round(pct) + "%";
     $("progressBar").setAttribute("aria-valuenow", String(Math.round(pct)));
     $("stateLabel").textContent = t.states[state] || t.states.idle;
@@ -835,6 +622,29 @@
 
   renderState();
   setLang(savedLang);
+</script>
+<script>
+  // Mode focus : plein écran (si le navigateur l'accepte) et interface réduite au minuteur.
+  (() => {
+    const btn = $("focusBtn");
+    const setFocus = on => {
+      document.body.classList.toggle("focus-mode", on);
+      btn.setAttribute("aria-pressed", String(on));
+      const root = document.documentElement;
+      try {
+        if (on && root.requestFullscreen && !document.fullscreenElement) root.requestFullscreen().catch(() => {});
+        if (!on && document.fullscreenElement) document.exitFullscreen().catch(() => {});
+      } catch (_) {}
+    };
+    btn.addEventListener("click", () => setFocus(!document.body.classList.contains("focus-mode")));
+    document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement) setFocus(false); });
+    document.addEventListener("keydown", e => {
+      const tag = (e.target && e.target.tagName || "").toLowerCase();
+      if (tag === "input") return;
+      if (e.key && e.key.toLowerCase() === "f") setFocus(!document.body.classList.contains("focus-mode"));
+      if (e.key === "Escape" && document.body.classList.contains("focus-mode")) setFocus(false);
+    });
+  })();
 </script>
 </body>
 </html>

@@ -2,117 +2,93 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>404 — ArchiveFever.Work</title>
   <meta name="description" content="Cette page n’existe pas ou a été déplacée. Retournez à l’accueil d’ArchiveFever.Work." />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#0b0b0c" />
+  <meta name="theme-color" content="#09090a" />
   <link rel="icon" href="/IMG/Jerome.webp" type="image/webp" />
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
-  <style>
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      width: 100%;
-      min-height: 100dvh;
-      background: var(--bg);
-      color: var(--txt);
-      font-family: "Source Code Pro", ui-monospace, monospace;
-      -webkit-font-smoothing: antialiased;
-    }
-    .card-wrap { width: min(520px, 100%); }
-
-
-    .card-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 24px; }
-
-    .text-block { display: flex; flex-direction: column; gap: 8px; text-align: center; }
-
-    .error-code {
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: -.02em;
-      line-height: 1;
-    }
-
-    .section-title {
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--txt);
-      font-weight: 700;
-    }
-
-    .section-msg {
-      font-size: 13px;
-      color: var(--txt2);
-      line-height: 1.7;
-    }
-
-    .back-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 14px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      text-decoration: none;
-      color: var(--txt);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      transition: border-color .15s, color .15s;
-    }
-    .back-link:hover { border-color: var(--accent); color: var(--accent); }
-    .back-link:focus-visible,
-    .lang button:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    @media (max-width: 400px) {
-      .card-top { flex-wrap: wrap; }
-      .card-body { padding: 20px 16px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card-wrap { animation: none; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/site.css" />
+  <style>
+    .error-page { display: flex; flex-direction: column; min-height: 100dvh; }
+    .af-main { flex: 1; display: grid; align-items: center; }
+    .af-footer { margin-top: 0; padding-block: 16px calc(16px + env(safe-area-inset-bottom)); }
+    .af-main > .shell { display: grid; gap: 32px; padding-block: clamp(32px, 5vh, 56px); }
+    .text-block { display: grid; justify-items: start; gap: 12px; }
+    .error-code { margin: 0; color: var(--txt3); font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
+    .section-title { color: var(--txt); font-size: clamp(34px, 4.4vw, 52px); font-weight: 600; letter-spacing: -.035em; line-height: 1.05; }
+    .section-msg { max-width: 52ch; color: var(--txt2); font-size: 17px; line-height: 1.6; }
+    .lost { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--txt3); font-size: 14px; }
+    .lost img { width: 24px; height: 24px; border-radius: 50%; }
+    .back-link { min-height: 44px; margin-top: 4px; padding: 10px 18px; color: #111; background: var(--accent); border-color: var(--accent); font-size: 14px; }
+    .back-link:hover { color: #111; background: #ffa53d; border-color: #ffa53d; }
+
+    .quick { display: grid; gap: 10px; padding-top: 24px; border-top: 1px solid var(--border-soft); }
+    .quick p { margin: 0; color: var(--txt3); font-size: 14px; }
+    .quick-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+    .quick-list .page-link { min-height: 52px; padding: 12px 16px; font-size: 14px; font-weight: 500; }
+
+    @media (max-width: 640px) {
+      .af-main { align-items: start; }
+      .quick-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+</style>
+  <script src="/assets/site.js" defer></script>
 </head>
 <body class="error-page">
 
-<main class="page">
-  <article class="card-wrap" aria-labelledby="errorTitle">
-
-    <div class="card-top">
-      <a class="site-name" href="/index.html" style="text-decoration:none">Archive<span>Fever</span>.Work</a>
+<header class="af-nav">
+  <div class="shell af-nav-inner">
+    <div class="af-crumb">
+      <a class="af-brand" href="/index.html" aria-label="ArchiveFever.Work"><img src="/IMG/Jerome.webp" alt="" width="30" height="30" decoding="async" /><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
+      <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page">404</span>
+    </div>
+    <nav class="af-links" data-af-label="nav" aria-label="Navigation principale">
+      <a href="/index.html#tools" data-af="tools">Outils</a>
+      <a href="/BETA/index.html" data-af="research">Recherche</a>
+      <a href="/ABOUT/index.html" data-af="about">À propos</a>
+    </nav>
+    <div class="af-actions">
       <div class="lang" role="group" aria-label="Choisir la langue">
         <button id="btnFR" type="button" aria-pressed="true">FR</button>
         <button id="btnEN" type="button" aria-pressed="false">EN</button>
       </div>
     </div>
+  </div>
+</header>
 
-    <div class="card-body">
-
-      <div class="text-block">
-        <h1 class="error-code" id="errorTitle">404</h1>
-        <div class="section-title" id="pageTitle">Page introuvable</div>
-        <div class="section-msg" id="pageMsg">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</div>
-      </div>
-
-      <a class="back-link" href="/index.html" id="backLink">Retour</a>
-
+<main class="af-main" aria-labelledby="errorTitle">
+  <div class="shell">
+    <div class="text-block">
+      <h1 class="error-code rise" id="errorTitle" style="--i:0">404</h1>
+      <div class="section-title rise" id="pageTitle" style="--i:1">Page introuvable</div>
+      <div class="section-msg rise" id="pageMsg" style="--i:2">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</div>
+      <p class="lost rise" style="--i:3"><img src="/IMG/Jerome.webp" alt="" width="34" height="34" loading="lazy" decoding="async" /><span id="lostNote">Même Jérôme s’est perdu.</span></p>
+      <a class="back-link rise" href="/index.html" id="backLink" style="--i:4">Retour</a>
     </div>
-  </article>
+
+    <nav class="quick rise" style="--i:5" aria-labelledby="quickTitle">
+      <p id="quickTitle"><span data-lang="fr">Ou file directement vers</span><span data-lang="en">Or jump straight to</span></p>
+      <div class="quick-list">
+        <a class="page-link" href="/COMPRESS/index.html"><span>FeverCompress</span><span class="page-link-arrow" aria-hidden="true">→</span></a>
+        <a class="page-link" href="/QR/index.html"><span>ColorQR</span><span class="page-link-arrow" aria-hidden="true">→</span></a>
+        <a class="page-link" href="/TIMER/index.html"><span><span data-lang="fr">Minuteur</span><span data-lang="en">Timer</span></span><span class="page-link-arrow" aria-hidden="true">→</span></a>
+        <a class="page-link" href="/BETA/index.html"><span>Every Y</span><span class="page-link-arrow" aria-hidden="true">→</span></a>
+      </div>
+    </nav>
+  </div>
 </main>
+
+<footer class="af-footer">
+  <div class="shell site-footer-mini">
+    <span data-af="made">Fait main · Sans compte · Sans pub</span>
+    <span><a href="/ABOUT/index.html" data-af="about">À propos</a> · <a href="/Donations/index.html" data-af="donate">Dons</a> · © <span data-af-year>2026</span> ArchiveFever.Work</span>
+  </div>
+</footer>
 
 <script>
   const $ = id => document.getElementById(id);
@@ -121,11 +97,13 @@
     fr: {
       pageTitle: "Page introuvable",
       pageMsg:   "Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.",
+      lostNote:  "Même Jérôme s’est perdu.",
       backLink:  "Retour",
     },
     en: {
       pageTitle: "Page not found",
       pageMsg:   "This page does not exist or no longer exists. There is nothing here.",
+      lostNote:  "Even Jerome got lost.",
       backLink:  "Back",
     }
   };
@@ -141,6 +119,7 @@
     document.querySelector(".lang").setAttribute("aria-label", lang === "fr" ? "Choisir la langue" : "Choose language");
     $("pageTitle").textContent = t.pageTitle;
     $("pageMsg").textContent   = t.pageMsg;
+    $("lostNote").textContent  = t.lostNote;
     $("backLink").textContent  = t.backLink;
     $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
     $("btnEN").setAttribute("aria-pressed", String(lang === "en"));

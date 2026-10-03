@@ -1,53 +1,114 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>FeverCompress — Images, vidéos et dossiers plus légers</title>
 <meta name="description" content="Allège tes images, compresse de courtes vidéos et crée des ZIP. Gratuit, sans compte, directement sur ton appareil.">
-<meta name="theme-color" content="#0b0b0c">
+<meta name="theme-color" content="#09090a">
 <link rel="canonical" href="https://archivefever.work/COMPRESS/">
 <link rel="icon" href="../IMG/Jerome.webp" type="image/webp">
+<link rel="apple-touch-icon" href="/IMG/Jerome.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="./compress.css">
+<script src="../assets/site.js" defer></script>
 </head>
 <body class="compress-page">
-<main class="compress-shell">
-<header class="topbar"><a class="brand" href="../index.html">Archive<span>Fever</span>.Work</a><div class="top-actions"><a class="home-link" href="../index.html" data-i18n="home">← Accueil</a><div class="lang" role="group" aria-label="Langue"><button id="btnFR" aria-pressed="true">FR</button><button id="btnEN" aria-pressed="false">EN</button></div></div></header>
-<section class="workspace" aria-labelledby="title">
-<div class="intro"><div><p class="eyebrow" data-i18n="eyebrow">MOINS DE POIDS. PLUS DE PLACE.</p><h1 id="title">Fever<span>Compress</span><span class="title-dot">.</span></h1><p class="lead" data-i18n="lead">Tes fichiers, en plus léger.</p></div><p class="privacy"><span class="privacy-dot" aria-hidden="true"></span><span data-i18n="privacy">Sur ton appareil.<br>Aucun fichier envoyé.</span></p></div>
-<div class="mode-bar" role="group" aria-label="Type de fichiers"><button class="mode active" data-mode="images" aria-pressed="true"><span aria-hidden="true">▧</span><span data-i18n="images">Images</span></button><button class="mode" data-mode="videos" aria-pressed="false"><span aria-hidden="true">▷</span><span data-i18n="videos">Vidéos</span></button><button class="mode" data-mode="folders" aria-pressed="false"><span aria-hidden="true">▱</span><span data-i18n="folders">Dossiers / ZIP</span></button></div>
-<aside class="device-warning" role="note" data-i18n="deviceWarning">La vitesse dépend de la puissance de ton appareil et de la mémoire disponible. Un gros fichier peut prendre longtemps, ralentir ton appareil ou faire échouer le traitement. La limite de 2 Gio ne garantit pas la réussite. Garde cet onglet ouvert.</aside>
-<div class="work-grid">
-<div class="files-area">
-<div id="dropzone" class="dropzone">
-<svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M24 32V8m-9 9 9-9 9 9M9 30v9a3 3 0 0 0 3 3h24a3 3 0 0 0 3-3v-9"/></svg>
-<h2 id="dropTitle">Dépose tes images ici</h2><p id="dropHint">JPG, PNG · GIF et WebP conservés sans modification</p>
-<div class="picker-actions"><button id="chooseFiles" class="button secondary" data-i18n="chooseFiles">Choisir des fichiers</button><button id="chooseFolder" class="button secondary" hidden data-i18n="chooseFolder">Choisir un dossier</button></div>
-<input type="file" id="filesInput" multiple hidden accept="image/*"><input type="file" id="folderInput" webkitdirectory multiple hidden>
-<p class="drop-foot" id="limitHint">Moins de 2 Gio par fichier et sélection · images : 40 Mpx max.</p>
-</div>
-<div class="queue-head"><h2 data-i18n="selection">Ta sélection</h2><div><span id="queueCount">0 fichier</span><button id="clear" class="text-button" hidden data-i18n="clear">Tout retirer</button></div></div>
-<p id="empty" class="empty" data-i18n="empty">Les fichiers apparaîtront ici.</p>
-<ul id="fileList" class="file-list" aria-label="Fichiers sélectionnés"></ul>
-</div>
-<aside class="settings">
-<fieldset id="qualityField"><legend data-i18n="quality">Le bon équilibre</legend>
-<label class="preset"><input type="radio" name="quality" value="high"><span><strong data-i18n="high">Qualité élevée</strong><small data-i18n="highDesc">Une réduction légère</small></span><span class="radio-dot"></span></label>
-<label class="preset"><input type="radio" name="quality" value="balanced" checked><span><strong data-i18n="balanced">Équilibré</strong><small data-i18n="balancedDesc">Le meilleur compromis</small></span><span class="radio-dot"></span></label>
-<label class="preset"><input type="radio" name="quality" value="small"><span><strong data-i18n="small">Poids minimum</strong><small data-i18n="smallDesc">Qualité et dimensions réduites</small></span><span class="radio-dot"></span></label>
-</fieldset>
-<div id="folderOptions" class="folder-options" hidden><label class="check-label"><input type="checkbox" id="optimize"><span data-i18n="optimize">Alléger aussi les images et vidéos</span></label><p data-i18n="folderNote">Désactivé : ZIP sans modifier les fichiers. Activé : réservé aux dossiers de médias ; les formats et la qualité peuvent changer.</p></div>
-<p id="qualityNote" class="hint" data-i18n="qualityNote">La compression peut réduire la qualité. Tes originaux restent intacts.</p>
-<button id="run" class="button primary run" disabled><span data-i18n="run">Alléger mes fichiers</span><span aria-hidden="true">↗</span></button>
-<button id="cancel" class="button secondary" hidden data-i18n="cancel">Annuler le traitement</button>
-<div id="progressArea" hidden><progress id="progress" max="1" value="0"></progress><p id="progressText" role="status" aria-live="polite"></p></div>
-<p id="status" class="status" role="status" aria-live="polite"></p>
-</aside>
-</div>
-<section id="results" class="results" hidden aria-labelledby="resultTitle"><div class="result-top"><div><p class="eyebrow" data-i18n="resultEyebrow">LE RÉSULTAT</p><h2 id="resultTitle">Prêt à télécharger</h2></div><a id="downloadZip" class="button primary" hidden download="FeverCompress.zip" data-i18n="downloadZip">Télécharger le ZIP ↓</a></div><div id="stats" class="stats"></div><p id="resultNote" class="hint"></p><div id="preview" class="preview" hidden><figure><img id="beforeImg" alt="Image originale"><figcaption data-i18n="before">Avant</figcaption></figure><figure><img id="afterImg" alt="Image après traitement"><figcaption data-i18n="after">Après</figcaption></figure></div></section>
-<footer class="notes"><details><summary data-i18n="know">À savoir avant de commencer</summary><div><p data-i18n="knowImages">Images : JPG et PNG convertis en WebP. Les animations et formats non pris en charge sont conservés. Une image déjà légère peut ne pas diminuer.</p><p data-i18n="knowVideos">Vidéos : sortie MP4, son conservé. Privilégie les clips courts. Le premier traitement télécharge un moteur d’environ 32 Mo ; les fichiers restent sur ton appareil. Le traitement peut être lent sur mobile.</p><p data-i18n="knowZip">ZIP : moins de 2 Gio et 1 000 fichiers par sélection. Les photos, vidéos et archives déjà compressées diminuent peu en ZIP. Le sélecteur de dossiers peut omettre les dossiers vides.</p></div></details><a href="./LICENSES.md" data-i18n="licenses">Logiciels libres & licences</a></footer>
+
+<header class="af-nav topbar">
+  <div class="shell af-nav-inner">
+    <div class="af-crumb">
+      <a class="af-brand brand" href="../index.html" aria-label="ArchiveFever.Work"><img src="../IMG/Jerome.webp" alt="" width="30" height="30" decoding="async"><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
+      <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page">FeverCompress</span>
+    </div>
+    <nav class="af-links" data-af-label="nav" aria-label="Navigation principale">
+      <a href="../index.html#tools" data-af="tools">Outils</a>
+      <a href="../BETA/index.html" data-af="research">Recherche</a>
+      <a href="../ABOUT/index.html" data-af="about">À propos</a>
+    </nav>
+    <div class="af-actions top-actions">
+      <a class="home-link chip" href="../index.html" data-i18n="home">← Accueil</a>
+      <div class="lang" role="group" aria-label="Langue"><button id="btnFR" type="button" aria-pressed="true">FR</button><button id="btnEN" type="button" aria-pressed="false">EN</button></div>
+    </div>
+  </div>
+</header>
+
+<main class="af-main compress-shell">
+<div class="shell">
+
+<section class="cmp-hero intro">
+  <div class="cmp-hero-text">
+    <p class="eyebrow kicker rise" style="--i:0" data-i18n="eyebrow">MOINS DE POIDS. PLUS DE PLACE.</p>
+    <h1 id="title" class="rise" style="--i:1">Fever<span>Compress</span><span class="title-dot">.</span></h1>
+    <p class="lead rise" style="--i:2" data-i18n="lead">Tes fichiers, en plus léger.</p>
+  </div>
+  <div class="cmp-hero-side rise" style="--i:3">
+    <p class="privacy"><span class="privacy-dot" aria-hidden="true"></span><span data-i18n="privacy">Sur ton appareil.<br>Aucun fichier envoyé.</span></p>
+    <ul class="cmp-formats" aria-hidden="true"><li>JPG/PNG <b>→</b> WebP</li><li>Vidéo <b>→</b> MP4</li><li><span data-lang="fr">Dossier</span><span data-lang="en">Folder</span> <b>→</b> ZIP</li></ul>
+  </div>
 </section>
+
+<section class="workspace panel rise" style="--i:4" aria-labelledby="title">
+
+  <div class="ws-step">
+    <h2 class="step-head"><span class="step-num">1</span><span data-lang="fr">Choisis le type</span><span data-lang="en">Pick a type</span></h2>
+    <div class="mode-bar" role="group" aria-label="Type de fichiers">
+      <button class="mode active" type="button" data-mode="images" aria-pressed="true"><span class="mode-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-9 9"/></svg></span><span class="mode-txt"><span data-i18n="images">Images</span><small>JPG · PNG → WebP</small></span></button>
+      <button class="mode" type="button" data-mode="videos" aria-pressed="false"><span class="mode-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="13" height="14" rx="3"/><path d="m16 10 5-3v10l-5-3z"/></svg></span><span class="mode-txt"><span data-i18n="videos">Vidéos</span><small><span data-lang="fr">Clips courts → MP4</span><span data-lang="en">Short clips → MP4</span></small></span></button>
+      <button class="mode" type="button" data-mode="folders" aria-pressed="false"><span class="mode-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M12 11v5M10 13h4"/></svg></span><span class="mode-txt"><span data-i18n="folders">Dossiers / ZIP</span><small><span data-lang="fr">Tout dans une archive</span><span data-lang="en">All in one archive</span></small></span></button>
+    </div>
+  </div>
+
+  <aside class="device-warning" role="note" data-i18n="deviceWarning">La vitesse dépend de la puissance de ton appareil et de la mémoire disponible. Un gros fichier peut prendre longtemps, ralentir ton appareil ou faire échouer le traitement. La limite de 2 Gio ne garantit pas la réussite. Garde cet onglet ouvert.</aside>
+
+  <div class="work-grid">
+    <div class="files-area">
+      <h2 class="step-head"><span class="step-num">2</span><span data-lang="fr">Ajoute tes fichiers</span><span data-lang="en">Add your files</span></h2>
+      <div id="dropzone" class="dropzone">
+        <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M24 32V8m-9 9 9-9 9 9M9 30v9a3 3 0 0 0 3 3h24a3 3 0 0 0 3-3v-9"/></svg>
+        <h2 id="dropTitle">Dépose tes images ici</h2><p id="dropHint">JPG, PNG · GIF et WebP conservés sans modification</p>
+        <div class="picker-actions"><button id="chooseFiles" type="button" class="button secondary" data-i18n="chooseFiles">Choisir des fichiers</button><button id="chooseFolder" type="button" class="button secondary" hidden data-i18n="chooseFolder">Choisir un dossier</button></div>
+        <input type="file" id="filesInput" multiple hidden accept="image/*"><input type="file" id="folderInput" webkitdirectory multiple hidden>
+        <p class="drop-foot" id="limitHint">Moins de 2 Gio par fichier et sélection · images : 40 Mpx max.</p>
+      </div>
+      <div class="queue-head"><h2 data-i18n="selection">Ta sélection</h2><div><span id="queueCount">0 fichier</span><button id="clear" type="button" class="text-button" hidden data-i18n="clear">Tout retirer</button></div></div>
+      <p id="empty" class="empty" data-i18n="empty">Les fichiers apparaîtront ici.</p>
+      <ul id="fileList" class="file-list" aria-label="Fichiers sélectionnés"></ul>
+    </div>
+
+    <aside class="settings">
+      <h2 class="step-head"><span class="step-num">3</span><span data-lang="fr">Règle et lance</span><span data-lang="en">Tune and run</span></h2>
+      <fieldset id="qualityField"><legend data-i18n="quality">Le bon équilibre</legend>
+        <label class="preset"><input type="radio" name="quality" value="high"><span><strong data-i18n="high">Qualité élevée</strong><small data-i18n="highDesc">Une réduction légère</small></span><span class="radio-dot"></span></label>
+        <label class="preset"><input type="radio" name="quality" value="balanced" checked><span><strong data-i18n="balanced">Équilibré</strong><small data-i18n="balancedDesc">Le meilleur compromis</small></span><span class="radio-dot"></span></label>
+        <label class="preset"><input type="radio" name="quality" value="small"><span><strong data-i18n="small">Poids minimum</strong><small data-i18n="smallDesc">Qualité et dimensions réduites</small></span><span class="radio-dot"></span></label>
+      </fieldset>
+      <div id="folderOptions" class="folder-options" hidden><label class="check-label"><input type="checkbox" id="optimize"><span data-i18n="optimize">Alléger aussi les images et vidéos</span></label><p data-i18n="folderNote">Désactivé : ZIP sans modifier les fichiers. Activé : réservé aux dossiers de médias ; les formats et la qualité peuvent changer.</p></div>
+      <p id="qualityNote" class="hint" data-i18n="qualityNote">La compression peut réduire la qualité. Tes originaux restent intacts.</p>
+      <button id="run" type="button" class="button primary run" disabled><span data-i18n="run">Alléger mes fichiers</span><span aria-hidden="true">↗</span></button>
+      <button id="cancel" type="button" class="button secondary" hidden data-i18n="cancel">Annuler le traitement</button>
+      <div id="progressArea" hidden><progress id="progress" max="1" value="0"></progress><p id="progressText" role="status" aria-live="polite"></p></div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </aside>
+  </div>
+
+  <section id="results" class="results" hidden aria-labelledby="resultTitle"><div class="result-top"><div><p class="eyebrow" data-i18n="resultEyebrow">LE RÉSULTAT</p><h2 id="resultTitle">Prêt à télécharger</h2></div><a id="downloadZip" class="button primary" hidden download="FeverCompress.zip" data-i18n="downloadZip">Télécharger le ZIP ↓</a></div><div id="stats" class="stats"></div><p id="resultNote" class="hint"></p><div id="preview" class="preview" hidden><figure><img id="beforeImg" alt="Image originale"><figcaption data-i18n="before">Avant</figcaption></figure><figure><img id="afterImg" alt="Image après traitement"><figcaption data-i18n="after">Après</figcaption></figure></div></section>
+
+  <footer class="notes"><details><summary data-i18n="know">À savoir avant de commencer</summary><div><p data-i18n="knowImages">Images : JPG et PNG convertis en WebP. Les animations et formats non pris en charge sont conservés. Une image déjà légère peut ne pas diminuer.</p><p data-i18n="knowVideos">Vidéos : sortie MP4, son conservé. Privilégie les clips courts. Le premier traitement télécharge un moteur d’environ 32 Mo ; les fichiers restent sur ton appareil. Le traitement peut être lent sur mobile.</p><p data-i18n="knowZip">ZIP : moins de 2 Gio et 1 000 fichiers par sélection. Les photos, vidéos et archives déjà compressées diminuent peu en ZIP. Le sélecteur de dossiers peut omettre les dossiers vides.</p></div></details><a href="./LICENSES.md" data-i18n="licenses">Logiciels libres & licences</a></footer>
+</section>
+
 <p class="bottom-note" data-i18n="bottom">Gratuit. Sans compte. Signé ArchiveFever.</p>
 <noscript>Active JavaScript pour utiliser cet outil.</noscript>
+</div>
 </main>
+
+<footer class="af-footer">
+  <div class="shell site-footer-mini">
+    <span data-af="made">Fait main · Sans compte · Sans pub</span>
+    <span><a href="../ABOUT/index.html" data-af="about">À propos</a> · <a href="../Donations/index.html" data-af="donate">Dons</a> · © <span data-af-year>2026</span> ArchiveFever.Work</span>
+  </div>
+</footer>
+
 <script src="./vendor/jszip.min.js"></script><script type="module" src="./app.mjs"></script>
-</body></html>
+</body>
+</html>

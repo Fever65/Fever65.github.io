@@ -2,11 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Dons — ArchiveFever.Work</title>
   <meta name="description" content="Soutenir ArchiveFever.Work via PayPal ou Ko-fi, sans aucune obligation." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0b0b0c" />
+  <meta name="theme-color" content="#09090a" />
   <link rel="canonical" href="https://archivefever.work/Donations/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_FR" />
@@ -20,116 +20,97 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
-  <style>
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      width: 100%;
-      min-height: 100dvh;
-      background: var(--bg);
-      color: var(--txt);
-      font-family: "Source Code Pro", ui-monospace, monospace;
-      -webkit-font-smoothing: antialiased;
-    }
-    .card-wrap { width: min(520px, 100%); }
-
-
-    .card-body { padding: 24px 20px; display: flex; flex-direction: column; gap: 24px; }
-
-    .text-block { display: flex; flex-direction: column; gap: 8px; text-align: center; }
-
-    .section-title {
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--accent);
-      font-weight: 700;
-    }
-
-    .section-msg {
-      font-size: 14px;
-      color: var(--txt2);
-      line-height: 1.7;
-    }
-
-    .don-list { display: flex; flex-direction: column; gap: 8px; }
-
-    .don-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 16px;
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      text-decoration: none;
-      color: var(--txt);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .5px;
-      text-transform: uppercase;
-      transition: border-color .15s, color .15s;
-    }
-    .don-link:hover { border-color: var(--accent); color: var(--accent); }
-    .don-link:focus-visible,
-    .chip:focus-visible,
-    .lang button:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 3px;
-    }
-
-    .don-arrow { opacity: .5; }
-
-    @media (max-width: 400px) {
-      .card-top { flex-wrap: wrap; }
-      .card-body { padding: 20px 16px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .card-wrap { animation: none; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/site.css" />
+  <style>
+    .donations-page { display: flex; flex-direction: column; min-height: 100dvh; }
+    .af-main { flex: 1; display: grid; align-items: center; }
+    .af-footer { margin-top: 0; padding-block: 16px calc(16px + env(safe-area-inset-bottom)); }
+
+    .don-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(32px, 6vw, 80px); padding-block: clamp(32px, 5vh, 56px); }
+    .text-block { display: grid; gap: 14px; justify-items: start; }
+    .eyebrow { margin: 0; }
+    .section-title { margin: 0; font-size: clamp(34px, 4.4vw, 52px); font-weight: 600; line-height: 1.05; letter-spacing: -.035em; }
+    .section-msg { max-width: 44ch; color: var(--txt2); font-size: 17px; line-height: 1.6; }
+    .don-note { display: flex; align-items: center; gap: 10px; margin: 6px 0 0; color: var(--txt3); font-size: 14px; }
+    .don-note img { width: 24px; height: 24px; border-radius: 50%; }
+
+    .don-list { display: grid; gap: 10px; }
+    .don-link { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 18px 20px; }
+    .don-top { display: contents; }
+    .don-logo { display: grid; place-items: center; width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px; color: #fff; font-size: 17px; font-weight: 700; }
+    .don-logo.paypal { background: #1f63c6; }
+    .don-logo.kofi { background: #ff5e5b; }
+    .don-arrow { grid-column: 3; grid-row: 1; }
+    .don-copy { display: grid; gap: 2px; grid-column: 2; grid-row: 1; }
+    .don-name { font-size: 16px; font-weight: 600; }
+    .don-desc { color: var(--txt2); font-size: 14px; line-height: 1.5; }
+    .don-foot { grid-column: 2 / -1; color: var(--txt3); font-size: 13px; }
+    .don-foot span:last-child { display: none; }
+
+    @media (max-width: 900px) {
+      .don-grid { grid-template-columns: minmax(0, 1fr); align-items: start; padding-block: 40px 32px; }
+      .af-main { align-items: start; }
+    }
+    @media (max-width: 560px) { .chip span:last-child { display: none; } }
+</style>
+  <script src="../assets/site.js" defer></script>
 </head>
 <body class="donations-page">
 
-<main class="page">
-  <article class="card-wrap" aria-labelledby="pageTitle">
-
-    <div class="card-top">
-      <a class="site-name" href="../index.html" style="text-decoration:none">Archive<span>Fever</span>.Work</a>
-      <div class="card-controls">
-        <div class="lang" role="group" aria-label="Language">
-          <button id="btnFR" type="button" aria-pressed="true">FR</button>
-          <button id="btnEN" type="button" aria-pressed="false">EN</button>
-        </div>
-        <a class="chip" href="../index.html"><span id="backLabel">Retour</span></a>
+<header class="af-nav">
+  <div class="shell af-nav-inner">
+    <div class="af-crumb">
+      <a class="af-brand" href="../index.html" aria-label="ArchiveFever.Work"><img src="../IMG/Jerome.webp" alt="" width="30" height="30" decoding="async" /><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
+      <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page" data-af="donate">Dons</span>
+    </div>
+    <nav class="af-links" data-af-label="nav" aria-label="Navigation principale">
+      <a href="../index.html#tools" data-af="tools">Outils</a>
+      <a href="../BETA/index.html" data-af="research">Recherche</a>
+      <a href="../ABOUT/index.html" data-af="about">À propos</a>
+    </nav>
+    <div class="af-actions">
+      <div class="lang" role="group" aria-label="Language">
+        <button id="btnFR" type="button" aria-pressed="true">FR</button>
+        <button id="btnEN" type="button" aria-pressed="false">EN</button>
       </div>
+      <a class="chip" href="../index.html"><span aria-hidden="true">←</span><span id="backLabel">Retour</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="af-main" aria-labelledby="pageTitle">
+  <div class="shell don-grid">
+
+    <div class="text-block">
+      <p class="eyebrow" id="pageEyebrow">Soutien facultatif</p>
+      <h1 class="section-title" id="pageTitle">Dons</h1>
+      <div class="section-msg" id="pageMsg">Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.</div>
+      <p class="don-note"><img src="../IMG/Jerome.webp" alt="" width="24" height="24" loading="lazy" decoding="async" /><span id="donNote">Tous les outils restent gratuits, avec ou sans don.</span></p>
     </div>
 
-    <div class="card-body">
-
-      <div class="text-block">
-        <h1 class="section-title" id="pageTitle">Dons</h1>
-        <div class="section-msg" id="pageMsg">Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.</div>
-      </div>
-
-      <div class="don-list">
-        <a class="don-link" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener noreferrer">
-          <span>PayPal</span>
-          <span class="don-arrow">→</span>
-        </a>
-        <a class="don-link" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener noreferrer">
-          <span>Ko-fi</span>
-          <span class="don-arrow">→</span>
-        </a>
-      </div>
-
+    <div class="don-list">
+      <a class="don-link" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener noreferrer">
+        <span class="don-top"><span class="don-logo paypal" aria-hidden="true">P</span><span class="don-arrow" aria-hidden="true">↗</span></span>
+        <span class="don-copy"><span class="don-name">PayPal</span><span class="don-desc" id="paypalDesc">Un petit geste, le montant que tu veux.</span></span>
+        <span class="don-foot"><span>paypal.me/Fever65</span><span aria-hidden="true">↗</span></span>
+      </a>
+      <a class="don-link" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener noreferrer">
+        <span class="don-top"><span class="don-logo kofi" aria-hidden="true">K</span><span class="don-arrow" aria-hidden="true">↗</span></span>
+        <span class="don-copy"><span class="don-name">Ko-fi</span><span class="don-desc" id="kofiDesc">Offre un café. Jérôme dit merci.</span></span>
+        <span class="don-foot"><span>ko-fi.com/archivefeverwork</span><span aria-hidden="true">↗</span></span>
+      </a>
     </div>
-  </article>
+
+  </div>
 </main>
+
+<footer class="af-footer">
+  <div class="shell site-footer-mini">
+    <span data-af="made">Fait main · Sans compte · Sans pub</span>
+    <span><a href="../ABOUT/index.html" data-af="about">À propos</a> · <a href="../Donations/index.html" data-af="donate">Dons</a> · © <span data-af-year>2026</span> ArchiveFever.Work</span>
+  </div>
+</footer>
 
 <script>
   const $ = id => document.getElementById(id);
@@ -138,15 +119,23 @@
     fr: {
       documentTitle: "Dons — ArchiveFever.Work",
       description:   "Soutenir ArchiveFever.Work via PayPal ou Ko-fi, sans aucune obligation.",
+      pageEyebrow: "Soutien facultatif",
       pageTitle:  "Dons",
       pageMsg:    "Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.",
+      paypalDesc: "Un petit geste, le montant que tu veux.",
+      kofiDesc:   "Offre un café. Jérôme dit merci.",
+      donNote:    "Tous les outils restent gratuits, avec ou sans don.",
       backLabel:  "Retour",
     },
     en: {
       documentTitle: "Support — ArchiveFever.Work",
       description:   "Support ArchiveFever.Work through PayPal or Ko-fi, with no obligation.",
+      pageEyebrow: "Optional support",
       pageTitle:  "Donations",
       pageMsg:    "If you enjoy what I do and want to support the project, here's where to go. No pressure, obviously.",
+      paypalDesc: "A small gesture, any amount you like.",
+      kofiDesc:   "Buy a coffee. Jerome says thanks.",
+      donNote:    "Every tool stays free, with or without a donation.",
       backLabel:  "Back",
     }
   };
@@ -161,9 +150,8 @@
     document.title = t.documentTitle;
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) metaDescription.content = t.description;
-    $("pageTitle").textContent  = t.pageTitle;
-    $("pageMsg").textContent    = t.pageMsg;
-    $("backLabel").textContent  = t.backLabel;
+    ["pageEyebrow", "pageTitle", "pageMsg", "paypalDesc", "kofiDesc", "donNote", "backLabel"].forEach(id => { $(id).textContent = t[id]; });
+    document.querySelector(".lang").setAttribute("aria-label", lang === "fr" ? "Choisir la langue" : "Choose language");
     $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
     $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
     try { localStorage.setItem("af_lang", lang); } catch(e) {}

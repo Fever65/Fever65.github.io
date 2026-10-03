@@ -9,7 +9,10 @@ Site personnel statique hébergé avec GitHub Pages : [archivefever.work](https:
 - `QR/` — générateur de QR personnalisés et de QR Wi-Fi ;
 - `TIMER/` — minuteur avec raccourcis et alerte sonore ;
 - `Donations/` — options facultatives de soutien ;
-- `H2O/` et `Jeromed.html` — expériences annexes ;
+- `BETA/` — recherche « Every Y Found » (Minecraft Beta 1.7.3) ;
+- `COMPRESS/` — FeverCompress : images, vidéos et ZIP dans le navigateur ;
+- `Jeromed.html` — expérience annexe (le piège à QR code de Jérôme) ;
+- `assets/` — design system partagé (`site.css`, `site.js`) et styles propres à BETA et Jeromed ;
 - `404.html` — page d’erreur personnalisée ;
 - `IMG/` et `SOUND/` — médias du site ;
 - `robots.txt` et `sitemap.xml` — fichiers d’indexation ;

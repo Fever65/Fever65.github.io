@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Un seed de donjon pour chaque hauteur de Y1 à Y120 hors Far Lands dans Minecraft Java Beta 1.7.3. Y120 trouvé : seed 6000000000040461505, coordonnées (-993, 120, -65).">
-  <meta name="theme-color" content="#0b0b0c">
+  <meta name="theme-color" content="#09090a">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://archivefever.work/BETA/">
   <meta property="og:type" content="article">
@@ -16,7 +16,7 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #090908;
@@ -48,7 +48,7 @@
         var(--bg);
       background-size: auto, 32px 32px, 32px 32px, auto;
       color: var(--text);
-      font-family: "Source Code Pro", ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-family: var(--font-sans);
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
     }
@@ -359,25 +359,37 @@
   </style>
   <link rel="stylesheet" href="../assets/site.css">
   <link rel="stylesheet" href="../assets/beta.css">
+  <script src="../assets/site.js" defer></script>
 </head>
 <body class="beta-page">
   <a class="skip-link" href="#mainContent">
     <span data-lang-content="fr">Aller au contenu</span><span data-lang-content="en">Skip to content</span>
   </a>
-  <header class="site-header">
-    <div class="shell header-inner">
-      <a class="brand" href="../index.html">Archive<span>Fever</span>.Work</a>
-      <div class="header-actions">
-        <nav class="nav" aria-label="Navigation principale" id="mainNav">
-          <a href="#discovery"><span data-lang-content="fr">Découverte</span><span data-lang-content="en">Discovery</span></a>
-          <a href="#database"><span data-lang-content="fr">Tous les seeds</span><span data-lang-content="en">All seeds</span></a>
-          <a href="#next"><span data-lang-content="fr">Le Y120</span><span data-lang-content="en">Y120 find</span></a>
-        </nav>
+  <header class="af-nav">
+    <div class="shell af-nav-inner">
+      <div class="af-crumb">
+        <a class="af-brand" href="../index.html" aria-label="ArchiveFever.Work"><img src="../IMG/Jerome.webp" alt="" width="30" height="30" decoding="async"><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
+        <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page">Every Y Found</span>
+      </div>
+      <nav class="af-links" data-af-label="nav" aria-label="Navigation">
+        <a href="../index.html#tools" data-af="tools">Outils</a>
+        <a href="../BETA/index.html" data-af="research" aria-current="page">Recherche</a>
+        <a href="../ABOUT/index.html" data-af="about">À propos</a>
+      </nav>
+      <div class="af-actions">
         <div class="language-switcher" role="group" aria-label="Choisir la langue" id="languageGroup">
           <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
           <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
         </div>
       </div>
+    </div>
+    <div class="beta-subnav">
+      <nav class="shell nav" aria-label="Navigation principale" id="mainNav">
+        <a href="#altitude"><span data-lang-content="fr">La carte</span><span data-lang-content="en">The map</span></a>
+        <a href="#discovery"><span data-lang-content="fr">Découverte</span><span data-lang-content="en">Discovery</span></a>
+        <a href="#database"><span data-lang-content="fr">Tous les seeds</span><span data-lang-content="en">All seeds</span></a>
+        <a href="#next"><span data-lang-content="fr">Le Y120</span><span data-lang-content="en">Y120 find</span></a>
+      </nav>
     </div>
   </header>
 
@@ -408,6 +420,25 @@
       <div class="metric"><span class="metric-value">120</span><span class="metric-label"><span data-lang-content="fr">Hauteurs consécutives</span><span data-lang-content="en">Consecutive heights</span></span></div>
       <div class="metric"><span class="metric-value">Y120</span><span class="metric-label"><span data-lang-content="fr">Dernière découverte</span><span data-lang-content="en">Latest discovery</span></span></div>
     </div>
+
+    <section class="shell altitude" id="altitude" aria-labelledby="altTitle">
+      <div class="alt-head">
+        <div>
+          <div class="section-index">00 — <span data-lang-content="fr">La carte</span><span data-lang-content="en">The map</span></div>
+          <h2 id="altTitle"><span data-lang-content="fr">120 hauteurs. 120 donjons.</span><span data-lang-content="en">120 heights. 120 dungeons.</span></h2>
+        </div>
+        <p class="alt-legend">
+          <span><i class="lg lg-found"></i><span data-lang-content="fr">Trouvé hors Far Lands</span><span data-lang-content="en">Found outside Far Lands</span></span>
+          <span><i class="lg lg-video"></i><span data-lang-content="fr">Avec vidéo</span><span data-lang-content="en">With video</span></span>
+          <span><i class="lg lg-record"></i><span data-lang-content="fr">Record Y120</span><span data-lang-content="en">Y120 record</span></span>
+        </p>
+      </div>
+      <div class="alt-frame">
+        <div class="alt-map" id="altMap" role="group" aria-label="Y1 → Y120"></div>
+        <div class="alt-axis" aria-hidden="true"><span>Y1</span><span>Y30</span><span>Y60</span><span>Y90</span><span>Y120</span></div>
+      </div>
+      <p class="alt-readout" id="altReadout" aria-live="polite"><span data-lang-content="fr">Survole ou touche une barre pour voir son seed. Clique pour l’ouvrir dans la base.</span><span data-lang-content="en">Hover or tap a bar to see its seed. Click to open it in the database.</span></p>
+    </section>
 
     <section class="section" id="discovery">
       <div class="shell section-grid">
@@ -801,6 +832,83 @@
     let savedLanguage = "fr";
     try { savedLanguage = localStorage.getItem("af_lang") || "fr"; } catch (error) {}
     setLanguage(savedLanguage);
+  </script>
+
+  <script>
+    (() => {
+      const data = JSON.parse(document.getElementById("seedData").textContent).filter(entry => !entry.divider && !entry.farlands);
+      const byY = new Map();
+      data.forEach(entry => { if (!byY.has(Number(entry.y))) byY.set(Number(entry.y), entry); });
+      const map = document.getElementById("altMap");
+      const readout = document.getElementById("altReadout");
+      const search = document.getElementById("seedSearch");
+      const fr = () => document.documentElement.lang !== "en";
+      const describe = entry => `Y${entry.y} · seed ${entry.seed} · ${entry.coords}${entry.video ? (fr() ? " · vidéo ✓" : " · video ✓") : ""}`;
+
+      for (let y = 1; y <= 120; y++) {
+        const entry = byY.get(y);
+        const bar = document.createElement("button");
+        bar.type = "button";
+        bar.className = "alt-bar" + (entry && entry.video ? " has-video" : "") + (y === 120 ? " is-record" : "") + (entry ? "" : " is-missing");
+        bar.style.setProperty("--h", (8 + (y / 120) * 92).toFixed(1) + "%");
+        bar.style.setProperty("--i", y);
+        bar.setAttribute("aria-label", entry ? describe(entry) : "Y" + y);
+        if (entry) {
+          const show = () => { readout.textContent = describe(entry); };
+          bar.addEventListener("mouseenter", show);
+          bar.addEventListener("focus", show);
+          bar.addEventListener("click", () => {
+            search.value = entry.seed;
+            search.dispatchEvent(new Event("input"));
+            document.getElementById("database").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+          });
+        }
+        map.append(bar);
+      }
+
+      // Les barres poussent quand la carte entre à l'écran.
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(items => items.forEach(item => { if (item.isIntersecting) { map.classList.add("grown"); io.disconnect(); } }), { threshold: .25 });
+        io.observe(map);
+        setTimeout(() => map.classList.add("grown"), 4000); // filet de sécurité
+      } else map.classList.add("grown");
+
+      // Compteurs animés des métriques (Y120, 120…).
+      const counters = [...document.querySelectorAll(".metric-value")].filter(el => /^Y?\d+$/.test(el.textContent.trim()));
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) counters.forEach(el => {
+        const text = el.textContent.trim();
+        const prefix = text.startsWith("Y") ? "Y" : "";
+        const target = Number(text.replace("Y", ""));
+        if (target < 10) return;
+        const start = performance.now();
+        const step = now => {
+          const p = Math.min(1, (now - start) / 1400);
+          el.textContent = prefix + Math.round(target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      });
+
+      // Copier un seed d'un clic dans le tableau.
+      const toast = document.createElement("div");
+      toast.className = "beta-toast";
+      toast.setAttribute("role", "status");
+      document.body.append(toast);
+      let timer;
+      document.getElementById("seedRows").addEventListener("click", async event => {
+        const cell = event.target.closest(".seed-cell");
+        if (!cell) return;
+        try {
+          await navigator.clipboard.writeText(cell.textContent.trim());
+          toast.textContent = (fr() ? "Seed copié : " : "Seed copied: ") + cell.textContent.trim();
+        } catch (_) {
+          toast.textContent = fr() ? "Copie impossible sur ce navigateur." : "Copy is not available in this browser.";
+        }
+        toast.classList.add("show");
+        clearTimeout(timer);
+        timer = setTimeout(() => toast.classList.remove("show"), 2200);
+      });
+    })();
   </script>
 </body>
 </html>

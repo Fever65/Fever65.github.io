@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>ArchiveFever.Work — Outils web simples et gratuits</title>
-  <meta name="description" content="Des outils web simples, gratuits et sans compte : QR codes personnalisés, minuteur et expérimentations d’ArchiveFever.Work." />
+  <meta name="description" content="Des outils web simples, gratuits et sans compte : compression, QR codes personnalisés, minuteur et expérimentations d’ArchiveFever.Work." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="theme-color" content="#000000" />
   <link rel="canonical" href="https://archivefever.work/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="ArchiveFever.Work" />
   <meta property="og:title" content="ArchiveFever.Work — Outils web simples et gratuits" />
-  <meta property="og:description" content="QR codes personnalisés, minuteur et expérimentations web accessibles sans compte." />
+  <meta property="og:description" content="Un point. Zoome dedans. Compression, QR codes, minuteur et recherche, sans compte." />
   <meta property="og:url" content="https://archivefever.work/" />
   <meta property="og:image" content="https://archivefever.work/IMG/Jerome.webp" />
   <meta name="twitter:card" content="summary" />
@@ -20,176 +20,194 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/site.css" />
+  <script>
+    // Le zoom n'est activé qu'avec JavaScript et sans préférence « mouvement réduit » ; sinon la page reste une simple liste.
+    try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-zoom"); } catch (_) {}
+  </script>
   <style>
-    .home-page { display: flex; flex-direction: column; min-height: 100dvh; }
-    .af-main { flex: 1; display: grid; align-items: center; }
-    .af-footer { margin-top: 0; padding-block: 16px calc(16px + env(safe-area-inset-bottom)); }
+    /* ---------- Repli : liste verticale (sans JS ou mouvement réduit) ---------- */
+    .stage { position: relative; }
+    .layer { display: grid; grid-template-rows: auto auto auto; justify-items: center; gap: 22px; padding: 14vh 16px; text-align: center; border-bottom: 1px solid var(--border-soft); }
+    .layer[data-clone], .track, .hud-rail, .hud-read, .hud-hint { display: none; }
 
-    .home-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); align-items: center; gap: clamp(32px, 6vw, 80px); padding-block: clamp(32px, 5vh, 56px); }
+    /* ---------- Couches ---------- */
+    .l-top, .l-bot { display: grid; justify-items: center; gap: 14px; max-width: min(92vw, 980px); }
+    .l-k { color: var(--txt3); font-family: var(--font-mono); font-size: 12px; letter-spacing: .02em; }
+    .l-k b { color: var(--accent); font-weight: 400; }
+    .l-title { margin: 0; font-size: clamp(46px, 11vw, 168px); font-weight: 500; line-height: .88; letter-spacing: -.065em; }
+    .l-title a { color: var(--txt); text-decoration: none; transition: color .2s; }
+    .l-title a:hover, .l-title a:focus-visible { color: var(--accent); }
+    .l-title .sep { color: var(--txt3); font-weight: 300; }
+    .l-desc { margin: 0; max-width: 34ch; color: var(--txt2); font-size: clamp(15px, 1.4vw, 18px); line-height: 1.5; }
+    .l-meta { margin: 0; color: var(--txt3); font-family: var(--font-mono); font-size: 12px; letter-spacing: .02em; }
+    .l-dot { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); opacity: var(--dot, 1); }
+    .layer[data-z="0"] .l-dot, .layer[data-clone] .l-dot { width: 14px; height: 14px; animation: af-ping 2.4s var(--ease) infinite; }
+    .l-jerome { display: block; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.2); transition: filter .3s; }
+    .l-title a:hover .l-jerome, .layer.is-on .l-jerome:hover { filter: none; }
+    .l-socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 0; padding: 0; list-style: none; font-family: var(--font-mono); font-size: 12px; }
+    .l-socials a { color: var(--txt2); text-decoration: none; }
+    .l-socials a:hover { color: var(--accent); }
 
-    /* Colonne gauche : présentation */
-    .hero { display: grid; gap: 18px; justify-items: start; }
-    .status-badge { display: inline-flex; align-items: center; gap: 10px; margin: 0; color: var(--txt2); font-size: 14px; }
-    .status-badge img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
-    .hero h1 { margin: 0; max-width: 14ch; font-size: clamp(36px, 4.6vw, 56px); font-weight: 600; line-height: 1.05; letter-spacing: -.035em; }
-    .hero-copy { margin: 0; max-width: 46ch; color: var(--txt2); font-size: 17px; line-height: 1.6; }
-    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 4px; }
-    .learn-more-link { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 4px; color: var(--txt2); font-size: 14px; text-decoration: none; }
-    .learn-more-link:hover { color: var(--txt); }
+    /* ---------- Mode zoom ---------- */
+    .js-zoom, .js-zoom body { overscroll-behavior-y: none; }
+    .js-zoom { scroll-snap-type: y proximity; scrollbar-width: none; }
+    .js-zoom::-webkit-scrollbar { display: none; }
+    .js-zoom .stage { position: fixed; inset: 0; z-index: 1; overflow: hidden; }
+    .js-zoom .layer { position: absolute; inset: 0; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr); gap: 0; padding: 0 16px; border: 0; opacity: 0; transform-origin: 50% 50%; pointer-events: none; backface-visibility: hidden; }
+    .js-zoom .layer[data-clone] { display: grid; }
+    .js-zoom .l-top { align-self: end; padding-bottom: clamp(18px, 3vh, 30px); }
+    .js-zoom .l-bot { align-self: start; padding-top: clamp(18px, 3vh, 30px); }
+    .js-zoom .layer.is-on :is(a, button) { pointer-events: auto; }
+    .js-zoom .track { display: block; position: relative; z-index: 0; pointer-events: none; }
+    .js-zoom .track i { display: block; height: 100svh; scroll-snap-align: start; }
+    .js-zoom .hud-rail, .js-zoom .hud-read, .js-zoom .hud-hint { display: flex; }
 
-    .dock { display: grid; gap: 10px; width: 100%; margin-top: 12px; padding-top: 20px; border-top: 1px solid var(--border-soft); }
-    .dock-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; color: var(--txt3); font-size: 14px; }
-    .socials-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0; border: 0; background: none; color: var(--txt2); font-size: 14px; }
-    .socials-btn:hover { color: var(--txt); }
-    .socials-btn .toggle { font-size: 12px; transition: transform .2s var(--ease); }
-    .socials-btn[aria-expanded="true"] .toggle { transform: rotate(180deg); }
-    .socials-panel { display: none; flex-wrap: wrap; gap: 6px; }
-    .socials-panel.open { display: flex; }
-    .social-link { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--txt2); font-size: 13px; text-decoration: none; }
-    .social-link:hover { color: var(--txt); border-color: var(--border-strong); }
-    .support-box { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin: 0; }
-    .support-title { margin: 0; color: var(--txt2); font-size: 14px; font-weight: 500; }
-    .support-desc { margin: 0; color: var(--txt3); font-size: 14px; }
-    .support-desc::before { content: "· "; }
-    .support-link { color: var(--accent); font-size: 14px; font-weight: 500; text-decoration: none; }
-    .support-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+    /* ---------- HUD ---------- */
+    .hud { position: fixed; z-index: 5; font-family: var(--font-mono); font-size: 11px; letter-spacing: .03em; transition: opacity .4s; }
+    .hud-tl { top: max(14px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); }
+    .hud-tl a { display: inline-flex; align-items: center; min-height: 36px; color: var(--txt); text-decoration: none; }
+    .hud-tl a span { color: var(--accent); }
+    .hud-tr { top: max(14px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); }
+    .hud-read { bottom: max(16px, env(safe-area-inset-bottom)); right: max(16px, env(safe-area-inset-right)); align-items: baseline; gap: 6px; color: var(--txt3); font-variant-numeric: tabular-nums; }
+    .hud-read b { color: var(--txt); font-weight: 400; min-width: 4ch; }
+    .hud-rail { top: 50%; right: max(6px, env(safe-area-inset-right)); flex-direction: column; transform: translateY(-50%); }
+    .hud-rail button { position: relative; display: grid; place-items: center end; width: 40px; height: 26px; padding: 0 10px 0 0; border: 0; background: none; }
+    .hud-rail button::after { content: ""; display: block; width: 10px; height: 1px; background: var(--txt3); transition: width .3s var(--ease-out), background-color .2s; }
+    .hud-rail button:hover::after { width: 18px; background: var(--txt); }
+    .hud-rail button[aria-current="true"]::after { width: 22px; background: var(--accent); }
+    .hud-hint { bottom: max(16px, env(safe-area-inset-bottom)); left: 50%; flex-direction: column; align-items: center; gap: 8px; color: var(--txt3); transform: translateX(-50%); pointer-events: none; white-space: nowrap; }
+    .hud-hint i { display: block; width: 1px; height: 28px; background: linear-gradient(var(--txt3), transparent); animation: hint 1.8s var(--ease) infinite; transform-origin: top; }
+    @keyframes hint { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
+    .hud-foot { position: static; display: flex; justify-content: center; padding: 28px 16px calc(28px + env(safe-area-inset-bottom)); color: var(--txt3); }
+    .js-zoom .hud-foot { display: none; }
+    .is-leaving .hud { opacity: 0; }
 
-    /* Colonne droite : liste des outils et de la recherche */
-    .lists { display: grid; gap: 20px; }
-    .section { display: grid; gap: 8px; }
-    .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-    .section-label { margin: 0; color: var(--txt2); font-size: 13px; font-weight: 500; }
-    .section-count { color: var(--txt3); font-size: 13px; }
-    .pages-list { display: grid; gap: 8px; }
-    .row-link { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 16px; padding: 14px 18px; }
-    .tool-icon { display: grid; place-items: center; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--txt2); }
-    .tool-icon svg { width: 18px; height: 18px; }
-    .page-link-copy { display: grid; gap: 2px; min-width: 0; }
-    .row-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
-    .page-link-title { font-size: 15px; font-weight: 600; }
-    .tool-tag { color: var(--txt3); font-size: 12px; }
-    .page-link-desc { color: var(--txt2); font-size: 14px; line-height: 1.5; }
-    .feature-stat { display: grid; justify-items: end; text-align: right; }
-    .feature-stat strong { font-size: 22px; font-weight: 600; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
-    .feature-stat span { color: var(--txt3); font-size: 12px; }
-
-    @media (max-width: 900px) {
-      .home-grid { grid-template-columns: minmax(0, 1fr); align-items: start; padding-block: 40px 32px; }
-      .af-main { align-items: start; }
-    }
-    @media (max-width: 480px) {
-      .row-link { gap: 12px; padding: 12px 14px; }
-      .tool-icon { display: none; }
-      .row-link { grid-template-columns: minmax(0, 1fr) auto; }
-    }
-  @media (min-width: 901px) and (max-height: 760px) {
-      .home-grid { padding-block: 20px; }
-      .hero { gap: 14px; }
-      .hero h1 { font-size: clamp(34px, 3.8vw, 46px); }
-      .hero-copy { font-size: 16px; }
-      .dock { margin-top: 4px; padding-top: 14px; gap: 6px; }
-      .lists { gap: 14px; }
-      .row-link { padding: 11px 16px; }
+    @media (max-width: 560px) {
+      .js-zoom .hud-rail { display: none; }
+      .l-title { font-size: clamp(40px, 13vw, 72px); }
     }
   </style>
   <script src="assets/site.js" defer></script>
+  <script src="assets/zoom.js" defer></script>
 </head>
 <body class="home-page">
-  <header class="af-nav">
-    <div class="shell af-nav-inner">
-      <a class="af-brand" href="index.html" aria-current="page"><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
-      <nav class="af-links" aria-label="Navigation">
-        <a href="#tools" id="navTools">Outils</a>
-        <a href="BETA/index.html" id="navResearch">Recherche</a>
-        <a href="ABOUT/index.html" id="navAbout">À propos</a>
-      </nav>
-      <div class="lang" role="group" aria-label="Choisir la langue">
-        <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
-        <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
-      </div>
+  <div class="hud hud-tl"><a href="#z1" data-jump="1">Archive<span>Fever</span>.Work</a></div>
+  <div class="hud hud-tr">
+    <div class="lang" role="group" aria-label="Choisir la langue">
+      <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
+      <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
     </div>
-  </header>
+  </div>
 
-    <main class="af-main">
-    <article class="shell home-grid" aria-labelledby="mainTitle">
-      <section class="hero">
-        <p class="status-badge eyebrow"><img src="IMG/Jerome.webp" alt="Jerome, la mascotte d’ArchiveFever.Work" width="28" height="28" fetchpriority="high" decoding="async" /><span id="statusLabel">Studio personnel</span></p>
-        <h1 id="mainTitle">Des outils simples, utiles et sans compte.</h1>
-        <p class="hero-copy" id="statusMsg">Je conçois de petites expériences web accessibles à tous, directement dans le navigateur.</p>
-        <div class="hero-actions">
-          <a class="cta primary" href="#tools"><span id="ctaLabel">Explorer les outils</span></a>
-          <a class="learn-more-link" href="ABOUT/index.html"><span id="learnMoreLabel">Découvrir le projet</span><span aria-hidden="true">→</span></a>
-        </div>
+  <main class="stage" id="stage">
+    <section class="layer" data-z="0" id="z0" aria-label="ArchiveFever.Work">
+      <div class="l-top"></div>
+      <span class="l-dot" aria-hidden="true"></span>
+      <div class="l-bot"></div>
+    </section>
 
-        <div class="dock">
-          <section class="dock-row" aria-labelledby="socialsLabel">
-            <button class="socials-btn" id="socialsBtn" type="button" aria-expanded="false" aria-controls="socialsPanel">
-              <span id="socialsLabel">Mes réseaux</span><span class="toggle" id="socialsArrow" aria-hidden="true">↓</span>
-            </button>
-            <div class="socials-panel" id="socialsPanel">
-              <a class="social-link" href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener noreferrer">YouTube</a>
-              <a class="social-link" href="https://www.twitch.tv/feveeeer" target="_blank" rel="noopener noreferrer">Twitch</a>
-              <a class="social-link" href="https://x.com/infinity_lbrtr" target="_blank" rel="noopener noreferrer">Twitter / X</a>
-              <a class="social-link" href="https://steamcommunity.com/id/Fever65/" target="_blank" rel="noopener noreferrer">Steam</a>
-              <a class="social-link" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" id="surpriseLink">Surprise</a>
-            </div>
-          </section>
-          <aside class="dock-row support-box" aria-labelledby="supportTitle">
-            <h2 class="support-title" id="supportTitle">Soutenir le projet</h2>
-            <p class="support-desc" id="supportDesc">Optionnel, mais toujours apprécié.</p>
-            <a class="support-link" href="Donations/index.html" id="donationsLabel">Voir les options →</a>
-          </aside>
-        </div>
-      </section>
-
-      <div class="lists">
-        <section class="section" id="tools" aria-labelledby="toolsLabel">
-          <div class="section-head">
-            <h2 class="section-label" id="toolsLabel">Outils disponibles</h2>
-            <span class="section-count" id="toolsCount">Gratuit · Sans compte</span>
-          </div>
-          <div class="pages-list">
-            <a class="page-link row-link" href="COMPRESS/index.html">
-              <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6M20 10h-6V4M14 10l7-7M3 21l7-7"/></svg></span>
-              <span class="page-link-copy"><span class="row-head"><span class="page-link-title">FeverCompress</span><span class="tool-tag" id="compressTag">Images · Vidéos · ZIP</span></span><span class="page-link-desc" id="compressDesc">Allège tes images et vidéos, ou crée un ZIP de tes dossiers.</span></span>
-              <span class="page-link-arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="page-link row-link" href="QR/index.html">
-              <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 14h3v3h-3zM17 20h4v-3"/></svg></span>
-              <span class="page-link-copy"><span class="row-head"><span class="page-link-title">ColorQR</span><span class="tool-tag" id="qrTag">Couleurs · Wi-Fi · PNG</span></span><span class="page-link-desc" id="qrDesc">Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.</span></span>
-              <span class="page-link-arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="page-link row-link" href="TIMER/index.html">
-              <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></span>
-              <span class="page-link-copy"><span class="row-head"><span class="page-link-title" id="timerLabel">Minuteur</span><span class="tool-tag" id="timerTag">Raccourcis · Alerte sonore</span></span><span class="page-link-desc" id="timerDesc">Lance un compte à rebours avec raccourcis et alerte sonore.</span></span>
-              <span class="page-link-arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
-        </section>
-
-        <section class="section" aria-labelledby="researchLabel">
-          <div class="section-head">
-            <h2 class="section-label" id="researchLabel">Recherche</h2>
-            <span class="section-count"><span id="betaKicker">Projet terminé</span> · <span id="betaCta">Voir la base de données</span></span>
-          </div>
-          <a class="page-link row-link" href="BETA/index.html">
-            <span class="tool-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>
-            <span class="page-link-copy"><span class="row-head"><span class="page-link-title" id="betaLabel">Every Y Found</span></span><span class="page-link-desc" id="betaDesc">De Y1 à Y120 : un seed de donjon trouvé hors Far Lands pour chaque hauteur de Minecraft Beta 1.7.3.</span></span>
-            <span class="feature-stat" aria-hidden="true"><strong>120/120</strong><span>Y1 → Y120</span></span>
-          </a>
-        </section>
+    <section class="layer" data-z="1" id="z1" aria-labelledby="mainTitle">
+      <div class="l-top">
+        <span class="l-k"><b>z1</b> · <span id="statusLabel">studio personnel</span></span>
+        <h1 class="l-title" id="mainTitle">ArchiveFever<span class="hl">.</span>Work</h1>
       </div>
-    </article>
+      <span class="l-dot" aria-hidden="true"></span>
+      <div class="l-bot">
+        <p class="l-desc" id="statusMsg">Des outils simples, utiles et sans compte. Tout se passe dans ton navigateur.</p>
+      </div>
+    </section>
+
+    <section class="layer" data-z="2" id="z2" aria-labelledby="t2">
+      <div class="l-top">
+        <span class="l-k"><b>z2</b> · <span id="compressTag">images · vidéos · zip</span></span>
+        <h2 class="l-title" id="t2"><a href="COMPRESS/index.html">FeverCompress</a></h2>
+      </div>
+      <span class="l-dot" aria-hidden="true"></span>
+      <div class="l-bot"><p class="l-desc" id="compressDesc">Allège tes images et vidéos, ou crée un ZIP de tes dossiers.</p></div>
+    </section>
+
+    <section class="layer" data-z="3" id="z3" aria-labelledby="t3">
+      <div class="l-top">
+        <span class="l-k"><b>z3</b> · <span id="qrTag">couleurs · wi-fi · png</span></span>
+        <h2 class="l-title" id="t3"><a href="QR/index.html">ColorQR</a></h2>
+      </div>
+      <span class="l-dot" aria-hidden="true"></span>
+      <div class="l-bot"><p class="l-desc" id="qrDesc">Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.</p></div>
+    </section>
+
+    <section class="layer" data-z="4" id="z4" aria-labelledby="t4">
+      <div class="l-top">
+        <span class="l-k"><b>z4</b> · <span id="timerTag">raccourcis · alerte sonore</span></span>
+        <h2 class="l-title" id="t4"><a href="TIMER/index.html" id="timerLabel">Minuteur</a></h2>
+      </div>
+      <span class="l-dot" aria-hidden="true"></span>
+      <div class="l-bot"><p class="l-desc" id="timerDesc">Un compte à rebours avec raccourcis clavier et alerte sonore.</p></div>
+    </section>
+
+    <section class="layer" data-z="5" id="z5" aria-labelledby="t5">
+      <div class="l-top">
+        <span class="l-k"><b>z5</b> · <span id="betaKicker">recherche · terminée</span></span>
+        <h2 class="l-title" id="t5"><a href="BETA/index.html">Every Y Found</a></h2>
+      </div>
+      <span class="l-dot" aria-hidden="true"></span>
+      <div class="l-bot">
+        <p class="l-meta">Y1 → Y120 · 120/120</p>
+        <p class="l-desc" id="betaDesc">Un seed de donjon hors Far Lands pour chaque hauteur de Minecraft Beta 1.7.3.</p>
+      </div>
+    </section>
+
+    <section class="layer" data-z="6" id="z6" aria-labelledby="t6">
+      <div class="l-top">
+        <span class="l-k"><b>z6</b> · ???</span>
+        <h2 class="l-title" id="t6"><a href="Jeromed.html"><img class="l-jerome" src="IMG/Jerome.webp" alt="Jérôme" width="120" height="120" decoding="async" loading="lazy" /></a></h2>
+      </div>
+      <span class="l-dot" aria-hidden="true"></span>
+      <div class="l-bot"><p class="l-desc" id="jeromeDesc">Jérôme t’attendait. Ne clique pas.</p></div>
+    </section>
+
+    <section class="layer" data-z="7" id="z7" aria-labelledby="t7">
+      <div class="l-top">
+        <span class="l-k"><b>z7</b> · <span id="endKicker">le fond</span></span>
+        <h2 class="l-title" id="t7"><a href="ABOUT/index.html" id="aboutLink">À propos</a><span class="sep"> / </span><a href="Donations/index.html" id="donateLink">Dons</a></h2>
+      </div>
+      <span class="l-dot" aria-hidden="true"></span>
+      <div class="l-bot">
+        <ul class="l-socials" aria-label="Réseaux">
+          <li><a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+          <li><a href="https://www.twitch.tv/feveeeer" target="_blank" rel="noopener noreferrer">Twitch</a></li>
+          <li><a href="https://x.com/infinity_lbrtr" target="_blank" rel="noopener noreferrer">X</a></li>
+          <li><a href="https://steamcommunity.com/id/Fever65/" target="_blank" rel="noopener noreferrer">Steam</a></li>
+          <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" id="surpriseLink">Surprise</a></li>
+        </ul>
+        <p class="l-meta"><span id="footerNote">Fait main · Sans compte · Sans pub</span> · © <span data-af-year>2026</span></p>
+      </div>
+    </section>
+
+    <!-- z8 = z0 : on retombe sur le point de départ, le zoom boucle. -->
+    <section class="layer" data-z="8" data-clone aria-hidden="true">
+      <div class="l-top"></div>
+      <span class="l-dot"></span>
+      <div class="l-bot"></div>
+    </section>
   </main>
 
-  <footer class="af-footer">
-    <div class="shell site-footer-mini">
-      <span id="footerNote">Fait main · Sans compte · Sans pub</span>
-      <span><a href="ABOUT/index.html" id="footerAbout">À propos</a> · <a href="Donations/index.html" id="footerDonate">Dons</a> · © <span id="year">2026</span> ArchiveFever.Work</span>
-    </div>
-  </footer>
+  <div class="track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <nav class="hud hud-rail" id="rail" aria-label="Profondeur">
+    <button type="button" data-jump="0" aria-label="z0"></button>
+    <button type="button" data-jump="1" aria-label="z1 ArchiveFever.Work"></button>
+    <button type="button" data-jump="2" aria-label="z2 FeverCompress"></button>
+    <button type="button" data-jump="3" aria-label="z3 ColorQR"></button>
+    <button type="button" data-jump="4" aria-label="z4"></button>
+    <button type="button" data-jump="5" aria-label="z5 Every Y Found"></button>
+    <button type="button" data-jump="6" aria-label="z6 ???"></button>
+    <button type="button" data-jump="7" aria-label="z7"></button>
+  </nav>
+  <div class="hud hud-read" aria-hidden="true">z <b id="zRead">0.00</b></div>
+  <div class="hud hud-hint" id="hint" aria-hidden="true"><span id="hintLabel">fais défiler pour zoomer</span><i></i></div>
+  <footer class="hud hud-foot"><span>ArchiveFever.Work · © <span data-af-year>2026</span></span></footer>
 
   <script>
     const $ = id => document.getElementById(id);
@@ -197,73 +215,51 @@
     const T = {
       fr: {
         documentTitle: "ArchiveFever.Work — Outils web simples et gratuits",
-        description: "Des outils web simples, gratuits et sans compte : QR codes personnalisés, minuteur et expérimentations d’ArchiveFever.Work.",
-        statusLabel: "Studio personnel",
-        mainTitle: "Des outils simples, utiles et sans compte.",
-        statusMsg: "Je conçois de petites expériences web accessibles à tous, directement dans le navigateur.",
-        ctaLabel: "Explorer les outils",
-        learnMoreLabel: "Découvrir le projet",
-        navTools: "Outils",
-        navResearch: "Recherche",
-        navAbout: "À propos",
-        toolsLabel: "Outils disponibles",
-        toolsCount: "Gratuit · Sans compte",
+        description: "Des outils web simples, gratuits et sans compte : compression, QR codes personnalisés, minuteur et expérimentations d’ArchiveFever.Work.",
+        statusLabel: "studio personnel",
+        statusMsg: "Des outils simples, utiles et sans compte. Tout se passe dans ton navigateur.",
+        compressTag: "images · vidéos · zip",
         compressDesc: "Allège tes images et vidéos, ou crée un ZIP de tes dossiers.",
-        compressTag: "Images · Vidéos · ZIP",
+        qrTag: "couleurs · wi-fi · png",
         qrDesc: "Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.",
-        qrTag: "Couleurs · Wi-Fi · PNG",
+        timerTag: "raccourcis · alerte sonore",
         timerLabel: "Minuteur",
-        timerDesc: "Lance un compte à rebours avec raccourcis et alerte sonore.",
-        timerTag: "Raccourcis · Alerte sonore",
-        researchLabel: "Recherche",
-        betaKicker: "Projet terminé",
-        betaLabel: "Un seed pour chaque Y",
-        betaDesc: "De Y1 à Y120 : un seed de donjon trouvé hors Far Lands pour chaque hauteur de Minecraft Beta 1.7.3.",
-        betaCta: "Voir la base de données",
-        socialsLabel: "Mes réseaux",
+        timerDesc: "Un compte à rebours avec raccourcis clavier et alerte sonore.",
+        betaKicker: "recherche · terminée",
+        betaDesc: "Un seed de donjon hors Far Lands pour chaque hauteur de Minecraft Beta 1.7.3.",
+        jeromeDesc: "Jérôme t’attendait. Ne clique pas.",
+        endKicker: "le fond",
+        aboutLink: "À propos",
+        donateLink: "Dons",
         surpriseLink: "Surprise",
-        supportTitle: "Soutenir le projet",
-        supportDesc: "Optionnel, mais toujours apprécié.",
-        donationsLabel: "Voir les options →",
         footerNote: "Fait main · Sans compte · Sans pub",
-        footerAbout: "À propos",
-        footerDonate: "Dons",
-        languageLabel: "Choisir la langue"
+        hintLabel: "fais défiler pour zoomer",
+        languageLabel: "Choisir la langue",
+        railLabel: "Profondeur"
       },
       en: {
         documentTitle: "ArchiveFever.Work — Simple, free web tools",
-        description: "Simple, free and accountless web tools: custom QR codes, a timer and experiments by ArchiveFever.Work.",
-        statusLabel: "Personal studio",
-        mainTitle: "Simple, useful tools. No account required.",
-        statusMsg: "I build small web experiences that anyone can use directly in their browser.",
-        ctaLabel: "Explore the tools",
-        learnMoreLabel: "Discover the project",
-        navTools: "Tools",
-        navResearch: "Research",
-        navAbout: "About",
-        toolsLabel: "Available tools",
-        toolsCount: "Free · No account",
+        description: "Simple, free and accountless web tools: compression, custom QR codes, a timer and experiments by ArchiveFever.Work.",
+        statusLabel: "personal studio",
+        statusMsg: "Simple, useful tools. No account required. Everything runs in your browser.",
+        compressTag: "images · videos · zip",
         compressDesc: "Compress images and videos, or create a ZIP of your folders.",
-        compressTag: "Images · Videos · ZIP",
+        qrTag: "colors · wi-fi · png",
         qrDesc: "Create a custom QR code or a downloadable Wi-Fi QR code.",
-        qrTag: "Colors · Wi-Fi · PNG",
+        timerTag: "shortcuts · sound alert",
         timerLabel: "Timer",
-        timerDesc: "Start a countdown with shortcuts and a final sound alert.",
-        timerTag: "Shortcuts · Sound alert",
-        researchLabel: "Research",
-        betaKicker: "Completed project",
-        betaLabel: "Every Y Found",
-        betaDesc: "From Y1 to Y120: a dungeon seed found outside the Far Lands for every height in Minecraft Beta 1.7.3.",
-        betaCta: "Open the database",
-        socialsLabel: "My socials",
+        timerDesc: "A countdown with keyboard shortcuts and a final sound alert.",
+        betaKicker: "research · completed",
+        betaDesc: "A dungeon seed outside the Far Lands for every height in Minecraft Beta 1.7.3.",
+        jeromeDesc: "Jerome was waiting for you. Don’t click.",
+        endKicker: "the bottom",
+        aboutLink: "About",
+        donateLink: "Donate",
         surpriseLink: "Surprise",
-        supportTitle: "Support the project",
-        supportDesc: "Entirely optional, always appreciated.",
-        donationsLabel: "View options →",
         footerNote: "Handmade · No account · No ads",
-        footerAbout: "About",
-        footerDonate: "Donate",
-        languageLabel: "Choose language"
+        hintLabel: "scroll to zoom in",
+        languageLabel: "Choose language",
+        railLabel: "Depth"
       }
     };
 
@@ -273,10 +269,13 @@
       document.documentElement.lang = safeLang;
       document.title = t.documentTitle;
       document.querySelector('meta[name="description"]').content = t.description;
-      ["statusLabel", "mainTitle", "statusMsg", "ctaLabel", "learnMoreLabel", "navTools", "navResearch", "navAbout", "toolsLabel", "toolsCount", "compressDesc", "compressTag", "qrDesc", "qrTag", "timerLabel", "timerDesc", "timerTag", "researchLabel", "betaKicker", "betaLabel", "betaDesc", "betaCta", "socialsLabel", "surpriseLink", "supportTitle", "supportDesc", "donationsLabel", "footerNote", "footerAbout", "footerDonate"].forEach(id => {
+      ["statusLabel", "statusMsg", "compressTag", "compressDesc", "qrTag", "qrDesc", "timerTag", "timerLabel", "timerDesc", "betaKicker", "betaDesc", "jeromeDesc", "endKicker", "aboutLink", "donateLink", "surpriseLink", "footerNote", "hintLabel"].forEach(id => {
         $(id).textContent = t[id];
       });
       document.querySelector(".lang").setAttribute("aria-label", t.languageLabel);
+      $("rail").setAttribute("aria-label", t.railLabel);
+      $("rail").querySelector('[data-jump="4"]').setAttribute("aria-label", "z4 " + t.timerLabel);
+      $("rail").querySelector('[data-jump="7"]').setAttribute("aria-label", "z7 " + t.aboutLink + " / " + t.donateLink);
       $("btnFR").setAttribute("aria-pressed", String(safeLang === "fr"));
       $("btnEN").setAttribute("aria-pressed", String(safeLang === "en"));
       try { localStorage.setItem("af_lang", safeLang); } catch (_) {}
@@ -284,13 +283,6 @@
 
     $("btnFR").addEventListener("click", () => setLang("fr"));
     $("btnEN").addEventListener("click", () => setLang("en"));
-
-    $("socialsBtn").addEventListener("click", () => {
-      const open = $("socialsPanel").classList.toggle("open");
-      $("socialsBtn").setAttribute("aria-expanded", String(open));
-    });
-
-    $("year").textContent = new Date().getFullYear();
 
     let savedLang = "fr";
     try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch (_) {}

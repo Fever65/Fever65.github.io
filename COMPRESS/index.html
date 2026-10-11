@@ -4,31 +4,26 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>FeverCompress — Images, vidéos et dossiers plus légers</title>
 <meta name="description" content="Allège tes images, compresse de courtes vidéos et crée des ZIP. Gratuit, sans compte, directement sur ton appareil.">
-<meta name="theme-color" content="#09090a">
+<meta name="theme-color" content="#000000">
 <link rel="canonical" href="https://archivefever.work/COMPRESS/">
 <link rel="icon" href="../IMG/Jerome.webp" type="image/webp">
 <link rel="apple-touch-icon" href="/IMG/Jerome.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="./compress.css">
 <script src="../assets/site.js" defer></script>
 </head>
-<body class="compress-page">
+<body class="compress-page z-enter">
 
-<header class="af-nav topbar">
-  <div class="shell af-nav-inner">
-    <div class="af-crumb">
-      <a class="af-brand brand" href="../index.html" aria-label="ArchiveFever.Work"><img src="../IMG/Jerome.webp" alt="" width="30" height="30" decoding="async"><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
-      <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page">FeverCompress</span>
-    </div>
-    <nav class="af-links" data-af-label="nav" aria-label="Navigation principale">
-      <a href="../index.html#tools" data-af="tools">Outils</a>
-      <a href="../BETA/index.html" data-af="research">Recherche</a>
-      <a href="../ABOUT/index.html" data-af="about">À propos</a>
-    </nav>
-    <div class="af-actions top-actions">
-      <a class="home-link chip" href="../index.html" data-i18n="home">← Accueil</a>
-      <div class="lang" role="group" aria-label="Langue"><button id="btnFR" type="button" aria-pressed="true">FR</button><button id="btnEN" type="button" aria-pressed="false">EN</button></div>
+<header class="z-head">
+  <div class="z-left">
+    <a class="z-home" href="../index.html#z2" aria-label="ArchiveFever.Work"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span><span class="sr-only" data-i18n="home">← Accueil</span></a>
+    <span class="z-crumb"><span class="z-depth">z2</span><span>FeverCompress</span></span>
+  </div>
+  <div class="z-right">
+    <div class="lang" role="group" aria-label="Langue">
+      <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
+      <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
     </div>
   </div>
 </header>
@@ -38,7 +33,7 @@
 
 <section class="cmp-hero intro">
   <div class="cmp-hero-text">
-    <p class="eyebrow kicker rise" style="--i:0" data-i18n="eyebrow">MOINS DE POIDS. PLUS DE PLACE.</p>
+    <p class="eyebrow kicker rise" style="--i:0"><span class="hl">z2</span> · <span data-i18n="eyebrow">MOINS DE POIDS. PLUS DE PLACE.</span></p>
     <h1 id="title" class="rise" style="--i:1">Fever<span>Compress</span><span class="title-dot">.</span></h1>
     <p class="lead rise" style="--i:2" data-i18n="lead">Tes fichiers, en plus léger.</p>
   </div>
@@ -102,11 +97,9 @@
 </div>
 </main>
 
-<footer class="af-footer">
-  <div class="shell site-footer-mini">
-    <span data-af="made">Fait main · Sans compte · Sans pub</span>
-    <span><a href="../ABOUT/index.html" data-af="about">À propos</a> · <a href="../Donations/index.html" data-af="donate">Dons</a> · © <span data-af-year>2026</span> ArchiveFever.Work</span>
-  </div>
+<footer class="z-foot">
+  <span data-af="made">Fait main · Sans compte · Sans pub</span>
+  <nav aria-label="Pied de page"><a href="../ABOUT/index.html" data-af="about">À propos</a><a href="../Donations/index.html" data-af="donate">Dons</a><span>© <span data-af-year>2026</span> ArchiveFever.Work</span></nav>
 </footer>
 
 <script src="./vendor/jszip.min.js"></script><script type="module" src="./app.mjs"></script>

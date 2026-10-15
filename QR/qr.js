@@ -42,7 +42,6 @@
         <li><b>Usage :</b> tu es responsable du contenu encodé.</li>
         <li><b>Sécurité :</b> un QR peut pointer vers du contenu risqué. Vérifie avant de partager.</li>
         <li><b>Responsabilité :</b> Fever / ArchiveFever.Work ne peuvent être tenus responsables d'un usage malveillant par un tiers.</li>
-        <li><b>Couleurs :</b> paires tirées de <i>A Dictionary of Color Combinations</i> de Sanzo Wada (1933).</li>
       </ul>
       <p class="muted">Conseil : teste ton QR sur plusieurs téléphones avant de le diffuser.</p>`,
     en: `<p><b>Made by Fever</b> — a project on <b>ArchiveFever.Work</b>.</p>
@@ -52,7 +51,6 @@
         <li><b>Usage:</b> you are responsible for what you encode.</li>
         <li><b>Security:</b> QR codes can link to risky content. Always verify before sharing.</li>
         <li><b>Liability:</b> Fever / ArchiveFever.Work cannot be held responsible for malicious use by third parties.</li>
-        <li><b>Colours:</b> pairs taken from Sanzo Wada’s <i>A Dictionary of Color Combinations</i> (1933).</li>
       </ul>
       <p class="muted">Tip: test your QR on multiple phones before sharing publicly.</p>`
   };
@@ -64,12 +62,12 @@
       info: 'Infos', close: 'Fermer', modal: MODAL.fr,
       heading: 'QR — Couleur & Wi-Fi',
       lead: 'Un QR code à tes couleurs, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.',
-      pillLocal: '100 % local', pillWada: 'Palettes Sanzo Wada',
+      pillLocal: '100 % local', pillWada: 'Palettes harmonieuses',
       sType: 'Type de QR', sContent: 'Contenu', sColors: 'Couleurs', sOptions: 'Options', sNetwork: 'Réseau',
       lUrl: 'Lien', hUrl: 'Ce lien sera encodé dans le QR.',
-      palettes: 'Palettes Sanzo Wada',
+      palettes: 'Palettes harmonieuses',
       lDark: 'Couleur des modules', lLight: 'Couleur du fond',
-      hRand: '« Aléatoire » tire une paire lisible parmi les combinaisons du livre de Sanzo Wada.',
+      hRand: '« Aléatoire » tire une paire lisible parmi des combinaisons de couleurs classiques.',
       lMargin: 'Bordure (marge) — améliore la détection',
       gen: 'Générer', swap: 'Inverser', rand: 'Aléatoire',
       lSsid: 'Nom du Wi-Fi (SSID)', ssidPh: 'MonWifi', hSsid: 'Le QR proposera la connexion à ce réseau.',
@@ -86,7 +84,7 @@
       errContrast: 'Contraste insuffisant : choisis des modules plus foncés et un fond plus clair.',
       contrastGood: 'Contraste vérifié : bonne lisibilité.',
       contrastBad: 'Contraste insuffisant : utilise des modules foncés sur un fond clair.',
-      wadaPair: 'Wada',
+      wadaPair: 'Paire',
       tips: 'Conseils', tipsTitle: 'Trois règles pour un QR fiable',
       t1: 'Contraste d’abord', t1d: 'Modules foncés sur fond clair : c’est ce que les téléphones lisent le mieux. L’outil vérifie pour toi.',
       t2: 'Garde la marge', t2d: 'La bordure autour du QR aide l’appareil photo à le repérer, surtout imprimé.',
@@ -98,12 +96,12 @@
       info: 'Info', close: 'Close', modal: MODAL.en,
       heading: 'QR — Color & Wi-Fi',
       lead: 'A QR code in your colors, or one that joins a Wi-Fi network in a single scan. Everything happens in your browser.',
-      pillLocal: '100% local', pillWada: 'Sanzo Wada palettes',
+      pillLocal: '100% local', pillWada: 'Harmonious palettes',
       sType: 'QR type', sContent: 'Content', sColors: 'Colors', sOptions: 'Options', sNetwork: 'Network',
       lUrl: 'Link', hUrl: 'This link will be encoded inside the QR code.',
-      palettes: 'Sanzo Wada palettes',
+      palettes: 'Harmonious palettes',
       lDark: 'Module color', lLight: 'Background color',
-      hRand: '“Random” picks a readable pair from Sanzo Wada’s combinations.',
+      hRand: '“Random” picks a readable pair from classic colour combinations.',
       lMargin: 'Border (margin) — improves scanning reliability',
       gen: 'Generate', swap: 'Swap', rand: 'Random',
       lSsid: 'Wi-Fi name (SSID)', ssidPh: 'MyWifi', hSsid: 'The QR code will suggest joining this network.',
@@ -120,7 +118,7 @@
       errContrast: 'Low contrast: choose darker modules and a lighter background.',
       contrastGood: 'Contrast checked: good scan reliability.',
       contrastBad: 'Low contrast: use dark modules on a light background.',
-      wadaPair: 'Wada',
+      wadaPair: 'Pair',
       tips: 'Tips', tipsTitle: 'Three rules for a reliable QR',
       t1: 'Contrast first', t1d: 'Dark modules on a light background is what phones read best. The tool checks it for you.',
       t2: 'Keep the margin', t2d: 'The quiet zone around the QR helps the camera find it, especially in print.',
@@ -281,7 +279,7 @@
   });
   function labelSwatches() {
     document.querySelectorAll('.swatch').forEach(s => {
-      const name = `${document.documentElement.lang === 'en' ? s.dataset.en : s.dataset.fr} · Wada #${s.dataset.n}`;
+      const name = `${document.documentElement.lang === 'en' ? s.dataset.en : s.dataset.fr} · #${s.dataset.n}`;
       s.setAttribute('aria-label', name);
       s.title = name;
     });
@@ -299,6 +297,10 @@
     try {
       await QRCode.toCanvas($('canvas'), data, { width: 256, margin: margin ? 1 : 0, color: { dark, light } });
       $('previewBox').hidden = false;
+      // La sérigraphie : la raclette repasse et la feuille se cale (qr.css, .is-printed).
+      $('previewBox').classList.remove('is-printed');
+      void $('previewBox').offsetWidth;
+      $('previewBox').classList.add('is-printed');
       $('dl').href = $('canvas').toDataURL('image/png');
       $('dl').download = filename;
       $('dl').hidden = false;

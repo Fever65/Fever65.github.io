@@ -21,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&amp;family=DM+Mono:wght@400;500&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/tokens.css" />
   <link rel="stylesheet" href="../assets/site.css" />
   <link rel="stylesheet" href="qr.css" />
@@ -29,35 +29,38 @@
   <script src="../assets/site.js" defer></script>
   <script src="qr.js" defer></script>
 </head>
-<body class="page z-enter">
+<body class="atelier">
 
 <header class="z-head">
   <div class="z-left">
     <a class="z-home" href="../index.html#z3" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
-    <span class="z-crumb"><span class="z-depth">z3</span><span>ColorQR</span></span>
+    <span class="z-crumb"><span>ColorQR</span></span>
   </div>
   <div class="z-right">
     <span class="wada"><i></i><i></i><i></i></span>
-    <button class="chip" type="button" id="infoBtn"><span aria-hidden="true">i</span><span data-i18n="info">Infos</span></button>
+    <button class="info-btn" type="button" id="infoBtn"><span aria-hidden="true">i</span><span data-i18n="info">Infos</span></button>
     <div class="lang" role="group" aria-label="Choisir la langue"><button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button><button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button></div>
   </div>
 </header>
 
-<main class="shell">
-  <section class="hero">
-    <p class="kicker rise"><b>z3</b> · ColorQR · WiFiQR</p>
-    <h1 class="title rise" style="--i:1" data-i18n="heading">QR — Couleur &amp; Wi-Fi</h1>
-    <p class="lead rise" style="--i:2" data-i18n="lead">Un QR code à tes couleurs, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.</p>
-    <ul class="pills rise" style="--i:3">
+<main class="workshop">
+  <!-- L'affiche : un titre imprimé en deux passes, légèrement décalées -->
+  <section class="poster" aria-labelledby="heading">
+    <i class="reg reg-tl" aria-hidden="true"></i><i class="reg reg-tr" aria-hidden="true"></i>
+    <p class="job">ColorQR · WiFiQR</p>
+    <h1 class="poster-title" id="heading" data-print="ColorQR"><span class="sr-only" data-i18n="heading">QR — Couleur &amp; Wi-Fi</span><span aria-hidden="true">ColorQR</span></h1>
+    <p class="lead" data-i18n="lead">Un QR code à tes couleurs, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.</p>
+    <ul class="stamps">
       <li data-i18n="pillLocal">100 % local</li>
       <li>PNG 256×256</li>
-      <li data-i18n="pillWada">Palettes Sanzo Wada</li>
+      <li data-i18n="pillWada">Palettes harmonieuses</li>
     </ul>
   </section>
 
-  <div class="studio g-phi-r">
-    <div class="panel panel-pad rise" style="--i:4">
-      <h2 class="step-head"><span class="n">01</span><span data-i18n="sType">Type de QR</span></h2>
+  <div class="table">
+    <!-- Le bon de commande (61,8) -->
+    <div class="order">
+      <h2 class="order-head"><span class="n">01</span><span data-i18n="sType">Type de QR</span></h2>
       <div class="tabs" role="tablist">
         <button class="tab" id="tabColor" type="button" role="tab" aria-selected="true" aria-controls="panelColor">ColorQR</button>
         <button class="tab" id="tabWifi" type="button" role="tab" aria-selected="false" aria-controls="panelWifi" tabindex="-1">WiFiQR</button>
@@ -75,7 +78,7 @@
           </section>
           <section class="step">
             <h3 class="step-head"><span class="n">03</span><span data-i18n="sColors">Couleurs</span></h3>
-            <div class="palette" data-target="c" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes Sanzo Wada"></div>
+            <div class="palette" data-target="c" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"></div>
             <div class="two">
               <div class="field">
                 <label id="lC1" for="c1t" data-i18n="lDark">Couleur des modules</label>
@@ -94,9 +97,9 @@
             <label class="chk"><input id="m1" type="checkbox" checked /><span data-i18n="lMargin">Bordure (marge) — améliore la détection</span></label>
           </section>
           <div class="btns">
-            <button class="btn primary" type="submit" id="genColor" data-i18n="gen">Générer</button>
-            <button class="btn ghost" type="button" id="swapC" data-i18n="swap">Inverser</button>
-            <button class="btn ghost" type="button" id="randC" data-i18n="rand">Aléatoire</button>
+            <button class="squeegee" type="submit" id="genColor" data-i18n="gen">Générer</button>
+            <button class="ink-btn" type="button" id="swapC" data-i18n="swap">Inverser</button>
+            <button class="ink-btn" type="button" id="randC" data-i18n="rand">Aléatoire</button>
           </div>
         </form>
       </div>
@@ -129,7 +132,7 @@
           </section>
           <section class="step">
             <h3 class="step-head"><span class="n">03</span><span data-i18n="sColors">Couleurs</span></h3>
-            <div class="palette" data-target="w" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes Sanzo Wada"></div>
+            <div class="palette" data-target="w" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"></div>
             <div class="two">
               <div class="field">
                 <label id="lW1" for="w1t" data-i18n="lDark">Couleur des modules</label>
@@ -147,33 +150,36 @@
             <label class="chk"><input id="m2" type="checkbox" checked /><span data-i18n="lMargin">Bordure (marge) — améliore la détection</span></label>
           </section>
           <div class="btns">
-            <button class="btn primary" type="submit" id="genWifi" data-i18n="gen">Générer</button>
-            <button class="btn ghost" type="button" id="swapW" data-i18n="swap">Inverser</button>
-            <button class="btn ghost" type="button" id="randW" data-i18n="rand">Aléatoire</button>
+            <button class="squeegee" type="submit" id="genWifi" data-i18n="gen">Générer</button>
+            <button class="ink-btn" type="button" id="swapW" data-i18n="swap">Inverser</button>
+            <button class="ink-btn" type="button" id="randW" data-i18n="rand">Aléatoire</button>
           </div>
         </form>
       </div>
+    
     </div>
 
-    <aside class="preview panel rise" style="--i:5" data-i18n-attr="aria-label:preview" aria-label="Aperçu">
+    <!-- Le cadre d'impression (38,2) -->
+    <aside class="frame" data-i18n-attr="aria-label:preview" aria-label="Aperçu">
       <div class="screen">
-        <div id="previewBox" class="canvaswrap" hidden><canvas id="canvas" width="256" height="256" aria-label="QR"></canvas></div>
-        <div class="qr-empty" aria-hidden="true"><span class="mark"></span><span data-i18n="empty">Ton QR apparaîtra ici</span></div>
+        <i class="reg reg-tl" aria-hidden="true"></i><i class="reg reg-tr" aria-hidden="true"></i><i class="reg reg-bl" aria-hidden="true"></i><i class="reg reg-br" aria-hidden="true"></i>
+        <div id="previewBox" class="sheet" hidden><canvas id="canvas" width="256" height="256" aria-label="QR"></canvas></div>
+        <div class="qr-empty" aria-hidden="true"><span class="squeegee-ico"></span><span data-i18n="empty">Ton QR apparaîtra ici</span></div>
       </div>
-      <div class="preview-foot">
-        <p class="kicker"><span data-i18n="preview">Aperçu</span> · 256×256</p>
-        <a id="dl" class="btn primary" download="qrcode.png" href="#" hidden data-i18n="download">Télécharger</a>
+      <div class="frame-foot">
+        <p class="job"><span data-i18n="preview">Aperçu</span> · 256×256</p>
+        <a id="dl" class="squeegee" download="qrcode.png" href="#" hidden data-i18n="download">Télécharger</a>
         <p id="status" class="status" data-state="empty" role="status"></p>
       </div>
     </aside>
   </div>
 
-  <section class="tips g-phi" data-i18n-attr="aria-label:tips" aria-label="Conseils">
-    <h2 class="h2" data-i18n="tipsTitle">Trois règles pour un QR fiable</h2>
-    <ol class="rows">
-      <li class="row"><b>01</b><strong data-i18n="t1">Contraste d’abord</strong><span data-i18n="t1d">Modules foncés sur fond clair : c’est ce que les téléphones lisent le mieux. L’outil vérifie pour toi.</span></li>
-      <li class="row"><b>02</b><strong data-i18n="t2">Garde la marge</strong><span data-i18n="t2d">La bordure autour du QR aide l’appareil photo à le repérer, surtout imprimé.</span></li>
-      <li class="row"><b>03</b><strong data-i18n="t3">Teste avant d’imprimer</strong><span data-i18n="t3d">Scanne-le avec deux ou trois téléphones différents avant de le diffuser.</span></li>
+  <section class="rules" data-i18n-attr="aria-label:tips" aria-label="Conseils">
+    <h2 class="rules-title" data-i18n="tipsTitle">Trois règles pour un QR fiable</h2>
+    <ol class="rules-list">
+      <li><strong data-i18n="t1">Contraste d’abord</strong><span data-i18n="t1d">Modules foncés sur fond clair : c’est ce que les téléphones lisent le mieux. L’outil vérifie pour toi.</span></li>
+      <li><strong data-i18n="t2">Garde la marge</strong><span data-i18n="t2d">La bordure autour du QR aide l’appareil photo à le repérer, surtout imprimé.</span></li>
+      <li><strong data-i18n="t3">Teste avant d’imprimer</strong><span data-i18n="t3d">Scanne-le avec deux ou trois téléphones différents avant de le diffuser.</span></li>
     </ol>
   </section>
 </main>
@@ -182,7 +188,7 @@
   <div class="modal-card">
     <div class="modal-h">
       <h2 class="modal-title" id="infoTitle" data-i18n="info">Infos</h2>
-      <button class="chip" type="button" id="closeInfo" data-i18n="close">Fermer</button>
+      <button class="info-btn" type="button" id="closeInfo" data-i18n="close">Fermer</button>
     </div>
     <div class="modal-b" data-i18n-html="modal"></div>
   </div>

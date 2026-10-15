@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="fr" data-wada="z0">
+<html lang="fr" data-wada="z1">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>ArchiveFever.Work — Outils web simples et gratuits</title>
-  <meta name="description" content="Des outils web simples, gratuits et sans compte : compression, QR codes personnalisés, minuteur et expérimentations d’ArchiveFever.Work." />
+  <title>ArchiveFever.Work — La Carte</title>
+  <meta name="description" content="Une carte à explorer. Chaque pièce est un projet : compression, QR codes, minuteur, recherche Minecraft, Jérôme. Sans compte." />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#111314" />
   <link rel="canonical" href="https://archivefever.work/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_FR" />
   <meta property="og:site_name" content="ArchiveFever.Work" />
-  <meta property="og:title" content="ArchiveFever.Work — Outils web simples et gratuits" />
-  <meta property="og:description" content="Un point. Zoome dedans. Compression, QR codes, minuteur et recherche, sans compte." />
+  <meta property="og:title" content="ArchiveFever.Work — La Carte" />
+  <meta property="og:description" content="Une carte à explorer. Perds-toi, puis reviens." />
   <meta property="og:url" content="https://archivefever.work/" />
   <meta property="og:image" content="https://archivefever.work/IMG/Jerome.webp" />
   <meta name="twitter:card" content="summary" />
@@ -20,136 +20,177 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/tokens.css" />
   <link rel="stylesheet" href="assets/site.css" />
   <link rel="stylesheet" href="assets/home.css" />
   <script>
-    // Le zoom n'est activé qu'avec JavaScript et sans préférence « mouvement réduit » ; sinon la page reste une pile de bandes.
-    try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-zoom"); } catch (_) {}
+    // Carte active avec JavaScript ; si elle n'est pas prête en 3 s (script bloqué ou en erreur), repli : une pièce par écran.
+    (function (r) { r.classList.add('js-map'); setTimeout(function () { if (!r.classList.contains('is-ready')) r.classList.remove('js-map'); }, 3000); })(document.documentElement);
   </script>
   <script src="assets/site.js" defer></script>
   <script src="assets/home.js" defer></script>
-  <script src="assets/zoom.js" defer></script>
+  <script src="assets/map.js" defer></script>
+  <script src="assets/rooms.js" defer></script>
 </head>
 <body>
-  <div class="hud hud-tl"><a href="#z1" data-jump="1">Archive<span>Fever</span>.Work</a></div>
-  <div class="hud hud-tr">
-    <span class="wada" id="wada"><i></i><i></i><i></i></span>
-    <div class="lang" role="group" aria-label="Choisir la langue">
-      <button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button>
-      <button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button>
+  <a class="skip-link" href="#z2" data-i18n="skip">Aller aux projets</a>
+
+  <header class="hud hud-top">
+    <a class="hud-brand" href="#z1">Archive<em>Fever</em>.Work</a>
+    <div class="hud-right">
+      <p class="hud-count"><b id="mapCount">0</b>&thinsp;/&thinsp;7 <span data-i18n="explored">explorées</span></p>
+      <div class="lang" role="group" aria-label="Choisir la langue">
+        <button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button>
+        <button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button>
+      </div>
     </div>
-  </div>
+  </header>
 
-  <main class="stage" id="stage">
-    <svg class="spiral" id="spiral" viewBox="-1000 -1000 2000 2000" aria-hidden="true" focusable="false"><path /></svg>
+  <main class="map" id="map" data-i18n-attr="aria-label:mapLabel" aria-label="La Carte">
+    <div class="world" id="world">
+      <svg class="plan" viewBox="-160 -160 1938.034 1320" aria-hidden="true" focusable="false">
+        <rect class="plan-frame" x="0" y="0" width="1618.034" height="1000" />
+      </svg>
 
-    <section class="layer" data-z="0" data-wada="z0" id="z0" aria-label="ArchiveFever.Work">
-      <div class="l-top"></div>
-      <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot"></div>
-    </section>
+      <section class="room room-home" id="z1" tabindex="-1" data-wada="z1" style="--x:0;--y:0;--s:1" aria-labelledby="t1">
+        <div class="room-in">
+          <div class="room-head">
+            <p class="room-k"><span data-i18n="studio">studio personnel</span></p>
+            <h1 class="room-t" id="t1">Archive<em>Fever</em>.Work</h1>
+          </div>
+          <div class="room-live live-home"><p class="here"><i aria-hidden="true"></i><span data-i18n="here">vous êtes ici</span></p></div>
+          <div class="room-foot">
+            <p class="room-d" data-i18n="intro">Une carte bâtie sur une seule proportion. Chaque pièce est un projet. Perds-toi, puis reviens.</p>
+            <a class="room-go" href="#z2"><span data-i18n="start">Explorer</span><span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
 
-    <section class="layer" data-z="1" data-wada="z1" id="z1" aria-labelledby="mainTitle">
-      <div class="l-top">
-        <span class="l-k"><b>z1</b> · <span data-i18n="studio">studio personnel</span></span>
-        <h1 class="l-title" id="mainTitle">ArchiveFever<span class="hl">.</span>Work</h1>
-      </div>
-      <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot">
-        <p class="l-desc" data-i18n="intro">Des outils simples, utiles et sans compte. Tout se passe dans ton navigateur.</p>
-      </div>
-    </section>
+      <section class="room" id="z2" tabindex="-1" data-wada="z2" style="--x:1;--y:0;--s:.618034" aria-labelledby="t2">
+        <div class="room-in">
+          <div class="room-head">
+            <p class="room-k"><span data-i18n="compressTag">images · vidéos · zip</span></p>
+            <h2 class="room-t" id="t2">FeverCompress</h2>
+          </div>
+          <div class="room-live live-press" aria-hidden="true">
+            <p class="press-num"><span id="pressNum">30,4</span><small>ko</small></p>
+            <div class="press-bar"><i id="pressBar"></i></div>
+          </div>
+          <div class="room-foot">
+            <p class="room-d" data-i18n="compressDesc">Allège tes images et vidéos, ou crée un ZIP de tes dossiers.</p>
+            <a class="room-go" href="COMPRESS/index.html"><span data-i18n="enter">Entrer</span><span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
 
-    <section class="layer" data-z="2" data-wada="z2" id="z2" aria-labelledby="t2">
-      <div class="l-top">
-        <span class="l-k"><b>z2</b> · <span data-i18n="compressTag">images · vidéos · zip</span></span>
-        <h2 class="l-title" id="t2"><a href="COMPRESS/index.html">FeverCompress</a></h2>
-      </div>
-      <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot"><p class="l-desc" data-i18n="compressDesc">Allège tes images et vidéos, ou crée un ZIP de tes dossiers.</p></div>
-    </section>
+      <section class="room" id="z3" tabindex="-1" data-wada="z3" style="--x:1.236068;--y:.618034;--s:.381966" aria-labelledby="t3">
+        <div class="room-in">
+          <div class="room-head">
+            <p class="room-k"><span data-i18n="qrTag">couleurs · wi-fi · png</span></p>
+            <h2 class="room-t" id="t3">ColorQR</h2>
+          </div>
+          <div class="room-live live-qr"><canvas id="qrMini" width="512" height="512" role="img" data-i18n-attr="aria-label:qrAlt" aria-label="QR code vers ColorQR"></canvas></div>
+          <div class="room-foot">
+            <p class="room-d" data-i18n="qrDesc">Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.</p>
+            <a class="room-go" href="QR/index.html"><span data-i18n="enter">Entrer</span><span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
 
-    <section class="layer" data-z="3" data-wada="z3" id="z3" aria-labelledby="t3">
-      <div class="l-top">
-        <span class="l-k"><b>z3</b> · <span data-i18n="qrTag">couleurs · wi-fi · png</span></span>
-        <h2 class="l-title" id="t3"><a href="QR/index.html">ColorQR</a></h2>
-      </div>
-      <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot"><p class="l-desc" data-i18n="qrDesc">Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.</p></div>
-    </section>
+      <section class="room" id="z4" tabindex="-1" data-wada="z4" style="--x:1;--y:.763932;--s:.236068" aria-labelledby="t4">
+        <div class="room-in">
+          <div class="room-head">
+            <p class="room-k"><span data-i18n="timerTag">raccourcis · alerte sonore</span></p>
+            <h2 class="room-t" id="t4" data-i18n="timer">Minuteur</h2>
+          </div>
+          <div class="room-live live-clock" aria-hidden="true">
+            <p class="clock"><span id="clockHM">--:--</span><span class="clock-s" id="clockS">:--</span></p>
+            <div class="clock-sweep"><i id="clockSweep"></i></div>
+          </div>
+          <div class="room-foot">
+            <p class="room-d" data-i18n="timerDesc">Un compte à rebours avec raccourcis clavier et alerte sonore.</p>
+            <a class="room-go" href="TIMER/index.html"><span data-i18n="enter">Entrer</span><span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
 
-    <section class="layer" data-z="4" data-wada="z4" id="z4" aria-labelledby="t4">
-      <div class="l-top">
-        <span class="l-k"><b>z4</b> · <span data-i18n="timerTag">raccourcis · alerte sonore</span></span>
-        <h2 class="l-title" id="t4"><a href="TIMER/index.html" data-i18n="timer">Minuteur</a></h2>
-      </div>
-      <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot"><p class="l-desc" data-i18n="timerDesc">Un compte à rebours avec raccourcis clavier et alerte sonore.</p></div>
-    </section>
+      <section class="room" id="z5" tabindex="-1" data-wada="z5" style="--x:1;--y:.618034;--s:.145898" aria-labelledby="t5">
+        <div class="room-in">
+          <div class="room-head">
+            <p class="room-k"><span>Y1 → Y120 · 120/120</span></p>
+            <h2 class="room-t" id="t5">Every Y Found</h2>
+          </div>
+          <div class="room-live live-bars" id="bars" aria-hidden="true"></div>
+          <div class="room-foot">
+            <p class="room-d" data-i18n="betaDesc">Un seed de donjon hors Far Lands pour chaque hauteur de Minecraft Beta 1.7.3.</p>
+            <a class="room-go" href="BETA/index.html"><span data-i18n="enter">Entrer</span><span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
 
-    <section class="layer" data-z="5" data-wada="z5" id="z5" aria-labelledby="t5">
-      <div class="l-top">
-        <span class="l-k"><b>z5</b> · <span data-i18n="betaTag">recherche · terminée</span></span>
-        <h2 class="l-title" id="t5"><a href="BETA/index.html">Every Y Found</a></h2>
-      </div>
-      <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot">
-        <p class="l-meta">Y1 → Y120 · 120/120</p>
-        <p class="l-desc" data-i18n="betaDesc">Un seed de donjon hors Far Lands pour chaque hauteur de Minecraft Beta 1.7.3.</p>
-      </div>
-    </section>
+      <section class="room" id="z6" tabindex="-1" data-wada="z6" style="--x:1.145898;--y:.618034;--s:.09017" aria-labelledby="t6">
+        <div class="room-in">
+          <div class="room-head">
+            <p class="room-k"><span>???</span></p>
+            <h2 class="room-t" id="t6" data-i18n="jerome">Jérôme</h2>
+          </div>
+          <div class="room-live live-jerome"><img id="jeromeMini" src="IMG/Jerome.webp" alt="" width="220" height="220" decoding="async" /></div>
+          <div class="room-foot">
+            <p class="room-d" data-i18n="jeromeDesc">Jérôme t’attendait. Ne clique pas.</p>
+            <a class="room-go" href="Jeromed.html"><span data-i18n="enter">Entrer</span><span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+      </section>
 
-    <section class="layer" data-z="6" data-wada="z6" id="z6" aria-labelledby="t6">
-      <div class="l-top">
-        <span class="l-k"><b>z6</b> · ???</span>
-        <h2 class="l-title" id="t6"><a href="Jeromed.html"><img class="l-jerome" src="IMG/Jerome.webp" alt="Jérôme" width="110" height="110" decoding="async" loading="lazy" /></a></h2>
-      </div>
-      <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot"><p class="l-desc" data-i18n="jeromeDesc">Jérôme t’attendait. Ne clique pas.</p></div>
-    </section>
+      <section class="room room-end" id="z7" tabindex="-1" data-wada="z7" style="--x:1.18034;--y:.708204;--s:.055728" aria-labelledby="t7">
+        <div class="room-in">
+          <div class="room-head">
+            <p class="room-k"><span data-i18n="endTag">le fond</span></p>
+            <h2 class="room-t" id="t7"><a href="ABOUT/index.html" class="room-go-t" data-i18n="about">À propos</a> <span aria-hidden="true">/</span> <a href="Donations/index.html" class="room-go-t" data-i18n="donate">Dons</a></h2>
+          </div>
+          <ul class="room-socials" data-i18n-attr="aria-label:socials" aria-label="Réseaux">
+            <li><a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+            <li><a href="https://www.twitch.tv/feveeeer" target="_blank" rel="noopener noreferrer">Twitch</a></li>
+            <li><a href="https://x.com/infinity_lbrtr" target="_blank" rel="noopener noreferrer">X</a></li>
+            <li><a href="https://steamcommunity.com/id/Fever65/" target="_blank" rel="noopener noreferrer">Steam</a></li>
+          </ul>
+          <div class="room-foot">
+            <p class="room-d"><span data-i18n="made">Fait main · Sans compte · Sans pub</span> · © <span data-af-year>2026</span></p>
+          </div>
+        </div>
+      </section>
 
-    <section class="layer" data-z="7" data-wada="z7" id="z7" aria-labelledby="t7">
-      <div class="l-top">
-        <span class="l-k"><b>z7</b> · <span data-i18n="endTag">le fond</span></span>
-        <h2 class="l-title" id="t7"><a href="ABOUT/index.html" data-i18n="about">À propos</a><span class="sep"> / </span><a href="Donations/index.html" data-i18n="donate">Dons</a></h2>
-      </div>
-      <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot">
-        <ul class="l-socials" data-i18n-attr="aria-label:socials" aria-label="Réseaux">
-          <li><a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-          <li><a href="https://www.twitch.tv/feveeeer" target="_blank" rel="noopener noreferrer">Twitch</a></li>
-          <li><a href="https://x.com/infinity_lbrtr" target="_blank" rel="noopener noreferrer">X</a></li>
-          <li><a href="https://steamcommunity.com/id/Fever65/" target="_blank" rel="noopener noreferrer">Steam</a></li>
-          <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" data-i18n="surprise">Surprise</a></li>
-        </ul>
-        <p class="l-meta"><span data-i18n="made">Fait main · Sans compte · Sans pub</span> · © <span data-af-year>2026</span></p>
-      </div>
-    </section>
-
-    <!-- z8 = z0 : on retombe sur le point de départ, le zoom boucle. -->
-    <section class="layer" data-z="8" data-wada="z0" data-clone aria-hidden="true">
-      <div class="l-top"></div>
-      <span class="l-dot"></span>
-      <div class="l-bot"></div>
-    </section>
+      <section class="room room-secret" id="z8" tabindex="-1" data-wada="z0" style="--x:1.145898;--y:.72949;--s:.034442" aria-labelledby="t8">
+        <div class="room-in">
+          <div class="room-head">
+            <p class="room-k"><span data-i18n="secretTag">pièce secrète</span></p>
+            <h2 class="room-t" id="t8"><span class="when-locked" data-i18n="secretLocked">Fermée</span><span class="when-open" data-i18n="secretOpenT">Tu as tout vu.</span></h2>
+          </div>
+          <div class="room-live">
+            <p class="room-d when-locked" data-i18n="secretHint">Visite les sept pièces pour l’ouvrir.</p>
+            <ul class="wada-index when-open" aria-label="Index des couleurs" data-i18n-attr="aria-label:colorIndex">
+              <li data-wada="z0"></li><li data-wada="z1"></li><li data-wada="z2"></li><li data-wada="z3"></li><li data-wada="z4"></li>
+              <li data-wada="z5"></li><li data-wada="z6"></li><li data-wada="z7"></li><li data-wada="lost"></li>
+            </ul>
+          </div>
+          <div class="room-foot when-open">
+            <p class="room-d" data-i18n="secretOpenD">L’index des couleurs du site, une palette par pièce.</p>
+            <a class="room-go" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer"><span data-i18n="surprise">Surprise</span><span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <div class="track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-
-  <nav class="hud hud-rail" id="rail" data-i18n-attr="aria-label:depth" aria-label="Profondeur">
-    <button type="button" data-jump="0" aria-label="z0"></button>
-    <button type="button" data-jump="1" aria-label="z1 ArchiveFever.Work"></button>
-    <button type="button" data-jump="2" aria-label="z2 FeverCompress"></button>
-    <button type="button" data-jump="3" aria-label="z3 ColorQR"></button>
-    <button type="button" data-jump="4" data-i18n-attr="aria-label:railTimer" aria-label="z4 Minuteur"></button>
-    <button type="button" data-jump="5" aria-label="z5 Every Y Found"></button>
-    <button type="button" data-jump="6" aria-label="z6 ???"></button>
-    <button type="button" data-jump="7" data-i18n-attr="aria-label:railEnd" aria-label="z7 À propos / Dons"></button>
+  <nav class="hud hud-bot" data-i18n-attr="aria-label:mapNav" aria-label="Navigation de la carte">
+    <p class="hud-where" id="mapWhere" aria-live="polite">ArchiveFever.Work</p>
+    <div class="hud-ctl">
+      <button type="button" id="mapPrev" data-i18n-attr="aria-label:prev" aria-label="Pièce précédente">←</button>
+      <button type="button" id="mapPlan" aria-pressed="false" data-i18n="plan">Plan</button>
+      <button type="button" id="mapNext" data-i18n-attr="aria-label:next" aria-label="Pièce suivante">→</button>
+    </div>
   </nav>
-  <div class="hud hud-read" aria-hidden="true">z <b id="zRead">0.00</b></div>
-  <div class="hud hud-hint" id="hint" aria-hidden="true"><span data-i18n="hint">fais défiler pour zoomer</span><i></i></div>
-  <footer class="hud hud-foot"><span>ArchiveFever.Work · © <span data-af-year>2026</span></span></footer>
+  <p class="hint" id="mapHint" data-i18n="hint">Glisse · zoome · explore</p>
 </body>
 </html>

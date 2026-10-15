@@ -197,6 +197,8 @@ function renderQueue() {
     else if (r) {
       const reason = (REASONS[r.reason] || REASONS.kept)[isEN() ? 1 : 0];
       meta.textContent = bytes(e.file.size) + ' → ' + bytes(r.blob.size) + ' · ' + reason;
+      // La presse : la carte se tasse à son nouveau poids (compress.css lit --squash).
+      if (r.changed && e.file.size) { li.classList.add('is-pressed'); li.style.setProperty('--squash', Math.min(1, r.blob.size / e.file.size).toFixed(3)); }
       if (r.changed) meta.classList.add('good');
       else if (errorReason(r.reason)) meta.classList.add('warn');
     } else meta.textContent = bytes(e.file.size) + ' · ' + t('pending');

@@ -1,25 +1,74 @@
-/* Every Y Found — palette Wada № 340 : Black · Neutral Gray · Sea Green · Peach Red (Far Lands, rareté). */
+/* Every Y Found — le relevé géologique.
+   Wada 340 : Black (la roche) · Neutral Gray (le texte) · Sea Green (les preuves vidéo, la jauge) · Peach Red (Far Lands, rareté).
+   IBM Plex Serif pour le rapport ; IBM Plex Mono pour les mesures, les seeds et les cotes.
+   Lire la page, c'est creuser : la jauge descend de Y120 (surface) à Y1 (substratum). */
 
+.survey {
+  --report: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+  --log: "IBM Plex Mono", var(--font-mono);
+  /* Les strates : quatre teintes de roche tirées du gris du livre. */
+  --st1: color-mix(in srgb, var(--ink) 3.8%, var(--bg));
+  --st2: color-mix(in srgb, var(--ink) 6%, var(--bg));
+  --st3: color-mix(in srgb, var(--ink) 9%, var(--bg));
+  --st4: color-mix(in srgb, var(--ink) 14.6%, var(--bg));
+  --strata: linear-gradient(to top, var(--st4) 0 9%, var(--st3) 9% 23.6%, var(--st2) 23.6% 38.2%, var(--st3) 38.2% 50%, var(--st1) 50% 61.8%, var(--st2) 61.8% 76.4%, var(--st1) 76.4% 90%, transparent 90%);
+  display: flex; flex-direction: column; min-height: 100dvh;
+}
+.survey > main { flex: 1; }
 html:has(#seedData) { scroll-behavior: smooth; }
 #mainContent :is(#altitude, #discovery, #database, #next) { scroll-margin-top: calc(var(--head-h) + var(--s2)); }
+.survey .h2 { font: 500 clamp(var(--f2), 3.82vw, var(--f3))/1.146 var(--report); letter-spacing: -.0236em; }
 
 /* ---------- En-tête : barre z + sous-navigation, collantes ensemble ---------- */
 .beta-head { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--bg) 85.4%, transparent); -webkit-backdrop-filter: blur(var(--s-1)); backdrop-filter: blur(var(--s-1)); border-bottom: 1px solid var(--line); }
 .beta-head .z-head { position: static; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
 .subnav .shell { display: flex; gap: var(--s1); overflow-x: auto; scrollbar-width: none; }
 .subnav .shell::-webkit-scrollbar { display: none; }
-.subnav a { display: inline-flex; align-items: center; min-height: var(--s2); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); letter-spacing: var(--track-mono); text-decoration: none; white-space: nowrap; transition: color var(--t0); }
+.subnav a { display: inline-flex; align-items: center; min-height: var(--s2); color: var(--ink-3); font: 400 var(--f-1)/1 var(--log); letter-spacing: var(--track-mono); text-decoration: none; white-space: nowrap; transition: color var(--t0); }
 .subnav a:hover { color: var(--dot-ink); }
 
-/* ---------- Héros ---------- */
-.beta-title { max-width: 14ch; font-size: clamp(var(--f3), 9.02vw, var(--f6)); text-transform: uppercase; line-height: var(--lh-tight); letter-spacing: -.0618em; }
-.beta-title .outline { color: transparent; -webkit-text-stroke: 1px var(--ink-3); }
-.hero-copy { align-items: end; margin-top: var(--s1); }
-.hero-status { display: grid; gap: var(--s-2); padding-left: var(--s0); border-left: 1px solid var(--dot); }
-.status-value { font-size: var(--f2); font-weight: 500; letter-spacing: -.0382em; }
-.status-detail { color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); overflow-wrap: anywhere; }
+/* ---------- La jauge de profondeur ---------- */
+.depth { position: fixed; z-index: 20; right: var(--s0); top: calc(var(--head-h) + var(--s2) + var(--s1)); bottom: var(--s3); display: grid; grid-template-rows: auto 1fr auto; justify-items: center; gap: var(--s-1); width: var(--s2); pointer-events: none; }
+.depth-label { color: var(--ink-3); font: 400 var(--f-2)/1 var(--log); letter-spacing: .146em; text-transform: uppercase; writing-mode: vertical-rl; transform: rotate(180deg); }
+.depth-track { position: relative; width: var(--s-1); background: repeating-linear-gradient(to bottom, var(--line-strong) 0 1px, transparent 1px 10%) center / 100% 100% no-repeat; box-shadow: inset 1px 0 0 var(--line), inset -1px 0 0 var(--line); }
+.depth-track::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: calc(var(--depth, 0) * 100%); background: color-mix(in srgb, var(--dot) 23.6%, transparent); }
+.depth-mark { position: absolute; left: calc(var(--s-2) * -1); right: calc(var(--s-2) * -1); top: calc(var(--depth, 0) * 100%); height: 2px; background: var(--dot); box-shadow: 0 0 var(--s-1) var(--dot); }
+.depth-y { color: var(--dot-ink); font: 500 var(--f-1)/1 var(--log); font-variant-numeric: tabular-nums; }
+@media (max-width: 1279px) {
+  .depth { top: auto; right: var(--s0); bottom: var(--s0); grid-template-rows: none; grid-auto-flow: column; align-items: center; width: auto; padding: var(--s-2) var(--s-1); background: var(--bg); box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .depth-label { writing-mode: horizontal-tb; transform: none; }
+  .depth-track { display: none; }
+}
 
-.metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: var(--s3); border-block: 1px solid var(--line); }
+/* ---------- En-tête du rapport ---------- */
+.hero { position: relative; }
+.report-no, .stratum-no { margin: 0; color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--log); letter-spacing: .0618em; text-transform: uppercase; }
+.report-no b, .stratum-no b { color: var(--dot-ink); font-weight: 500; }
+.beta-title { position: relative; z-index: 1; max-width: 12ch; margin: 0; font: 300 clamp(var(--f4), 9.02vw, var(--f6))/.92 var(--report); letter-spacing: -.0382em; }
+.beta-title .outline { color: var(--ink-3); font-style: italic; }
+.hero-copy { display: grid; gap: var(--s2); align-items: end; margin-top: var(--s1); }
+@media (min-width: 900px) { .hero-copy { grid-template-columns: 61.8fr 38.2fr; } }
+.survey .lead { max-width: 52ch; color: var(--ink-2); font: 300 var(--f1)/1.618 var(--report); }
+.survey .lead strong { color: var(--ink); font-weight: 500; }
+.hero-status { display: grid; gap: var(--s-2); padding: var(--s0) var(--s1); background: var(--st2); box-shadow: inset var(--s-3) 0 0 var(--dot); }
+.status-value { font: 500 var(--f2)/1.146 var(--report); letter-spacing: -.0236em; }
+.status-detail { color: var(--ink-3); font: 400 var(--f-1)/1.618 var(--log); overflow-wrap: anywhere; }
+
+/* La carotte : un échantillon de forage, de la surface verte au substratum rouge. */
+.core { position: absolute; right: 0; top: var(--s3); bottom: var(--s2); display: none; flex-direction: column; width: var(--s4); border-radius: var(--s-2); overflow: hidden; box-shadow: inset 0 0 0 1px var(--line-strong); }
+@media (min-width: 1100px) { .core { display: flex; } .hero-copy { padding-right: calc(var(--s4) + var(--s2)); } }
+.core i { flex: var(--f, 1); background: var(--c, var(--st2)); box-shadow: inset 0 -1px 0 var(--bg); background-image: linear-gradient(90deg, color-mix(in srgb, #000 23.6%, transparent), transparent 38.2%, color-mix(in srgb, var(--ink) 9%, transparent) 61.8%, color-mix(in srgb, #000 23.6%, transparent)); }
+.core i:nth-child(1) { --f: .382; --c: var(--dot); }
+.core i:nth-child(2) { --f: 1; --c: var(--st4); }
+.core i:nth-child(3) { --f: .618; --c: var(--st2); }
+.core i:nth-child(4) { --f: 1.618; --c: var(--st3); }
+.core i:nth-child(5) { --f: .382; --c: var(--line-strong); }
+.core i:nth-child(6) { --f: 1; --c: var(--st1); }
+.core i:nth-child(7) { --f: 1.618; --c: var(--st3); }
+.core i:nth-child(8) { --f: .236; --c: var(--alt); }
+
+/* ---------- Fiche de forage ---------- */
+.metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: var(--s3); border-block: 1px solid var(--line-strong); }
 @media (min-width: 900px) { .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .metric { min-width: 0; padding: var(--s1) var(--s0); border-right: 1px solid var(--line); }
 .metric:nth-child(2n) { border-right: 0; }
@@ -29,93 +78,105 @@ html:has(#seedData) { scroll-behavior: smooth; }
   .metric:last-child { border-right: 0; }
   .metric:nth-child(-n+2) { border-bottom: 0; }
 }
-.metric-value { display: block; font-size: clamp(var(--f3), 4.24vw, var(--f4)); line-height: 1; letter-spacing: -.0618em; font-variant-numeric: tabular-nums; }
+.metric-value { display: block; font: 300 clamp(var(--f3), 4.24vw, var(--f4))/1 var(--report); letter-spacing: -.0382em; font-variant-numeric: tabular-nums; }
 .metric-value.accent { color: var(--dot); }
-.metric-label { display: block; margin-top: var(--s-1); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+.metric-label { display: block; margin-top: var(--s-1); color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--log); }
 
-/* ---------- Carte d'altitude : la légende reprend exactement les couleurs des barres ---------- */
+/* ---------- 00 · La coupe : 120 carottes plantées dans les strates ---------- */
 .altitude { padding-bottom: var(--s3); }
 .alt-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s0) var(--s2); margin-bottom: var(--s1); }
-.alt-legend { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s0); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+.alt-legend { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s0); color: var(--ink-3); font: 400 var(--f-1)/1 var(--log); }
 .alt-legend > span { display: inline-flex; align-items: center; gap: var(--s-1); }
-.lg { display: inline-block; width: var(--s-1); height: var(--s-1); border-radius: 50%; }
-.lg-found, .alt-bar { background: var(--line-strong); }
-.lg-video, .alt-bar.has-video { background: var(--dot); }
-.lg-record, .alt-bar.is-record { background: var(--ink); }
-.alt-frame { border-bottom: 1px solid var(--line-strong); }
+.lg { display: inline-block; width: var(--s-2); height: var(--s0); border-radius: 2px; }
+.lg-found, .alt-bar { background-color: var(--line-strong); }
+.lg-video, .alt-bar.has-video { background-color: var(--dot); }
+.lg-record, .alt-bar.is-record { background-color: var(--alt); }
+.alt-frame { padding: var(--s0) var(--s0) 0; background: var(--strata); border-bottom: var(--s-3) solid var(--line-strong); }
 .alt-map { display: flex; align-items: flex-end; gap: 2px; height: clamp(var(--s5), 23.6vw, calc(var(--s5) * 2)); }
-.alt-bar { flex: 1 1 0; min-width: 0; height: var(--h); padding: 0; border: 0; cursor: pointer; transform: scaleY(0); transform-origin: bottom; transition: transform var(--t3) var(--ease-out) calc(var(--i) * 6.18ms), background-color var(--t0); }
+.alt-bar {
+  flex: 1 1 0; min-width: 0; height: var(--h); padding: 0; border: 0; border-radius: 1px 1px 0 0;
+  background-image: linear-gradient(90deg, transparent, color-mix(in srgb, var(--ink) 23.6%, transparent) 50%, transparent);
+  cursor: pointer; transform: scaleY(0); transform-origin: bottom;
+  transition: transform var(--t3) var(--ease-out) calc(var(--i) * 6.18ms), background-color var(--t0);
+}
 .alt-map.grown .alt-bar { transform: scaleY(1); }
-.alt-bar:hover, .alt-bar:focus-visible { background: var(--alt); outline: none; }
-.alt-axis { display: flex; justify-content: space-between; margin-top: var(--s-1); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
-.alt-readout { min-height: var(--s1); margin-top: var(--s0); color: var(--ink-2); font-family: var(--font-mono); font-size: var(--f-1); overflow-wrap: anywhere; }
+.alt-bar:hover, .alt-bar:focus-visible { background-color: var(--ink); outline: none; }
+.alt-axis { display: flex; justify-content: space-between; margin-top: var(--s-1); color: var(--ink-3); font: 400 var(--f-1)/1 var(--log); }
+.alt-readout { min-height: var(--s1); margin-top: var(--s0); color: var(--ink-2); font: 400 var(--f-1)/1.382 var(--log); overflow-wrap: anywhere; }
+.alt-readout::before { content: "▸ "; color: var(--dot); }
 
-/* ---------- Sections ---------- */
-.section { padding-block: var(--s3); border-top: 1px solid var(--line); }
+/* ---------- Strates du rapport ---------- */
+.section { padding-block: var(--s3); border-top: 1px solid var(--line); background: linear-gradient(var(--st1), transparent var(--s4)); }
 .section .h2 { margin-bottom: var(--s1); }
-.prose { display: grid; gap: var(--s0); max-width: var(--measure); color: var(--ink-2); }
+.split { display: grid; gap: var(--s1) var(--s2); align-items: start; }
+@media (min-width: 900px) { .split { grid-template-columns: 38.2fr 61.8fr; } .split-r { grid-template-columns: 61.8fr 38.2fr; align-items: center; } }
+.prose { display: grid; gap: var(--s0); max-width: var(--measure); color: var(--ink-2); font: 300 var(--f1)/1.618 var(--report); }
 .prose strong, .continue-panel strong { color: var(--ink); font-weight: 500; }
-.rare-card { display: grid; gap: var(--s0); margin-top: var(--s2); padding-top: var(--s1); border-top: 1px solid var(--alt); }
+.rare-card { display: grid; gap: var(--s0); margin-top: var(--s2); padding: var(--s1); background: color-mix(in srgb, var(--alt) 6%, var(--bg)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--alt) 38.2%, var(--bg)); }
 .rare-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s0); }
-.rare-badge { color: var(--alt); font-family: var(--font-mono); font-size: var(--f-1); }
-.rare-title { font-size: var(--f2); font-weight: 500; letter-spacing: -.0382em; }
-.rare-card > p { color: var(--ink-3); }
+.rare-badge { margin: 0; color: var(--alt); font: 500 var(--f-1)/1 var(--log); letter-spacing: .146em; text-transform: uppercase; }
+.rare-title { margin: var(--s-2) 0 0; font: 500 var(--f2)/1.146 var(--report); letter-spacing: -.0236em; }
+.rare-card > p { color: var(--ink-3); font-family: var(--report); }
 .rarity-meter { display: flex; gap: var(--s-3); width: var(--s5); }
-.rarity-meter i { display: block; width: 100%; height: 2px; background: var(--alt); opacity: .236; }
+.rarity-meter i { display: block; width: 100%; height: var(--s-2); background: var(--alt); opacity: .236; }
 .rarity-meter i:nth-last-child(-n+2) { opacity: 1; }
 
-/* ---------- Base de données ---------- */
+/* ---------- 02 · Le registre des échantillons ---------- */
 .results-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s0) var(--s2); margin-bottom: var(--s1); }
 .results-head .h2 { margin-bottom: var(--s-1); }
-.results-subtitle { max-width: var(--measure); color: var(--ink-3); }
-.data-badge { color: var(--dot-ink); font-family: var(--font-mono); font-size: var(--f-1); }
+.results-subtitle { max-width: var(--measure); color: var(--ink-3); font-family: var(--report); }
+.data-badge { padding: var(--s-2) var(--s-1); box-shadow: inset 0 0 0 1px var(--dot-line); color: var(--dot-ink); font: 400 var(--f-1)/1 var(--log); }
 .controls { display: grid; grid-template-columns: 1fr 1fr; margin-bottom: var(--s0); }
 .search-wrap { position: relative; grid-column: 1 / -1; }
 @media (min-width: 680px) { .controls { grid-template-columns: minmax(0, 1fr) auto auto; } .search-wrap { grid-column: auto; } }
 .search-wrap svg { position: absolute; top: 50%; left: var(--s0); width: var(--s0); height: var(--s0); transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
-.search-input { padding-left: var(--s2) !important; font-family: var(--font-mono); }
-.control-button { min-height: var(--s2); padding: 0 var(--s0); border: 1px solid var(--line-strong); border-top-width: 0; background: transparent; color: var(--ink-2); font-family: var(--font-mono); font-size: var(--f-1); transition: color var(--t0), background-color var(--t0); }
+.search-input { padding-left: var(--s2) !important; font-family: var(--log); }
+.control-button { min-height: var(--s2); padding: 0 var(--s0); border: 1px solid var(--line-strong); border-top-width: 0; background: transparent; color: var(--ink-2); font: 400 var(--f-1)/1 var(--log); transition: color var(--t0), background-color var(--t0); }
 .control-button + .control-button { border-left-width: 0; }
 @media (min-width: 680px) { .control-button { border-top-width: 1px; border-left-width: 0; } }
 .control-button:hover, .control-button:focus-visible { color: var(--ink); background: var(--surface-2); }
 .control-button[aria-pressed="true"] { color: var(--on-dot); background: var(--fill); border-color: var(--fill); }
-.table-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-1) var(--s1); margin-bottom: var(--s-1); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+.table-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-1) var(--s1); margin-bottom: var(--s-1); color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--log); }
 .table-scroll-hint { margin-bottom: var(--s-1); color: var(--ink-3); font-size: var(--f-1); }
-.table-wrap { max-width: 100%; max-height: calc(var(--s5) * 4); overflow: auto; border: 1px solid var(--line); background: var(--bg); overscroll-behavior-x: contain; scrollbar-color: var(--line-strong) var(--bg); }
+.table-wrap { max-width: 100%; max-height: calc(var(--s5) * 4); overflow: auto; border: 1px solid var(--line-strong); background: var(--bg); overscroll-behavior-x: contain; scrollbar-color: var(--line-strong) var(--bg); }
 @media (max-width: 680px) { .table-wrap { max-height: 61.8svh; } }
 #seedTable { width: 100%; min-width: 720px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
 #seedTable caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
 #seedTable :is(th, td) { padding: var(--s-1) var(--s0); border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
-#seedTable thead th { position: sticky; top: 0; z-index: 5; background: var(--surface-2); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); font-weight: 400; }
+#seedTable thead th { position: sticky; top: 0; z-index: 5; background: var(--st4); color: var(--ink-2); font: 500 var(--f-1)/1 var(--log); letter-spacing: .0618em; text-transform: uppercase; }
 #seedTable thead th:first-child { left: 0; z-index: 6; }
-#seedTable tbody tr:hover, #seedTable tbody tr:hover .y-cell { background: var(--surface-2); }
+/* Une ligne sur deux prend la teinte de la strate suivante. */
+#seedTable tbody tr:nth-child(even), #seedTable tbody tr:nth-child(even) .y-cell { background: var(--st1); }
+#seedTable tbody tr:hover, #seedTable tbody tr:hover .y-cell { background: var(--st3); }
 #seedTable tbody tr:last-child :is(td, th) { border-bottom: 0; }
-.y-cell { position: sticky; left: 0; z-index: 2; width: var(--s4); background: var(--bg); font-weight: 500; }
-.seed-cell, .coords-cell { font-family: var(--font-mono); font-size: var(--f-1); }
+.y-cell { position: sticky; left: 0; z-index: 2; width: var(--s4); background: var(--bg); font: 500 var(--f0)/1.272 var(--report); }
+.seed-cell, .coords-cell { font: 400 var(--f-1)/1.382 var(--log); }
 .seed-cell { width: 31%; overflow-wrap: anywhere; cursor: copy; transition: color var(--t0); }
 .seed-cell:hover { color: var(--dot-ink); }
 .coords-cell { width: 31%; color: var(--ink-3); white-space: nowrap; }
-.video-link { display: inline-flex; align-items: center; min-height: var(--s2); font-weight: 500; text-decoration-color: var(--dot); text-underline-offset: var(--s-3); }
+.video-link { display: inline-flex; align-items: center; min-height: var(--s2); font-family: var(--report); font-weight: 500; text-decoration-color: var(--dot); text-underline-offset: var(--s-3); }
 .video-link:hover, .video-link:focus-visible { color: var(--dot-ink); }
 .muted { color: var(--ink-3); }
-.row-badge { display: block; width: max-content; color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-2); font-weight: 400; }
-.farlands-divider td { background: color-mix(in srgb, var(--alt) 9%, var(--bg)); color: var(--alt); font-family: var(--font-mono); font-size: var(--f-1); }
-.farlands-record, .farlands-record .y-cell { background: color-mix(in srgb, var(--alt) 9%, var(--bg)); }
+.row-badge { display: block; width: max-content; color: var(--ink-3); font: 400 var(--f-2)/1.382 var(--log); }
+/* La limite : sous ce trait, les Far Lands. */
+.farlands-divider td { background: repeating-linear-gradient(-45deg, color-mix(in srgb, var(--alt) 14.6%, var(--bg)) 0 var(--s-2), var(--bg) var(--s-2) var(--s-1)); color: var(--alt); font: 500 var(--f-1)/1.382 var(--log); letter-spacing: .0618em; text-transform: uppercase; }
+#seedTable tbody .farlands-record, #seedTable tbody .farlands-record .y-cell { background: color-mix(in srgb, var(--alt) 9%, var(--bg)); }
 .farlands-record .y-cell { color: var(--alt); }
-.empty-state { padding: var(--s2) var(--s1); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); text-align: center; }
+.empty-state { padding: var(--s2) var(--s1); color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--log); text-align: center; }
 .source-note { margin-top: var(--s0); color: var(--ink-3); font-size: var(--f-1); }
 
-/* ---------- Découverte ---------- */
-.continue-panel { align-items: center; }
-.continue-panel p { color: var(--ink-2); }
-.next-target { display: grid; gap: var(--s-1); padding-left: var(--s1); border-left: 1px solid var(--line); }
-@media (max-width: 899px) { .next-target { padding: var(--s1) 0 0; border-top: 1px solid var(--line); border-left: 0; } }
-.next-target small, .next-target span { color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); overflow-wrap: anywhere; }
-.next-target strong { color: var(--dot); font-size: clamp(var(--f4), 11.09vw, var(--f6)); font-weight: 400; line-height: .786; letter-spacing: -.0902em; }
+/* ---------- 03 · La découverte ---------- */
+.continue-panel p:not(.stratum-no) { color: var(--ink-2); font-family: var(--report); }
+.core-btn { display: inline-flex; align-items: center; gap: var(--s-1); min-height: var(--s2); padding: 0 var(--s1); background: var(--fill); color: var(--on-dot); font: 500 var(--f0)/1 var(--report); text-decoration: none; transition: background-color var(--t0), color var(--t0); }
+.core-btn:hover { background: var(--ink); color: var(--bg); }
+.next-target { display: grid; gap: var(--s-1); padding: var(--s1); background: var(--strata), var(--st1); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.next-target small, .next-target span { color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--log); overflow-wrap: anywhere; }
+.next-target strong { color: var(--dot); font: 300 clamp(var(--f4), 11.09vw, var(--f6))/.786 var(--report); letter-spacing: -.0618em; }
 
-.credits { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-1) var(--s1); padding-top: var(--s1); border-top: 1px solid var(--line); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+.credits { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-1) var(--s1); padding-top: var(--s1); border-top: 1px solid var(--line); color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--log); }
 .credits a { color: var(--ink-2); text-underline-offset: var(--s-3); }
 .credits a:hover { color: var(--dot-ink); }
+.survey .z-foot { margin-top: var(--s3); }
 
 @media (prefers-reduced-motion: reduce) {
   html:has(#seedData) { scroll-behavior: auto; }

@@ -470,6 +470,9 @@
     $('fearPct').textContent = new Intl.NumberFormat(locale(), { style: 'percent' }).format(result.fear / 100);
     $('reactTime').textContent = `${new Intl.NumberFormat(locale(), { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(result.react)} s`;
     $('rank').textContent = x.ranks[result.rankIndex];
+    // Le tampon de l'institut, dans la langue choisie (mêmes mots que sur le diplôme).
+    const [s1, s2] = $('stamp').children;
+    [s1.textContent, s2.textContent] = x.diploma.stamp;
   }
 
   function rain() {
@@ -511,7 +514,7 @@
     const button = $('diplomaBtn');
     button.disabled = true;
     try {
-      if (document.fonts) await Promise.all(['700 80px "Geist"', '600 40px "Geist"', '400 28px "Geist"'].map(f => document.fonts.load(f))).catch(() => {});
+      if (document.fonts) await Promise.all(['400 80px "Special Elite"', '700 40px "Courier Prime"', '400 28px "Courier Prime"'].map(f => document.fonts.load(f))).catch(() => {});
       const p = AF.palette(); // la combinaison Wada de la page (№ 265)
       const face = await loadImage('IMG/Jerome.webp');
       const W = 1600, H = 1130;
@@ -519,7 +522,9 @@
       canvas.width = W;
       canvas.height = H;
       const c = canvas.getContext('2d');
-      const font = '"Geist", system-ui, "Noto Sans", "Segoe UI", sans-serif';
+      // Le diplôme est tapé à la machine ; les écritures non latines retombent sur les polices système.
+      const font = '"Courier Prime", "Courier New", "Noto Sans", "Segoe UI", system-ui, sans-serif';
+      const typed = '"Special Elite", "Courier Prime", "Courier New", "Noto Sans", system-ui, sans-serif';
       c.direction = x.dir === 'rtl' ? 'rtl' : 'ltr';
 
       c.fillStyle = p.bg;
@@ -536,7 +541,7 @@
       c.font = `500 24px ${font}`;
       c.fillText(x.introTitle, W / 2, 150);
       c.fillStyle = p.ink;
-      c.font = `700 80px ${font}`;
+      c.font = `400 80px ${typed}`;
       c.fillText(d.title, W / 2, 250);
       c.fillStyle = p.dot;
       c.font = `600 40px ${font}`;
@@ -553,7 +558,7 @@
       c.font = `400 28px ${font}`;
       c.fillText(d.attest, W / 2, 630);
       c.fillStyle = p.ink;
-      c.font = `700 68px ${font}`;
+      c.font = `400 68px ${typed}`;
       c.fillText(d.got, W / 2, 715);
       const date = result.at.toLocaleDateString(locale(), { day: 'numeric', month: 'long', year: 'numeric' });
       const time = result.at.toLocaleTimeString(locale(), { hour: '2-digit', minute: '2-digit' });

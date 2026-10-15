@@ -20,18 +20,19 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/tokens.css" />
   <link rel="stylesheet" href="../assets/site.css" />
+  <link rel="stylesheet" href="about.css" />
   <script src="../assets/site.js" defer></script>
   <script src="about.js" defer></script>
 </head>
-<body class="page text-page z-enter">
+<body class="manifesto">
 
 <header class="z-head">
   <div class="z-left">
     <a class="z-home" href="../index.html#z7" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
-    <span class="z-crumb"><span class="z-depth">z7</span><span data-i18n="about">À propos</span></span>
+    <span class="z-crumb"><span data-i18n="about">À propos</span></span>
   </div>
   <div class="z-right">
     <span class="wada"><i></i><i></i><i></i></span>
@@ -39,33 +40,41 @@
   </div>
 </header>
 
-<main class="shell" aria-labelledby="pageTitle">
-  <div class="text-head">
-    <p class="kicker rise"><b>z7</b> · <span data-i18n="about">À propos</span> · Fever</p>
-    <h1 class="display rise" style="--i:1" id="pageTitle" data-i18n="heading">Je teste, je fabrique, je partage.</h1>
-  </div>
+<main class="manifest" aria-labelledby="pageTitle">
+  <!-- Une idée par écran, sur une colonne à la mesure d'or. -->
+  <section class="idea idea-title">
+    <p class="idea-n"><span data-i18n="about">À propos</span> · Fever</p>
+    <h1 class="manifest-title" id="pageTitle" data-i18n="heading">Je teste, je fabrique, je partage.</h1>
+  </section>
 
-  <div class="text-body g-phi">
-    <aside class="text-aside rise" style="--i:2">
-      <span class="mark" aria-hidden="true"></span>
-      <ul class="rows rows--stack">
-        <li class="row"><b>01</b><strong data-i18n="f1">Sans compte</strong><span data-i18n="f1d">Tu ouvres, tu utilises. Rien à créer.</span></li>
-        <li class="row"><b>02</b><strong data-i18n="f2">Dans ton navigateur</strong><span data-i18n="f2d">Tes fichiers restent sur ton appareil.</span></li>
-        <li class="row"><b>03</b><strong data-i18n="f3">Fait main</strong><span data-i18n="f3d">Petit, soigné, et un peu de Jérôme.</span></li>
-      </ul>
-    </aside>
+  <section class="idea" data-i18n-attr="aria-label:introAria" aria-label="Présentation">
+    <p class="idea-big" data-i18n-html="p1">ArchiveFever.Work est mon espace personnel pour transformer des idées en <strong>outils web simples</strong>, en pages utiles et en petites expériences accessibles directement depuis un navigateur.</p>
+  </section>
 
-    <section class="text-copy rise" style="--i:3" data-i18n-attr="aria-label:introAria" aria-label="Présentation">
-      <p class="lead" data-i18n-html="p1">ArchiveFever.Work est mon espace personnel pour transformer des idées en <strong>outils web simples</strong>, en pages utiles et en petites expériences accessibles directement depuis un navigateur.</p>
-      <p data-i18n="p2">J’y expérimente, j’apprends et j’améliore progressivement ce que je construis. Chaque projet privilégie une interface claire, un fonctionnement sans compte et une utilité immédiate, tout en gardant une identité personnelle.</p>
-      <p data-i18n="p3">Si une page ici te fait gagner du temps, t’aide pour un truc précis, te donne une idée ou te fait juste sourire, alors le site a déjà une raison d’exister.</p>
-      <p data-i18n="p4">Le design suit deux règles : les combinaisons de couleurs de Sanzo Wada (une par niveau du zoom, son numéro est en haut à droite) et le nombre d’or, qui fixe chaque marge, chaque taille et chaque durée.</p>
-      <div class="cta">
-        <a class="btn primary" href="../index.html#z2"><span data-i18n="cta">Voir les outils</span><span aria-hidden="true">→</span></a>
-        <span class="kicker" data-i18n="ctaNote">Envie d’essayer ?</span>
-      </div>
-    </section>
-  </div>
+  <section class="idea">
+    <p class="idea-text" data-i18n="p2">J’y expérimente, j’apprends et j’améliore progressivement ce que je construis. Chaque projet privilégie une interface claire, un fonctionnement sans compte et une utilité immédiate, tout en gardant une identité personnelle.</p>
+  </section>
+
+  <section class="idea">
+    <ol class="vows">
+      <li><strong data-i18n="f1">Sans compte</strong><span data-i18n="f1d">Tu ouvres, tu utilises. Rien à créer.</span></li>
+      <li><strong data-i18n="f2">Dans ton navigateur</strong><span data-i18n="f2d">Tes fichiers restent sur ton appareil.</span></li>
+      <li><strong data-i18n="f3">Fait main</strong><span data-i18n="f3d">Petit, soigné, et un peu de Jérôme.</span></li>
+    </ol>
+  </section>
+
+  <section class="idea">
+    <p class="idea-text" data-i18n="p4">Chaque pièce de la carte a sa propre palette et sa propre typographie. Les proportions, elles, suivent toutes une même règle, discrète.</p>
+  </section>
+
+  <section class="idea">
+    <p class="idea-big" data-i18n="p3">Si une page ici te fait gagner du temps, t’aide pour un truc précis, te donne une idée ou te fait juste sourire, alors le site a déjà une raison d’exister.</p>
+  </section>
+
+  <section class="idea idea-end">
+    <p class="idea-ask" data-i18n="ctaNote">Envie d’essayer ?</p>
+    <a class="manifest-cta" href="../index.html#z2"><span data-i18n="cta">Voir les outils</span><span aria-hidden="true">→</span></a>
+  </section>
 </main>
 
 <footer class="z-foot">

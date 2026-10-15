@@ -1,0 +1,62 @@
+/* 404 — hors carte.
+   Wada 232 : Deep Indigo (le papier calque) · Pinkish Cinnamon (le trait) · Carmine (le point perdu).
+   Instrument Serif, comme la carte de l'accueil ; Geist Mono pour les cotes.
+   La carte de l'accueil en miniature (mêmes pièces, mêmes proportions), chacune dans sa combinaison Wada,
+   et le point « vous êtes ici » posé en dehors du rectangle d'or. */
+
+.offmap {
+  --serif: "Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
+  display: flex; flex-direction: column; min-height: 100dvh;
+  /* Le calque d'architecte : un quadrillage au pas de φ². */
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: var(--s2) var(--s2);
+}
+.lost {
+  flex: 1;
+  display: grid; align-content: center; align-items: center; gap: var(--s2);
+  width: min(var(--shell), 100% - 2 * var(--gutter)); margin-inline: auto; padding-block: var(--s3);
+}
+@media (min-width: 900px) { .lost { grid-template-columns: 38.2fr 61.8fr; gap: var(--s3); } }
+
+/* ---------- Le texte ---------- */
+.lost-copy { display: grid; gap: var(--s0); justify-items: start; }
+.lost-k { margin: 0; color: var(--ink-3); font: 400 var(--f-1)/1 var(--font-mono); letter-spacing: .0618em; text-transform: uppercase; }
+.lost-k b { color: var(--dot-ink); font-weight: 500; }
+.err-code { margin: 0; font: 400 clamp(var(--f5), 17.9vw, 15rem)/.786 var(--serif); letter-spacing: -.0382em; }
+.err-code i { color: var(--dot); }
+.lost-title { margin: 0; font: italic 400 var(--f3)/1 var(--serif); }
+.lost-msg { max-width: 32ch; margin: 0; color: var(--ink-2); }
+.lost-note { display: inline-flex; align-items: center; gap: var(--s-1); margin: 0; color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--font-mono); }
+.lost-note img { width: var(--s1); height: var(--s1); border-radius: 50%; filter: grayscale(1); }
+.lost-home { display: inline-flex; align-items: center; gap: var(--s1); min-height: var(--s2); margin-top: var(--s-1); padding: 0 var(--s1); background: var(--fill); color: var(--on-dot); font: 400 var(--f0)/1 var(--font-mono); text-decoration: none; transition: background-color var(--t1), color var(--t1); }
+.lost-home:hover, .lost-home:focus-visible { background: var(--dot); color: #fff; }
+
+/* ---------- La mini-carte ---------- */
+.lost-plan { position: relative; min-width: 0; padding-bottom: var(--s4); }
+.mini-map { position: relative; aspect-ratio: 1.618034; container-type: inline-size; box-shadow: 0 0 0 1px var(--ink); }
+.mini-room {
+  position: absolute;
+  left: calc(var(--x) / 1.618034 * 100%); top: calc(var(--y) * 100%);
+  width: calc(var(--s) / 1.618034 * 100%); height: calc(var(--s) * 100%);
+  display: grid; align-content: space-between;
+  padding: calc(var(--s) * 3.82cqi);
+  overflow: hidden;
+  background: var(--bg); color: var(--ink);
+  box-shadow: inset 0 0 0 .5px color-mix(in srgb, #fff 23.6%, transparent);
+  text-decoration: none;
+  transition: box-shadow var(--t1);
+}
+.mini-room b { color: var(--dot-ink); font: 400 max(9px, calc(var(--s) * 2.36cqi))/1 var(--font-mono); }
+.mini-room span { font: 400 max(9px, calc(var(--s) * 6.18cqi))/.92 var(--serif); }
+a.mini-room:hover, a.mini-room:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--dot); }
+/* Les plus petites pièces gardent leur nom pour les lecteurs d'écran seulement. */
+.mini-room.tiny :is(b, span) { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Vous êtes ici : nulle part ---------- */
+.you { position: absolute; right: 9%; bottom: 0; display: flex; align-items: center; gap: var(--s-1); margin: 0; color: var(--ink); font: 400 var(--f-1)/1 var(--font-mono); letter-spacing: .0382em; }
+.you-dot { width: var(--s0); height: var(--s0); flex: none; border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 var(--s-3) var(--bg), 0 0 0 calc(var(--s-3) + 1px) var(--dot); animation: lost-blink var(--t5) steps(2, jump-none) infinite; }
+@keyframes lost-blink { 50% { opacity: .236; } }
+
+.offmap .z-foot { margin-top: 0; }
+
+@media (prefers-reduced-motion: reduce) { .you-dot { animation: none; } }

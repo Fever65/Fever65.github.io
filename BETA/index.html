@@ -19,21 +19,21 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,500;0,700;1,300;1,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/tokens.css" />
   <link rel="stylesheet" href="../assets/site.css" />
   <link rel="stylesheet" href="beta.css" />
   <script src="../assets/site.js" defer></script>
   <script src="beta.js" defer></script>
 </head>
-<body class="page z-enter">
+<body class="survey">
   <a class="skip-link" href="#mainContent" data-i18n="skip">Aller au contenu</a>
 
   <div class="beta-head">
     <header class="z-head">
       <div class="z-left">
         <a class="z-home" href="../index.html#z5" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
-        <span class="z-crumb"><span class="z-depth">z5</span><span>Every Y Found</span></span>
+        <span class="z-crumb"><span>Every Y Found</span></span>
       </div>
       <div class="z-right">
         <span class="wada"><i></i><i></i><i></i></span>
@@ -50,20 +50,28 @@
     </nav>
   </div>
 
+  <!-- La jauge de profondeur : on creuse de Y120 (surface) à Y1 (substratum) en lisant. -->
+  <aside class="depth" aria-hidden="true">
+    <span class="depth-label" data-i18n="depth">Profondeur</span>
+    <span class="depth-track"><i class="depth-mark"></i></span>
+    <span class="depth-y" id="depthY">Y120</span>
+  </aside>
+
   <main id="mainContent" tabindex="-1">
     <section class="hero shell" aria-labelledby="pageTitle">
-      <p class="kicker rise"><b>z5</b> · <span data-i18n="eyebrow">Minecraft Java Beta 1.7.3 · Archive complète</span></p>
-      <h1 class="beta-title rise" style="--i:1" id="pageTitle">
+      <p class="report-no"><span data-i18n="eyebrow">Minecraft Java Beta 1.7.3 · Archive complète</span></p>
+      <div class="core" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <h1 class="beta-title" id="pageTitle">
         <span data-lang="fr">Chaque Y<br /><span class="outline">a son seed.</span></span>
         <span data-lang="en">Every Y<br /><span class="outline">has a seed.</span></span>
       </h1>
-      <div class="g-phi-r hero-copy rise" style="--i:2">
+      <div class="hero-copy">
         <div>
           <p class="lead" data-lang="fr">La recherche couvre désormais <strong>chaque hauteur de Y1 à Y120</strong>. Pour chacune, j’ai trouvé au moins un seed de donjon reproductible dans Minecraft Beta 1.7.3. Y120 est maintenant trouvé hors Far Lands !</p>
           <p class="lead" data-lang="en">The search now covers <strong>every height from Y1 to Y120</strong>. For each one, I found at least one reproducible dungeon seed in Minecraft Beta 1.7.3. Y120 has now been found outside the Far Lands!</p>
         </div>
         <aside class="hero-status" data-i18n-attr="aria-label:statusLabel" aria-label="Statut de la recherche">
-          <span class="kicker"><b data-i18n="newFind">Nouvelle découverte</b></span>
+          <span class="stratum-no"><b data-i18n="newFind">Nouvelle découverte</b></span>
           <span class="status-value" data-i18n="y120Found">Y120 trouvé !</span>
           <span class="status-detail"><span data-i18n="outside">Hors Far Lands</span> · Seed 6000000000040461505<br />X=-993, Y=120, Z=-65</span>
         </aside>
@@ -80,7 +88,7 @@
     <section class="shell altitude" id="altitude" aria-labelledby="altTitle">
       <div class="alt-head">
         <div>
-          <p class="kicker">00 — <span data-i18n="navMap">La carte</span></p>
+          <p class="stratum-no">00 — <span data-i18n="navMap">La carte</span></p>
           <h2 class="h2" id="altTitle" data-i18n="altTitle">120 hauteurs. 120 donjons.</h2>
         </div>
         <p class="alt-legend">
@@ -97,8 +105,8 @@
     </section>
 
     <section class="section" id="discovery">
-      <div class="shell g-phi">
-        <p class="kicker">01 — <span data-i18n="milestone">Le cap</span></p>
+      <div class="shell split">
+        <p class="stratum-no">01 — <span data-i18n="milestone">Le cap</span></p>
         <div>
           <div data-lang="fr">
             <h2 class="h2">Ce n’est plus une suite de records isolés.</h2>
@@ -133,7 +141,7 @@
       <div class="shell">
         <div class="results-head">
           <div>
-            <p class="kicker">02 — <span data-i18n="theData">Les données</span></p>
+            <p class="stratum-no">02 — <span data-i18n="theData">Les données</span></p>
             <h2 class="h2" id="databaseTitle" data-i18n="dbTitle">Tous les seeds, de Y1 à Y120.</h2>
             <p class="results-subtitle" data-i18n="dbSubtitle">Y1 à Y120 forment la série complète hors Far Lands. Le nouveau Y120 rejoint le record principal ; l’ancien cas Y119 des Far Lands reste conservé séparément.</p>
           </div>
@@ -176,9 +184,9 @@
     </section>
 
     <section class="section" id="next">
-      <div class="shell g-phi-r continue-panel">
+      <div class="shell split split-r continue-panel">
         <div>
-          <p class="kicker">03 — <span data-i18n="theDiscovery">La découverte</span></p>
+          <p class="stratum-no">03 — <span data-i18n="theDiscovery">La découverte</span></p>
           <div data-lang="fr">
             <h2 class="h2">Y120 trouvé hors Far Lands.</h2>
             <p>Le cap est atteint ! Le seed <strong>6000000000040461505</strong> contient un spawner Zombie confirmé en jeu aux coordonnées <strong>X=-993, Y=120, Z=-65</strong> dans Minecraft Java Beta 1.7.3. Cette découverte complète la série de Y1 à Y120 hors Far Lands.</p>
@@ -187,7 +195,7 @@
             <h2 class="h2">Y120 found outside the Far Lands.</h2>
             <p>The milestone is reached! Seed <strong>6000000000040461505</strong> contains an in-game confirmed zombie spawner at <strong>X=-993, Y=120, Z=-65</strong> in Minecraft Java Beta 1.7.3. This discovery completes the sequence from Y1 to Y120 outside the Far Lands.</p>
           </div>
-          <p class="cta"><a class="btn primary" href="https://youtu.be/srNnxU39jTk" target="_blank" rel="noopener noreferrer"><span data-i18n="watchY120">Voir la découverte Y120 en vidéo</span><span aria-hidden="true">↗</span></a></p>
+          <p class="cta"><a class="core-btn" href="https://youtu.be/srNnxU39jTk" target="_blank" rel="noopener noreferrer"><span data-i18n="watchY120">Voir la découverte Y120 en vidéo</span><span aria-hidden="true">↗</span></a></p>
         </div>
         <div class="next-target" data-i18n-attr="aria-label:nextLabel" aria-label="Découverte Y120 hors Far Lands">
           <small data-i18n="newRecord">Nouveau record hors Far Lands</small>

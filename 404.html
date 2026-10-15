@@ -11,19 +11,20 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <!-- Chemins absolus : GitHub Pages sert cette page depuis n'importe quelle adresse. -->
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
+  <link rel="stylesheet" href="/assets/404.css" />
   <script src="/assets/site.js" defer></script>
   <script src="/assets/404.js" defer></script>
 </head>
-<body class="page text-page z-enter">
+<body class="offmap">
 
 <header class="z-head">
   <div class="z-left">
     <a class="z-home" href="/index.html" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
-    <span class="z-crumb"><span class="z-depth">z∞</span><span>404</span></span>
+    <span class="z-crumb"><span>404</span></span>
   </div>
   <div class="z-right">
     <span class="wada"><i></i><i></i><i></i></span>
@@ -31,29 +32,31 @@
   </div>
 </header>
 
-<main class="shell" aria-labelledby="pageTitle">
-  <div class="text-head">
-    <p class="kicker rise"><b>z∞</b> · <span data-i18n="eyebrow">tu as zoomé trop loin</span></p>
-    <p class="err-code rise" style="--i:1" aria-hidden="true">4<span>0</span>4</p>
+<main class="lost" aria-labelledby="pageTitle">
+  <div class="lost-copy">
+    <p class="lost-k"><span data-i18n="eyebrow">hors de la carte</span></p>
+    <p class="err-code" aria-hidden="true">4<i>0</i>4</p>
+    <h1 class="lost-title" id="pageTitle" data-i18n="heading">Page introuvable</h1>
+    <p class="lost-msg" data-i18n="msg">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</p>
+    <p class="lost-note"><img src="/IMG/Jerome.webp" alt="" width="26" height="26" loading="lazy" decoding="async" /><span data-i18n="lost">Même Jérôme s’est perdu.</span></p>
+    <a class="lost-home" href="/index.html"><span data-i18n="home">Retour à la carte</span><span aria-hidden="true">→</span></a>
   </div>
 
-  <div class="text-body g-phi">
-    <aside class="text-aside rise" style="--i:2">
-      <p class="note"><img src="/IMG/Jerome.webp" alt="" width="26" height="26" loading="lazy" decoding="async" /><span data-i18n="lost">Même Jérôme s’est perdu.</span></p>
-    </aside>
-    <div class="text-copy rise" style="--i:3">
-      <h1 class="h2" id="pageTitle" data-i18n="heading">Page introuvable</h1>
-      <p class="lead" data-i18n="msg">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</p>
-      <div class="cta"><a class="btn primary" href="/index.html" data-i18n="home">Retour au point</a></div>
-    </div>
+  <!-- La carte de l'accueil, en miniature : mêmes pièces, mêmes proportions (rectangle d'or φ : 1).
+       Le point, lui, est en dehors. -->
+  <div class="lost-plan">
+    <nav class="mini-map" data-i18n-attr="aria-label:mapLabel" aria-label="La carte du site">
+      <a class="mini-room" href="/index.html#z1" data-wada="z1" style="--x:0;--y:0;--s:1"><span>ArchiveFever.Work</span></a>
+      <a class="mini-room" href="/COMPRESS/index.html" data-wada="z2" style="--x:1;--y:0;--s:.618034"><span>FeverCompress</span></a>
+      <a class="mini-room" href="/QR/index.html" data-wada="z3" style="--x:1.236068;--y:.618034;--s:.381966"><span>ColorQR</span></a>
+      <a class="mini-room" href="/TIMER/index.html" data-wada="z4" style="--x:1;--y:.763932;--s:.236068"><span data-i18n="timer">Minuteur</span></a>
+      <a class="mini-room tiny" href="/BETA/index.html" data-wada="z5" style="--x:1;--y:.618034;--s:.145898"><span>Every Y Found</span></a>
+      <a class="mini-room tiny" href="/Jeromed.html" data-wada="z6" style="--x:1.145898;--y:.618034;--s:.09017"><span>Jérôme</span></a>
+      <a class="mini-room tiny" href="/ABOUT/index.html" data-wada="z7" style="--x:1.18034;--y:.708204;--s:.055728"><span data-i18n="about">À propos</span></a>
+      <span class="mini-room tiny" data-wada="z0" style="--x:1.145898;--y:.72949;--s:.034442"><span data-i18n="secret">Pièce secrète</span></span>
+    </nav>
+    <p class="you"><span class="you-dot" aria-hidden="true"></span><span class="you-label" data-i18n="here">Vous êtes ici : nulle part</span></p>
   </div>
-
-  <nav class="quick rise" style="--i:4" data-i18n-attr="aria-label:tools" aria-label="Outils">
-    <a class="row" href="/COMPRESS/index.html"><b>z2</b><strong>FeverCompress</strong><span class="arrow" aria-hidden="true">↗</span></a>
-    <a class="row" href="/QR/index.html"><b>z3</b><strong>ColorQR</strong><span class="arrow" aria-hidden="true">↗</span></a>
-    <a class="row" href="/TIMER/index.html"><b>z4</b><strong data-i18n="timer">Minuteur</strong><span class="arrow" aria-hidden="true">↗</span></a>
-    <a class="row" href="/BETA/index.html"><b>z5</b><strong>Every Y</strong><span class="arrow" aria-hidden="true">↗</span></a>
-  </nav>
 </main>
 
 <footer class="z-foot">

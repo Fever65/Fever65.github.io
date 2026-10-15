@@ -1,3 +1,15 @@
 graphify-out/
 .omc/
 
+# Outils locaux
+.claude/
+node_modules/
+# Système / éditeurs
+Thumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+*.log
+# Secrets
+.env
+.env.*

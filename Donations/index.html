@@ -20,18 +20,19 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/tokens.css" />
   <link rel="stylesheet" href="../assets/site.css" />
+  <link rel="stylesheet" href="donations.css" />
   <script src="../assets/site.js" defer></script>
   <script src="donations.js" defer></script>
 </head>
-<body class="page text-page z-enter">
+<body class="chapel">
 
 <header class="z-head">
   <div class="z-left">
     <a class="z-home" href="../index.html#z7" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
-    <span class="z-crumb"><span class="z-depth">z7</span><span data-i18n="donate">Dons</span></span>
+    <span class="z-crumb"><span data-i18n="donate">Dons</span></span>
   </div>
   <div class="z-right">
     <span class="wada"><i></i><i></i><i></i></span>
@@ -39,32 +40,34 @@
   </div>
 </header>
 
-<main class="shell" aria-labelledby="pageTitle">
-  <div class="text-head">
-    <p class="kicker rise"><b>z7</b> · <span data-i18n="eyebrow">Soutien facultatif</span></p>
-    <h1 class="display rise" style="--i:1" id="pageTitle" data-i18n="heading">Dons</h1>
+<main class="offering" aria-labelledby="pageTitle">
+  <div class="offering-head">
+    <p class="offering-k"><span data-i18n="eyebrow">Soutien facultatif</span></p>
+    <h1 class="offering-title" id="pageTitle" data-i18n="heading">Dons</h1>
+    <p class="offering-msg" data-i18n="msg">Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.</p>
   </div>
 
-  <div class="text-body g-phi">
-    <aside class="text-aside rise" style="--i:2">
-      <span class="mark" aria-hidden="true"></span>
-      <p class="lead" data-i18n="msg">Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.</p>
-      <p class="note"><img src="../IMG/Jerome.webp" alt="" width="26" height="26" loading="lazy" decoding="async" /><span data-i18n="note">Tous les outils restent gratuits, avec ou sans don.</span></p>
-    </aside>
-
-    <div class="rows rows--big rise" style="--i:3">
-      <a class="row" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener noreferrer">
-        <b>01</b>
-        <span class="row-copy"><strong>PayPal</strong><span data-i18n="paypal">Un petit geste, le montant que tu veux.</span><small>paypal.me/Fever65</small></span>
-        <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-      <a class="row" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener noreferrer">
-        <b>02</b>
-        <span class="row-copy"><strong>Ko-fi</strong><span data-i18n="kofi">Offre un café. Jérôme dit merci.</span><small>ko-fi.com/archivefeverwork</small></span>
-        <span class="arrow" aria-hidden="true">↗</span>
-      </a>
-    </div>
+  <!-- Le tronc : un seul objet. Survoler ou cibler un lien de don fait tomber une pièce dans la fente. -->
+  <div class="trunk" aria-hidden="true">
+    <span class="coin" aria-hidden="true"></span>
+    <span class="trunk-lid"><i class="slot"></i></span>
+    <span class="trunk-body"><span class="trunk-plate">ArchiveFever.Work</span></span>
   </div>
+
+  <div class="gives">
+    <a class="give" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener noreferrer">
+      <strong>PayPal</strong>
+      <span data-i18n="paypal">Un petit geste, le montant que tu veux.</span>
+      <small>paypal.me/Fever65 <span aria-hidden="true">↗</span></small>
+    </a>
+    <a class="give" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener noreferrer">
+      <strong>Ko-fi</strong>
+      <span data-i18n="kofi">Offre un café. Jérôme dit merci.</span>
+      <small>ko-fi.com/archivefeverwork <span aria-hidden="true">↗</span></small>
+    </a>
+  </div>
+
+  <p class="offering-note"><img src="../IMG/Jerome.webp" alt="" width="26" height="26" loading="lazy" decoding="async" /><span data-i18n="note">Tous les outils restent gratuits, avec ou sans don.</span></p>
 </main>
 
 <footer class="z-foot">

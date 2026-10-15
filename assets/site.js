@@ -14,13 +14,11 @@
   const COMMON = {
     fr: {
       back: 'Retour', backAria: "Retour à l'accueil", langLabel: 'Choisir la langue',
-      made: 'Fait main · Sans compte · Sans pub', about: 'À propos', donate: 'Dons', footNav: 'Pied de page',
-      wada: n => `Combinaison de couleurs Sanzo Wada numéro ${n}`
+      made: 'Fait main · Sans compte · Sans pub', about: 'À propos', donate: 'Dons', footNav: 'Pied de page'
     },
     en: {
       back: 'Back', backAria: 'Back to home', langLabel: 'Choose language',
-      made: 'Handmade · No account · No ads', about: 'About', donate: 'Donate', footNav: 'Footer',
-      wada: n => `Sanzo Wada colour combination number ${n}`
+      made: 'Handmade · No account · No ads', about: 'About', donate: 'Donate', footNav: 'Footer'
     }
   };
 
@@ -80,8 +78,7 @@
       });
       document.querySelectorAll('[data-set-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setLang === lang)));
       document.querySelectorAll('.lang').forEach(g => g.setAttribute('aria-label', t.langLabel));
-      const n = wadaNumber();
-      document.querySelectorAll('.wada').forEach(w => { w.setAttribute('role', 'img'); w.setAttribute('aria-label', t.wada(n)); });
+      document.querySelectorAll('.wada').forEach(w => w.setAttribute('aria-hidden', 'true'));
       if (opts.onChange) opts.onChange(lang, t);
     }
 
@@ -102,7 +99,10 @@
   }
 
   // ---------- Palette Wada ----------
+  // Accepte #rgb, #rrggbb et rgb(r, g, b) (forme calculée d'une couleur déclarée par @property).
   const toRgb = hex => {
+    const m = hex.trim().match(/^rgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)/);
+    if (m) return m.slice(1, 4).map(Number);
     const h = hex.trim().replace('#', '');
     const full = h.length === 3 ? h.replace(/./g, c => c + c) : h;
     return [0, 2, 4].map(i => parseInt(full.slice(i, i + 2), 16));
@@ -146,6 +146,12 @@
     document.querySelectorAll('[data-af-year]').forEach(el => { el.textContent = year; });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ready); else ready();
+
+  // Transitions entre pages (@view-transition, site.css) : une transition interrompue par une navigation rapide
+  // ou un retour arrière rejette ses promesses ; la page change simplement sans animation, ce n'est pas une erreur.
+  const quiet = e => { const vt = e.viewTransition; if (vt) [vt.ready, vt.finished, vt.updateCallbackDone].forEach(p => p && p.catch(() => {})); };
+  addEventListener('pageswap', quiet);
+  addEventListener('pagereveal', quiet);
 
   window.AF = { i18n, palette, mix, toRgb, toHex, toast, storedLang, storeLang };
 })();

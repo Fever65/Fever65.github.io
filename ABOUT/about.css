@@ -1,0 +1,44 @@
+/* À propos — le manifeste.
+   Wada 342 : Deep Slate Olive (le fond) · Corinthian Pink (le texte) · Cream Yellow (l'accent) · Orange Citrine.
+   Fraunces droite, très grande et lisible, sur une seule colonne ; l'italique seulement pour souligner ; Geist Mono pour les numéros.
+   Une idée par écran, révélée au défilement (about.js, .is-in). */
+
+.manifesto {
+  --serif: "Fraunces", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  display: flex; flex-direction: column; min-height: 100dvh;
+}
+.manifest { flex: 1; width: min(var(--shell), 100% - 2 * var(--gutter)); margin-inline: auto; }
+
+/* La colonne : 61,8 % de la largeur, décalée de 23,6 % ; une idée = un écran (61,8 % de haut au minimum). */
+.idea {
+  display: grid; align-content: center; gap: var(--s1);
+  min-height: 61.8svh; padding-block: var(--s3);
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 900px) { .idea { min-height: 100svh; padding-inline: 23.6% 14.6%; } }
+.idea:first-child { border-top: 0; min-height: calc(100svh - var(--head-h)); }
+.idea-n { margin: 0; color: var(--ink-3); font: 400 var(--f-1)/1 var(--font-mono); letter-spacing: .0618em; text-transform: uppercase; }
+.idea-n b { color: var(--dot-ink); font-weight: 500; }
+
+.manifest-title { margin: 0; max-width: 11ch; font: 600 clamp(var(--f4), 9.02vw, 9.02rem)/.92 var(--serif); letter-spacing: -.0236em; }
+.idea-big { margin: 0; font: 400 clamp(var(--f2), 3.82vw, var(--f4))/1.236 var(--serif); letter-spacing: -.0096em; }
+.idea-big strong { color: var(--dot); font-style: italic; font-weight: 600; }
+.idea-text { margin: 0; max-width: 34ch; font: 400 clamp(var(--f1), 2.06vw, var(--f2))/1.5 var(--serif); color: var(--ink-2); }
+
+/* Les trois promesses, comme des articles de manifeste. */
+.vows { display: grid; gap: var(--s1); margin: 0; padding: 0; list-style: none; }
+.vows li { display: grid; gap: var(--s-2); padding-top: var(--s0); border-top: 1px solid var(--line-strong); }
+.vows strong { font: 500 clamp(var(--f2), 3.82vw, var(--f4))/1.1 var(--serif); letter-spacing: -.0146em; }
+.vows span { color: var(--ink-3); font: 400 var(--f-1)/1.618 var(--font-mono); }
+
+.idea-ask { margin: 0; font: 600 clamp(var(--f3), 5.57vw, var(--f5))/1.05 var(--serif); letter-spacing: -.0146em; }
+.manifest-cta { display: inline-flex; align-items: center; justify-content: space-between; gap: var(--s1); width: min(100%, 23.6rem); padding: var(--s0) 0; border-block: 1px solid var(--ink); color: var(--ink); font: 400 var(--f1)/1 var(--font-mono); text-decoration: none; transition: color var(--t1), border-color var(--t1), padding var(--t2) var(--ease-out); }
+.manifest-cta:hover, .manifest-cta:focus-visible { color: var(--dot); border-color: var(--dot); padding-inline: var(--s0); }
+
+/* La révélation : chaque ligne d'une idée monte et s'éclaire, en cascade. */
+.js-reveal .idea > * { opacity: 0; transform: translateY(var(--s1)); transition: opacity var(--t4) var(--ease-out), transform var(--t4) var(--ease-out); }
+.js-reveal .idea > :nth-child(2) { transition-delay: var(--stagger); }
+.js-reveal .idea > :nth-child(3) { transition-delay: calc(var(--stagger) * 2); }
+.js-reveal .idea.is-in > * { opacity: 1; transform: none; }
+
+.manifesto .z-foot { margin-top: 0; }

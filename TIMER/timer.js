@@ -1,4 +1,4 @@
-/* Minuteur — compte à rebours basé sur l'horloge (Date.now), son local, vibration, mode focus. */
+/* Minuteur — compte à rebours basé sur l'horloge (Date.now), cadran à secteur, heure de fin, son local, vibration, mode focus. */
 (() => {
   'use strict';
 
@@ -19,7 +19,8 @@
       toastDone: 'Temps écoulé.',
       toastInvalid: 'Choisis une durée supérieure à zéro.',
       titleDone: 'Minuteur terminé',
-      toastSoundFail: 'Le son n’a pas pu être lu sur cet appareil.'
+      toastSoundFail: 'Le son n’a pas pu être lu sur cet appareil.',
+      endsAt: t => `Fin à ${t}`, endsWould: t => `Finirait à ${t}`
     },
     en: {
       title: 'Online timer — ArchiveFever.Work',
@@ -35,7 +36,8 @@
       toastDone: 'Time is up.',
       toastInvalid: 'Pick a duration greater than zero.',
       titleDone: 'Timer done',
-      toastSoundFail: 'Sound could not be played on this device.'
+      toastSoundFail: 'Sound could not be played on this device.',
+      endsAt: t => `Ends at ${t}`, endsWould: t => `Would end at ${t}`
     }
   };
   let T = DICT.fr;
@@ -83,6 +85,8 @@
     $('ringFill').style.strokeDashoffset = (100 - pct).toFixed(2);
     $('ringDot').style.transform = `rotate(${(pct * 3.6).toFixed(2)}deg)`;
     $('progressBar').setAttribute('aria-valuenow', String(Math.round(pct)));
+    renderDial();
+    renderEnds();
 
     const label = $('stateLabel');
     label.textContent = T[state];
@@ -94,12 +98,42 @@
     $('pauseBtn').disabled = state !== 'running';
     $('soundDot').classList.toggle('on', unlocked);
     inputs.forEach(el => { el.disabled = state === 'running'; });
-    document.querySelectorAll('.preset').forEach(b => { b.disabled = state === 'running'; });
+    document.querySelectorAll('.preset').forEach(b => {
+      b.disabled = state === 'running';
+      b.setAttribute('aria-pressed', String(totalMs === parseInt(b.dataset.min, 10) * 60000));
+    });
+    document.querySelector('.ring-wrap').classList.toggle('done-dial', state === 'done');
 
     if (state === 'running') document.title = formatTime(remainingMs) + ' — ArchiveFever.Work';
     else if (state === 'done') document.title = T.titleDone + ' — ArchiveFever.Work';
     else document.title = T.title;
   }
+
+  // ---------- Le cadran : le temps restant sur 60 minutes ----------
+  // Secteur coloré = minutes restantes (plein au-delà d'une heure, les heures en plus sont écrites dessous) ;
+  // l'aiguille des minutes en marque le bord, la trotteuse compte les secondes à rebours.
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  function renderDial() {
+    const secLeft = remainingMs / 1000;
+    const shown = still.matches || state !== 'running' ? Math.ceil(secLeft) : secLeft;
+    const inHour = shown >= 3600 ? 3600 : shown % 3600;
+    const hours = Math.floor(Math.max(0, Math.ceil(secLeft) - 1) / 3600);
+    $('sector').style.strokeDasharray = `${(inHour / 36).toFixed(3)} 100`;
+    $('mHand').style.transform = `rotate(${(inHour / 10).toFixed(2)}deg)`;
+    $('sHand').style.transform = `rotate(${((shown % 60) * 6).toFixed(2)}deg)`;
+    $('dialHours').textContent = hours > 0 ? `+${hours} h` : '';
+  }
+
+  // L'heure de fin : réelle pendant le décompte, prévue sinon.
+  const clockTime = ms => new Date(ms).toLocaleTimeString(document.documentElement.lang || 'fr', { hour: '2-digit', minute: '2-digit' });
+  function renderEnds() {
+    const el = $('endsAt');
+    if (state === 'running') el.textContent = T.endsAt(clockTime(endAt));
+    else if (remainingMs > 0) el.textContent = T.endsWould(clockTime(Date.now() + remainingMs));
+    else el.textContent = ' ';
+  }
+  // Hors décompte, l'heure prévue avance avec la pendule.
+  setInterval(() => { if (state !== 'running') renderEnds(); }, 15000);
 
   // ---------- Son ----------
   // Repli si le MP3 ne peut pas être lu : cinq notes synthétisées (onde triangle).

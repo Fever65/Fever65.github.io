@@ -14,6 +14,7 @@
       skip: 'Aller au contenu', navLabel: 'Sections de la page',
       navMap: 'La carte', navDiscovery: 'Découverte', navData: 'Tous les seeds', navNext: 'Le Y120',
       eyebrow: 'Minecraft Java Beta 1.7.3 · Archive complète',
+      depth: 'Profondeur',
       statusLabel: 'Statut de la recherche', newFind: 'Nouvelle découverte', y120Found: 'Y120 trouvé !', outside: 'Hors Far Lands',
       metricsLabel: 'Résumé des résultats', mLowest: 'Plus bas trouvé', mHighest: 'Plus haut hors Far Lands', mConsecutive: 'Hauteurs consécutives', mLatest: 'Dernière découverte',
       altTitle: '120 hauteurs. 120 donjons.', legendFound: 'Trouvé hors Far Lands', legendVideo: 'Avec vidéo', legendRecord: 'Record Y120',
@@ -43,6 +44,7 @@
       skip: 'Skip to content', navLabel: 'Page sections',
       navMap: 'The map', navDiscovery: 'Discovery', navData: 'All seeds', navNext: 'Y120 find',
       eyebrow: 'Minecraft Java Beta 1.7.3 · Complete archive',
+      depth: 'Depth',
       statusLabel: 'Research status', newFind: 'New discovery', y120Found: 'Y120 found!', outside: 'Outside the Far Lands',
       metricsLabel: 'Result summary', mLowest: 'Lowest found', mHighest: 'Highest outside Far Lands', mConsecutive: 'Consecutive heights', mLatest: 'Latest discovery',
       altTitle: '120 heights. 120 dungeons.', legendFound: 'Found outside Far Lands', legendVideo: 'With video', legendRecord: 'Y120 record',
@@ -191,6 +193,20 @@
     };
     requestAnimationFrame(step);
   });
+
+  // ---------- La jauge de profondeur : lire la page, c'est creuser de Y120 à Y1 ----------
+  const depthY = $('depthY');
+  let depthFrame = 0;
+  function dig() {
+    depthFrame = 0;
+    const room = document.documentElement.scrollHeight - innerHeight;
+    const p = room > 0 ? Math.min(1, Math.max(0, scrollY / room)) : 0;
+    document.documentElement.style.setProperty('--depth', p.toFixed(3));
+    depthY.textContent = 'Y' + Math.round(120 - p * 119);
+  }
+  addEventListener('scroll', () => { if (!depthFrame) depthFrame = requestAnimationFrame(dig); }, { passive: true });
+  addEventListener('resize', dig);
+  dig();
 
   AF.i18n(DICT, {
     onChange: (_, dict) => {

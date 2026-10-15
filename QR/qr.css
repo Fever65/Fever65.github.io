@@ -1,0 +1,67 @@
+/* ColorQR — studio (formulaire, mineur) / aperçu (rectangle d'or vertical). */
+
+.studio { margin-top: var(--s1); }
+
+/* Onglets */
+.tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--line-strong); }
+.tab { min-height: var(--s2); border: 0; background: transparent; color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); letter-spacing: var(--track-mono); transition: color var(--t0), background-color var(--t0); }
+.tab + .tab { border-left: 1px solid var(--line-strong); }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--bg); background: var(--ink); }
+
+/* Étapes */
+.tabpanel { margin-top: var(--s2); }
+.steps { display: grid; gap: var(--s2); }
+.step { display: grid; gap: var(--s0); min-width: 0; }
+.step + .step { padding-top: var(--s2); border-top: 1px solid var(--line); }
+.step .step-head { margin: 0; }
+.two { display: grid; gap: var(--s0); }
+@media (min-width: 560px) { .two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.contrast { font-family: var(--font-mono); }
+.contrast.good { color: var(--good); }
+.contrast.bad { color: var(--bad); }
+
+/* Palettes Wada : chaque pastille montre la paire foncé / clair. */
+.palette { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.swatch { width: var(--s2); height: var(--s2); padding: 0; border: 1px solid var(--line-strong); border-radius: 50%; background: linear-gradient(135deg, var(--d) 0 50%, var(--l) 50% 100%); transition: transform var(--t1) var(--ease-out); }
+.swatch:hover { transform: scale(1.146); }
+.swatch[aria-pressed="true"] { outline: 1px solid var(--dot); outline-offset: var(--s-3); }
+
+.colorline { display: flex; }
+.colorline input[type="text"] { flex: 1; width: 0; font-family: var(--font-mono); text-transform: uppercase; }
+input[type="color"] { width: var(--s2); height: var(--s2); flex-shrink: 0; padding: var(--s-3); border: 1px solid var(--line-strong); border-right: 0; background: var(--bg); cursor: pointer; }
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 0; }
+input[type="color"]::-moz-color-swatch { border: 0; border-radius: 0; }
+
+.chk { display: flex; align-items: center; gap: var(--s-1); min-height: var(--s2); cursor: pointer; }
+.chk input { width: var(--s0); height: var(--s0); flex-shrink: 0; }
+
+.btns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.btns .primary { grid-column: 1 / -1; }
+.btns .ghost { border-top-width: 0; }
+.btns .ghost + .ghost { border-left-width: 0; }
+
+/* Aperçu : écran carré + pied de hauteur 1/φ → rectangle d'or vertical. */
+.preview { display: grid; grid-template-rows: auto auto; align-self: start; }
+@media (min-width: 900px) { .preview { position: sticky; top: calc(var(--head-h) + var(--s0)); } }
+.screen { display: grid; place-items: center; aspect-ratio: 1; border-bottom: 1px solid var(--line); background: var(--bg); }
+.canvaswrap { width: 76.4%; animation: qr-in var(--t3) var(--ease-zoom) both; }
+@keyframes qr-in { from { opacity: 0; transform: scale(.0902); } to { opacity: 1; transform: none; } }
+canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.qr-empty { display: grid; justify-items: center; gap: var(--s0); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); text-align: center; }
+.qr-empty .mark { animation: af-ping var(--t5) var(--ease) infinite; }
+#previewBox:not([hidden]) + .qr-empty { display: none; }
+.preview-foot { display: grid; align-content: center; justify-items: center; gap: var(--s0); aspect-ratio: 1.618 / 1; padding: var(--s1); text-align: center; }
+.preview-foot .btn { width: 100%; }
+.status { max-width: 34ch; color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+.status[data-state="ready"] { color: var(--good); }
+.status[data-state="err"] { color: var(--bad); }
+
+/* Conseils */
+.tips { margin-top: var(--s4); }
+.tips .row { grid-template-columns: 3ch minmax(0, 1fr); }
+.tips .row > span { grid-column: 2; }
+
+.modal-b ul { display: grid; gap: var(--s-1); margin: 0; padding-left: var(--s1); }
+.modal-b .muted { color: var(--ink-3); }

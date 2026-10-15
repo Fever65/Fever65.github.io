@@ -279,7 +279,8 @@ a.row:hover .arrow { color: var(--dot-ink); transform: translate(var(--s-3), cal
   left: 50%;
   bottom: calc(var(--s1) + env(safe-area-inset-bottom));
   z-index: 60;
-  max-width: calc(100% - 2 * var(--s0));
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--s0));
   padding: var(--s-1) var(--s0);
   border: 1px solid var(--dot-line);
   background: var(--bg);
@@ -319,7 +320,7 @@ html:has(body.z-enter) { animation: z-ground var(--t4) var(--ease-zoom) backward
 
 /* ---------- Adaptations ---------- */
 @media (max-width: 560px) {
-  .z-home-txt, .z-head .wada::after { display: none; }
+  .z-home-txt, .z-head .wada, .z-right .chip > span + span { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }

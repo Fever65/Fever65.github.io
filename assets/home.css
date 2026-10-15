@@ -17,7 +17,7 @@
 .layer[data-clone], .track, .hud-rail, .hud-read, .hud-hint, .spiral { display: none; }
 
 /* ---------- Couches ---------- */
-.l-top, .l-bot { display: grid; justify-items: center; gap: var(--s0); max-width: min(92vw, 1000px); }
+.l-top, .l-bot { display: grid; justify-items: center; gap: var(--s0); max-width: min(92vw, var(--shell)); }
 .l-k { color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); letter-spacing: var(--track-mono); }
 .l-k b { color: var(--dot-ink); font-weight: 400; }
 .l-title { font-size: clamp(var(--f3), 8.54vw, var(--f6)); line-height: var(--lh-tight); letter-spacing: var(--track-tight); }

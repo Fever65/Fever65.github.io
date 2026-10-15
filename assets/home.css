@@ -1,0 +1,168 @@
+/* La Carte — accueil. Un rectangle d'or (φ : 1) pavé de carrés décroissants ; chaque carré est une pièce.
+   Le monde mesure φ × 1000 px ; chaque pièce place son contenu en cqmin, donc toutes les pièces sont
+   la même page à une autre échelle. Échelle interne en puissances de φ : --r0 … --r4. */
+
+@property --bg { syntax: '<color>'; inherits: true; initial-value: #111314; }
+@property --ink { syntax: '<color>'; inherits: true; initial-value: #ebd3a2; }
+@property --dot { syntax: '<color>'; inherits: true; initial-value: #d96629; }
+
+:root {
+  --U: 1000px;
+  --serif: "Instrument Serif", "Iowan Old Style", "Times New Roman", serif;
+}
+html.js-map { transition: --bg var(--t3) var(--ease), --ink var(--t3) var(--ease), --dot var(--t3) var(--ease); }
+html.js-map, html.js-map body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+
+/* ---------- La carte ---------- */
+.js-map .map { position: fixed; inset: 0; overflow: clip; touch-action: none; cursor: grab; -webkit-user-select: none; user-select: none; }
+.js-map .map.is-dragging { cursor: grabbing; }
+.js-map .world { position: absolute; left: 0; top: 0; width: calc(var(--phi) * var(--U)); height: var(--U); transform-origin: 0 0; }
+.js-map .room { position: absolute; left: calc(var(--x) * var(--U)); top: calc(var(--y) * var(--U)); width: calc(var(--s) * var(--U)); height: calc(var(--s) * var(--U)); }
+.js-map:not(.is-ready) .world { visibility: hidden; }
+
+/* ---------- Une pièce ---------- */
+.room {
+  --r0: 2.36cqmin;   /* étiquettes */
+  --r1: 3.82cqmin;   /* texte */
+  --r2: 6.18cqmin;   /* marges */
+  --r3: 10cqmin;
+  --r4: 16.18cqmin;  /* titres */
+  position: relative;
+  container-type: size;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+}
+/* Dans le monde, aucun border ni outline : le navigateur les arrondit à 1 px, qui devient énorme une fois
+   la pièce agrandie. Les filets sont des ombres internes en cqmin, posées sous la pièce (le cqmin de la
+   pièce elle-même se mesurerait sur l'écran). */
+.room-in { position: absolute; inset: 0; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; gap: var(--r1); padding: var(--r2); box-shadow: inset 0 0 0 .146cqmin var(--line); }
+.room-head { display: grid; gap: var(--r0); }
+.room-k { display: flex; align-items: center; gap: var(--r0); font: 400 var(--r0)/1 var(--font-mono); letter-spacing: .0382em; text-transform: uppercase; color: var(--ink-3); }
+.room-k::after { content: ""; width: calc(var(--r0) * .618); aspect-ratio: 1; margin-left: auto; border-radius: 50%; box-shadow: inset 0 0 0 .146cqmin var(--line-strong); }
+.room.is-visited .room-k::after { background: var(--dot); box-shadow: none; }
+.room-t { padding-top: .146em; font: 400 var(--r4)/.887 var(--serif); letter-spacing: -.0236em; color: var(--ink); } /* place pour les accents (À, Jé) */
+.room-t em { font-style: italic; color: var(--dot); }
+.room-home .room-t { font-size: 13.5cqmin; } /* un seul mot, ne peut pas passer à la ligne */
+.room-t a { text-decoration: none; }
+.room-t a:hover, .room-t a:focus-visible { color: var(--dot); }
+.room-live { display: grid; place-items: center; min-height: 0; }
+.room-foot { display: grid; grid-template-columns: 61.8fr 38.2fr; align-items: end; gap: var(--r1); }
+.room-d { font: 400 var(--r1)/1.382 var(--font-sans); color: var(--ink-2); max-width: 38ch; }
+.room-go {
+  justify-self: end;
+  display: inline-flex; align-items: center; gap: var(--r0);
+  padding: calc(var(--r0) * .618) var(--r0);
+  box-shadow: inset 0 0 0 .146cqmin var(--dot);
+  color: var(--ink);
+  font: 500 var(--r1)/1 var(--font-mono);
+  text-decoration: none;
+  transition: background-color var(--t0), color var(--t0);
+}
+.room-go:hover, .room-go:focus-visible { background: var(--fill); color: var(--on-dot); }
+.room :focus-visible { outline: none; box-shadow: 0 0 0 .382cqmin var(--dot); }
+.room:focus { outline: none; }
+.room:focus-visible > .room-in { box-shadow: inset 0 0 0 .618cqmin var(--dot); }
+
+/* Pièce d'accueil : « vous êtes ici » */
+.here { display: inline-flex; align-items: center; gap: var(--r0); font: 400 var(--r1)/1 var(--font-mono); color: var(--ink-3); }
+.here i { width: var(--r1); aspect-ratio: 1; border-radius: 50%; background: var(--dot); box-shadow: 0 0 0 0 var(--dot); animation: here var(--t5) var(--ease) infinite; }
+@keyframes here { 61.8% { box-shadow: 0 0 0 var(--r1) transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+
+/* Fin : réseaux */
+.room-socials { display: flex; flex-wrap: wrap; align-content: center; gap: var(--r0) var(--r1); margin: 0; padding: 0; list-style: none; font: 400 var(--r1)/1 var(--font-mono); }
+.room-socials a { color: var(--ink-2); text-decoration: none; }
+.room-socials a:hover, .room-socials a:focus-visible { color: var(--dot); }
+
+/* Pièce secrète */
+.room-secret:not(.is-open) .when-open, .room-secret.is-open .when-locked { display: none; }
+.wada-index { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: calc(var(--r0) * .382); width: 100%; height: 100%; margin: 0; padding: 0; list-style: none; }
+.wada-index li { min-height: 0; background: var(--bg); box-shadow: inset 0 calc(var(--r0) * .618) 0 var(--dot), inset 0 calc(var(--r0) * -1) 0 var(--ink); }
+
+/* ---------- Repli sans JS : une pièce par écran ---------- */
+html:not(.js-map) .room { width: 100%; height: 100svh; min-height: 30rem; }
+html:not(.js-map) .plan, html:not(.js-map) .hud-bot, html:not(.js-map) .hint, html:not(.js-map) .hud-count { display: none; }
+html:not(.js-map) .hud-top { position: sticky; }
+
+/* ---------- Le plan d'architecte (vue d'ensemble) ---------- */
+.plan { position: absolute; left: -160px; top: -160px; width: 1938.034px; max-width: none; height: 1320px; overflow: visible; pointer-events: none; opacity: 0; transition: opacity var(--t3) var(--ease); }
+.is-overview .plan { opacity: 1; }
+.plan-frame, .plan-cote { fill: none; stroke: var(--ink-3); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.plan-frame { stroke-dasharray: 6 4; }
+.plan text { fill: var(--ink-2); font: 400 22px var(--font-mono); text-anchor: middle; }
+.plan .plan-v { text-anchor: start; dominant-baseline: middle; }
+.plan .plan-end { text-anchor: end; }
+.plan .plan-title { font: italic 400 64px var(--serif); fill: var(--ink); }
+
+/* ---------- HUD ---------- */
+.hud {
+  position: fixed; left: 0; right: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: var(--s0);
+  padding: var(--s-1) max(var(--s0), env(safe-area-inset-right)) var(--s-1) max(var(--s0), env(safe-area-inset-left));
+  font: 400 var(--f-1)/1 var(--font-mono); letter-spacing: var(--track-mono); color: var(--ink);
+  pointer-events: none;
+}
+.hud > * { pointer-events: auto; }
+.hud-top { top: 0; padding-top: max(var(--s-1), env(safe-area-inset-top)); }
+.hud-bot { bottom: 0; padding-bottom: max(var(--s-1), env(safe-area-inset-bottom)); }
+.hud-brand, .hud-count, .hud-where, .hud-ctl, .hud .lang {
+  background: color-mix(in srgb, var(--bg) 85.4%, transparent);
+  -webkit-backdrop-filter: blur(var(--s-1)); backdrop-filter: blur(var(--s-1));
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.hud-brand { display: inline-flex; align-items: center; min-height: var(--s2); padding: 0 var(--s0); font: 400 var(--f1)/1 var(--serif); letter-spacing: 0; text-decoration: none; }
+.hud-brand em { color: var(--dot); }
+.hud-right { display: flex; gap: var(--s-1); }
+.hud-count { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--s2); padding: 0 var(--s0); color: var(--ink-2); }
+.hud-count b { color: var(--dot-ink); font-weight: 500; }
+.hud-where { display: inline-flex; align-items: center; min-height: var(--s2); padding: 0 var(--s0); max-width: 61.8vw; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.hud-ctl { display: flex; }
+.hud-ctl button { min-width: var(--s2); min-height: var(--s2); padding: 0 var(--s-1); border: 0; background: transparent; color: var(--ink); font: inherit; }
+.hud-ctl button + button { box-shadow: inset 1px 0 0 var(--line); }
+.hud-ctl button:hover, .hud-ctl button[aria-pressed="true"] { background: var(--fill); color: var(--on-dot); }
+
+.hint { position: fixed; left: 50%; top: calc(max(var(--s-1), env(safe-area-inset-top)) + (var(--s2) - var(--f-1) - 2 * var(--s-1)) / 2); z-index: 21; margin: 0; padding: var(--s-1) var(--s0); transform: translateX(-50%); background: var(--fill); color: var(--on-dot); font: 400 var(--f-1)/1 var(--font-mono); letter-spacing: var(--track-mono); white-space: nowrap; pointer-events: none; transition: opacity var(--t3) var(--ease), transform var(--t3) var(--ease); }
+.hint { animation: hint-out var(--t3) var(--ease) 6.18s forwards; }
+.is-moved .hint { opacity: 0; transform: translate(-50%, calc(var(--s0) * -1)); }
+@keyframes hint-out { to { opacity: 0; transform: translate(-50%, calc(var(--s0) * -1)); } }
+
+/* Plonger dans une pièce */
+.world { transition: opacity var(--t3) var(--ease); }
+.is-entering .world { opacity: 0; }
+.is-entering .hud, .is-entering .hint { opacity: 0; transition: opacity var(--t2); }
+
+@media (max-width: 40rem) {
+  .hud-count span { display: none; }
+  .hud-brand { font-size: var(--f0); }
+  .hint { top: calc(max(var(--s-1), env(safe-area-inset-top)) + var(--s2) + var(--s0)); }
+}
+
+/* Grain : une matière de papier, fixe, au-dessus de la carte et sous le HUD. */
+.js-map body::after {
+  content: ""; position: fixed; inset: 0; z-index: 15; pointer-events: none; opacity: .056;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) { .here i { animation: none; } .world, .plan, .hint { transition: none; } .hint { animation: none; } }
+
+/* ---------- Miniatures ---------- */
+.press-num { display: flex; align-items: baseline; gap: var(--r0); margin: 0; font: 400 var(--r4)/1 var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: -.0382em; color: var(--ink); }
+.press-num small { font-size: var(--r1); color: var(--ink-3); letter-spacing: 0; }
+.press-bar { width: 100%; height: var(--r0); margin-top: var(--r1); box-shadow: inset 0 0 0 .146cqmin var(--line-strong); }
+.press-bar i { display: block; height: 100%; background: var(--dot); transform-origin: 0 50%; }
+.live-press { align-content: center; justify-items: start; }
+
+/* qrcode fixe une taille en px : le QR prend toute la hauteur libre, sans dépasser 50cqmin. */
+.live-qr { position: relative; }
+.live-qr canvas { position: absolute; left: 50%; top: 50%; width: auto !important; height: min(100%, 50cqmin) !important; aspect-ratio: 1; transform: translate(-50%, -50%); image-rendering: pixelated; }
+
+.clock { margin: 0; font: 400 var(--r4)/1 var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: -.0382em; }
+.clock-s { color: var(--dot); font-size: var(--r3); }
+.clock-sweep { width: 100%; height: calc(var(--r0) * .382); margin-top: var(--r1); background: var(--line); }
+.clock-sweep i { display: block; height: 100%; background: var(--dot); transform-origin: 0 50%; transition: transform var(--t2) var(--ease); }
+.live-clock { align-content: center; justify-items: start; }
+
+.live-bars { display: flex; align-items: flex-end; gap: .236cqmin; height: 100%; }
+.live-bars i { flex: 1; height: calc(var(--h) * 100%); background: var(--ink-3); }
+.live-bars i.top { background: var(--alt); }
+
+.live-jerome img { width: 61.8cqmin; height: auto; transition: transform var(--t2) var(--ease-out); }

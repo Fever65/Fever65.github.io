@@ -1,0 +1,189 @@
+/* ColorQR — l'atelier de sérigraphie.
+   Wada 166 : Deep Slate Green (l'atelier) · Naples Yellow (le papier, l'encre claire) · Grenadine Pink (l'encre d'accent).
+   Bricolage Grotesque pour tout ce qui est imprimé ; DM Mono pour les fiches de tirage.
+   Proportions : bon de commande / cadre d'impression 61,8 / 38,2 ; écran carré + pied 1/φ ; marges en φⁿ. */
+
+.atelier {
+  --print: "Bricolage Grotesque", "Arial Black", sans-serif;
+  --slip: "DM Mono", var(--font-mono);
+  --paper: var(--ink);
+  --mesh: repeating-linear-gradient(0deg, color-mix(in srgb, var(--ink) 5%, transparent) 0 1px, transparent 1px 3px),
+          repeating-linear-gradient(90deg, color-mix(in srgb, var(--ink) 5%, transparent) 0 1px, transparent 1px 3px);
+  /* La trame : des points d'encre qui grossissent vers le coin. */
+  --halftone: radial-gradient(circle, var(--dot) 0 32%, transparent 33%) 0 0 / var(--s-1) var(--s-1);
+}
+.workshop { width: min(var(--shell), 100% - 2 * var(--gutter)); margin-inline: auto; padding-bottom: var(--s3); }
+
+/* La fiche technique : un petit bouton d'étiquette. */
+.info-btn { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--s2); padding: 0 var(--s-1); border: 0; background: transparent; color: var(--ink-2); font: 400 var(--f-1)/1 var(--slip); letter-spacing: .0618em; text-transform: uppercase; transition: color var(--t0); }
+.info-btn > span[aria-hidden] { display: grid; place-items: center; width: var(--s0); height: var(--s0); border-radius: 50%; box-shadow: inset 0 0 0 1px currentColor; font-size: var(--f-2); text-transform: none; }
+.info-btn:hover { color: var(--dot-ink); }
+
+/* ---------- Repères de calage ---------- */
+.reg { position: absolute; width: var(--s1); height: var(--s1); border-radius: 50%; box-shadow: inset 0 0 0 1px var(--ink-3); pointer-events: none; }
+.reg::before, .reg::after { content: ""; position: absolute; background: var(--ink-3); }
+.reg::before { left: 50%; top: calc(var(--s-2) * -1); bottom: calc(var(--s-2) * -1); width: 1px; }
+.reg::after { top: 50%; left: calc(var(--s-2) * -1); right: calc(var(--s-2) * -1); height: 1px; }
+.reg-tl { top: var(--s-1); left: var(--s-1); }
+.reg-tr { top: var(--s-1); right: var(--s-1); }
+.reg-bl { bottom: var(--s-1); left: var(--s-1); }
+.reg-br { bottom: var(--s-1); right: var(--s-1); }
+
+/* ---------- L'affiche ---------- */
+.poster { position: relative; display: grid; gap: var(--s1); padding: var(--s3) var(--s1) var(--s2); }
+.poster::after { content: ""; position: absolute; right: 0; bottom: 0; width: 38.2%; height: 61.8%; background: var(--halftone); opacity: .382; -webkit-mask: linear-gradient(225deg, transparent 23.6%, #000); mask: linear-gradient(225deg, transparent 23.6%, #000); pointer-events: none; }
+@media (max-width: 899px) { .poster::after { display: none; } }
+.job { margin: 0; color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--slip); letter-spacing: .0618em; text-transform: uppercase; }
+.job b { color: var(--dot-ink); font-weight: 500; }
+/* Deux passes : l'encre rose d'abord, puis le jaune, mal calé d'un cheveu. */
+.poster-title { position: relative; isolation: isolate; margin: 0; font: 800 clamp(4.236rem, 19vw, 11.09rem)/.82 var(--print); letter-spacing: -.0382em; color: var(--ink); }
+.poster-title::before { content: attr(data-print); position: absolute; left: 0; top: 0; z-index: -1; color: var(--dot); transform: translate(.0236em, .0146em); }
+.poster .lead { max-width: 38ch; color: var(--ink-2); font-size: var(--f1); }
+.stamps { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: 0; padding: 0; list-style: none; }
+.stamps li { padding: var(--s-2) var(--s-1); box-shadow: inset 0 0 0 1px var(--line-strong); color: var(--ink-2); font: 500 var(--f-1)/1 var(--slip); letter-spacing: .0618em; text-transform: uppercase; }
+.stamps li:first-child { background: var(--dot); color: var(--on-dot); box-shadow: none; }
+
+/* ---------- La table : bon de commande (61,8) · cadre d'impression (38,2) ---------- */
+.table { display: grid; gap: var(--s2); align-items: start; }
+@media (min-width: 900px) { .table { grid-template-columns: 61.8fr 38.2fr; } }
+
+/* Le bon de commande : une feuille de papier. La palette s'inverse, les dérivés suivent. */
+.order {
+  --bg: var(--paper); --ink: #112f2c;
+  --ink-2: color-mix(in srgb, var(--ink) 85.4%, var(--bg));
+  --ink-3: color-mix(in srgb, var(--ink) 76.4%, var(--bg));
+  --line: color-mix(in srgb, var(--ink) 14.6%, var(--bg));
+  --line-strong: color-mix(in srgb, var(--ink) 38.2%, var(--bg));
+  --dot-ink: var(--ink);
+  --good: var(--ink); --bad: var(--ink);
+  position: relative; min-width: 0;
+  padding: var(--s1);
+  background: var(--bg); color: var(--ink);
+  box-shadow: var(--s-2) var(--s-2) 0 color-mix(in srgb, #000 23.6%, transparent);
+}
+@media (min-width: 900px) { .order { padding: var(--s2); } }
+/* Les perforations du carnet à souches. */
+.order::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: var(--s-2); background: radial-gradient(circle at 50% 0, var(--page-bg, #112f2c) 0 2px, transparent 2.5px) 0 0 / var(--s-1) var(--s-2); }
+.order-head, .step-head { display: flex; align-items: center; gap: var(--s-1); margin: 0; font: 700 var(--f2)/1 var(--print); letter-spacing: -.0146em; }
+.order-head .n, .step-head .n { display: grid; place-items: center; width: var(--s1); height: var(--s1); flex: none; border-radius: 50%; box-shadow: inset 0 0 0 1px var(--ink); color: var(--ink); font: 500 var(--f-1)/1 var(--slip); }
+.order-head { padding-bottom: var(--s0); border-bottom: var(--s-3) solid var(--ink); }
+.step-head { font-size: var(--f1); }
+
+.tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: var(--s0); box-shadow: inset 0 0 0 1px var(--ink); }
+.tab { min-height: var(--s2); border: 0; background: transparent; color: var(--ink-2); font: 700 var(--f1)/1 var(--print); letter-spacing: -.0146em; transition: color var(--t0), background-color var(--t0); }
+.tab:hover { color: var(--ink); background: var(--line); }
+.tab[aria-selected="true"] { color: var(--bg); background: var(--ink); }
+
+.tabpanel { margin-top: var(--s1); }
+.steps { display: grid; gap: var(--s1); }
+.step { display: grid; gap: var(--s0); min-width: 0; }
+.step + .step { padding-top: var(--s1); border-top: 1px dashed var(--line-strong); }
+.order .field > label { color: var(--ink-2); font: 500 var(--f-1)/1 var(--slip); letter-spacing: .0618em; text-transform: uppercase; }
+.order :is(input:not([type="checkbox"]):not([type="color"]), select) { border-color: var(--line-strong); background: transparent; }
+.order :is(input, select):focus { border-color: var(--ink); }
+.order :where(a, button, input, select):focus-visible { outline-color: var(--ink); }
+.two { display: grid; gap: var(--s0); }
+@media (min-width: 560px) { .two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.contrast { font-family: var(--slip); }
+.contrast:empty { display: none; }
+.contrast.good::before { content: "● "; }
+.contrast.bad { padding: var(--s-2) var(--s-1); background: var(--ink); color: var(--bg); }
+.contrast.bad::before { content: "▲ "; }
+
+/* Les pots d'encre : la paire foncé / clair vue du dessus, dans un pot cerclé. */
+.palette { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.swatch {
+  position: relative;
+  width: var(--s2); height: var(--s2); padding: 0;
+  border: 0; border-radius: 50%;
+  background: radial-gradient(circle, var(--d) 0 38.2%, var(--l) 38.2% 61.8%, transparent 61.8%), var(--ink);
+  box-shadow: inset 0 0 0 var(--s-3) var(--ink), inset 0 0 0 calc(var(--s-3) + 1px) var(--bg);
+  transition: transform var(--t1) var(--ease-out);
+}
+.swatch:hover { transform: translateY(calc(var(--s-3) * -1)); }
+.swatch[aria-pressed="true"] { outline: 1px solid var(--ink); outline-offset: var(--s-3); }
+
+.colorline { display: flex; }
+.colorline input[type="text"] { flex: 1; width: 0; font-family: var(--slip); text-transform: uppercase; }
+input[type="color"] { width: var(--s2); height: var(--s2); flex-shrink: 0; padding: var(--s-3); border: 1px solid var(--line-strong); border-right: 0; background: transparent; cursor: pointer; }
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 0; }
+input[type="color"]::-moz-color-swatch { border: 0; border-radius: 0; }
+
+.chk { display: flex; align-items: center; gap: var(--s-1); min-height: var(--s2); cursor: pointer; }
+.chk input { width: var(--s0); height: var(--s0); flex-shrink: 0; accent-color: var(--ink); }
+
+/* La raclette : le geste principal. Un manche sombre, une lame de caoutchouc rose. */
+.btns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2); padding-top: var(--s0); }
+.squeegee {
+  display: flex; align-items: center; justify-content: center;
+  min-height: var(--s3); padding: 0 var(--s1);
+  border: 0; background: var(--fill); color: var(--on-dot);
+  font: 800 var(--f2)/1 var(--print); letter-spacing: -.0146em; text-decoration: none;
+  box-shadow: inset 0 var(--s-1) 0 #112f2c;
+  transition: transform var(--t0) var(--ease-out), background-color var(--t1), color var(--t1);
+}
+.squeegee:not(:disabled):hover { background: #112f2c; color: var(--paper); }
+.squeegee:not(:disabled):active { transform: translateY(var(--s-3)); }
+.btns .squeegee { grid-column: 1 / -1; }
+.ink-btn { min-height: var(--s2); padding: 0 var(--s0); border: 1px solid var(--ink); background: transparent; color: var(--ink); font: 700 var(--f0)/1 var(--print); transition: color var(--t0), background-color var(--t0); }
+.ink-btn:not(:disabled):hover { background: var(--ink); color: var(--bg); }
+
+/* ---------- Le cadre d'impression ---------- */
+.frame { display: grid; align-self: start; min-width: 0; box-shadow: inset 0 0 0 var(--s-1) var(--line-strong), inset 0 0 0 calc(var(--s-1) + 1px) var(--line); }
+@media (min-width: 900px) { .frame { position: sticky; top: calc(var(--head-h) + var(--s0)); } }
+/* L'écran : la soie tendue dans le cadre. Carré. */
+.screen { position: relative; display: grid; place-items: center; aspect-ratio: 1; margin: var(--s-1) var(--s-1) 0; overflow: hidden; background: var(--mesh), var(--surface); }
+.sheet { position: relative; width: 70.8%; padding: 5.6%; background: var(--paper); box-shadow: var(--s-3) var(--s-3) 0 color-mix(in srgb, #000 23.6%, transparent); }
+canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+.qr-empty { display: grid; justify-items: center; gap: var(--s0); max-width: 22ch; color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--slip); text-align: center; text-transform: uppercase; letter-spacing: .0618em; }
+.squeegee-ico { width: var(--s3); height: var(--s-1); background: var(--dot); box-shadow: 0 calc(var(--s-1) * -1) 0 var(--ink-3); animation: squeegee-idle var(--t5) var(--ease) infinite alternate; }
+@keyframes squeegee-idle { from { transform: translateX(calc(var(--s-1) * -1)); } to { transform: translateX(var(--s-1)); } }
+#previewBox:not([hidden]) + .qr-empty { display: none; }
+/* Pied 1/φ : le carré et son pied forment un rectangle d'or vertical. */
+.frame-foot { display: grid; align-content: center; justify-items: center; gap: var(--s0); aspect-ratio: 1.618 / 1; padding: var(--s1); text-align: center; }
+.frame-foot .squeegee { width: 100%; --on-dot: #112f2c; }
+.status { max-width: 34ch; margin: 0; color: var(--ink-3); font: 400 var(--f-1)/1.382 var(--slip); }
+.status[data-state="ready"] { color: var(--good); }
+.status[data-state="err"] { color: var(--bad); }
+
+/* Le moment : la raclette passe, l'encre se dépose, puis la feuille se cale sur les repères.
+   Purement visuel : le lien de téléchargement est prêt dès la fin de la génération. */
+.sheet.is-printed canvas { animation: ink-pass var(--t4) var(--ease) both; }
+.sheet.is-printed::after { content: ""; position: absolute; left: -6%; right: -6%; top: 0; height: var(--s-1); background: var(--dot); box-shadow: 0 calc(var(--s-1) * -1) 0 #112f2c; animation: squeegee-pass var(--t4) var(--ease) both; }
+.sheet.is-printed { animation: register var(--t5) var(--ease-out) both; }
+.screen:has(.is-printed) .reg { animation: reg-align var(--t5) var(--ease-out) both; }
+@keyframes ink-pass {
+  0% { clip-path: inset(0 0 100% 0); filter: saturate(0) opacity(.618); }
+  61.8% { clip-path: inset(0 0 0 0); filter: saturate(0) opacity(.618); }
+  100% { clip-path: inset(0 0 0 0); filter: none; }
+}
+@keyframes squeegee-pass { 0% { top: 0; opacity: 1; } 61.8% { top: 100%; opacity: 1; } 100% { top: 100%; opacity: 0; } }
+@keyframes register {
+  0%, 61.8% { transform: translate(var(--s-2), calc(var(--s-3) * -1)) rotate(-.618deg); }
+  85.4% { transform: translate(-1px, 1px) rotate(.146deg); }
+  100% { transform: none; }
+}
+@keyframes reg-align { 0%, 61.8% { transform: translate(var(--s-2), calc(var(--s-3) * -1)); box-shadow: inset 0 0 0 1px var(--dot); } 100% { transform: none; } }
+
+/* ---------- Les trois règles, affichées au mur de l'atelier ---------- */
+.rules { margin-top: var(--s3); padding-top: var(--s1); border-top: var(--s-3) solid var(--ink); }
+.rules-title { margin: 0 0 var(--s1); font: 800 clamp(var(--f3), 6.18vw, var(--f4))/.9 var(--print); letter-spacing: -.0382em; }
+.rules-list { display: grid; gap: var(--s1); margin: 0; padding: 0; list-style: none; }
+@media (min-width: 900px) { .rules-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.rules-list li { display: grid; gap: var(--s-2); align-content: start; padding-top: var(--s0); border-top: 1px solid var(--line-strong); }
+.rules-list strong { font: 700 var(--f1)/1.2 var(--print); }
+.rules-list span { color: var(--ink-3); font-size: var(--f-1); line-height: var(--lh); }
+
+.modal-b ul { display: grid; gap: var(--s-1); margin: 0; padding-left: var(--s1); }
+.modal-b .muted { color: var(--ink-3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .squeegee-ico, .sheet.is-printed, .sheet.is-printed canvas, .screen:has(.is-printed) .reg { animation: none; }
+  .sheet.is-printed::after { display: none; }
+}
+@media (max-width: 620px) {
+  .poster { padding-inline: 0; }
+  .order { padding: var(--s0); }
+  .squeegee { min-height: var(--s2); font-size: var(--f1); }
+}

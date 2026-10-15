@@ -83,6 +83,7 @@ function renderSummary(){
  $('resultNote').textContent=t(S.cancelled?'partialNote':S.mode==='folders'?'folderResult':'resultNote')+(warnings?' '+warnings+' '+t('warnCount'):'');
  if(S.zip){$('downloadZip').hidden=false;$('downloadZip').href=S.zip.url;$('downloadZip').download=S.zip.name;}
 }
+<<<<<<< Updated upstream
 async function addEntries(incoming){
  if(S.busy)return;
  const used=new Set(S.entries.map(e=>e.path));let total=S.entries.reduce((n,e)=>n+(e.file?.size||0),0);let rejected=0;let limit=false;
@@ -93,6 +94,97 @@ async function addEntries(incoming){
    const valid=S.mode==='images'?isImage(e.file):isVideo(e.file);
    const max=S.mode==='images'?LIMITS.imageBytes:LIMITS.videoBytes;
    if(!valid||e.file.size>max){rejected++;continue;}
+=======
+
+function renderQueue() {
+  const count = S.entries.filter(e => !e.directory).length;
+  $('queueCount').textContent = count + ' ' + t(count === 1 ? 'file' : 'files');
+  $('clear').hidden = !S.entries.length;
+  $('empty').hidden = !!S.entries.length;
+
+  const list = $('fileList');
+  list.replaceChildren();
+  S.entries.forEach((e, i) => {
+    const r = S.results[i];
+    const li = document.createElement('li');
+    li.className = 'file-item';
+
+    const icon = document.createElement('span');
+    icon.className = 'file-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.textContent = e.directory ? '▱' : isImage(e.file) ? '▧' : isVideo(e.file) ? '▷' : '≡';
+
+    const info = document.createElement('div');
+    const name = document.createElement('div');
+    const meta = document.createElement('div');
+    name.className = 'file-name';
+    name.textContent = e.path;
+    meta.className = 'file-meta';
+    if (e.directory) meta.textContent = t('folder');
+    else if (r) {
+      const reason = (REASONS[r.reason] || REASONS.kept)[isEN() ? 1 : 0];
+      meta.textContent = bytes(e.file.size) + ' → ' + bytes(r.blob.size) + ' · ' + reason;
+      // La presse : la carte se tasse à son nouveau poids (compress.css lit --squash).
+      if (r.changed && e.file.size) { li.classList.add('is-pressed'); li.style.setProperty('--squash', Math.min(1, r.blob.size / e.file.size).toFixed(3)); }
+      if (r.changed) meta.classList.add('good');
+      else if (errorReason(r.reason)) meta.classList.add('warn');
+    } else meta.textContent = bytes(e.file.size) + ' · ' + t('pending');
+    info.append(name, meta);
+    li.append(icon, info);
+
+    if (r && !e.directory) {
+      const a = document.createElement('a');
+      a.className = 'file-action';
+      a.href = r.url;
+      a.download = r.path.split('/').pop();
+      a.textContent = '↓';
+      a.title = t('download') + ' ' + a.download;
+      a.setAttribute('aria-label', a.title);
+      li.append(a);
+    } else {
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'file-action';
+      remove.textContent = '×';
+      remove.disabled = S.busy || S.reading;
+      remove.setAttribute('aria-label', t('remove') + ' ' + e.path);
+      remove.addEventListener('click', () => { resetResults(); S.entries.splice(i, 1); status(''); renderQueue(); });
+      li.append(remove);
+    }
+    list.append(li);
+  });
+  $('run').disabled = S.busy || S.reading || !S.entries.length;
+}
+
+function renderSummary() {
+  $('results').hidden = false;
+  $('resultTitle').textContent = t(S.cancelled ? 'partial' : 'ready');
+  const completed = S.results.filter(Boolean);
+  const initial = completed.reduce((n, r) => n + (r.entry.file?.size || 0), 0);
+  const output = S.zip ? S.zip.size : completed.reduce((n, r) => n + (r.blob?.size || 0), 0);
+  const saved = initial - output;
+  const rate = initial ? Math.max(0, saved / initial * 100) : 0;
+  const gain = saved > 0 ? '−' + rate.toFixed(1) + ' %' : saved < 0 ? t('larger') : t('noGain');
+
+  const stats = $('stats');
+  stats.replaceChildren();
+  for (const [label, value] of [[t('input'), bytes(initial)], [t('output'), bytes(output)], [t('gain'), gain]]) {
+    const item = document.createElement('div');
+    const small = document.createElement('small');
+    const strong = document.createElement('strong');
+    item.className = 'stat';
+    small.textContent = label;
+    strong.textContent = value;
+    item.append(small, strong);
+    stats.append(item);
+  }
+  const warnings = completed.filter(r => errorReason(r.reason)).length;
+  $('resultNote').textContent = t(S.cancelled ? 'partialNote' : S.mode === 'folders' ? 'folderResult' : 'resultNote') + (warnings ? ' ' + warnings + ' ' + t('warnCount') : '');
+  if (S.zip) {
+    $('downloadZip').hidden = false;
+    $('downloadZip').href = S.zip.url;
+    $('downloadZip').download = S.zip.name;
+>>>>>>> Stashed changes
   }
   const original=sanitizePath(e.path);const path=uniquePath(original,used)+(e.directory?'/':'');accepted.push({...e,path});total+=e.file?.size||0;
  }

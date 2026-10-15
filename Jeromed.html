@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Transition entre pages interrompue (navigation rapide, retour) : la page change sans animation, ce n'est pas une erreur.
+       En ligne et avant tout le reste : pagereveal part avant le premier rendu, donc avant les scripts defer. -->
+  <script>addEventListener("pagereveal", e => { const v = e.viewTransition; if (v) [v.ready, v.finished, v.updateCallbackDone].forEach(p => p && p.catch(() => {})); });</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Le test anti-Jérôme — ArchiveFever.Work</title>
   <meta name="description" content="Un petit jeu humoristique avec Jérôme, la mascotte d’ArchiveFever.Work. Disponible en 20 langues." />
@@ -12,7 +15,12 @@
   <link rel="preload" href="IMG/Jerome.webp" as="image" type="image/webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<<<<< Updated upstream
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+=======
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&amp;family=Courier+Prime:ital,wght@0,400;0,700;1,400&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/tokens.css" />
+>>>>>>> Stashed changes
   <link rel="stylesheet" href="assets/site.css" />
   <link rel="stylesheet" href="assets/jeromed.css" />
   <script src="assets/jeromed-i18n.js" defer></script>
@@ -45,6 +53,7 @@
       <div class="bait-top">
         <img src="IMG/Jerome.webp" alt="" width="28" height="28" />
         <span id="eyebrow">A little game by ArchiveFever.Work</span>
+        <span class="form-code" aria-hidden="true" dir="ltr">FORM J</span>
       </div>
 
       <div class="bait-body">
@@ -81,6 +90,7 @@
           </div>
         </div>
       </div>
+      <div class="form-foot" aria-hidden="true" dir="ltr"><span class="barcode"></span><span>✶✶✶</span></div>
     </section>
 
     <!-- Étape 2 : la mesure -->
@@ -113,11 +123,14 @@
       <h1 id="revealTitle" tabindex="-1" lang="en" dir="ltr"><span>GET</span> <span>JEROMED!</span></h1>
       <p class="punchline" id="punchline"></p>
 
+      <div class="certificate">
       <dl class="results">
         <div><dt id="fearLabel">Fear</dt><dd id="fearPct"></dd></div>
         <div><dt id="reactLabel">Reaction</dt><dd id="reactTime"></dd></div>
         <div><dt id="rankLabel">Rank</dt><dd id="rank"></dd></div>
       </dl>
+      <p class="stamp" id="stamp" aria-hidden="true"><span></span><span></span></p>
+      </div>
 
       <div class="chaos-actions">
         <button class="go-btn primary" id="diplomaBtn" type="button">Download my diploma</button>

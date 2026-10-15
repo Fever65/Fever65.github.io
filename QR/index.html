@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
+  <!-- Transition entre pages interrompue (navigation rapide, retour) : la page change sans animation, ce n'est pas une erreur.
+       En ligne et avant tout le reste : pagereveal part avant le premier rendu, donc avant les scripts defer. -->
+  <script>addEventListener("pagereveal", e => { const v = e.viewTransition; if (v) [v.ready, v.finished, v.updateCallbackDone].forEach(p => p && p.catch(() => {})); });</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>ColorQR — Générateur de QR personnalisés et Wi-Fi</title>
   <meta name="description" content="Crée gratuitement des QR codes personnalisés ou des QR Wi-Fi, avec contrôle automatique du contraste et téléchargement PNG." />
@@ -21,6 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<<<<<<< Updated upstream
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/site.css" />
   <style>
@@ -163,6 +167,87 @@
           <div class="tabs" role="tablist">
             <button class="tab" id="tabColor" role="tab" aria-selected="true" aria-controls="panelColor"><b><i aria-hidden="true">▦</i>ColorQR</b><small><span data-lang="fr">Un lien, tes couleurs</span><span data-lang="en">A link, your colors</span></small></button>
             <button class="tab" id="tabWifi"  role="tab" aria-selected="false" aria-controls="panelWifi"><b><i aria-hidden="true">◠</i>WiFiQR</b><small><span data-lang="fr">Connexion Wi-Fi en un scan</span><span data-lang="en">Join Wi-Fi in one scan</span></small></button>
+=======
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&amp;family=DM+Mono:wght@400;500&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/tokens.css" />
+  <link rel="stylesheet" href="../assets/site.css" />
+  <link rel="stylesheet" href="qr.css" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+  <script src="qr.js" defer></script>
+</head>
+<body class="atelier">
+
+<header class="z-head">
+  <div class="z-left">
+    <a class="z-home" href="../index.html#z3" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
+    <span class="z-crumb"><span>ColorQR</span></span>
+  </div>
+  <div class="z-right">
+    <span class="wada"><i></i><i></i><i></i></span>
+    <button class="info-btn" type="button" id="infoBtn"><span aria-hidden="true">i</span><span data-i18n="info">Infos</span></button>
+    <div class="lang" role="group" aria-label="Choisir la langue"><button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button><button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button></div>
+  </div>
+</header>
+
+<main class="workshop">
+  <!-- L'affiche : un titre imprimé en deux passes, légèrement décalées -->
+  <section class="poster" aria-labelledby="heading">
+    <i class="reg reg-tl" aria-hidden="true"></i><i class="reg reg-tr" aria-hidden="true"></i>
+    <p class="job">ColorQR · WiFiQR</p>
+    <h1 class="poster-title" id="heading" data-print="ColorQR"><span class="sr-only" data-i18n="heading">QR — Couleur &amp; Wi-Fi</span><span aria-hidden="true">ColorQR</span></h1>
+    <p class="lead" data-i18n="lead">Un QR code à tes couleurs, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.</p>
+    <ul class="stamps">
+      <li data-i18n="pillLocal">100 % local</li>
+      <li>PNG 256×256</li>
+      <li data-i18n="pillWada">Palettes harmonieuses</li>
+    </ul>
+  </section>
+
+  <div class="table">
+    <!-- Le bon de commande (61,8) -->
+    <div class="order">
+      <h2 class="order-head"><span class="n">01</span><span data-i18n="sType">Type de QR</span></h2>
+      <div class="tabs" role="tablist">
+        <button class="tab" id="tabColor" type="button" role="tab" aria-selected="true" aria-controls="panelColor">ColorQR</button>
+        <button class="tab" id="tabWifi" type="button" role="tab" aria-selected="false" aria-controls="panelWifi" tabindex="-1">WiFiQR</button>
+      </div>
+
+      <div id="panelColor" class="tabpanel" role="tabpanel" aria-labelledby="tabColor">
+        <form id="formColor" class="steps">
+          <section class="step">
+            <h3 class="step-head"><span class="n">02</span><span data-i18n="sContent">Contenu</span></h3>
+            <div class="field">
+              <label for="url" data-i18n="lUrl">Lien</label>
+              <input id="url" type="url" inputmode="url" autocomplete="url" placeholder="https://..." value="https://archivefever.work/QR/" />
+              <p class="hint" data-i18n="hUrl">Ce lien sera encodé dans le QR.</p>
+            </div>
+          </section>
+          <section class="step">
+            <h3 class="step-head"><span class="n">03</span><span data-i18n="sColors">Couleurs</span></h3>
+            <div class="palette" data-target="c" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"></div>
+            <div class="two">
+              <div class="field">
+                <label id="lC1" for="c1t" data-i18n="lDark">Couleur des modules</label>
+                <div class="colorline"><input id="c1" type="color" value="#793327" aria-labelledby="lC1" /><input id="c1t" type="text" value="#793327" spellcheck="false" /></div>
+              </div>
+              <div class="field">
+                <label id="lC2" for="c2t" data-i18n="lLight">Couleur du fond</label>
+                <div class="colorline"><input id="c2" type="color" value="#ffefae" aria-labelledby="lC2" /><input id="c2t" type="text" value="#ffefae" spellcheck="false" /></div>
+              </div>
+            </div>
+            <p class="hint" data-i18n="hRand">« Aléatoire » tire une paire lisible parmi les 348 combinaisons du livre.</p>
+            <p class="hint contrast good" id="contrastColor" role="status"></p>
+          </section>
+          <section class="step">
+            <h3 class="step-head"><span class="n">04</span><span data-i18n="sOptions">Options</span></h3>
+            <label class="chk"><input id="m1" type="checkbox" checked /><span data-i18n="lMargin">Bordure (marge) — améliore la détection</span></label>
+          </section>
+          <div class="btns">
+            <button class="squeegee" type="submit" id="genColor" data-i18n="gen">Générer</button>
+            <button class="ink-btn" type="button" id="swapC" data-i18n="swap">Inverser</button>
+            <button class="ink-btn" type="button" id="randC" data-i18n="rand">Aléatoire</button>
+>>>>>>> Stashed changes
           </div>
         </div>
 
@@ -284,6 +369,7 @@
         </div>
       </div>
 
+<<<<<<< Updated upstream
       <aside class="card-right panel rise" style="--i:5">
         <div class="preview-wrap">
           <div class="preview-head">
@@ -314,13 +400,98 @@
     </section>
 
   </div>
+=======
+      <div id="panelWifi" class="tabpanel" role="tabpanel" aria-labelledby="tabWifi" hidden>
+        <form id="formWifi" class="steps">
+          <section class="step">
+            <h3 class="step-head"><span class="n">02</span><span data-i18n="sNetwork">Réseau</span></h3>
+            <div class="field">
+              <label for="ssid" data-i18n="lSsid">Nom du Wi-Fi (SSID)</label>
+              <input id="ssid" type="text" placeholder="MonWifi" data-i18n-attr="placeholder:ssidPh" autocomplete="off" required />
+              <p class="hint" data-i18n="hSsid">Le QR proposera la connexion à ce réseau.</p>
+            </div>
+            <div class="two">
+              <div class="field">
+                <label for="pass" data-i18n="lPass">Mot de passe</label>
+                <input id="pass" type="password" placeholder="••••••••" autocomplete="new-password" />
+                <p class="hint" data-i18n="hPass">Si « Aucune », le mot de passe est ignoré.</p>
+              </div>
+              <div class="field">
+                <label for="sec" data-i18n="lSec">Sécurité</label>
+                <select id="sec">
+                  <option value="WPA">WPA/WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="nopass" data-i18n="none">Aucune</option>
+                </select>
+                <p class="hint" data-i18n="hSec">Définit comment l'appareil se connecte.</p>
+              </div>
+            </div>
+          </section>
+          <section class="step">
+            <h3 class="step-head"><span class="n">03</span><span data-i18n="sColors">Couleurs</span></h3>
+            <div class="palette" data-target="w" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"></div>
+            <div class="two">
+              <div class="field">
+                <label id="lW1" for="w1t" data-i18n="lDark">Couleur des modules</label>
+                <div class="colorline"><input id="w1" type="color" value="#793327" aria-labelledby="lW1" /><input id="w1t" type="text" value="#793327" spellcheck="false" /></div>
+              </div>
+              <div class="field">
+                <label id="lW2" for="w2t" data-i18n="lLight">Couleur du fond</label>
+                <div class="colorline"><input id="w2" type="color" value="#ffefae" aria-labelledby="lW2" /><input id="w2t" type="text" value="#ffefae" spellcheck="false" /></div>
+              </div>
+            </div>
+            <p class="hint contrast good" id="contrastWifi" role="status"></p>
+          </section>
+          <section class="step">
+            <h3 class="step-head"><span class="n">04</span><span data-i18n="sOptions">Options</span></h3>
+            <label class="chk"><input id="m2" type="checkbox" checked /><span data-i18n="lMargin">Bordure (marge) — améliore la détection</span></label>
+          </section>
+          <div class="btns">
+            <button class="squeegee" type="submit" id="genWifi" data-i18n="gen">Générer</button>
+            <button class="ink-btn" type="button" id="swapW" data-i18n="swap">Inverser</button>
+            <button class="ink-btn" type="button" id="randW" data-i18n="rand">Aléatoire</button>
+          </div>
+        </form>
+      </div>
+    
+    </div>
+
+    <!-- Le cadre d'impression (38,2) -->
+    <aside class="frame" data-i18n-attr="aria-label:preview" aria-label="Aperçu">
+      <div class="screen">
+        <i class="reg reg-tl" aria-hidden="true"></i><i class="reg reg-tr" aria-hidden="true"></i><i class="reg reg-bl" aria-hidden="true"></i><i class="reg reg-br" aria-hidden="true"></i>
+        <div id="previewBox" class="sheet" hidden><canvas id="canvas" width="256" height="256" aria-label="QR"></canvas></div>
+        <div class="qr-empty" aria-hidden="true"><span class="squeegee-ico"></span><span data-i18n="empty">Ton QR apparaîtra ici</span></div>
+      </div>
+      <div class="frame-foot">
+        <p class="job"><span data-i18n="preview">Aperçu</span> · 256×256</p>
+        <a id="dl" class="squeegee" download="qrcode.png" href="#" hidden data-i18n="download">Télécharger</a>
+        <p id="status" class="status" data-state="empty" role="status"></p>
+      </div>
+    </aside>
+  </div>
+
+  <section class="rules" data-i18n-attr="aria-label:tips" aria-label="Conseils">
+    <h2 class="rules-title" data-i18n="tipsTitle">Trois règles pour un QR fiable</h2>
+    <ol class="rules-list">
+      <li><strong data-i18n="t1">Contraste d’abord</strong><span data-i18n="t1d">Modules foncés sur fond clair : c’est ce que les téléphones lisent le mieux. L’outil vérifie pour toi.</span></li>
+      <li><strong data-i18n="t2">Garde la marge</strong><span data-i18n="t2d">La bordure autour du QR aide l’appareil photo à le repérer, surtout imprimé.</span></li>
+      <li><strong data-i18n="t3">Teste avant d’imprimer</strong><span data-i18n="t3d">Scanne-le avec deux ou trois téléphones différents avant de le diffuser.</span></li>
+    </ol>
+  </section>
+>>>>>>> Stashed changes
 </main>
 
 <div class="modal" id="infoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
   <div class="modal-card">
     <div class="modal-h">
+<<<<<<< Updated upstream
       <div class="modal-title" id="infoTitle">Infos</div>
       <button class="close" type="button" id="closeInfo">Fermer</button>
+=======
+      <h2 class="modal-title" id="infoTitle" data-i18n="info">Infos</h2>
+      <button class="info-btn" type="button" id="closeInfo" data-i18n="close">Fermer</button>
+>>>>>>> Stashed changes
     </div>
     <div class="modal-b" id="modalBody"></div>
     <div class="modal-actions"></div>

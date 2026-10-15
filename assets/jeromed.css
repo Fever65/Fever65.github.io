@@ -1,5 +1,26 @@
+<<<<<<< Updated upstream
 /* Get Jeromed! — appât, montée de tension, screamer, puis la chute. */
 .jeromed-page { display: flex; flex-direction: column; min-height: 100dvh; overflow-x: hidden; }
+=======
+/* Le test anti-Jérôme — l'Institut officiel (et absurde) de détection jérômienne.
+   Wada 265 : Dull Violet Black (le bureau) · Apricot Yellow (le feuillet jaune) · Old Rose (l'encre du tampon) · Olive Yellow.
+   Special Elite pour les titres tapés, Courier Prime pour le reste ; les écritures non latines (20 langues)
+   retombent sur les polices système. Appât, montée de tension, screamer, puis la chute. Mesures : tokens.css (φ). */
+
+.jeromed-page {
+  --scripts: "Noto Sans", "Noto Sans CJK SC", "Noto Sans JP", "Noto Sans Arabic", "Noto Sans Devanagari", "Microsoft YaHei", "Yu Gothic", "Malgun Gothic", "Segoe UI", sans-serif;
+  --type: "Courier Prime", "Courier New", var(--scripts);
+  --typed: "Special Elite", "Courier Prime", "Courier New", var(--scripts);
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  font-family: var(--type);
+  /* Le bureau : un sous-main ligné, à peine visible. */
+  background-image: repeating-linear-gradient(0deg, color-mix(in srgb, var(--ink) 3%, transparent) 0 1px, transparent 1px var(--s1));
+}
+.jeromed-page :is(h1, h2) { font-family: var(--typed); font-weight: 400; }
+>>>>>>> Stashed changes
 
 /* ---------- Cadre ---------- */
 .site-name { display: inline-flex; align-items: center; min-height: 44px; color: var(--txt); font-size: 15px; font-weight: 600; letter-spacing: -.01em; text-decoration: none; }
@@ -17,6 +38,7 @@
   padding: max(14px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 14px max(20px, env(safe-area-inset-left));
   transition: opacity 1.2s var(--ease);
 }
+<<<<<<< Updated upstream
 .jeromed-footer { padding-block: 14px max(18px, env(safe-area-inset-bottom)); color: var(--txt3); font-size: 11px; }
 .jeromed-footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--txt2); text-decoration: none; }
 .jeromed-footer a:hover { color: var(--accent); }
@@ -66,6 +88,67 @@
 .step:not([hidden]) { animation: af-rise .45s var(--ease-out) both; }
 
 /* Parodie de captcha : volontairement claire pour faire « officiel ». */
+=======
+.site-name { display: inline-flex; align-items: center; min-height: var(--s2); color: var(--ink); font-family: var(--type); font-size: var(--f-1); text-decoration: none; }
+.site-name span { color: var(--dot); }
+.site-name .z-dot { margin-inline-end: var(--s-1); }
+.card-controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); }
+.lang-current { color: var(--ink-3); }
+.lang-current::before { content: "· "; }
+.jeromed-footer { padding-block: var(--s0) max(var(--s1), env(safe-area-inset-bottom)); color: var(--ink-3); font-family: var(--type); font-size: var(--f-1); }
+.jeromed-header .chip { font-family: var(--type); }
+.jeromed-footer a { display: inline-flex; align-items: center; min-height: var(--s2); color: var(--ink-2); text-decoration: none; }
+.jeromed-footer a:hover { color: var(--dot-ink); }
+#footerNote { flex: 1; text-align: center; }
+
+.jeromed-stage { position: relative; z-index: 2; flex: 1; display: grid; place-items: center; padding: var(--s1) max(var(--s0), env(safe-area-inset-right)) var(--s1) max(var(--s0), env(safe-area-inset-left)); transform-origin: 50% 38.2%; }
+.act { width: min(618px, 100%); }
+.act:not([hidden]) { animation: af-rise var(--t3) var(--ease-out) both; }
+.intro-copy { color: var(--ink-2); line-height: var(--lh); }
+.jeromed-page .btn { min-height: calc(var(--s2) + var(--s-1)); max-width: 100%; font-family: var(--type); font-weight: 700; }
+
+/* ---------- Étape 0 : choix de la langue ---------- */
+.picker { display: grid; justify-items: center; gap: var(--s0); width: min(calc(var(--shell) * .618), 100%); text-align: center; }
+.picker-avatar { width: var(--s3); height: var(--s3); border-radius: 50%; }
+.picker h1 { font-size: clamp(var(--f2), 4vw, var(--f3)); letter-spacing: 0; }
+.pick-sub { max-width: var(--measure); color: var(--ink-3); font-size: var(--f-1); }
+.lang-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-1); width: 100%; }
+@media (min-width: 640px) { .lang-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.lang-option { display: flex; align-items: center; gap: var(--s-1); min-height: var(--s2); padding: var(--s-2) var(--s-1); border: 0; border-bottom: 1px dashed var(--line-strong); background: transparent; color: var(--ink); font-family: var(--type); text-align: start; transition: background-color var(--t0); }
+.lang-option::before { content: ""; flex: none; width: var(--s0); height: var(--s0); box-shadow: inset 0 0 0 1px var(--ink-3); }
+.lang-option:hover { background: var(--surface-2); }
+.lang-option[aria-pressed="true"]::before { content: "✗"; display: grid; place-items: center; color: var(--dot); font: 700 var(--f0)/1 var(--type); box-shadow: inset 0 0 0 1px var(--dot); }
+#pickGo { min-width: min(calc(var(--s5) * var(--phi)), 100%); }
+
+/* ---------- Acte 1 : le formulaire, copie jaune ----------
+   La palette s'inverse sur le feuillet : encre violette sur papier jaune ; les dérivés suivent. */
+.bait {
+  --bg: #ffdd00; --ink: #1e0e3f;
+  --ink-2: color-mix(in srgb, var(--ink) 85.4%, var(--bg));
+  --ink-3: color-mix(in srgb, var(--ink) 76.4%, var(--bg));
+  --line: color-mix(in srgb, var(--ink) 14.6%, var(--bg));
+  --line-strong: color-mix(in srgb, var(--ink) 38.2%, var(--bg));
+  --surface-2: color-mix(in srgb, var(--ink) 9%, var(--bg));
+  --dot-ink: var(--ink); --dot-soft: color-mix(in srgb, var(--dot) 23.6%, var(--bg)); --dot-line: var(--ink);
+  --fill: var(--ink); --on-dot: var(--bg);
+  position: relative; overflow: hidden;
+  padding-inline-start: var(--s1);
+  background: var(--bg); color: var(--ink);
+  box-shadow: var(--s-2) var(--s-2) 0 color-mix(in srgb, #000 38.2%, transparent);
+}
+/* La marge perforée du classeur. */
+.bait::before { content: ""; position: absolute; inset-block: 0; inset-inline-start: 0; width: var(--s1); background: radial-gradient(circle, #1e0e3f 0 var(--s-3), transparent calc(var(--s-3) + .5px)) center / var(--s1) var(--s2) repeat-y; box-shadow: inset -1px 0 0 var(--line-strong); }
+.bait-top { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1); padding: var(--s0) var(--s1); border-bottom: var(--s-3) double var(--ink); color: var(--ink-2); font-size: var(--f-1); font-weight: 700; text-transform: uppercase; letter-spacing: .0618em; }
+.form-code { margin-inline-start: auto; color: var(--ink-3); font-weight: 400; }
+.form-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s0); padding: var(--s-1) var(--s1); border-top: 1px dashed var(--line-strong); color: var(--ink-3); font-size: var(--f-2); letter-spacing: .146em; }
+.barcode { width: var(--s5); max-width: 50%; height: var(--s1); background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 3px, var(--ink) 3px 4px, transparent 4px 7px, var(--ink) 7px 10px, transparent 10px 11px); }
+.bait-top img { width: var(--s1); height: var(--s1); border-radius: 50%; }
+.bait-body { display: grid; gap: var(--s0); padding: var(--s2) var(--s1); }
+.bait-body h1 { font-size: clamp(var(--f2), 5vw, var(--f3)); line-height: 1.146; letter-spacing: 0; text-transform: uppercase; }
+.step:not([hidden]) { animation: af-rise var(--t2) var(--ease-out) both; }
+
+/* Parodie de captcha : volontairement claire et « officielle » ; ses couleurs imitent l'original et sortent de la palette. */
+>>>>>>> Stashed changes
 .captcha {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -101,6 +184,7 @@
 .captcha-brand small { font-size: 8px; color: #777; }
 
 /* Quiz */
+<<<<<<< Updated upstream
 .quiz { display: grid; gap: 14px; padding-top: 6px; border-top: 1px dashed var(--border); }
 .quiz-progress { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 14px; color: var(--txt3); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .quiz-dots { display: flex; gap: 6px; }
@@ -128,6 +212,23 @@
 .option:not(:disabled):hover { border-color: var(--accent-line); background: var(--accent-soft); }
 .option[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
 .option[aria-pressed="true"]::before { border-color: var(--accent); background: var(--accent); color: #170d02; }
+=======
+.quiz { display: grid; gap: var(--s0); padding-top: var(--s-2); border-top: 1px dashed var(--line-strong); }
+.quiz-progress { display: flex; align-items: center; justify-content: space-between; gap: var(--s-1); padding-top: var(--s0); color: var(--ink-3); font-size: var(--f-1); text-transform: uppercase; letter-spacing: .0618em; }
+.quiz-dots { display: flex; gap: var(--s-2); }
+.quiz-dots i { width: var(--s0); height: var(--s0); box-shadow: inset 0 0 0 1px var(--ink-3); transition: background-color var(--t2) var(--ease); }
+.quiz-dots i.on { background: var(--ink); }
+.quiz h2 { font-size: var(--f1); line-height: var(--lh-mid); }
+.quiz-hint { color: var(--ink-3); font-size: var(--f-1); }
+.quiz-hint:empty { display: none; }
+.options { display: grid; gap: var(--s-1); }
+.option { display: flex; align-items: center; gap: var(--s-1); min-height: var(--s2); padding: var(--s-1) var(--s0); border: 1px solid var(--line-strong); background: transparent; color: var(--ink); text-align: start; transition: border-color var(--t1), background-color var(--t1); }
+.option { font-family: var(--type); }
+.option::before { content: attr(data-key); display: grid; place-items: center; width: var(--s1); height: var(--s1); flex-shrink: 0; border: 1px solid var(--line-strong); color: var(--ink-3); font-family: var(--type); font-size: var(--f-1); }
+.option:not(:disabled):hover { border-color: var(--dot-line); background: var(--dot-soft); }
+.option[aria-pressed="true"] { border-color: var(--dot); background: var(--dot-soft); }
+.option[aria-pressed="true"]::before { border-color: var(--ink); background: var(--ink); color: var(--bg); }
+>>>>>>> Stashed changes
 .option:disabled { opacity: 1; cursor: default; }
 .option:disabled:not([aria-pressed="true"]) { opacity: .4; }
 .feedback { min-height: 0; margin: 0; padding: 0; color: var(--accent); font-size: 13px; line-height: 1.65; }
@@ -155,6 +256,7 @@
 .tile:nth-child(8) img { filter: brightness(.18) contrast(1.4); }
 .tile:nth-child(9) img { transform: scale(1.8) rotate(-28deg) translate(-20%, -16%); filter: contrast(2) saturate(0); }
 
+<<<<<<< Updated upstream
 .launch { display: grid; justify-items: center; gap: 14px; padding-top: 18px; border-top: 1px dashed var(--border); text-align: center; }
 .launch-check { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 50%; background: rgba(143, 219, 166, .12); color: var(--success); font-size: 24px; box-shadow: 0 0 0 8px rgba(143, 219, 166, .05); }
 .launch-tip { margin: 0; padding: 10px 14px; border: 1px solid var(--border); border-radius: 12px; background: rgba(0, 0, 0, .3); color: var(--txt2); font-size: 12px; }
@@ -171,18 +273,41 @@
 .scan-corner.bl { bottom: 0; left: 0; border-right: 0; border-top: 0; border-radius: 0 0 0 12px; }
 .scan-corner.br { bottom: 0; right: 0; border-left: 0; border-top: 0; border-radius: 0 0 12px 0; }
 @keyframes scan { from { top: 10%; } to { top: 88%; } }
+=======
+.launch { display: grid; gap: var(--s0); padding-top: var(--s1); border-top: 1px dashed var(--line-strong); }
+.launch h2 { font-size: var(--f2); text-transform: uppercase; }
+.launch-actions { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.launch-actions .btn { flex: 1 1 var(--s5); }
+
+/* ---------- Acte 2 : la mesure et la montée de tension ---------- */
+.scan { display: grid; justify-items: center; gap: var(--s1); text-align: center; }
+.scan h1 { font-size: clamp(var(--f2), 5vw, var(--f3)); text-transform: uppercase; }
+.scanner { position: relative; display: grid; place-items: center; width: min(var(--s5), 56vw); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, currentColor 9%, transparent), transparent 70%); color: var(--good); transition: color var(--t2); }
+.scan-face { width: 70.8%; opacity: .764; animation: breathe var(--t5) ease-in-out infinite; }
+.scan-line { position: absolute; left: 9%; right: 9%; top: 9%; height: 2px; background: currentColor; box-shadow: 0 0 var(--s0) currentColor, 0 0 var(--s-3) currentColor; animation: scan 2.2s ease-in-out infinite alternate; }
+@keyframes scan { from { top: 9%; } to { top: 88%; } }
+>>>>>>> Stashed changes
 @keyframes breathe { 0%, 100% { opacity: .55; } 50% { opacity: .9; } }
 .jeromed-page.uneasy .scanner { color: #ffb347; }
 .jeromed-page.uneasy .scan-face { animation-duration: .9s; }
 .jeromed-page.alarm .scanner { color: var(--danger); }
 .jeromed-page.alarm .scan-line { animation-duration: .6s; }
 
+<<<<<<< Updated upstream
 .loading-bar-wrap { display: grid; width: min(340px, 100%); gap: 12px; }
 #loadingTxt { min-height: 48px; margin: 0; color: var(--txt2); font-size: 13px; line-height: 1.7; }
 .loading-bar-bg { height: 6px; overflow: hidden; border-radius: 6px; background: var(--surface-3); }
 .loading-bar-fill { width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #ff6a00, var(--accent), #ffc27a); box-shadow: 0 0 16px rgba(255, 152, 31, .6); transition: width var(--bar-speed, .5s) var(--ease); }
 .loading-pct { color: var(--txt3); font-size: 11px; font-variant-numeric: tabular-nums; letter-spacing: .1em; }
 .all-clear { margin: 0; padding: 12px 18px; border: 1px solid rgba(143, 219, 166, .3); border-radius: 12px; background: rgba(143, 219, 166, .07); color: var(--success); font-size: 13px; line-height: 1.7; }
+=======
+.loading-bar-wrap { display: grid; gap: var(--s-1); width: min(calc(var(--s5) * var(--phi)), 100%); }
+#loadingTxt { min-height: var(--s2); color: var(--ink-2); font-size: var(--f-1); line-height: var(--lh); }
+.loading-bar-bg { height: 2px; overflow: hidden; background: var(--surface-2); }
+.loading-bar-fill { width: 0; height: 100%; background: var(--dot); box-shadow: 0 0 var(--s-1) var(--dot); transition: width var(--bar-speed, .5s) var(--ease); }
+.loading-pct { color: var(--ink-3); font-family: var(--type); font-size: var(--f-1); font-variant-numeric: tabular-nums; letter-spacing: .1em; }
+.all-clear { padding: var(--s-1) var(--s0); border: 1px solid color-mix(in srgb, var(--good) 38.2%, var(--bg)); background: color-mix(in srgb, var(--good) 9%, var(--bg)); color: var(--good); font-size: var(--f-1); line-height: var(--lh); }
+>>>>>>> Stashed changes
 
 /* La vignette se resserre et la scène avance doucement pendant l'analyse. */
 .vignette { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at 50% 45%, transparent 22%, rgba(0, 0, 0, .96) 72%); opacity: 0; transition: opacity 8s linear; }
@@ -218,19 +343,53 @@
 .mini-three { right: 12%; bottom: 0; width: 13%; animation-delay: .65s; }
 @keyframes jerome-pop { from { opacity: 0; transform: scale(.3) rotate(-9deg); } to { opacity: 1; transform: scale(1) rotate(0); } }
 
+<<<<<<< Updated upstream
 .victim { margin: 0; padding: 6px 14px; border: 1px solid rgba(255, 118, 107, .35); border-radius: 999px; background: rgba(255, 118, 107, .08); color: #ffb1aa; font-size: 11px; font-weight: 700; letter-spacing: .06em; }
 #revealTitle { margin: 0; font-family: var(--font-display); font-size: clamp(44px, 12vw, 96px); font-weight: 700; line-height: .92; letter-spacing: -.05em; }
 #revealTitle span { display: inline-block; animation: slam .55s cubic-bezier(.2, 1.6, .4, 1) both; }
 #revealTitle span:first-child { color: var(--txt); }
 #revealTitle span:last-child { color: var(--accent); animation-delay: .12s; }
+=======
+.victim { padding: var(--s-2) var(--s0); border: 1px dashed var(--dot-line); color: var(--dot-ink); font-family: var(--type); font-size: var(--f-1); text-transform: uppercase; letter-spacing: .0618em; }
+#revealTitle { font-family: var(--typed); font-size: clamp(var(--f4), 11.09vw, var(--f5)); line-height: .92; letter-spacing: -.0236em; }
+#revealTitle span { display: inline-block; animation: slam var(--t3) cubic-bezier(.2, 1.6, .4, 1) both; }
+#revealTitle span:last-child { color: var(--dot); animation-delay: var(--t0); }
+>>>>>>> Stashed changes
 @keyframes slam { from { opacity: 0; transform: scale(2.4) rotate(-6deg); } to { opacity: 1; transform: none; } }
 .punchline { margin: 0; max-width: 42ch; color: var(--txt2); font-size: 14px; line-height: 1.75; }
 
+<<<<<<< Updated upstream
 .results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: min(460px, 100%); margin: 4px 0 0; border: 1px solid var(--border); border-radius: 16px; background: rgba(0, 0, 0, .3); }
 .results div { display: grid; gap: 4px; padding: 12px 8px; }
 .results div + div { border-left: 1px solid var(--border); }
 .results dt { color: var(--txt3); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .results dd { margin: 0; color: var(--txt); font-family: var(--font-display); font-size: clamp(14px, 3vw, 18px); font-weight: 600; }
+=======
+/* Le certificat : les mesures dans un cadre officiel, puis le tampon s'abat dessus. */
+.certificate { position: relative; margin-top: var(--s1); width: min(calc(var(--s5) * var(--phi) * var(--phi)), 100%); padding: var(--s-2); box-shadow: inset 0 0 0 1px var(--line-strong), inset 0 0 0 var(--s-3) var(--bg), inset 0 0 0 calc(var(--s-3) + 1px) var(--line); }
+.results { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; margin: 0; }
+.results div { display: grid; gap: var(--s-3); padding: var(--s-1); }
+.results div + div { border-inline-start: 1px dashed var(--line-strong); }
+.results dt { color: var(--ink-3); font-family: var(--type); font-size: var(--f-2); letter-spacing: .0618em; text-transform: uppercase; }
+.results dd { margin: 0; font-size: var(--f1); font-weight: 700; }
+.stamp {
+  position: absolute; z-index: 2; inset-inline-end: 0; top: 0;
+  display: grid; justify-items: center; gap: var(--s-3);
+  margin: 0; padding: var(--s-1) var(--s0);
+  border: var(--s-2) double var(--dot); border-radius: var(--s-2);
+  background: color-mix(in srgb, var(--bg) 61.8%, transparent);
+  color: var(--dot); font: 400 var(--f2)/1 var(--typed); letter-spacing: .0382em; text-transform: uppercase; white-space: nowrap;
+  pointer-events: none;
+  --sx: 23.6%; --tilt: -11deg;
+  transform: translate(var(--sx), -61.8%) rotate(var(--tilt));
+  animation: stamp-slam var(--t3) cubic-bezier(.2, 1.6, .4, 1) calc(var(--t3) + var(--t0)) both;
+}
+[dir="rtl"] .stamp { --sx: -23.6%; --tilt: 11deg; }
+.stamp span + span { font-size: var(--f0); }
+@keyframes stamp-slam { from { opacity: 0; transform: translate(var(--sx), -61.8%) rotate(calc(var(--tilt) * 2.18)) scale(2.618); } to { opacity: 1; transform: translate(var(--sx), -61.8%) rotate(var(--tilt)) scale(1); } }
+/* Les titres reçoivent le focus par programme pour les lecteurs d'écran : pas de contour visible. */
+.jeromed-page [tabindex="-1"]:focus { outline: none; }
+>>>>>>> Stashed changes
 
 .chaos-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: min(560px, 100%); }
 .chaos-actions .go-btn { flex: 1 1 200px; }
@@ -281,6 +440,7 @@
   .jeromed-page.tense .jeromed-stage { transform: none; }
   .scare-face { transform: none; }
   .rain { display: none; }
+  .stamp { animation: none; }
 }
 
 /* ---------- Étape 0 : choix de la langue ---------- */

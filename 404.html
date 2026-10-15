@@ -2,6 +2,9 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
+  <!-- Transition entre pages interrompue (navigation rapide, retour) : la page change sans animation, ce n'est pas une erreur.
+       En ligne et avant tout le reste : pagereveal part avant le premier rendu, donc avant les scripts defer. -->
+  <script>addEventListener("pagereveal", e => { const v = e.viewTransition; if (v) [v.ready, v.finished, v.updateCallbackDone].forEach(p => p && p.catch(() => {})); });</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>404 — ArchiveFever.Work</title>
   <meta name="description" content="Cette page n’existe pas ou a été déplacée. Retournez à l’accueil d’ArchiveFever.Work." />
@@ -11,6 +14,7 @@
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<<<<< Updated upstream
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/site.css" />
   <style>
@@ -80,6 +84,53 @@
         <a class="page-link" href="/BETA/index.html"><span>Every Y</span><span class="page-link-arrow" aria-hidden="true">→</span></a>
       </div>
     </nav>
+=======
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <!-- Chemins absolus : GitHub Pages sert cette page depuis n'importe quelle adresse. -->
+  <link rel="stylesheet" href="/assets/tokens.css" />
+  <link rel="stylesheet" href="/assets/site.css" />
+  <link rel="stylesheet" href="/assets/404.css" />
+  <script src="/assets/site.js" defer></script>
+  <script src="/assets/404.js" defer></script>
+</head>
+<body class="offmap">
+
+<header class="z-head">
+  <div class="z-left">
+    <a class="z-home" href="/index.html" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
+    <span class="z-crumb"><span>404</span></span>
+  </div>
+  <div class="z-right">
+    <span class="wada"><i></i><i></i><i></i></span>
+    <div class="lang" role="group" aria-label="Choisir la langue"><button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button><button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button></div>
+  </div>
+</header>
+
+<main class="lost" aria-labelledby="pageTitle">
+  <div class="lost-copy">
+    <p class="lost-k"><span data-i18n="eyebrow">hors de la carte</span></p>
+    <p class="err-code" aria-hidden="true">4<i>0</i>4</p>
+    <h1 class="lost-title" id="pageTitle" data-i18n="heading">Page introuvable</h1>
+    <p class="lost-msg" data-i18n="msg">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</p>
+    <p class="lost-note"><img src="/IMG/Jerome.webp" alt="" width="26" height="26" loading="lazy" decoding="async" /><span data-i18n="lost">Même Jérôme s’est perdu.</span></p>
+    <a class="lost-home" href="/index.html"><span data-i18n="home">Retour à la carte</span><span aria-hidden="true">→</span></a>
+  </div>
+
+  <!-- La carte de l'accueil, en miniature : mêmes pièces, mêmes proportions (rectangle d'or φ : 1).
+       Le point, lui, est en dehors. -->
+  <div class="lost-plan">
+    <nav class="mini-map" data-i18n-attr="aria-label:mapLabel" aria-label="La carte du site">
+      <a class="mini-room" href="/index.html#z1" data-wada="z1" style="--x:0;--y:0;--s:1"><span>ArchiveFever.Work</span></a>
+      <a class="mini-room" href="/COMPRESS/index.html" data-wada="z2" style="--x:1;--y:0;--s:.618034"><span>FeverCompress</span></a>
+      <a class="mini-room" href="/QR/index.html" data-wada="z3" style="--x:1.236068;--y:.618034;--s:.381966"><span>ColorQR</span></a>
+      <a class="mini-room" href="/TIMER/index.html" data-wada="z4" style="--x:1;--y:.763932;--s:.236068"><span data-i18n="timer">Minuteur</span></a>
+      <a class="mini-room tiny" href="/BETA/index.html" data-wada="z5" style="--x:1;--y:.618034;--s:.145898"><span>Every Y Found</span></a>
+      <a class="mini-room tiny" href="/Jeromed.html" data-wada="z6" style="--x:1.145898;--y:.618034;--s:.09017"><span>Jérôme</span></a>
+      <a class="mini-room tiny" href="/ABOUT/index.html" data-wada="z7" style="--x:1.18034;--y:.708204;--s:.055728"><span data-i18n="about">À propos</span></a>
+      <span class="mini-room tiny" data-wada="z0" style="--x:1.145898;--y:.72949;--s:.034442"><span data-i18n="secret">Pièce secrète</span></span>
+    </nav>
+    <p class="you"><span class="you-dot" aria-hidden="true"></span><span class="you-label" data-i18n="here">Vous êtes ici : nulle part</span></p>
+>>>>>>> Stashed changes
   </div>
 </main>
 

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="fr" data-lang="fr">
 <head>
+<<<<<<< Updated upstream
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Un seed de donjon pour chaque hauteur de Y1 à Y120 hors Far Lands dans Minecraft Java Beta 1.7.3. Y120 trouvé : seed 6000000000040461505, coordonnées (-993, 120, -65).">
@@ -359,8 +360,36 @@
   </style>
   <link rel="stylesheet" href="../assets/site.css">
   <link rel="stylesheet" href="../assets/beta.css">
+=======
+  <meta charset="UTF-8" />
+  <!-- Transition entre pages interrompue (navigation rapide, retour) : la page change sans animation, ce n'est pas une erreur.
+       En ligne et avant tout le reste : pagereveal part avant le premier rendu, donc avant les scripts defer. -->
+  <script>addEventListener("pagereveal", e => { const v = e.viewTransition; if (v) [v.ready, v.finished, v.updateCallbackDone].forEach(p => p && p.catch(() => {})); });</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Every Y Found | ArchiveFever.Work</title>
+  <meta name="description" content="Un seed de donjon pour chaque hauteur de Y1 à Y120 hors Far Lands dans Minecraft Java Beta 1.7.3. Y120 trouvé : seed 6000000000040461505, coordonnées (-993, 120, -65)." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#111314" />
+  <link rel="canonical" href="https://archivefever.work/BETA/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="ArchiveFever.Work" />
+  <meta property="og:title" content="Every Y Found — Minecraft Beta 1.7.3" />
+  <meta property="og:description" content="Un seed de donjon pour chaque hauteur de Y1 à Y120 hors Far Lands dans Minecraft Java Beta 1.7.3. Y120 trouvé : seed 6000000000040461505, coordonnées (-993, 120, -65)." />
+  <meta property="og:url" content="https://archivefever.work/BETA/" />
+  <meta property="og:image" content="https://archivefever.work/IMG/Jerome.webp" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="icon" href="../IMG/Jerome.webp" type="image/webp" />
+  <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,300;0,500;0,700;1,300;1,500&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/tokens.css" />
+  <link rel="stylesheet" href="../assets/site.css" />
+  <link rel="stylesheet" href="beta.css" />
+>>>>>>> Stashed changes
   <script src="../assets/site.js" defer></script>
 </head>
+<<<<<<< Updated upstream
 <body class="beta-page">
   <a class="skip-link" href="#mainContent">
     <span data-lang-content="fr">Aller au contenu</span><span data-lang-content="en">Skip to content</span>
@@ -370,6 +399,16 @@
       <div class="af-crumb">
         <a class="af-brand" href="../index.html" aria-label="ArchiveFever.Work"><img src="../IMG/Jerome.webp" alt="" width="30" height="30" decoding="async"><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
         <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page">Every Y Found</span>
+=======
+<body class="survey">
+  <a class="skip-link" href="#mainContent" data-i18n="skip">Aller au contenu</a>
+
+  <div class="beta-head">
+    <header class="z-head">
+      <div class="z-left">
+        <a class="z-home" href="../index.html#z5" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
+        <span class="z-crumb"><span>Every Y Found</span></span>
+>>>>>>> Stashed changes
       </div>
       <nav class="af-links" data-af-label="nav" aria-label="Navigation">
         <a href="../index.html#tools" data-af="tools">Outils</a>
@@ -393,8 +432,16 @@
     </div>
   </header>
 
+  <!-- La jauge de profondeur : on creuse de Y120 (surface) à Y1 (substratum) en lisant. -->
+  <aside class="depth" aria-hidden="true">
+    <span class="depth-label" data-i18n="depth">Profondeur</span>
+    <span class="depth-track"><i class="depth-mark"></i></span>
+    <span class="depth-y" id="depthY">Y120</span>
+  </aside>
+
   <main id="mainContent" tabindex="-1">
     <section class="hero shell" aria-labelledby="pageTitle">
+<<<<<<< Updated upstream
       <p class="eyebrow">
         <span data-lang-content="fr">Minecraft Java Beta 1.7.3 · Archive complète</span>
         <span data-lang-content="en">Minecraft Java Beta 1.7.3 · Complete archive</span>
@@ -410,6 +457,23 @@
           <span class="status-label"><span data-lang-content="fr">Nouvelle découverte</span><span data-lang-content="en">New discovery</span></span>
           <span class="status-value"><span data-lang-content="fr">Y120 trouvé !</span><span data-lang-content="en">Y120 found!</span></span>
           <span class="status-detail"><span data-lang-content="fr">Hors Far Lands · Seed 6000000000040461505<br>X=-993, Y=120, Z=-65</span><span data-lang-content="en">Outside the Far Lands · Seed 6000000000040461505<br>X=-993, Y=120, Z=-65</span></span>
+=======
+      <p class="report-no"><span data-i18n="eyebrow">Minecraft Java Beta 1.7.3 · Archive complète</span></p>
+      <div class="core" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <h1 class="beta-title" id="pageTitle">
+        <span data-lang="fr">Chaque Y<br /><span class="outline">a son seed.</span></span>
+        <span data-lang="en">Every Y<br /><span class="outline">has a seed.</span></span>
+      </h1>
+      <div class="hero-copy">
+        <div>
+          <p class="lead" data-lang="fr">La recherche couvre désormais <strong>chaque hauteur de Y1 à Y120</strong>. Pour chacune, j’ai trouvé au moins un seed de donjon reproductible dans Minecraft Beta 1.7.3. Y120 est maintenant trouvé hors Far Lands !</p>
+          <p class="lead" data-lang="en">The search now covers <strong>every height from Y1 to Y120</strong>. For each one, I found at least one reproducible dungeon seed in Minecraft Beta 1.7.3. Y120 has now been found outside the Far Lands!</p>
+        </div>
+        <aside class="hero-status" data-i18n-attr="aria-label:statusLabel" aria-label="Statut de la recherche">
+          <span class="stratum-no"><b data-i18n="newFind">Nouvelle découverte</b></span>
+          <span class="status-value" data-i18n="y120Found">Y120 trouvé !</span>
+          <span class="status-detail"><span data-i18n="outside">Hors Far Lands</span> · Seed 6000000000040461505<br />X=-993, Y=120, Z=-65</span>
+>>>>>>> Stashed changes
         </aside>
       </div>
     </section>
@@ -424,8 +488,13 @@
     <section class="shell altitude" id="altitude" aria-labelledby="altTitle">
       <div class="alt-head">
         <div>
+<<<<<<< Updated upstream
           <div class="section-index">00 — <span data-lang-content="fr">La carte</span><span data-lang-content="en">The map</span></div>
           <h2 id="altTitle"><span data-lang-content="fr">120 hauteurs. 120 donjons.</span><span data-lang-content="en">120 heights. 120 dungeons.</span></h2>
+=======
+          <p class="stratum-no">00 — <span data-i18n="navMap">La carte</span></p>
+          <h2 class="h2" id="altTitle" data-i18n="altTitle">120 hauteurs. 120 donjons.</h2>
+>>>>>>> Stashed changes
         </div>
         <p class="alt-legend">
           <span><i class="lg lg-found"></i><span data-lang-content="fr">Trouvé hors Far Lands</span><span data-lang-content="en">Found outside Far Lands</span></span>
@@ -441,8 +510,13 @@
     </section>
 
     <section class="section" id="discovery">
+<<<<<<< Updated upstream
       <div class="shell section-grid">
         <div class="section-index">01 — <span data-lang-content="fr">Le cap</span><span data-lang-content="en">The milestone</span></div>
+=======
+      <div class="shell split">
+        <p class="stratum-no">01 — <span data-i18n="milestone">Le cap</span></p>
+>>>>>>> Stashed changes
         <div>
           <div data-lang-content="fr">
             <h2>Ce n’est plus une suite de records isolés.</h2>
@@ -477,10 +551,16 @@
       <div class="shell">
         <div class="results-head">
           <div>
+<<<<<<< Updated upstream
             <div class="section-index">02 — <span data-lang-content="fr">Les données</span><span data-lang-content="en">The data</span></div>
             <h2 id="databaseTitle"><span data-lang-content="fr">Tous les seeds, de Y1 à Y120.</span><span data-lang-content="en">Every seed, from Y1 to Y120.</span></h2>
             <p class="results-subtitle" data-lang-content="fr">Y1 à Y120 forment la série complète hors Far Lands. Le nouveau Y120 rejoint le record principal ; l’ancien cas Y119 des Far Lands reste conservé séparément.</p>
             <p class="results-subtitle" data-lang-content="en">Y1 through Y120 form the complete outside-Far-Lands sequence. The new Y120 joins the main record; the older Far Lands Y119 case remains preserved separately.</p>
+=======
+            <p class="stratum-no">02 — <span data-i18n="theData">Les données</span></p>
+            <h2 class="h2" id="databaseTitle" data-i18n="dbTitle">Tous les seeds, de Y1 à Y120.</h2>
+            <p class="results-subtitle" data-i18n="dbSubtitle">Y1 à Y120 forment la série complète hors Far Lands. Le nouveau Y120 rejoint le record principal ; l’ancien cas Y119 des Far Lands reste conservé séparément.</p>
+>>>>>>> Stashed changes
           </div>
           <span class="data-badge"><span data-lang-content="fr">122 seeds · 13 vidéos</span><span data-lang-content="en">122 seeds · 13 videos</span></span>
         </div>
@@ -521,11 +601,26 @@
     </section>
 
     <section class="section" id="next">
+<<<<<<< Updated upstream
       <div class="shell continue-panel">
         <div data-lang-content="fr">
           <div class="section-index">03 — La découverte</div>
           <h2>Y120 trouvé hors Far Lands.</h2>
           <p>Le cap est atteint ! Le seed <strong>6000000000040461505</strong> contient un spawner Zombie confirmé en jeu aux coordonnées <strong>X=-993, Y=120, Z=-65</strong> dans Minecraft Java Beta 1.7.3. Cette découverte complète la série de Y1 à Y120 hors Far Lands.</p><p style="margin-top:18px"><a class="video-link" href="https://youtu.be/srNnxU39jTk" target="_blank" rel="noopener noreferrer">Voir la découverte Y120 en vidéo ↗</a></p>
+=======
+      <div class="shell split split-r continue-panel">
+        <div>
+          <p class="stratum-no">03 — <span data-i18n="theDiscovery">La découverte</span></p>
+          <div data-lang="fr">
+            <h2 class="h2">Y120 trouvé hors Far Lands.</h2>
+            <p>Le cap est atteint ! Le seed <strong>6000000000040461505</strong> contient un spawner Zombie confirmé en jeu aux coordonnées <strong>X=-993, Y=120, Z=-65</strong> dans Minecraft Java Beta 1.7.3. Cette découverte complète la série de Y1 à Y120 hors Far Lands.</p>
+          </div>
+          <div data-lang="en">
+            <h2 class="h2">Y120 found outside the Far Lands.</h2>
+            <p>The milestone is reached! Seed <strong>6000000000040461505</strong> contains an in-game confirmed zombie spawner at <strong>X=-993, Y=120, Z=-65</strong> in Minecraft Java Beta 1.7.3. This discovery completes the sequence from Y1 to Y120 outside the Far Lands.</p>
+          </div>
+          <p class="cta"><a class="core-btn" href="https://youtu.be/srNnxU39jTk" target="_blank" rel="noopener noreferrer"><span data-i18n="watchY120">Voir la découverte Y120 en vidéo</span><span aria-hidden="true">↗</span></a></p>
+>>>>>>> Stashed changes
         </div>
         <div data-lang-content="en">
           <div class="section-index">03 — The discovery</div>

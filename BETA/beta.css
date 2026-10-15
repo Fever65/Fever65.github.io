@@ -1,0 +1,123 @@
+/* Every Y Found — palette Wada № 340 : Black · Neutral Gray · Sea Green · Peach Red (Far Lands, rareté). */
+
+html:has(#seedData) { scroll-behavior: smooth; }
+#mainContent :is(#altitude, #discovery, #database, #next) { scroll-margin-top: calc(var(--head-h) + var(--s2)); }
+
+/* ---------- En-tête : barre z + sous-navigation, collantes ensemble ---------- */
+.beta-head { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--bg) 85.4%, transparent); -webkit-backdrop-filter: blur(var(--s-1)); backdrop-filter: blur(var(--s-1)); border-bottom: 1px solid var(--line); }
+.beta-head .z-head { position: static; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.subnav .shell { display: flex; gap: var(--s1); overflow-x: auto; scrollbar-width: none; }
+.subnav .shell::-webkit-scrollbar { display: none; }
+.subnav a { display: inline-flex; align-items: center; min-height: var(--s2); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); letter-spacing: var(--track-mono); text-decoration: none; white-space: nowrap; transition: color var(--t0); }
+.subnav a:hover { color: var(--dot-ink); }
+
+/* ---------- Héros ---------- */
+.beta-title { max-width: 14ch; font-size: clamp(var(--f3), 9.02vw, var(--f6)); text-transform: uppercase; line-height: var(--lh-tight); letter-spacing: -.0618em; }
+.beta-title .outline { color: transparent; -webkit-text-stroke: 1px var(--ink-3); }
+.hero-copy { align-items: end; margin-top: var(--s1); }
+.hero-status { display: grid; gap: var(--s-2); padding-left: var(--s0); border-left: 1px solid var(--dot); }
+.status-value { font-size: var(--f2); font-weight: 500; letter-spacing: -.0382em; }
+.status-detail { color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); overflow-wrap: anywhere; }
+
+.metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: var(--s3); border-block: 1px solid var(--line); }
+@media (min-width: 900px) { .metrics { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.metric { min-width: 0; padding: var(--s1) var(--s0); border-right: 1px solid var(--line); }
+.metric:nth-child(2n) { border-right: 0; }
+.metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+@media (min-width: 900px) {
+  .metric:nth-child(2n) { border-right: 1px solid var(--line); }
+  .metric:last-child { border-right: 0; }
+  .metric:nth-child(-n+2) { border-bottom: 0; }
+}
+.metric-value { display: block; font-size: clamp(var(--f3), 4.24vw, var(--f4)); line-height: 1; letter-spacing: -.0618em; font-variant-numeric: tabular-nums; }
+.metric-value.accent { color: var(--dot); }
+.metric-label { display: block; margin-top: var(--s-1); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+
+/* ---------- Carte d'altitude : la légende reprend exactement les couleurs des barres ---------- */
+.altitude { padding-bottom: var(--s3); }
+.alt-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s0) var(--s2); margin-bottom: var(--s1); }
+.alt-legend { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s0); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+.alt-legend > span { display: inline-flex; align-items: center; gap: var(--s-1); }
+.lg { display: inline-block; width: var(--s-1); height: var(--s-1); border-radius: 50%; }
+.lg-found, .alt-bar { background: var(--line-strong); }
+.lg-video, .alt-bar.has-video { background: var(--dot); }
+.lg-record, .alt-bar.is-record { background: var(--ink); }
+.alt-frame { border-bottom: 1px solid var(--line-strong); }
+.alt-map { display: flex; align-items: flex-end; gap: 2px; height: clamp(var(--s5), 23.6vw, calc(var(--s5) * 2)); }
+.alt-bar { flex: 1 1 0; min-width: 0; height: var(--h); padding: 0; border: 0; cursor: pointer; transform: scaleY(0); transform-origin: bottom; transition: transform var(--t3) var(--ease-out) calc(var(--i) * 6.18ms), background-color var(--t0); }
+.alt-map.grown .alt-bar { transform: scaleY(1); }
+.alt-bar:hover, .alt-bar:focus-visible { background: var(--alt); outline: none; }
+.alt-axis { display: flex; justify-content: space-between; margin-top: var(--s-1); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+.alt-readout { min-height: var(--s1); margin-top: var(--s0); color: var(--ink-2); font-family: var(--font-mono); font-size: var(--f-1); overflow-wrap: anywhere; }
+
+/* ---------- Sections ---------- */
+.section { padding-block: var(--s3); border-top: 1px solid var(--line); }
+.section .h2 { margin-bottom: var(--s1); }
+.prose { display: grid; gap: var(--s0); max-width: var(--measure); color: var(--ink-2); }
+.prose strong, .continue-panel strong { color: var(--ink); font-weight: 500; }
+.rare-card { display: grid; gap: var(--s0); margin-top: var(--s2); padding-top: var(--s1); border-top: 1px solid var(--alt); }
+.rare-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s0); }
+.rare-badge { color: var(--alt); font-family: var(--font-mono); font-size: var(--f-1); }
+.rare-title { font-size: var(--f2); font-weight: 500; letter-spacing: -.0382em; }
+.rare-card > p { color: var(--ink-3); }
+.rarity-meter { display: flex; gap: var(--s-3); width: var(--s5); }
+.rarity-meter i { display: block; width: 100%; height: 2px; background: var(--alt); opacity: .236; }
+.rarity-meter i:nth-last-child(-n+2) { opacity: 1; }
+
+/* ---------- Base de données ---------- */
+.results-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s0) var(--s2); margin-bottom: var(--s1); }
+.results-head .h2 { margin-bottom: var(--s-1); }
+.results-subtitle { max-width: var(--measure); color: var(--ink-3); }
+.data-badge { color: var(--dot-ink); font-family: var(--font-mono); font-size: var(--f-1); }
+.controls { display: grid; grid-template-columns: 1fr 1fr; margin-bottom: var(--s0); }
+.search-wrap { position: relative; grid-column: 1 / -1; }
+@media (min-width: 680px) { .controls { grid-template-columns: minmax(0, 1fr) auto auto; } .search-wrap { grid-column: auto; } }
+.search-wrap svg { position: absolute; top: 50%; left: var(--s0); width: var(--s0); height: var(--s0); transform: translateY(-50%); color: var(--ink-3); pointer-events: none; }
+.search-input { padding-left: var(--s2) !important; font-family: var(--font-mono); }
+.control-button { min-height: var(--s2); padding: 0 var(--s0); border: 1px solid var(--line-strong); border-top-width: 0; background: transparent; color: var(--ink-2); font-family: var(--font-mono); font-size: var(--f-1); transition: color var(--t0), background-color var(--t0); }
+.control-button + .control-button { border-left-width: 0; }
+@media (min-width: 680px) { .control-button { border-top-width: 1px; border-left-width: 0; } }
+.control-button:hover, .control-button:focus-visible { color: var(--ink); background: var(--surface-2); }
+.control-button[aria-pressed="true"] { color: var(--on-dot); background: var(--fill); border-color: var(--fill); }
+.table-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-1) var(--s1); margin-bottom: var(--s-1); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+.table-scroll-hint { margin-bottom: var(--s-1); color: var(--ink-3); font-size: var(--f-1); }
+.table-wrap { max-width: 100%; max-height: calc(var(--s5) * 4); overflow: auto; border: 1px solid var(--line); background: var(--bg); overscroll-behavior-x: contain; scrollbar-color: var(--line-strong) var(--bg); }
+@media (max-width: 680px) { .table-wrap { max-height: 61.8svh; } }
+#seedTable { width: 100%; min-width: 720px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+#seedTable caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+#seedTable :is(th, td) { padding: var(--s-1) var(--s0); border-bottom: 1px solid var(--line); text-align: left; vertical-align: middle; }
+#seedTable thead th { position: sticky; top: 0; z-index: 5; background: var(--surface-2); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); font-weight: 400; }
+#seedTable thead th:first-child { left: 0; z-index: 6; }
+#seedTable tbody tr:hover, #seedTable tbody tr:hover .y-cell { background: var(--surface-2); }
+#seedTable tbody tr:last-child :is(td, th) { border-bottom: 0; }
+.y-cell { position: sticky; left: 0; z-index: 2; width: var(--s4); background: var(--bg); font-weight: 500; }
+.seed-cell, .coords-cell { font-family: var(--font-mono); font-size: var(--f-1); }
+.seed-cell { width: 31%; overflow-wrap: anywhere; cursor: copy; transition: color var(--t0); }
+.seed-cell:hover { color: var(--dot-ink); }
+.coords-cell { width: 31%; color: var(--ink-3); white-space: nowrap; }
+.video-link { display: inline-flex; align-items: center; min-height: var(--s2); font-weight: 500; text-decoration-color: var(--dot); text-underline-offset: var(--s-3); }
+.video-link:hover, .video-link:focus-visible { color: var(--dot-ink); }
+.muted { color: var(--ink-3); }
+.row-badge { display: block; width: max-content; color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-2); font-weight: 400; }
+.farlands-divider td { background: color-mix(in srgb, var(--alt) 9%, var(--bg)); color: var(--alt); font-family: var(--font-mono); font-size: var(--f-1); }
+.farlands-record, .farlands-record .y-cell { background: color-mix(in srgb, var(--alt) 9%, var(--bg)); }
+.farlands-record .y-cell { color: var(--alt); }
+.empty-state { padding: var(--s2) var(--s1); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); text-align: center; }
+.source-note { margin-top: var(--s0); color: var(--ink-3); font-size: var(--f-1); }
+
+/* ---------- Découverte ---------- */
+.continue-panel { align-items: center; }
+.continue-panel p { color: var(--ink-2); }
+.next-target { display: grid; gap: var(--s-1); padding-left: var(--s1); border-left: 1px solid var(--line); }
+@media (max-width: 899px) { .next-target { padding: var(--s1) 0 0; border-top: 1px solid var(--line); border-left: 0; } }
+.next-target small, .next-target span { color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); overflow-wrap: anywhere; }
+.next-target strong { color: var(--dot); font-size: clamp(var(--f4), 11.09vw, var(--f6)); font-weight: 400; line-height: .786; letter-spacing: -.0902em; }
+
+.credits { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-1) var(--s1); padding-top: var(--s1); border-top: 1px solid var(--line); color: var(--ink-3); font-family: var(--font-mono); font-size: var(--f-1); }
+.credits a { color: var(--ink-2); text-underline-offset: var(--s-3); }
+.credits a:hover { color: var(--dot-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(#seedData) { scroll-behavior: auto; }
+  .alt-bar { transform: none; transition: none; }
+}

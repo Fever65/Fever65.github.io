@@ -1,0 +1,105 @@
+/* ArchiveFever.Work — jetons du design.
+   Deux règles fondent tout le site :
+   1. Le nombre d'or. φ = 1,618034. Les espacements sont des puissances de φ (16 px × φⁿ),
+      la typographie avance par √φ, les durées par φ, les grilles coupent à 1 : φ.
+   2. Sanzo Wada, « A Dictionary of Color Combinations » (1933). Chaque niveau du zoom porte
+      une combinaison du livre, reprise telle quelle (aucune teinte inventée). Le numéro est
+      affiché dans l'en-tête. Contrastes vérifiés par tools/wada-check.mjs. */
+
+:root {
+  --phi: 1.618034;
+
+  /* Espacements : 16 px × φⁿ */
+  --s-3: 4px;      /* φ⁻³ */
+  --s-2: 6px;      /* φ⁻² */
+  --s-1: 10px;     /* φ⁻¹ */
+  --s0: 16px;      /* φ⁰  */
+  --s1: 26px;      /* φ¹  */
+  --s2: 42px;      /* φ²  */
+  --s3: 68px;      /* φ³  */
+  --s4: 110px;     /* φ⁴  */
+  --s5: 178px;     /* φ⁵  */
+
+  /* Typographie : 1 rem × √φⁿ */
+  --f-2: .618rem;  /* 9.9 px  — φ⁻¹ */
+  --f-1: .786rem;  /* 12.6 px — φ^-½ */
+  --f0: 1rem;      /* 16 px */
+  --f1: 1.272rem;  /* 20.4 px — φ^½ */
+  --f2: 1.618rem;  /* 25.9 px — φ */
+  --f3: 2.618rem;  /* 41.9 px — φ² */
+  --f4: 4.236rem;  /* 67.8 px — φ³ */
+  --f5: 6.854rem;  /* 109.7 px — φ⁴ */
+  --f6: 11.09rem;  /* 177.4 px — φ⁵ */
+  --lh-tight: .887;   /* φ^-¼ */
+  --lh-mid: 1.272;    /* φ^½ */
+  --lh: 1.618;        /* φ */
+  --track-tight: -.0618em;
+  --track-mono: .0382em;
+
+  /* Proportions */
+  --measure: 61.8ch;
+  --shell: 1217px;    /* 16 × φ⁹ */
+  --gutter: max(var(--s0), env(safe-area-inset-left));
+  --head-h: 68px;     /* φ³ */
+  --minor: 38.2%;
+  --major: 61.8%;
+
+  /* Durées : 1 s × φⁿ */
+  --t0: 146ms;     /* φ⁻⁴ */
+  --t1: 236ms;     /* φ⁻³ */
+  --t2: 382ms;     /* φ⁻² */
+  --t3: 618ms;     /* φ⁻¹ */
+  --t4: 1000ms;    /* φ⁰ */
+  --t5: 1618ms;    /* φ¹ */
+  --stagger: 61.8ms;
+  --ease: cubic-bezier(.382, 0, .236, 1);
+  --ease-out: cubic-bezier(.146, 1, .382, 1);
+  --ease-zoom: cubic-bezier(.618, 0, .236, 1);
+
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+  /* États (couleurs Wada communes à toutes les palettes) */
+  --good: #00b49b;  /* Sea Green */
+  --bad: #f15a30;   /* Peach Red */
+  --fill: var(--dot);
+  --on-dot: var(--bg);
+}
+
+/* ---------- Palettes Wada, une par niveau du zoom ----------
+   --bg fond · --ink texte · --dot le point (accent) · --alt quatrième couleur de la combinaison.
+   --dot-ink : l'accent quand il sert de petit texte (= --dot sauf si le contraste ne suffit pas).
+   --fill / --on-dot : fond et texte des boutons principaux (= --dot / --bg par défaut).
+   z2 : le texte des boutons prend le Black du livre (№ 256), l'orange seul n'atteint pas 4,5:1 sur le bleu. */
+
+/* z0 · Accueil, le point — № 256 : Black · Vinaceous Cinnamon · Orange · Dull Viridian Green */
+:root, [data-wada="z0"] { --wada: "256"; --bg: #111314; --ink: #eea78c; --dot: #f37420; --alt: #009465; --dot-ink: var(--dot); }
+/* z1 · ArchiveFever.Work — № 190 : Black · Ivory Buff · English Red */
+[data-wada="z1"] { --wada: "190"; --bg: #111314; --ink: #ebd3a2; --dot: #d96629; --alt: #d96629; --dot-ink: var(--dot); }
+/* z2 · FeverCompress — № 141 : Dark Tyrian Blue · Yellow Green · Orange */
+[data-wada="z2"] { --wada: "141"; --bg: #12354e; --ink: #afd472; --dot: #f37420; --alt: #afd472; --dot-ink: var(--ink); --on-dot: #111314; --bad: var(--ink); }
+/* z3 · ColorQR — № 166 : Deep Slate Green · Naples Yellow · Grenadine Pink */
+[data-wada="z3"] { --wada: "166"; --bg: #112f2c; --ink: #fbe6a0; --dot: #f48067; --alt: #f48067; --dot-ink: var(--dot); --bad: var(--dot); }
+/* z4 · Minuteur — № 253 : Cotinga Purple · Lemon Yellow · Apricot Orange · Slate Color */
+[data-wada="z4"] { --wada: "253"; --bg: #501345; --ink: #f8ed43; --dot: #f68c50; --alt: #34454c; --dot-ink: var(--dot); --bad: var(--ink); }
+/* z5 · Every Y Found — № 340 : Black · Neutral Gray · Sea Green · Peach Red */
+[data-wada="z5"] { --wada: "340"; --bg: #111314; --ink: #b6bfc1; --dot: #00b49b; --alt: #f15a30; --dot-ink: var(--dot); }
+/* z6 · Jérôme — № 265 : Dull Violet Black · Apricot Yellow · Old Rose · Olive Yellow */
+[data-wada="z6"] { --wada: "265"; --bg: #1e0e3f; --ink: #ffdd00; --dot: #d46d7a; --alt: #a6a159; --dot-ink: var(--dot); }
+/* z7 · À propos, Dons — № 342 : Deep Slate Olive · Corinthian Pink · Cream Yellow · Orange Citrine */
+[data-wada="z7"] { --wada: "342"; --bg: #253122; --ink: #f8b6ba; --dot: #fdbf68; --alt: #986f2d; --dot-ink: var(--dot); --bad: var(--ink); }
+/* 404 · Perdu — № 232 : Deep Indigo · Pinkish Cinnamon · Carmine */
+[data-wada="lost"] { --wada: "232"; --bg: #051230; --ink: #eeb480; --dot: #cc1236; --alt: #cc1236; --dot-ink: var(--ink); --fill: var(--ink); }
+
+/* Dérivés : calculés là où la palette est posée, donc ils suivent aussi l'interpolation du zoom.
+   Mélanges en sRGB pour que tools/wada-check.mjs les vérifie exactement. */
+:root, [data-wada] {
+  --ink-2: color-mix(in srgb, var(--ink) 85.4%, var(--bg));  /* 1 − φ⁻⁴ */
+  --ink-3: color-mix(in srgb, var(--ink) 76.4%, var(--bg));  /* 1 − φ⁻³ */
+  --line: color-mix(in srgb, var(--ink) 14.6%, var(--bg));
+  --line-strong: color-mix(in srgb, var(--ink) 38.2%, var(--bg));
+  --surface: color-mix(in srgb, var(--ink) 3.8%, var(--bg));
+  --surface-2: color-mix(in srgb, var(--ink) 9%, var(--bg));
+  --dot-soft: color-mix(in srgb, var(--dot) 14.6%, var(--bg));
+  --dot-line: color-mix(in srgb, var(--dot) 61.8%, var(--bg));
+}

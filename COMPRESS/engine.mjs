@@ -1,6 +1,4 @@
-import { LIMITS, QUALITY, inspectImage, outputName, sanitizePath } from './core.mjs';
-import { videoArgs } from './core.mjs';
-export { sanitizePath, uniquePath } from './core.mjs';
+import { LIMITS, QUALITY, inspectImage, outputName, sanitizePath, videoArgs } from './core.mjs';
 
 const abortError = () => new DOMException('Compression cancelled', 'AbortError');
 function checkAbort(signal) { if (signal?.aborted) throw abortError(); }

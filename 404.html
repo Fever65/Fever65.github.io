@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-wada="lost">
 <head>
   <meta charset="UTF-8" />
   <!-- Transition entre pages interrompue (navigation rapide, retour) : la page change sans animation, ce n'est pas une erreur.
@@ -9,82 +9,11 @@
   <title>404 — ArchiveFever.Work</title>
   <meta name="description" content="Cette page n’existe pas ou a été déplacée. Retournez à l’accueil d’ArchiveFever.Work." />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#09090a" />
+  <meta name="theme-color" content="#051230" />
   <link rel="icon" href="/IMG/Jerome.webp" type="image/webp" />
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<<<<<<< Updated upstream
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css" />
-  <style>
-    .error-page { display: flex; flex-direction: column; min-height: 100dvh; }
-    .af-main { flex: 1; display: grid; align-items: center; }
-    .af-footer { margin-top: 0; padding-block: 16px calc(16px + env(safe-area-inset-bottom)); }
-    .af-main > .shell { display: grid; gap: 32px; padding-block: clamp(32px, 5vh, 56px); }
-    .text-block { display: grid; justify-items: start; gap: 12px; }
-    .error-code { margin: 0; color: var(--txt3); font-size: 15px; font-weight: 500; font-variant-numeric: tabular-nums; }
-    .section-title { color: var(--txt); font-size: clamp(34px, 4.4vw, 52px); font-weight: 600; letter-spacing: -.035em; line-height: 1.05; }
-    .section-msg { max-width: 52ch; color: var(--txt2); font-size: 17px; line-height: 1.6; }
-    .lost { display: flex; align-items: center; gap: 10px; margin: 0; color: var(--txt3); font-size: 14px; }
-    .lost img { width: 24px; height: 24px; border-radius: 50%; }
-    .back-link { min-height: 44px; margin-top: 4px; padding: 10px 18px; color: #111; background: var(--accent); border-color: var(--accent); font-size: 14px; }
-    .back-link:hover { color: #111; background: #ffa53d; border-color: #ffa53d; }
-
-    .quick { display: grid; gap: 10px; padding-top: 24px; border-top: 1px solid var(--border-soft); }
-    .quick p { margin: 0; color: var(--txt3); font-size: 14px; }
-    .quick-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-    .quick-list .page-link { min-height: 52px; padding: 12px 16px; font-size: 14px; font-weight: 500; }
-
-    @media (max-width: 640px) {
-      .af-main { align-items: start; }
-      .quick-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-</style>
-  <script src="/assets/site.js" defer></script>
-</head>
-<body class="error-page">
-
-<header class="af-nav">
-  <div class="shell af-nav-inner">
-    <div class="af-crumb">
-      <a class="af-brand" href="/index.html" aria-label="ArchiveFever.Work"><img src="/IMG/Jerome.webp" alt="" width="30" height="30" decoding="async" /><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
-      <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page">404</span>
-    </div>
-    <nav class="af-links" data-af-label="nav" aria-label="Navigation principale">
-      <a href="/index.html#tools" data-af="tools">Outils</a>
-      <a href="/BETA/index.html" data-af="research">Recherche</a>
-      <a href="/ABOUT/index.html" data-af="about">À propos</a>
-    </nav>
-    <div class="af-actions">
-      <div class="lang" role="group" aria-label="Choisir la langue">
-        <button id="btnFR" type="button" aria-pressed="true">FR</button>
-        <button id="btnEN" type="button" aria-pressed="false">EN</button>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main class="af-main" aria-labelledby="errorTitle">
-  <div class="shell">
-    <div class="text-block">
-      <h1 class="error-code rise" id="errorTitle" style="--i:0">404</h1>
-      <div class="section-title rise" id="pageTitle" style="--i:1">Page introuvable</div>
-      <div class="section-msg rise" id="pageMsg" style="--i:2">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</div>
-      <p class="lost rise" style="--i:3"><img src="/IMG/Jerome.webp" alt="" width="34" height="34" loading="lazy" decoding="async" /><span id="lostNote">Même Jérôme s’est perdu.</span></p>
-      <a class="back-link rise" href="/index.html" id="backLink" style="--i:4">Retour</a>
-    </div>
-
-    <nav class="quick rise" style="--i:5" aria-labelledby="quickTitle">
-      <p id="quickTitle"><span data-lang="fr">Ou file directement vers</span><span data-lang="en">Or jump straight to</span></p>
-      <div class="quick-list">
-        <a class="page-link" href="/COMPRESS/index.html"><span>FeverCompress</span><span class="page-link-arrow" aria-hidden="true">→</span></a>
-        <a class="page-link" href="/QR/index.html"><span>ColorQR</span><span class="page-link-arrow" aria-hidden="true">→</span></a>
-        <a class="page-link" href="/TIMER/index.html"><span><span data-lang="fr">Minuteur</span><span data-lang="en">Timer</span></span><span class="page-link-arrow" aria-hidden="true">→</span></a>
-        <a class="page-link" href="/BETA/index.html"><span>Every Y</span><span class="page-link-arrow" aria-hidden="true">→</span></a>
-      </div>
-    </nav>
-=======
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Geist:wght@400;500&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <!-- Chemins absolus : GitHub Pages sert cette page depuis n'importe quelle adresse. -->
   <link rel="stylesheet" href="/assets/tokens.css" />
@@ -130,59 +59,12 @@
       <span class="mini-room tiny" data-wada="z0" style="--x:1.145898;--y:.72949;--s:.034442"><span data-i18n="secret">Pièce secrète</span></span>
     </nav>
     <p class="you"><span class="you-dot" aria-hidden="true"></span><span class="you-label" data-i18n="here">Vous êtes ici : nulle part</span></p>
->>>>>>> Stashed changes
   </div>
 </main>
 
-<footer class="af-footer">
-  <div class="shell site-footer-mini">
-    <span data-af="made">Fait main · Sans compte · Sans pub</span>
-    <span><a href="/ABOUT/index.html" data-af="about">À propos</a> · <a href="/Donations/index.html" data-af="donate">Dons</a> · © <span data-af-year>2026</span> ArchiveFever.Work</span>
-  </div>
+<footer class="z-foot">
+  <span data-i18n="made">Fait main · Sans compte · Sans pub</span>
+  <nav data-i18n-attr="aria-label:footNav" aria-label="Pied de page"><a href="/ABOUT/index.html" data-i18n="about">À propos</a><a href="/Donations/index.html" data-i18n="donate">Dons</a><span>© <span data-af-year>2026</span> ArchiveFever.Work</span></nav>
 </footer>
-
-<script>
-  const $ = id => document.getElementById(id);
-
-  const T = {
-    fr: {
-      pageTitle: "Page introuvable",
-      pageMsg:   "Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.",
-      lostNote:  "Même Jérôme s’est perdu.",
-      backLink:  "Retour",
-    },
-    en: {
-      pageTitle: "Page not found",
-      pageMsg:   "This page does not exist or no longer exists. There is nothing here.",
-      lostNote:  "Even Jerome got lost.",
-      backLink:  "Back",
-    }
-  };
-
-  let currentLang = "fr";
-
-  function setLang(lang) {
-    if (!T[lang]) lang = "fr";
-    currentLang = lang;
-    const t = T[lang];
-    document.documentElement.lang = lang;
-    document.title = lang === "fr" ? "404 — ArchiveFever.Work" : "404 — ArchiveFever.Work";
-    document.querySelector(".lang").setAttribute("aria-label", lang === "fr" ? "Choisir la langue" : "Choose language");
-    $("pageTitle").textContent = t.pageTitle;
-    $("pageMsg").textContent   = t.pageMsg;
-    $("lostNote").textContent  = t.lostNote;
-    $("backLink").textContent  = t.backLink;
-    $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
-    $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
-    try { localStorage.setItem("af_lang", lang); } catch(e) {}
-  }
-
-  $("btnFR").onclick = () => setLang("fr");
-  $("btnEN").onclick = () => setLang("en");
-
-  let savedLang = "fr";
-  try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch(e) {}
-  setLang(savedLang);
-</script>
 </body>
 </html>

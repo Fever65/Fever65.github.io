@@ -1,110 +1,64 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-wada="lost">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>404 — ArchiveFever.Work</title>
   <meta name="description" content="Cette page n’existe pas ou a été déplacée. Retournez à l’accueil d’ArchiveFever.Work." />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#051230" />
   <link rel="icon" href="/IMG/Jerome.webp" type="image/webp" />
   <link rel="apple-touch-icon" href="/IMG/Jerome.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <!-- Chemins absolus : GitHub Pages sert cette page depuis n'importe quelle adresse. -->
+  <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
-  <style>
-    .err-code { margin: 0; font-size: clamp(120px, 30vw, 380px); font-weight: 500; line-height: .8; letter-spacing: -.09em; }
-    .err-code span { color: var(--accent); }
-    .err-title { margin: clamp(20px, 3vw, 32px) 0 10px; font-size: clamp(24px, 3vw, 36px); font-weight: 500; letter-spacing: -.03em; }
-    .lost { display: flex; align-items: center; gap: 10px; margin: 18px 0 0; color: var(--txt3); font-family: var(--font-mono); font-size: 12px; }
-    .lost img { width: 24px; height: 24px; border-radius: 50%; filter: grayscale(1); }
-    .err-back { margin-top: 28px; }
-    .quick-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 24px; margin-top: clamp(40px, 6vw, 72px); border-top: 1px solid var(--border-soft); }
-    .quick-list .z-row { grid-template-columns: 3ch minmax(0, 1fr) auto; }
-    .quick-list strong { font-size: 17px; }
-    @media (max-width: 760px) { .quick-list { grid-template-columns: minmax(0, 1fr); } }
-  </style>
   <script src="/assets/site.js" defer></script>
+  <script src="/assets/404.js" defer></script>
 </head>
-<body class="z-page z-enter error-page">
+<body class="page text-page z-enter">
 
 <header class="z-head">
   <div class="z-left">
-    <a class="z-home" href="/index.html" aria-label="ArchiveFever.Work"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
+    <a class="z-home" href="/index.html" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
     <span class="z-crumb"><span class="z-depth">z∞</span><span>404</span></span>
   </div>
   <div class="z-right">
-    <div class="lang" role="group" aria-label="Choisir la langue">
-      <button id="btnFR" type="button" aria-pressed="true">FR</button>
-      <button id="btnEN" type="button" aria-pressed="false">EN</button>
-    </div>
+    <span class="wada"><i></i><i></i><i></i></span>
+    <div class="lang" role="group" aria-label="Choisir la langue"><button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button><button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button></div>
   </div>
 </header>
 
-<main class="z-main" aria-labelledby="errorTitle">
-  <p class="z-kicker rise"><b>z∞</b> · <span data-lang="fr">tu as zoomé trop loin</span><span data-lang="en">you zoomed in too far</span></p>
-  <h1 class="err-code rise" style="--i:1" id="errorTitle">4<span>0</span>4</h1>
-  <p class="err-title rise" style="--i:2" id="pageTitle">Page introuvable</p>
-  <p class="z-lead rise" style="--i:3" id="pageMsg">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</p>
-  <p class="lost rise" style="--i:4"><img src="/IMG/Jerome.webp" alt="" width="24" height="24" loading="lazy" decoding="async" /><span id="lostNote">Même Jérôme s’est perdu.</span></p>
-  <div class="err-back rise" style="--i:5"><a class="btn primary" href="/index.html" id="backLink">Retour</a></div>
+<main class="shell" aria-labelledby="pageTitle">
+  <div class="text-head">
+    <p class="kicker rise"><b>z∞</b> · <span data-i18n="eyebrow">tu as zoomé trop loin</span></p>
+    <p class="err-code rise" style="--i:1" aria-hidden="true">4<span>0</span>4</p>
+  </div>
 
-  <nav class="quick-list rise" style="--i:6" aria-label="Outils">
-    <a class="z-row" href="/COMPRESS/index.html"><b>z2</b><strong>FeverCompress</strong><span class="z-arrow" aria-hidden="true">↗</span></a>
-    <a class="z-row" href="/QR/index.html"><b>z3</b><strong>ColorQR</strong><span class="z-arrow" aria-hidden="true">↗</span></a>
-    <a class="z-row" href="/TIMER/index.html"><b>z4</b><strong><span data-lang="fr">Minuteur</span><span data-lang="en">Timer</span></strong><span class="z-arrow" aria-hidden="true">↗</span></a>
-    <a class="z-row" href="/BETA/index.html"><b>z5</b><strong>Every Y</strong><span class="z-arrow" aria-hidden="true">↗</span></a>
+  <div class="text-body g-phi">
+    <aside class="text-aside rise" style="--i:2">
+      <p class="note"><img src="/IMG/Jerome.webp" alt="" width="26" height="26" loading="lazy" decoding="async" /><span data-i18n="lost">Même Jérôme s’est perdu.</span></p>
+    </aside>
+    <div class="text-copy rise" style="--i:3">
+      <h1 class="h2" id="pageTitle" data-i18n="heading">Page introuvable</h1>
+      <p class="lead" data-i18n="msg">Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.</p>
+      <div class="cta"><a class="btn primary" href="/index.html" data-i18n="home">Retour au point</a></div>
+    </div>
+  </div>
+
+  <nav class="quick rise" style="--i:4" data-i18n-attr="aria-label:tools" aria-label="Outils">
+    <a class="row" href="/COMPRESS/index.html"><b>z2</b><strong>FeverCompress</strong><span class="arrow" aria-hidden="true">↗</span></a>
+    <a class="row" href="/QR/index.html"><b>z3</b><strong>ColorQR</strong><span class="arrow" aria-hidden="true">↗</span></a>
+    <a class="row" href="/TIMER/index.html"><b>z4</b><strong data-i18n="timer">Minuteur</strong><span class="arrow" aria-hidden="true">↗</span></a>
+    <a class="row" href="/BETA/index.html"><b>z5</b><strong>Every Y</strong><span class="arrow" aria-hidden="true">↗</span></a>
   </nav>
 </main>
 
 <footer class="z-foot">
-  <span data-af="made">Fait main · Sans compte · Sans pub</span>
-  <nav aria-label="Pied de page"><a href="/ABOUT/index.html" data-af="about">À propos</a><a href="/Donations/index.html" data-af="donate">Dons</a><span>© <span data-af-year>2026</span> ArchiveFever.Work</span></nav>
+  <span data-i18n="made">Fait main · Sans compte · Sans pub</span>
+  <nav data-i18n-attr="aria-label:footNav" aria-label="Pied de page"><a href="/ABOUT/index.html" data-i18n="about">À propos</a><a href="/Donations/index.html" data-i18n="donate">Dons</a><span>© <span data-af-year>2026</span> ArchiveFever.Work</span></nav>
 </footer>
-
-<script>
-  const $ = id => document.getElementById(id);
-
-  const T = {
-    fr: {
-      pageTitle: "Page introuvable",
-      pageMsg:   "Cette page n'existe pas ou n'existe plus. Il n'y a rien ici.",
-      lostNote:  "Même Jérôme s’est perdu.",
-      backLink:  "Retour",
-    },
-    en: {
-      pageTitle: "Page not found",
-      pageMsg:   "This page does not exist or no longer exists. There is nothing here.",
-      lostNote:  "Even Jerome got lost.",
-      backLink:  "Back",
-    }
-  };
-
-  let currentLang = "fr";
-
-  function setLang(lang) {
-    if (!T[lang]) lang = "fr";
-    currentLang = lang;
-    const t = T[lang];
-    document.documentElement.lang = lang;
-    document.title = "404 — ArchiveFever.Work";
-    document.querySelector(".lang").setAttribute("aria-label", lang === "fr" ? "Choisir la langue" : "Choose language");
-    $("pageTitle").textContent = t.pageTitle;
-    $("pageMsg").textContent   = t.pageMsg;
-    $("lostNote").textContent  = t.lostNote;
-    $("backLink").textContent  = t.backLink;
-    $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
-    $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
-    try { localStorage.setItem("af_lang", lang); } catch(e) {}
-  }
-
-  $("btnFR").onclick = () => setLang("fr");
-  $("btnEN").onclick = () => setLang("en");
-
-  let savedLang = "fr";
-  try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch(e) {}
-  setLang(savedLang);
-</script>
 </body>
 </html>

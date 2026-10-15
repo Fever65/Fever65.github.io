@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-wada="z7">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="À propos d'ArchiveFever.Work : un espace personnel pour tester, créer et partager des outils simples." />
   <title>À propos — ArchiveFever.Work</title>
+  <meta name="description" content="À propos d'ArchiveFever.Work : un espace personnel pour tester, créer et partager des outils simples." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#253122" />
   <link rel="canonical" href="https://archivefever.work/ABOUT/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_FR" />
@@ -21,137 +21,56 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/tokens.css" />
   <link rel="stylesheet" href="../assets/site.css" />
-  <style>
-    .about-copy { display: grid; gap: 16px; max-width: 62ch; }
-    .about-copy p:not(.z-lead) { margin: 0; color: var(--txt3); font-size: 15px; line-height: 1.7; }
-  </style>
   <script src="../assets/site.js" defer></script>
+  <script src="about.js" defer></script>
 </head>
-<body class="z-page z-enter about-page">
+<body class="page text-page z-enter">
 
 <header class="z-head">
   <div class="z-left">
-    <a class="z-home" id="backLink" href="../index.html#z7" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span><span class="sr-only" id="backLabel">Retour</span></a>
-    <span class="z-crumb"><span class="z-depth">z7</span><span data-af="about">À propos</span></span>
+    <a class="z-home" href="../index.html#z7" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
+    <span class="z-crumb"><span class="z-depth">z7</span><span data-i18n="about">À propos</span></span>
   </div>
   <div class="z-right">
-    <div class="lang" role="group" id="langGroup" aria-label="Langue">
-      <button id="btnFR" type="button" aria-pressed="true">FR</button>
-      <button id="btnEN" type="button" aria-pressed="false">EN</button>
-    </div>
+    <span class="wada"><i></i><i></i><i></i></span>
+    <div class="lang" role="group" aria-label="Choisir la langue"><button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button><button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button></div>
   </div>
 </header>
 
-<main class="z-main" aria-labelledby="aboutTitle">
-  <p class="z-kicker rise"><b>z7</b> · <span id="eyebrow">À propos</span> · Fever</p>
-  <h1 class="z-h1 rise" style="--i:1" id="aboutTitle">Je teste, je fabrique, je partage.</h1>
-  <span class="z-mark rise" style="--i:2" aria-hidden="true"></span>
+<main class="shell" aria-labelledby="pageTitle">
+  <div class="text-head">
+    <p class="kicker rise"><b>z7</b> · <span data-i18n="about">À propos</span> · Fever</p>
+    <h1 class="display rise" style="--i:1" id="pageTitle" data-i18n="heading">Je teste, je fabrique, je partage.</h1>
+  </div>
 
-  <section class="about-copy rise" style="--i:3" id="aboutCopy" aria-label="Présentation">
-    <p class="z-lead" id="p1">ArchiveFever.Work est mon espace personnel pour transformer des idées en <strong>outils web simples</strong>, en pages utiles et en petites expériences accessibles directement depuis un navigateur.</p>
-    <p id="p2">J’y expérimente, j’apprends et j’améliore progressivement ce que je construis. Chaque projet privilégie une interface claire, un fonctionnement sans compte et une utilité immédiate, tout en gardant une identité personnelle.</p>
-    <p id="p3">Si une page ici te fait gagner du temps, t’aide pour un truc précis, te donne une idée ou te fait juste sourire, alors le site a déjà une raison d’exister.</p>
-  </section>
+  <div class="text-body g-phi">
+    <aside class="text-aside rise" style="--i:2">
+      <span class="mark" aria-hidden="true"></span>
+      <ul class="rows rows--stack">
+        <li class="row"><b>01</b><strong data-i18n="f1">Sans compte</strong><span data-i18n="f1d">Tu ouvres, tu utilises. Rien à créer.</span></li>
+        <li class="row"><b>02</b><strong data-i18n="f2">Dans ton navigateur</strong><span data-i18n="f2d">Tes fichiers restent sur ton appareil.</span></li>
+        <li class="row"><b>03</b><strong data-i18n="f3">Fait main</strong><span data-i18n="f3d">Petit, soigné, et un peu de Jérôme.</span></li>
+      </ul>
+    </aside>
 
-  <ul class="z-rows rise" style="--i:4">
-    <li class="z-row"><b>01</b><strong id="pr1t">Sans compte</strong><span id="pr1d">Tu ouvres, tu utilises. Rien à créer.</span></li>
-    <li class="z-row"><b>02</b><strong id="pr2t">Dans ton navigateur</strong><span id="pr2d">Tes fichiers restent sur ton appareil.</span></li>
-    <li class="z-row"><b>03</b><strong id="pr3t">Fait main</strong><span id="pr3d">Petit, soigné, et un peu de Jérôme.</span></li>
-  </ul>
-
-  <div class="z-cta rise" style="--i:5">
-    <a class="btn primary" href="../index.html#z2"><span id="ctaLink">Voir les outils</span><span aria-hidden="true">→</span></a>
-    <p id="ctaNote">Envie d’essayer ?</p>
+    <section class="text-copy rise" style="--i:3" data-i18n-attr="aria-label:introAria" aria-label="Présentation">
+      <p class="lead" data-i18n-html="p1">ArchiveFever.Work est mon espace personnel pour transformer des idées en <strong>outils web simples</strong>, en pages utiles et en petites expériences accessibles directement depuis un navigateur.</p>
+      <p data-i18n="p2">J’y expérimente, j’apprends et j’améliore progressivement ce que je construis. Chaque projet privilégie une interface claire, un fonctionnement sans compte et une utilité immédiate, tout en gardant une identité personnelle.</p>
+      <p data-i18n="p3">Si une page ici te fait gagner du temps, t’aide pour un truc précis, te donne une idée ou te fait juste sourire, alors le site a déjà une raison d’exister.</p>
+      <p data-i18n="p4">Le design suit deux règles : les combinaisons de couleurs de Sanzo Wada (une par niveau du zoom, son numéro est en haut à droite) et le nombre d’or, qui fixe chaque marge, chaque taille et chaque durée.</p>
+      <div class="cta">
+        <a class="btn primary" href="../index.html#z2"><span data-i18n="cta">Voir les outils</span><span aria-hidden="true">→</span></a>
+        <span class="kicker" data-i18n="ctaNote">Envie d’essayer ?</span>
+      </div>
+    </section>
   </div>
 </main>
 
 <footer class="z-foot">
-  <span data-af="made">Fait main · Sans compte · Sans pub</span>
-  <nav aria-label="Pied de page"><a href="../ABOUT/index.html" data-af="about" aria-current="page">À propos</a><a href="../Donations/index.html" data-af="donate">Dons</a><span>© <span data-af-year>2026</span> ArchiveFever.Work</span></nav>
+  <span data-i18n="made">Fait main · Sans compte · Sans pub</span>
+  <nav data-i18n-attr="aria-label:footNav" aria-label="Pied de page"><a href="../ABOUT/index.html" data-i18n="about" aria-current="page">À propos</a><a href="../Donations/index.html" data-i18n="donate">Dons</a><span>© <span data-af-year>2026</span> ArchiveFever.Work</span></nav>
 </footer>
-
-
-<script>
-  const $ = id => document.getElementById(id);
-
-  const T = {
-    fr: {
-      documentTitle: "À propos — ArchiveFever.Work",
-      description: "À propos d'ArchiveFever.Work : un espace personnel pour tester, créer et partager des outils simples.",
-      backLabel: "Retour",
-      backAria: "Retour à l'accueil",
-      langAria: "Langue",
-      eyebrow: "À propos",
-      aboutTitle: "Je teste, je fabrique, je partage.",
-      presentationAria: "Présentation",
-      p1: "ArchiveFever.Work est mon espace personnel pour transformer des idées en <strong>outils web simples</strong>, en pages utiles et en petites expériences accessibles directement depuis un navigateur.",
-      p2: "J’y expérimente, j’apprends et j’améliore progressivement ce que je construis. Chaque projet privilégie une interface claire, un fonctionnement sans compte et une utilité immédiate, tout en gardant une identité personnelle.",
-      p3: "Si une page ici te fait gagner du temps, t’aide pour un truc précis, te donne une idée ou te fait juste sourire, alors le site a déjà une raison d’exister.",
-      pr1t: "Sans compte", pr1d: "Tu ouvres, tu utilises. Rien à créer.",
-      pr2t: "Dans ton navigateur", pr2d: "Tes fichiers restent sur ton appareil.",
-      pr3t: "Fait main", pr3d: "Petit, soigné, et un peu de Jérôme.",
-      ctaNote: "Envie d’essayer ?", ctaLink: "Voir les outils"
-    },
-    en: {
-      documentTitle: "About — ArchiveFever.Work",
-      description: "About ArchiveFever.Work: a personal space to test, create and share simple tools.",
-      backLabel: "Back",
-      backAria: "Back to home",
-      langAria: "Language",
-      eyebrow: "About",
-      aboutTitle: "I test things, build things, and share them.",
-      presentationAria: "Introduction",
-      p1: "ArchiveFever.Work is my personal space for turning ideas into <strong>simple web tools</strong>, useful pages, and small experiences that run directly in a browser.",
-      p2: "It is where I experiment, learn, and gradually improve what I build. Each project favors a clear interface, no-account access, and immediate usefulness while keeping a personal identity.",
-      p3: "If a page here saves you time, helps you with something specific, gives you an idea, or simply makes you smile, then the site already has a reason to exist.",
-      pr1t: "No account", pr1d: "Open it, use it. Nothing to sign up for.",
-      pr2t: "In your browser", pr2d: "Your files stay on your device.",
-      pr3t: "Handmade", pr3d: "Small, polished, and a bit of Jerome.",
-      ctaNote: "Want to try?", ctaLink: "See the tools"
-    }
-  };
-
-  function setText(id, value, html = false) {
-    const el = $(id);
-    if (!el) return;
-    if (html) el.innerHTML = value;
-    else el.textContent = value;
-  }
-
-  function setLang(lang) {
-    if (!T[lang]) lang = "fr";
-    const t = T[lang];
-
-    document.documentElement.lang = lang;
-    document.title = t.documentTitle;
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) metaDescription.setAttribute("content", t.description);
-
-    setText("backLabel", t.backLabel);
-    setText("eyebrow", t.eyebrow);
-    setText("aboutTitle", t.aboutTitle);
-    setText("p1", t.p1, true);
-    setText("p2", t.p2);
-    setText("p3", t.p3);
-    ["pr1t", "pr1d", "pr2t", "pr2d", "pr3t", "pr3d", "ctaNote", "ctaLink"].forEach(id => setText(id, t[id]));
-
-    $("backLink").setAttribute("aria-label", t.backAria);
-    $("langGroup").setAttribute("aria-label", t.langAria);
-    $("aboutCopy").setAttribute("aria-label", t.presentationAria);
-    $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
-    $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
-
-    try { localStorage.setItem("af_lang", lang); } catch(e) {}
-  }
-
-  $("btnFR").addEventListener("click", () => setLang("fr"));
-  $("btnEN").addEventListener("click", () => setLang("en"));
-
-  let savedLang = "fr";
-  try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch(e) {}
-  setLang(savedLang);
-</script>
 </body>
 </html>

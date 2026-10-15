@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-wada="z7">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Dons — ArchiveFever.Work</title>
   <meta name="description" content="Soutenir ArchiveFever.Work via PayPal ou Ko-fi, sans aucune obligation." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#253122" />
   <link rel="canonical" href="https://archivefever.work/Donations/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_FR" />
@@ -21,112 +21,55 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/tokens.css" />
   <link rel="stylesheet" href="../assets/site.css" />
-  <style>
-    .don-rows .z-row { grid-template-columns: 3ch minmax(0, 1fr) auto; padding-block: clamp(20px, 3vw, 32px); }
-    .don-rows strong { font-size: clamp(36px, 6vw, 80px); line-height: .95; letter-spacing: -.055em; }
-    .z-row > .don-copy { display: grid; gap: 4px; min-width: 0; color: var(--txt); }
-    .don-copy small { color: var(--txt3); font-family: var(--font-mono); font-size: 12px; }
-    .don-desc { color: var(--txt2) !important; font-size: 15px !important; }
-    .don-note { display: flex; align-items: center; gap: 12px; margin: clamp(28px, 4vw, 44px) 0 0; color: var(--txt3); font-family: var(--font-mono); font-size: 12px; }
-    .don-note img { width: 28px; height: 28px; border-radius: 50%; filter: grayscale(1); }
-    @media (max-width: 560px) { .don-rows .z-row { grid-template-columns: 3ch minmax(0, 1fr) auto; } }
-  </style>
   <script src="../assets/site.js" defer></script>
+  <script src="donations.js" defer></script>
 </head>
-<body class="z-page z-enter donations-page">
+<body class="page text-page z-enter">
 
 <header class="z-head">
   <div class="z-left">
-    <a class="z-home" href="../index.html#z7" aria-label="ArchiveFever.Work"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span><span class="sr-only" id="backLabel">Retour</span></a>
-    <span class="z-crumb"><span class="z-depth">z7</span><span data-af="donate">Dons</span></span>
+    <a class="z-home" href="../index.html#z7" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span></a>
+    <span class="z-crumb"><span class="z-depth">z7</span><span data-i18n="donate">Dons</span></span>
   </div>
   <div class="z-right">
-    <div class="lang" role="group" aria-label="Language">
-      <button id="btnFR" type="button" aria-pressed="true">FR</button>
-      <button id="btnEN" type="button" aria-pressed="false">EN</button>
-    </div>
+    <span class="wada"><i></i><i></i><i></i></span>
+    <div class="lang" role="group" aria-label="Choisir la langue"><button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button><button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button></div>
   </div>
 </header>
 
-<main class="z-main" aria-labelledby="pageTitle">
-  <p class="z-kicker rise"><b>z7</b> · <span id="pageEyebrow">Soutien facultatif</span></p>
-  <h1 class="z-h1 rise" style="--i:1" id="pageTitle">Dons</h1>
-  <span class="z-mark rise" style="--i:2" aria-hidden="true"></span>
-  <p class="z-lead rise" style="--i:3" id="pageMsg">Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.</p>
-
-  <div class="z-rows don-rows rise" style="--i:4">
-    <a class="z-row" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener noreferrer">
-      <b>01</b>
-      <span class="don-copy"><strong>PayPal</strong><span class="don-desc" id="paypalDesc">Un petit geste, le montant que tu veux.</span><small>paypal.me/Fever65</small></span>
-      <span class="z-arrow" aria-hidden="true">↗</span>
-    </a>
-    <a class="z-row" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener noreferrer">
-      <b>02</b>
-      <span class="don-copy"><strong>Ko-fi</strong><span class="don-desc" id="kofiDesc">Offre un café. Jérôme dit merci.</span><small>ko-fi.com/archivefeverwork</small></span>
-      <span class="z-arrow" aria-hidden="true">↗</span>
-    </a>
+<main class="shell" aria-labelledby="pageTitle">
+  <div class="text-head">
+    <p class="kicker rise"><b>z7</b> · <span data-i18n="eyebrow">Soutien facultatif</span></p>
+    <h1 class="display rise" style="--i:1" id="pageTitle" data-i18n="heading">Dons</h1>
   </div>
 
-  <p class="don-note rise" style="--i:5"><img src="../IMG/Jerome.webp" alt="" width="28" height="28" loading="lazy" decoding="async" /><span id="donNote">Tous les outils restent gratuits, avec ou sans don.</span></p>
+  <div class="text-body g-phi">
+    <aside class="text-aside rise" style="--i:2">
+      <span class="mark" aria-hidden="true"></span>
+      <p class="lead" data-i18n="msg">Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.</p>
+      <p class="note"><img src="../IMG/Jerome.webp" alt="" width="26" height="26" loading="lazy" decoding="async" /><span data-i18n="note">Tous les outils restent gratuits, avec ou sans don.</span></p>
+    </aside>
+
+    <div class="rows rows--big rise" style="--i:3">
+      <a class="row" href="https://www.paypal.com/paypalme/Fever65" target="_blank" rel="noopener noreferrer">
+        <b>01</b>
+        <span class="row-copy"><strong>PayPal</strong><span data-i18n="paypal">Un petit geste, le montant que tu veux.</span><small>paypal.me/Fever65</small></span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="row" href="https://ko-fi.com/archivefeverwork" target="_blank" rel="noopener noreferrer">
+        <b>02</b>
+        <span class="row-copy"><strong>Ko-fi</strong><span data-i18n="kofi">Offre un café. Jérôme dit merci.</span><small>ko-fi.com/archivefeverwork</small></span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
 </main>
 
 <footer class="z-foot">
-  <span data-af="made">Fait main · Sans compte · Sans pub</span>
-  <nav aria-label="Pied de page"><a href="../ABOUT/index.html" data-af="about">À propos</a><a href="../Donations/index.html" data-af="donate" aria-current="page">Dons</a><span>© <span data-af-year>2026</span> ArchiveFever.Work</span></nav>
+  <span data-i18n="made">Fait main · Sans compte · Sans pub</span>
+  <nav data-i18n-attr="aria-label:footNav" aria-label="Pied de page"><a href="../ABOUT/index.html" data-i18n="about">À propos</a><a href="../Donations/index.html" data-i18n="donate" aria-current="page">Dons</a><span>© <span data-af-year>2026</span> ArchiveFever.Work</span></nav>
 </footer>
-
-<script>
-  const $ = id => document.getElementById(id);
-
-  const T = {
-    fr: {
-      documentTitle: "Dons — ArchiveFever.Work",
-      description:   "Soutenir ArchiveFever.Work via PayPal ou Ko-fi, sans aucune obligation.",
-      pageEyebrow: "Soutien facultatif",
-      pageTitle:  "Dons",
-      pageMsg:    "Si tu apprécies ce que je fais et que tu veux soutenir le projet, c'est par ici. Aucune obligation, évidemment.",
-      paypalDesc: "Un petit geste, le montant que tu veux.",
-      kofiDesc:   "Offre un café. Jérôme dit merci.",
-      donNote:    "Tous les outils restent gratuits, avec ou sans don.",
-      backLabel:  "Retour",
-    },
-    en: {
-      documentTitle: "Support — ArchiveFever.Work",
-      description:   "Support ArchiveFever.Work through PayPal or Ko-fi, with no obligation.",
-      pageEyebrow: "Optional support",
-      pageTitle:  "Donations",
-      pageMsg:    "If you enjoy what I do and want to support the project, here's where to go. No pressure, obviously.",
-      paypalDesc: "A small gesture, any amount you like.",
-      kofiDesc:   "Buy a coffee. Jerome says thanks.",
-      donNote:    "Every tool stays free, with or without a donation.",
-      backLabel:  "Back",
-    }
-  };
-
-  let currentLang = "fr";
-
-  function setLang(lang) {
-    if (!T[lang]) lang = "fr";
-    currentLang = lang;
-    const t = T[lang];
-    document.documentElement.lang = lang;
-    document.title = t.documentTitle;
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) metaDescription.content = t.description;
-    ["pageEyebrow", "pageTitle", "pageMsg", "paypalDesc", "kofiDesc", "donNote", "backLabel"].forEach(id => { $(id).textContent = t[id]; });
-    document.querySelector(".lang").setAttribute("aria-label", lang === "fr" ? "Choisir la langue" : "Choose language");
-    $("btnFR").setAttribute("aria-pressed", String(lang === "fr"));
-    $("btnEN").setAttribute("aria-pressed", String(lang === "en"));
-    try { localStorage.setItem("af_lang", lang); } catch(e) {}
-  }
-
-  $("btnFR").onclick = () => setLang("fr");
-  $("btnEN").onclick = () => setLang("en");
-
-  let savedLang = "fr";
-  try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch(e) {}
-  setLang(savedLang);
-</script>
 </body>
 </html>

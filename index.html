@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-wada="z0">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>ArchiveFever.Work — Outils web simples et gratuits</title>
   <meta name="description" content="Des outils web simples, gratuits et sans compte : compression, QR codes personnalisés, minuteur et expérimentations d’ArchiveFever.Work." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#111314" />
   <link rel="canonical" href="https://archivefever.work/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_FR" />
@@ -21,172 +21,115 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/tokens.css" />
   <link rel="stylesheet" href="assets/site.css" />
+  <link rel="stylesheet" href="assets/home.css" />
   <script>
-    // Le zoom n'est activé qu'avec JavaScript et sans préférence « mouvement réduit » ; sinon la page reste une simple liste.
+    // Le zoom n'est activé qu'avec JavaScript et sans préférence « mouvement réduit » ; sinon la page reste une pile de bandes.
     try { if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("js-zoom"); } catch (_) {}
   </script>
-  <style>
-    /* ---------- Repli : liste verticale (sans JS ou mouvement réduit) ---------- */
-    .stage { position: relative; }
-    .layer { display: grid; grid-template-rows: auto auto auto; justify-items: center; gap: 22px; padding: 14vh 16px; text-align: center; border-bottom: 1px solid var(--border-soft); }
-    .layer[data-clone], .track, .hud-rail, .hud-read, .hud-hint { display: none; }
-
-    /* ---------- Couches ---------- */
-    .l-top, .l-bot { display: grid; justify-items: center; gap: 14px; max-width: min(92vw, 980px); }
-    .l-k { color: var(--txt3); font-family: var(--font-mono); font-size: 12px; letter-spacing: .02em; }
-    .l-k b { color: var(--accent); font-weight: 400; }
-    .l-title { margin: 0; font-size: clamp(46px, 11vw, 168px); font-weight: 500; line-height: .88; letter-spacing: -.065em; }
-    .l-title a { color: var(--txt); text-decoration: none; transition: color .2s; }
-    .l-title a:hover, .l-title a:focus-visible { color: var(--accent); }
-    .l-title .sep { color: var(--txt3); font-weight: 300; }
-    .l-desc { margin: 0; max-width: 34ch; color: var(--txt2); font-size: clamp(15px, 1.4vw, 18px); line-height: 1.5; }
-    .l-meta { margin: 0; color: var(--txt3); font-family: var(--font-mono); font-size: 12px; letter-spacing: .02em; }
-    .l-dot { display: block; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); opacity: var(--dot, 1); }
-    .layer[data-z="0"] .l-dot, .layer[data-clone] .l-dot { width: 14px; height: 14px; animation: af-ping 2.4s var(--ease) infinite; }
-    .l-jerome { display: block; width: 120px; height: 120px; border-radius: 50%; object-fit: cover; filter: grayscale(1) contrast(1.2); transition: filter .3s; }
-    .l-title a:hover .l-jerome, .layer.is-on .l-jerome:hover { filter: none; }
-    .l-socials { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 0; padding: 0; list-style: none; font-family: var(--font-mono); font-size: 12px; }
-    .l-socials a { color: var(--txt2); text-decoration: none; }
-    .l-socials a:hover { color: var(--accent); }
-
-    /* ---------- Mode zoom ---------- */
-    .js-zoom, .js-zoom body { overscroll-behavior-y: none; }
-    .js-zoom { scroll-snap-type: y proximity; scrollbar-width: none; }
-    .js-zoom::-webkit-scrollbar { display: none; }
-    .js-zoom .stage { position: fixed; inset: 0; z-index: 1; overflow: hidden; }
-    .js-zoom .layer { position: absolute; inset: 0; grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr); gap: 0; padding: 0 16px; border: 0; opacity: 0; transform-origin: 50% 50%; pointer-events: none; backface-visibility: hidden; }
-    .js-zoom .layer[data-clone] { display: grid; }
-    .js-zoom .l-top { align-self: end; padding-bottom: clamp(18px, 3vh, 30px); }
-    .js-zoom .l-bot { align-self: start; padding-top: clamp(18px, 3vh, 30px); }
-    .js-zoom .layer.is-on :is(a, button) { pointer-events: auto; }
-    .js-zoom .track { display: block; position: relative; z-index: 0; pointer-events: none; }
-    .js-zoom .track i { display: block; height: 100svh; scroll-snap-align: start; }
-    .js-zoom .hud-rail, .js-zoom .hud-read, .js-zoom .hud-hint { display: flex; }
-
-    /* ---------- HUD ---------- */
-    .hud { position: fixed; z-index: 5; font-family: var(--font-mono); font-size: 11px; letter-spacing: .03em; transition: opacity .4s; }
-    .hud-tl { top: max(14px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); }
-    .hud-tl a { display: inline-flex; align-items: center; min-height: 36px; color: var(--txt); text-decoration: none; }
-    .hud-tl a span { color: var(--accent); }
-    .hud-tr { top: max(14px, env(safe-area-inset-top)); right: max(12px, env(safe-area-inset-right)); }
-    .hud-read { bottom: max(16px, env(safe-area-inset-bottom)); right: max(16px, env(safe-area-inset-right)); align-items: baseline; gap: 6px; color: var(--txt3); font-variant-numeric: tabular-nums; }
-    .hud-read b { color: var(--txt); font-weight: 400; min-width: 4ch; }
-    .hud-rail { top: 50%; right: max(6px, env(safe-area-inset-right)); flex-direction: column; transform: translateY(-50%); }
-    .hud-rail button { position: relative; display: grid; place-items: center end; width: 40px; height: 26px; padding: 0 10px 0 0; border: 0; background: none; }
-    .hud-rail button::after { content: ""; display: block; width: 10px; height: 1px; background: var(--txt3); transition: width .3s var(--ease-out), background-color .2s; }
-    .hud-rail button:hover::after { width: 18px; background: var(--txt); }
-    .hud-rail button[aria-current="true"]::after { width: 22px; background: var(--accent); }
-    .hud-hint { bottom: max(16px, env(safe-area-inset-bottom)); left: 50%; flex-direction: column; align-items: center; gap: 8px; color: var(--txt3); transform: translateX(-50%); pointer-events: none; white-space: nowrap; }
-    .hud-hint i { display: block; width: 1px; height: 28px; background: linear-gradient(var(--txt3), transparent); animation: hint 1.8s var(--ease) infinite; transform-origin: top; }
-    @keyframes hint { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); opacity: 0; } }
-    .hud-foot { position: static; display: flex; justify-content: center; padding: 28px 16px calc(28px + env(safe-area-inset-bottom)); color: var(--txt3); }
-    .js-zoom .hud-foot { display: none; }
-    .is-leaving .hud { opacity: 0; }
-
-    @media (max-width: 560px) {
-      .js-zoom .hud-rail { display: none; }
-      .l-title { font-size: clamp(40px, 13vw, 72px); }
-    }
-  </style>
   <script src="assets/site.js" defer></script>
+  <script src="assets/home.js" defer></script>
   <script src="assets/zoom.js" defer></script>
 </head>
-<body class="home-page">
+<body>
   <div class="hud hud-tl"><a href="#z1" data-jump="1">Archive<span>Fever</span>.Work</a></div>
   <div class="hud hud-tr">
+    <span class="wada" id="wada"><i></i><i></i><i></i></span>
     <div class="lang" role="group" aria-label="Choisir la langue">
-      <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
-      <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
+      <button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button>
+      <button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button>
     </div>
   </div>
 
   <main class="stage" id="stage">
-    <section class="layer" data-z="0" id="z0" aria-label="ArchiveFever.Work">
+    <svg class="spiral" id="spiral" viewBox="-1000 -1000 2000 2000" aria-hidden="true" focusable="false"><path /></svg>
+
+    <section class="layer" data-z="0" data-wada="z0" id="z0" aria-label="ArchiveFever.Work">
       <div class="l-top"></div>
       <span class="l-dot" aria-hidden="true"></span>
       <div class="l-bot"></div>
     </section>
 
-    <section class="layer" data-z="1" id="z1" aria-labelledby="mainTitle">
+    <section class="layer" data-z="1" data-wada="z1" id="z1" aria-labelledby="mainTitle">
       <div class="l-top">
-        <span class="l-k"><b>z1</b> · <span id="statusLabel">studio personnel</span></span>
+        <span class="l-k"><b>z1</b> · <span data-i18n="studio">studio personnel</span></span>
         <h1 class="l-title" id="mainTitle">ArchiveFever<span class="hl">.</span>Work</h1>
       </div>
       <span class="l-dot" aria-hidden="true"></span>
       <div class="l-bot">
-        <p class="l-desc" id="statusMsg">Des outils simples, utiles et sans compte. Tout se passe dans ton navigateur.</p>
+        <p class="l-desc" data-i18n="intro">Des outils simples, utiles et sans compte. Tout se passe dans ton navigateur.</p>
       </div>
     </section>
 
-    <section class="layer" data-z="2" id="z2" aria-labelledby="t2">
+    <section class="layer" data-z="2" data-wada="z2" id="z2" aria-labelledby="t2">
       <div class="l-top">
-        <span class="l-k"><b>z2</b> · <span id="compressTag">images · vidéos · zip</span></span>
+        <span class="l-k"><b>z2</b> · <span data-i18n="compressTag">images · vidéos · zip</span></span>
         <h2 class="l-title" id="t2"><a href="COMPRESS/index.html">FeverCompress</a></h2>
       </div>
       <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot"><p class="l-desc" id="compressDesc">Allège tes images et vidéos, ou crée un ZIP de tes dossiers.</p></div>
+      <div class="l-bot"><p class="l-desc" data-i18n="compressDesc">Allège tes images et vidéos, ou crée un ZIP de tes dossiers.</p></div>
     </section>
 
-    <section class="layer" data-z="3" id="z3" aria-labelledby="t3">
+    <section class="layer" data-z="3" data-wada="z3" id="z3" aria-labelledby="t3">
       <div class="l-top">
-        <span class="l-k"><b>z3</b> · <span id="qrTag">couleurs · wi-fi · png</span></span>
+        <span class="l-k"><b>z3</b> · <span data-i18n="qrTag">couleurs · wi-fi · png</span></span>
         <h2 class="l-title" id="t3"><a href="QR/index.html">ColorQR</a></h2>
       </div>
       <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot"><p class="l-desc" id="qrDesc">Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.</p></div>
+      <div class="l-bot"><p class="l-desc" data-i18n="qrDesc">Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.</p></div>
     </section>
 
-    <section class="layer" data-z="4" id="z4" aria-labelledby="t4">
+    <section class="layer" data-z="4" data-wada="z4" id="z4" aria-labelledby="t4">
       <div class="l-top">
-        <span class="l-k"><b>z4</b> · <span id="timerTag">raccourcis · alerte sonore</span></span>
-        <h2 class="l-title" id="t4"><a href="TIMER/index.html" id="timerLabel">Minuteur</a></h2>
+        <span class="l-k"><b>z4</b> · <span data-i18n="timerTag">raccourcis · alerte sonore</span></span>
+        <h2 class="l-title" id="t4"><a href="TIMER/index.html" data-i18n="timer">Minuteur</a></h2>
       </div>
       <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot"><p class="l-desc" id="timerDesc">Un compte à rebours avec raccourcis clavier et alerte sonore.</p></div>
+      <div class="l-bot"><p class="l-desc" data-i18n="timerDesc">Un compte à rebours avec raccourcis clavier et alerte sonore.</p></div>
     </section>
 
-    <section class="layer" data-z="5" id="z5" aria-labelledby="t5">
+    <section class="layer" data-z="5" data-wada="z5" id="z5" aria-labelledby="t5">
       <div class="l-top">
-        <span class="l-k"><b>z5</b> · <span id="betaKicker">recherche · terminée</span></span>
+        <span class="l-k"><b>z5</b> · <span data-i18n="betaTag">recherche · terminée</span></span>
         <h2 class="l-title" id="t5"><a href="BETA/index.html">Every Y Found</a></h2>
       </div>
       <span class="l-dot" aria-hidden="true"></span>
       <div class="l-bot">
         <p class="l-meta">Y1 → Y120 · 120/120</p>
-        <p class="l-desc" id="betaDesc">Un seed de donjon hors Far Lands pour chaque hauteur de Minecraft Beta 1.7.3.</p>
+        <p class="l-desc" data-i18n="betaDesc">Un seed de donjon hors Far Lands pour chaque hauteur de Minecraft Beta 1.7.3.</p>
       </div>
     </section>
 
-    <section class="layer" data-z="6" id="z6" aria-labelledby="t6">
+    <section class="layer" data-z="6" data-wada="z6" id="z6" aria-labelledby="t6">
       <div class="l-top">
         <span class="l-k"><b>z6</b> · ???</span>
-        <h2 class="l-title" id="t6"><a href="Jeromed.html"><img class="l-jerome" src="IMG/Jerome.webp" alt="Jérôme" width="120" height="120" decoding="async" loading="lazy" /></a></h2>
+        <h2 class="l-title" id="t6"><a href="Jeromed.html"><img class="l-jerome" src="IMG/Jerome.webp" alt="Jérôme" width="110" height="110" decoding="async" loading="lazy" /></a></h2>
       </div>
       <span class="l-dot" aria-hidden="true"></span>
-      <div class="l-bot"><p class="l-desc" id="jeromeDesc">Jérôme t’attendait. Ne clique pas.</p></div>
+      <div class="l-bot"><p class="l-desc" data-i18n="jeromeDesc">Jérôme t’attendait. Ne clique pas.</p></div>
     </section>
 
-    <section class="layer" data-z="7" id="z7" aria-labelledby="t7">
+    <section class="layer" data-z="7" data-wada="z7" id="z7" aria-labelledby="t7">
       <div class="l-top">
-        <span class="l-k"><b>z7</b> · <span id="endKicker">le fond</span></span>
-        <h2 class="l-title" id="t7"><a href="ABOUT/index.html" id="aboutLink">À propos</a><span class="sep"> / </span><a href="Donations/index.html" id="donateLink">Dons</a></h2>
+        <span class="l-k"><b>z7</b> · <span data-i18n="endTag">le fond</span></span>
+        <h2 class="l-title" id="t7"><a href="ABOUT/index.html" data-i18n="about">À propos</a><span class="sep"> / </span><a href="Donations/index.html" data-i18n="donate">Dons</a></h2>
       </div>
       <span class="l-dot" aria-hidden="true"></span>
       <div class="l-bot">
-        <ul class="l-socials" aria-label="Réseaux">
+        <ul class="l-socials" data-i18n-attr="aria-label:socials" aria-label="Réseaux">
           <li><a href="https://www.youtube.com/@Infinity_lbrtr" target="_blank" rel="noopener noreferrer">YouTube</a></li>
           <li><a href="https://www.twitch.tv/feveeeer" target="_blank" rel="noopener noreferrer">Twitch</a></li>
           <li><a href="https://x.com/infinity_lbrtr" target="_blank" rel="noopener noreferrer">X</a></li>
           <li><a href="https://steamcommunity.com/id/Fever65/" target="_blank" rel="noopener noreferrer">Steam</a></li>
-          <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" id="surpriseLink">Surprise</a></li>
+          <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" rel="noopener noreferrer" data-i18n="surprise">Surprise</a></li>
         </ul>
-        <p class="l-meta"><span id="footerNote">Fait main · Sans compte · Sans pub</span> · © <span data-af-year>2026</span></p>
+        <p class="l-meta"><span data-i18n="made">Fait main · Sans compte · Sans pub</span> · © <span data-af-year>2026</span></p>
       </div>
     </section>
 
     <!-- z8 = z0 : on retombe sur le point de départ, le zoom boucle. -->
-    <section class="layer" data-z="8" data-clone aria-hidden="true">
+    <section class="layer" data-z="8" data-wada="z0" data-clone aria-hidden="true">
       <div class="l-top"></div>
       <span class="l-dot"></span>
       <div class="l-bot"></div>
@@ -195,98 +138,18 @@
 
   <div class="track" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
-  <nav class="hud hud-rail" id="rail" aria-label="Profondeur">
+  <nav class="hud hud-rail" id="rail" data-i18n-attr="aria-label:depth" aria-label="Profondeur">
     <button type="button" data-jump="0" aria-label="z0"></button>
     <button type="button" data-jump="1" aria-label="z1 ArchiveFever.Work"></button>
     <button type="button" data-jump="2" aria-label="z2 FeverCompress"></button>
     <button type="button" data-jump="3" aria-label="z3 ColorQR"></button>
-    <button type="button" data-jump="4" aria-label="z4"></button>
+    <button type="button" data-jump="4" data-i18n-attr="aria-label:railTimer" aria-label="z4 Minuteur"></button>
     <button type="button" data-jump="5" aria-label="z5 Every Y Found"></button>
     <button type="button" data-jump="6" aria-label="z6 ???"></button>
-    <button type="button" data-jump="7" aria-label="z7"></button>
+    <button type="button" data-jump="7" data-i18n-attr="aria-label:railEnd" aria-label="z7 À propos / Dons"></button>
   </nav>
   <div class="hud hud-read" aria-hidden="true">z <b id="zRead">0.00</b></div>
-  <div class="hud hud-hint" id="hint" aria-hidden="true"><span id="hintLabel">fais défiler pour zoomer</span><i></i></div>
+  <div class="hud hud-hint" id="hint" aria-hidden="true"><span data-i18n="hint">fais défiler pour zoomer</span><i></i></div>
   <footer class="hud hud-foot"><span>ArchiveFever.Work · © <span data-af-year>2026</span></span></footer>
-
-  <script>
-    const $ = id => document.getElementById(id);
-
-    const T = {
-      fr: {
-        documentTitle: "ArchiveFever.Work — Outils web simples et gratuits",
-        description: "Des outils web simples, gratuits et sans compte : compression, QR codes personnalisés, minuteur et expérimentations d’ArchiveFever.Work.",
-        statusLabel: "studio personnel",
-        statusMsg: "Des outils simples, utiles et sans compte. Tout se passe dans ton navigateur.",
-        compressTag: "images · vidéos · zip",
-        compressDesc: "Allège tes images et vidéos, ou crée un ZIP de tes dossiers.",
-        qrTag: "couleurs · wi-fi · png",
-        qrDesc: "Crée un QR personnalisé ou un QR Wi-Fi prêt à télécharger.",
-        timerTag: "raccourcis · alerte sonore",
-        timerLabel: "Minuteur",
-        timerDesc: "Un compte à rebours avec raccourcis clavier et alerte sonore.",
-        betaKicker: "recherche · terminée",
-        betaDesc: "Un seed de donjon hors Far Lands pour chaque hauteur de Minecraft Beta 1.7.3.",
-        jeromeDesc: "Jérôme t’attendait. Ne clique pas.",
-        endKicker: "le fond",
-        aboutLink: "À propos",
-        donateLink: "Dons",
-        surpriseLink: "Surprise",
-        footerNote: "Fait main · Sans compte · Sans pub",
-        hintLabel: "fais défiler pour zoomer",
-        languageLabel: "Choisir la langue",
-        railLabel: "Profondeur"
-      },
-      en: {
-        documentTitle: "ArchiveFever.Work — Simple, free web tools",
-        description: "Simple, free and accountless web tools: compression, custom QR codes, a timer and experiments by ArchiveFever.Work.",
-        statusLabel: "personal studio",
-        statusMsg: "Simple, useful tools. No account required. Everything runs in your browser.",
-        compressTag: "images · videos · zip",
-        compressDesc: "Compress images and videos, or create a ZIP of your folders.",
-        qrTag: "colors · wi-fi · png",
-        qrDesc: "Create a custom QR code or a downloadable Wi-Fi QR code.",
-        timerTag: "shortcuts · sound alert",
-        timerLabel: "Timer",
-        timerDesc: "A countdown with keyboard shortcuts and a final sound alert.",
-        betaKicker: "research · completed",
-        betaDesc: "A dungeon seed outside the Far Lands for every height in Minecraft Beta 1.7.3.",
-        jeromeDesc: "Jerome was waiting for you. Don’t click.",
-        endKicker: "the bottom",
-        aboutLink: "About",
-        donateLink: "Donate",
-        surpriseLink: "Surprise",
-        footerNote: "Handmade · No account · No ads",
-        hintLabel: "scroll to zoom in",
-        languageLabel: "Choose language",
-        railLabel: "Depth"
-      }
-    };
-
-    function setLang(lang) {
-      const safeLang = T[lang] ? lang : "fr";
-      const t = T[safeLang];
-      document.documentElement.lang = safeLang;
-      document.title = t.documentTitle;
-      document.querySelector('meta[name="description"]').content = t.description;
-      ["statusLabel", "statusMsg", "compressTag", "compressDesc", "qrTag", "qrDesc", "timerTag", "timerLabel", "timerDesc", "betaKicker", "betaDesc", "jeromeDesc", "endKicker", "aboutLink", "donateLink", "surpriseLink", "footerNote", "hintLabel"].forEach(id => {
-        $(id).textContent = t[id];
-      });
-      document.querySelector(".lang").setAttribute("aria-label", t.languageLabel);
-      $("rail").setAttribute("aria-label", t.railLabel);
-      $("rail").querySelector('[data-jump="4"]').setAttribute("aria-label", "z4 " + t.timerLabel);
-      $("rail").querySelector('[data-jump="7"]').setAttribute("aria-label", "z7 " + t.aboutLink + " / " + t.donateLink);
-      $("btnFR").setAttribute("aria-pressed", String(safeLang === "fr"));
-      $("btnEN").setAttribute("aria-pressed", String(safeLang === "en"));
-      try { localStorage.setItem("af_lang", safeLang); } catch (_) {}
-    }
-
-    $("btnFR").addEventListener("click", () => setLang("fr"));
-    $("btnEN").addEventListener("click", () => setLang("en"));
-
-    let savedLang = "fr";
-    try { savedLang = localStorage.getItem("af_lang") || "fr"; } catch (_) {}
-    setLang(savedLang);
-  </script>
 </body>
 </html>

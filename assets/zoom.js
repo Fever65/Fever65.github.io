@@ -1,6 +1,8 @@
 /* Accueil — zoom infini.
-   Le défilement natif pilote la profondeur z (1 écran = 1 niveau). Chaque couche i est mise à l'échelle K^(z − i) :
-   à z = i elle est nette, à z = i − 1 elle n'est qu'un point au centre de la couche précédente.
+   Le défilement natif pilote la profondeur z (1 écran = 1 niveau). Chaque couche i est mise à l'échelle K^(z − i)
+   avec K = φ⁴ : à z = i elle est nette, à z = i − 1 elle n'est qu'un point au centre de la précédente.
+   φ⁴ est aussi le facteur d'un tour de spirale d'or : la spirale tourne d'un tour par niveau et paraît immobile en échelle.
+   Le fond interpole entre les combinaisons Wada de deux niveaux voisins.
    La dernière couche est une copie de la première : arrivé au fond, on retombe sur le point de départ. */
 (() => {
   'use strict';
@@ -8,15 +10,21 @@
   const root = document.documentElement;
   if (!root.classList.contains('js-zoom')) return;
 
-  const K = 9;                    // facteur d'échelle entre deux niveaux
+  const PHI = (1 + Math.sqrt(5)) / 2;
+  const K = PHI ** 4;             // ≈ 6,854 : un niveau = un tour de spirale d'or
   const stage = document.getElementById('stage');
   const layers = [...stage.querySelectorAll('.layer')];
   const LOOP = layers.length - 1; // 8 : la couche 8 est le clone de la couche 0
   const track = document.querySelector('.track');
   const readout = document.getElementById('zRead');
   const hint = document.getElementById('hint');
+  const spiral = document.getElementById('spiral');
+  const themeColor = document.querySelector('meta[name="theme-color"]');
   const ticks = [...document.querySelectorAll('#rail [data-jump]')];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+
+  // Combinaison Wada de chaque niveau, lue dans tokens.css via les couches elles-mêmes.
+  const palettes = layers.map(l => AF.palette(l));
 
   let unit = innerHeight;
   let z = 0;
@@ -27,8 +35,26 @@
   const clamp01 = v => (v < 0 ? 0 : v > 1 ? 1 : v);
   const smooth = (a, b, v) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
 
+  // Spirale d'or r = φ^(2θ/π), du rayon 0,5 jusqu'au-delà de l'écran (viewBox de ±1000).
+  (function drawSpiral() {
+    const pts = [];
+    for (let th = -3; th <= 25; th += Math.PI / 48) {
+      const r = PHI ** (2 * th / Math.PI);
+      pts.push((r * Math.cos(th)).toFixed(2) + ' ' + (r * Math.sin(th)).toFixed(2));
+    }
+    spiral.firstElementChild.setAttribute('d', 'M' + pts.join('L'));
+  })();
+
   function measure() {
     unit = track.firstElementChild.getBoundingClientRect().height || innerHeight;
+  }
+
+  function paint() {
+    const i = Math.min(Math.floor(z), LOOP - 1);
+    const a = palettes[i], b = palettes[i + 1];
+    const e = smooth(0.382, 0.618, z - i);
+    for (const key of ['bg', 'ink', 'dot', 'alt']) root.style.setProperty('--' + key, AF.mix(b[key], a[key], e));
+    root.style.setProperty('--wada', '"' + (e < 0.5 ? a : b).wada + '"');
   }
 
   function render() {
@@ -48,11 +74,14 @@
       const opacity = smooth(-0.95, -0.35, d) * (1 - smooth(0.3, 0.9, d));
       el.style.opacity = opacity.toFixed(3);
       el.style.transform = 'scale(' + Math.pow(K, d).toFixed(5) + ')';
-      el.style.setProperty('--dot', (1 - smooth(0.1, 0.55, d)).toFixed(3));
+      el.style.setProperty('--dot-o', (1 - smooth(0.1, 0.55, d)).toFixed(3));
       el.style.zIndex = String(10 + i);
       el.classList.toggle('is-on', Math.abs(z - i) < 0.32);
     }
 
+    paint();
+    // Agrandir de K^z revient à tourner la spirale de −z tours.
+    spiral.style.transform = 'rotate(' + (-360 * (z % 1)).toFixed(2) + 'deg)';
     readout.textContent = z.toFixed(2);
     hint.style.opacity = String(1 - smooth(0.02, 0.25, z));
 
@@ -60,6 +89,7 @@
     if (tick !== lastTick) {
       lastTick = tick;
       ticks.forEach((b, i) => b.setAttribute('aria-current', String(i === tick)));
+      if (themeColor) themeColor.content = palettes[tick].bg;
     }
   }
 
@@ -86,11 +116,10 @@
 
   addEventListener('keydown', e => {
     if (e.altKey || e.ctrlKey || e.metaKey || leaving) return;
-    const tag = (e.target && e.target.tagName) || '';
-    if (/^(INPUT|TEXTAREA|SELECT)$/.test(tag)) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || '')) return;
     const here = Math.round(z);
-    if (/^[0-8]$/.test(e.key)) { e.preventDefault(); jump(Number(e.key)); return; }
-    if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key) || (e.key === ' ' && !e.shiftKey)) { e.preventDefault(); jump(here + 1); }
+    if (/^[0-8]$/.test(e.key)) { e.preventDefault(); jump(Number(e.key)); }
+    else if (['ArrowDown', 'ArrowRight', 'PageDown'].includes(e.key) || (e.key === ' ' && !e.shiftKey)) { e.preventDefault(); jump(here + 1); }
     else if (['ArrowUp', 'ArrowLeft', 'PageUp'].includes(e.key) || (e.key === ' ' && e.shiftKey)) { e.preventDefault(); jump(here - 1); }
     else if (e.key === 'Home') { e.preventDefault(); jump(0); }
     else if (e.key === 'End') { e.preventDefault(); jump(LOOP - 1); }
@@ -123,13 +152,13 @@
     const sbox = layer.getBoundingClientRect();
     layer.style.transformOrigin = ((box.left + box.width / 2 - sbox.left) / sbox.width * 100).toFixed(2) + '% ' +
       ((box.top + box.height / 2 - sbox.top) / sbox.height * 100).toFixed(2) + '%';
-    layer.style.transition = 'transform .65s var(--ease-zoom), opacity .55s ease .1s';
+    layer.style.transition = 'transform var(--t3) var(--ease-zoom), opacity var(--t2) ease var(--t0)';
     requestAnimationFrame(() => {
-      layer.style.transform = 'scale(' + (Math.pow(K, Math.max(-1, Math.min(1, z - Number(layer.dataset.z)))) * 60).toFixed(3) + ')';
+      layer.style.transform = 'scale(' + (Math.pow(K, Math.max(-1, Math.min(1, z - Number(layer.dataset.z)))) * K * K).toFixed(3) + ')';
       layer.style.opacity = '0';
     });
-    layers.forEach(l => { if (l !== layer) { l.style.transition = 'opacity .3s'; l.style.opacity = '0'; } });
-    setTimeout(() => { location.href = a.href; }, 520);
+    layers.forEach(l => { if (l !== layer) { l.style.transition = 'opacity var(--t1)'; l.style.opacity = '0'; } });
+    setTimeout(() => { location.href = a.href; }, 500);
   });
 
   // Retour arrière (bfcache) : on remet la scène en état.

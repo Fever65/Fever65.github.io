@@ -6,7 +6,7 @@
   <title>ColorQR — Générateur de QR personnalisés et Wi-Fi</title>
   <meta name="description" content="Crée gratuitement des QR codes personnalisés ou des QR Wi-Fi, avec contrôle automatique du contraste et téléchargement PNG." />
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#09090a" />
+  <meta name="theme-color" content="#000000" />
   <link rel="canonical" href="https://archivefever.work/QR/" />
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="fr_FR" />
@@ -21,122 +21,126 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/site.css" />
   <style>
-    .qr-hero h1 { max-width: 18ch; }
+    .qr-hero h1 { max-width: 12ch; }
     .hero-art { display: none; }
 
-    .qr-studio { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 360px); align-items: start; gap: 16px; }
-    .card-left { padding: clamp(20px, 3vw, 28px); }
-    .card-b { margin-top: 28px; }
+    .qr-studio { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 380px); align-items: start; gap: 0; border-top: 1px solid var(--border); }
+    .qr-studio > .panel { border: 0; background: transparent; }
+    .card-left { padding: clamp(24px, 3vw, 36px) clamp(20px, 4vw, 48px) clamp(24px, 3vw, 36px) 0; border-right: 1px solid var(--border-soft) !important; }
+    .card-b { margin-top: 32px; }
     .qr-step { min-width: 0; }
 
-    .tabs { display: inline-grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px; width: 100%; padding: 3px; border: 1px solid var(--border); border-radius: var(--radius-sm); }
-    .tab { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 38px; padding: 6px 12px; border: 0; border-radius: 6px; background: transparent; color: var(--txt2); font-size: 14px; font-weight: 500; transition: color .15s, background-color .15s; }
-    .tab b { font-weight: 500; }
+    .tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; width: 100%; border: 1px solid var(--border); }
+    .tab { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; padding: 6px 12px; border: 0; background: transparent; color: var(--txt3); font-family: var(--font-mono); font-size: 13px; transition: color .15s, background-color .15s; }
+    .tab + .tab { border-left: 1px solid var(--border); }
+    .tab b { font-weight: 400; }
     .tab b i, .tab small { display: none; }
     .tab:hover { color: var(--txt); }
-    .tab[aria-selected="true"] { color: var(--txt); background: var(--surface-3); }
+    .tab[aria-selected="true"] { color: #000; background: var(--txt); }
 
-    form { display: flex; flex-direction: column; gap: 28px; }
-    form .qr-step + .qr-step { padding-top: 28px; border-top: 1px solid var(--border-soft); }
-    label { color: var(--txt2); font-size: 13px; font-weight: 500; }
-    .row { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-    .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    form { display: flex; flex-direction: column; gap: 32px; }
+    form .qr-step + .qr-step { padding-top: 32px; border-top: 1px solid var(--border-soft); }
+    label { color: var(--txt3); font-family: var(--font-mono); font-size: 11px; font-weight: 400; letter-spacing: .02em; }
+    .row { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    .hint { margin: 0; font-size: 12px; }
+    .contrast-hint { font-family: var(--font-mono); font-size: 11px; }
     .contrast-hint.good { color: var(--success); }
     .contrast-hint.bad { color: var(--danger); }
 
-    .palette { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
-    .swatch { width: 32px; height: 32px; padding: 0; border: 1px solid var(--border-strong); border-radius: 50%; background: linear-gradient(135deg, var(--d) 0 50%, var(--l) 50% 100%); }
-    .swatch[aria-pressed="true"] { outline: 2px solid var(--txt); outline-offset: 2px; }
+    .palette { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .swatch { width: 34px; height: 34px; padding: 0; border: 1px solid var(--border-strong); border-radius: 50%; background: linear-gradient(135deg, var(--d) 0 50%, var(--l) 50% 100%); transition: transform .2s var(--ease-out); }
+    .swatch:hover { transform: scale(1.12); }
+    .swatch[aria-pressed="true"] { outline: 1px solid var(--accent); outline-offset: 3px; }
     .colors { display: flex; flex-direction: column; gap: 12px; }
-    .colorline { display: flex; align-items: center; gap: 8px; }
+    .colorline { display: flex; align-items: center; gap: 0; }
     .colorline input[type="text"] { flex: 1; width: 0; font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; }
-    input[type="color"] { width: 44px; height: 44px; flex-shrink: 0; padding: 3px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); cursor: pointer; }
+    input[type="color"] { width: 46px; height: 46px; flex-shrink: 0; padding: 4px; border: 1px solid var(--border); border-right: 0; background: var(--bg); cursor: pointer; }
     input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-    input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 5px; }
-    input[type="color"]::-moz-color-swatch { border: 0; border-radius: 5px; }
+    input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 0; }
+    input[type="color"]::-moz-color-swatch { border: 0; border-radius: 0; }
 
-    .chk { display: flex; align-items: center; gap: 10px; min-height: 44px; }
+    .chk { display: flex; align-items: center; gap: 12px; min-height: 44px; }
     .chk input { width: 18px; height: 18px; flex-shrink: 0; accent-color: var(--accent); cursor: pointer; }
-    .chk-label { color: var(--txt); font-size: 14px; font-weight: 400; cursor: pointer; }
+    .chk-label { color: var(--txt); font-family: var(--font-sans); font-size: 14px; cursor: pointer; }
 
-    .btns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .btns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
     .btns .primary { grid-column: 1 / -1; }
+    .btns .ghost { border-top-width: 0; }
+    .btns .ghost + .ghost { border-left-width: 0; }
 
-    .card-right { position: sticky; top: 76px; overflow: hidden; }
-    .preview-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--border-soft); }
-    .preview-title { font-size: 14px; font-weight: 600; }
-    .pill { color: var(--txt3); font-size: 12px; font-variant-numeric: tabular-nums; }
-    .preview { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px 18px; }
+    .card-right { position: sticky; top: calc(var(--head-h) + 16px); overflow: hidden; }
+    .preview-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: clamp(24px, 3vw, 36px) 0 14px clamp(20px, 3vw, 36px); border-bottom: 1px solid var(--border-soft); }
+    .preview-title { color: var(--txt3); font-family: var(--font-mono); font-size: 12px; }
+    .pill { color: var(--txt3); font-family: var(--font-mono); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .preview { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px 0 24px clamp(20px, 3vw, 36px); }
     .phone { width: 100%; }
-    .phone-screen { display: grid; place-items: center; aspect-ratio: 1; border: 1px solid var(--border-soft); border-radius: var(--radius-sm); background: var(--bg); }
-    .canvaswrap { width: 82%; animation: af-fade .3s var(--ease) both; }
-    canvas { display: block; width: 100%; height: auto; border-radius: 4px; }
-    .qr-empty { display: grid; justify-items: center; gap: 8px; color: var(--txt3); font-size: 13px; text-align: center; }
-    .qr-empty span:first-child { display: none; }
+    .phone-screen { display: grid; place-items: center; aspect-ratio: 1; border: 1px dashed var(--border); background: var(--bg); }
+    .canvaswrap { width: 84%; animation: qr-in .6s var(--ease-zoom) both; }
+    @keyframes qr-in { from { opacity: 0; transform: scale(.08); } to { opacity: 1; transform: none; } }
+    canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; }
+    .qr-empty { display: grid; justify-items: center; gap: 14px; color: var(--txt3); font-family: var(--font-mono); font-size: 11px; text-align: center; }
+    .qr-empty span:first-child { display: block; width: 10px; height: 10px; overflow: hidden; border-radius: 50%; background: var(--accent); color: transparent; animation: af-ping 2.4s var(--ease) infinite; }
     #previewBox:not(.hide) + .qr-empty { display: none; }
-    .dl { display: none; align-items: center; justify-content: center; width: 100%; min-height: 44px; padding: 10px 18px; border-radius: var(--radius-sm); color: #111; background: var(--accent); font-size: 14px; font-weight: 500; text-decoration: none; }
-    .dl:hover { background: #ffa53d; }
-    .status { max-width: 32ch; color: var(--txt3); font-size: 13px; line-height: 1.5; text-align: center; }
+    .dl { display: none; align-items: center; justify-content: center; width: 100%; min-height: 46px; padding: 10px 18px; color: #000; background: var(--accent); font-size: 14px; font-weight: 500; text-decoration: none; transition: background-color .15s; }
+    .dl:hover { background: #fff; }
+    .status { max-width: 34ch; color: var(--txt3); font-family: var(--font-mono); font-size: 11px; line-height: 1.6; text-align: center; }
     .status[data-state="ready"] { color: var(--success); }
     .status[data-state="err"] { color: var(--danger); }
     .hide { display: none !important; }
 
-    .qr-tips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: clamp(40px, 6vw, 64px); padding-top: 28px; border-top: 1px solid var(--border-soft); }
-    .qr-tips article { display: grid; gap: 6px; }
-    .qr-tips b { color: var(--txt3); font-size: 13px; font-weight: 500; }
-    .qr-tips h2 { margin: 0; font-size: 15px; font-weight: 600; }
-    .qr-tips p { margin: 0; color: var(--txt2); font-size: 14px; line-height: 1.6; }
+    .qr-tips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: clamp(48px, 7vw, 88px); border-top: 1px solid var(--border-soft); }
+    .qr-tips article { display: grid; align-content: start; gap: 8px; padding: 24px 24px 0 0; }
+    .qr-tips article + article { padding-left: 24px; border-left: 1px solid var(--border-soft); }
+    .qr-tips b { color: var(--accent); font-family: var(--font-mono); font-size: 12px; font-weight: 400; }
+    .qr-tips h2 { margin: 0; font-size: 18px; font-weight: 500; letter-spacing: -.02em; }
+    .qr-tips p { margin: 0; color: var(--txt3); font-size: 14px; line-height: 1.6; }
 
-    .modal { position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, .7); }
+    .modal { position: fixed; inset: 0; z-index: 50; display: none; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, .86); }
     .modal[aria-hidden="false"] { display: flex; }
-    .modal-card { display: flex; flex-direction: column; width: min(560px, 100%); max-height: calc(100dvh - 32px); overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+    .modal-card { display: flex; flex-direction: column; width: min(560px, 100%); max-height: calc(100dvh - 32px); overflow: hidden; border: 1px solid var(--border); background: #000; animation: af-rise .35s var(--ease-out) both; }
     .modal-h { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 20px; border-bottom: 1px solid var(--border-soft); }
-    .modal-title { font-size: 16px; font-weight: 600; }
+    .modal-title { font-family: var(--font-mono); font-size: 12px; color: var(--txt3); }
     .modal-b { display: flex; flex-direction: column; gap: 12px; padding: 20px; overflow-y: auto; overscroll-behavior: contain; color: var(--txt2); font-size: 14px; line-height: 1.65; }
     .modal-b p { margin: 0; }
-    .modal-b strong { color: var(--txt); font-weight: 600; }
+    .modal-b strong { color: var(--txt); font-weight: 500; }
     .modal-b .muted { color: var(--txt3); }
     .modal-b ul { display: flex; flex-direction: column; gap: 8px; margin: 0; padding-left: 18px; }
     .modal-actions:empty { display: none; }
-    .close { min-height: 36px; padding: 6px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: transparent; color: var(--txt2); font-size: 13px; }
-    .close:hover { color: var(--txt); background: var(--surface-3); }
+    .close { min-height: 36px; padding: 6px 12px; border: 1px solid var(--border); background: transparent; color: var(--txt2); font-family: var(--font-mono); font-size: 12px; }
+    .close:hover { color: var(--txt); border-color: var(--txt); }
 
     @media (max-width: 900px) {
       .qr-studio { grid-template-columns: minmax(0, 1fr); }
-      .card-right { position: relative; top: 0; }
-      .phone { width: min(260px, 100%); }
-      .qr-tips { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+      .card-left { padding-right: 0; border-right: 0 !important; }
+      .card-right { position: relative; top: 0; border-top: 1px solid var(--border-soft) !important; }
+      .preview-head, .preview { padding-left: 0; }
+      .phone { width: min(300px, 100%); }
+      .qr-tips { grid-template-columns: minmax(0, 1fr); }
+      .qr-tips article + article { padding-left: 0; border-left: 0; }
     }
     @media (max-width: 560px) {
       .two { grid-template-columns: minmax(0, 1fr); }
-      .af-actions .chip span:last-child { display: none; }
+      .z-right .chip span:last-child { display: none; }
     }
-</style>
+  </style>
   <script src="../assets/site.js" defer></script>
 </head>
-<body class="qr-page af-ui">
+<body class="qr-page af-ui z-enter">
 
-<header class="af-nav">
-  <div class="shell af-nav-inner">
-    <div class="af-crumb">
-      <a class="af-brand" href="../index.html" aria-label="ArchiveFever.Work"><img src="../IMG/Jerome.webp" alt="" width="30" height="30" decoding="async" /><span class="af-brand-text">Archive<span class="accent">Fever</span>.Work</span></a>
-      <span class="af-crumb-sep" aria-hidden="true">/</span><span class="af-crumb-page">ColorQR</span>
-    </div>
-    <nav class="af-links" data-af-label="nav" aria-label="Navigation principale">
-      <a href="../index.html#tools" data-af="tools">Outils</a>
-      <a href="../BETA/index.html" data-af="research">Recherche</a>
-      <a href="../ABOUT/index.html" data-af="about">À propos</a>
-    </nav>
-    <div class="af-actions card-controls">
-      <div class="lang" role="group" aria-label="Choisir la langue">
-        <button id="btnFR" type="button" aria-pressed="true">FR</button>
-        <button id="btnEN" type="button" aria-pressed="false">EN</button>
-      </div>
-      <button class="chip" type="button" id="infoBtn"><span aria-hidden="true">i</span><span id="infoLabel">Infos</span></button>
-      <a class="chip" href="../index.html" id="backBtn"><span aria-hidden="true">←</span><span id="backLabel">Retour</span></a>
+<header class="z-head">
+  <div class="z-left">
+    <a class="z-home" href="../index.html#z3" id="backBtn" aria-label="ArchiveFever.Work"><span class="z-dot" aria-hidden="true"></span><span class="z-home-txt" aria-hidden="true">ArchiveFever.Work</span><span class="sr-only" id="backLabel">Retour</span></a>
+    <span class="z-crumb"><span class="z-depth">z3</span><span>ColorQR</span></span>
+  </div>
+  <div class="z-right">
+    <button class="chip" type="button" id="infoBtn"><span aria-hidden="true">i</span><span id="infoLabel">Infos</span></button>
+    <div class="lang" role="group" aria-label="Choisir la langue">
+      <button id="btnFR" type="button" aria-pressed="true" lang="fr">FR</button>
+      <button id="btnEN" type="button" aria-pressed="false" lang="en">EN</button>
     </div>
   </div>
 </header>
@@ -145,7 +149,7 @@
   <div class="shell">
 
     <section class="page-hero qr-hero">
-      <span class="kicker rise" style="--i:0">ColorQR · WiFiQR</span>
+      <span class="kicker rise" style="--i:0"><span class="hl">z3</span> · ColorQR · WiFiQR</span>
       <h1 id="hTitle" class="rise" style="--i:1">QR — Couleur &amp; Wi-Fi</h1>
       <p class="lead rise" style="--i:2"><span data-lang="fr">Un QR code à tes couleurs, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.</span><span data-lang="en">A QR code in your colors, or one that joins a Wi-Fi network in a single scan. Everything happens in your browser.</span></p>
       <ul class="hero-pills rise" style="--i:3">
@@ -327,11 +331,9 @@
   </div>
 </div>
 
-<footer class="af-footer">
-  <div class="shell site-footer-mini">
-    <span data-af="made">Fait main · Sans compte · Sans pub</span>
-    <span><a href="../ABOUT/index.html" data-af="about">À propos</a> · <a href="../Donations/index.html" data-af="donate">Dons</a> · © <span data-af-year>2026</span> ArchiveFever.Work</span>
-  </div>
+<footer class="z-foot">
+  <span data-af="made">Fait main · Sans compte · Sans pub</span>
+  <nav aria-label="Pied de page"><a href="../ABOUT/index.html" data-af="about">À propos</a><a href="../Donations/index.html" data-af="donate">Dons</a><span>© <span data-af-year>2026</span> ArchiveFever.Work</span></nav>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
@@ -506,7 +508,7 @@
   $("btnEN").onclick = () => setLang("en");
 
   let savedLang = "fr";
-  try { savedLang = localStorage.getItem("qr_lang") || localStorage.getItem("af_lang") || "fr"; } catch(e) {}
+  try { savedLang = localStorage.getItem("af_lang") || localStorage.getItem("qr_lang") || "fr"; } catch(e) {}
 
   const modal = $("infoModal");
   const mainContent = document.querySelector("main");

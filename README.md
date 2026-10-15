@@ -2,9 +2,19 @@
 
 Site personnel statique hébergé avec GitHub Pages : [archivefever.work](https://archivefever.work/).
 
+## Concept : le zoom infini
+
+L'accueil est un écran noir avec un seul point orange. Le défilement zoome dans ce point. Chaque niveau de profondeur (z0 → z7) révèle un projet, puis z8 retombe exactement sur z0 : le zoom boucle à l'infini, dans les deux sens.
+
+- **Navigation sur l'accueil :** molette, glisser, flèches, touches `0`–`8` ou Tab.
+- **Sous-pages :** chacune s'ouvre « par le point » ; le point en haut à gauche ramène à l'accueil, au niveau du projet (`index.html#z3`).
+- **Repli :** sans JavaScript, ou avec « réduire les animations », l'accueil devient une simple liste verticale.
+
+Design system : noir, blanc, un seul orange (`#ff981f`), angles droits, Geist et Geist Mono.
+
 ## Contenu
 
-- `index.html` — accueil et navigation principale ;
+- `index.html` + `assets/zoom.js` — accueil et moteur du zoom infini ;
 - `ABOUT/` — présentation du projet ;
 - `QR/` — générateur de QR personnalisés et de QR Wi-Fi ;
 - `TIMER/` — minuteur avec raccourcis et alerte sonore ;

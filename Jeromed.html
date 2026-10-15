@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-wada="z6">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Le test anti-Jérôme — ArchiveFever.Work</title>
   <meta name="description" content="Un petit jeu humoristique avec Jérôme, la mascotte d’ArchiveFever.Work. Disponible en 20 langues." />
   <meta name="robots" content="noindex, follow" />
-  <meta name="theme-color" content="#000000" />
+  <meta name="theme-color" content="#1e0e3f" />
   <link rel="canonical" href="https://archivefever.work/Jeromed.html" />
   <link rel="icon" href="IMG/Jerome.webp" type="image/webp" />
   <link rel="preload" href="IMG/Jerome.webp" as="image" type="image/webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&amp;family=Geist+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/tokens.css" />
   <link rel="stylesheet" href="assets/site.css" />
   <link rel="stylesheet" href="assets/jeromed.css" />
+  <script src="assets/site.js" defer></script>
   <script src="assets/jeromed-i18n.js" defer></script>
   <script src="assets/jeromed.js" defer></script>
 </head>
@@ -24,6 +26,7 @@
   <header class="jeromed-header">
     <a class="site-name" href="index.html#z6" dir="ltr"><i class="z-dot" aria-hidden="true"></i>Archive<span>Fever</span>.Work</a>
     <div class="card-controls">
+      <span class="wada" aria-hidden="true"><i></i><i></i><i></i></span>
       <button class="chip" id="soundBtn" type="button" aria-pressed="true">Sound: on</button>
       <button class="chip" id="langBtn" type="button"><span aria-hidden="true">🌐</span><span id="langBtnLabel">Language</span><span class="lang-current" id="langCurrent">English</span></button>
     </div>
@@ -37,7 +40,7 @@
       <h1 id="pickTitle" tabindex="-1">Choose your language</h1>
       <p class="pick-sub" aria-hidden="true"><bdi>Choose your language</bdi> · <bdi>Elige tu idioma</bdi> · <bdi>Wähle deine Sprache</bdi> · <bdi>选择语言</bdi> · <bdi>言語を選択</bdi> · <bdi>اختر لغتك</bdi> · <bdi>Выберите язык</bdi></p>
       <div class="lang-grid" id="langGrid" role="group" aria-labelledby="pickTitle"></div>
-      <button class="go-btn primary" id="pickGo" type="button">Continue →</button>
+      <button class="btn primary" id="pickGo" type="button">Continue →</button>
     </section>
 
     <!-- Étape 1 : le faux captcha et le quiz -->
@@ -69,15 +72,15 @@
           <div class="tile-grid" id="quizGrid" hidden></div>
           <div class="options" id="quizOptions"></div>
           <p class="feedback" id="quizFeedback" role="status" aria-live="polite"></p>
-          <button class="go-btn primary" id="quizNext" type="button" hidden>Continue →</button>
+          <button class="btn primary" id="quizNext" type="button" hidden>Continue →</button>
         </div>
 
         <div class="step launch" id="stepLaunch" hidden>
           <h2 id="launchTitle" tabindex="-1">Last step</h2>
           <p class="intro-copy" id="launchCopy"></p>
           <div class="launch-actions">
-            <button class="go-btn primary" id="launchSound" type="button">Start with sound →</button>
-            <button class="go-btn" id="launchMute" type="button">Without sound</button>
+            <button class="btn primary" id="launchSound" type="button">Start with sound →</button>
+            <button class="btn ghost" id="launchMute" type="button">Without sound</button>
           </div>
         </div>
       </div>
@@ -120,9 +123,9 @@
       </dl>
 
       <div class="chaos-actions">
-        <button class="go-btn primary" id="diplomaBtn" type="button">Download my diploma</button>
-        <button class="go-btn" id="shareBtn" type="button">Prank a friend</button>
-        <button class="go-btn" id="replayBtn" type="button">I won’t fall for it twice →</button>
+        <button class="btn primary" id="diplomaBtn" type="button">Download my diploma</button>
+        <button class="btn ghost" id="shareBtn" type="button">Prank a friend</button>
+        <button class="btn ghost" id="replayBtn" type="button">I won’t fall for it twice →</button>
       </div>
       <a class="support-link" id="supportLink" href="Donations/index.html">Buy Jerome a coffee ↗</a>
     </section>

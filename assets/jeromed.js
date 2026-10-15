@@ -90,30 +90,30 @@
   // Grondement grave qui monte pendant l'analyse, puis coupé net avant le cri.
   function startDrone() {
     if (!canPlay()) return;
-    const t = audioContext.currentTime;
+    const now = audioContext.currentTime;
     const gain = audioContext.createGain();
     const filter = audioContext.createBiquadFilter();
     filter.type = 'lowpass';
     filter.frequency.value = 420;
-    gain.gain.setValueAtTime(.0001, t);
-    gain.gain.exponentialRampToValueAtTime(.09, t + 7.5);
+    gain.gain.setValueAtTime(.0001, now);
+    gain.gain.exponentialRampToValueAtTime(.09, now + 7.5);
     filter.connect(gain).connect(master);
     const a = track(audioContext.createOscillator());
     const b = track(audioContext.createOscillator());
     a.type = 'sawtooth'; a.frequency.value = 73.4;
     b.type = 'sine'; b.frequency.value = 77.8; // léger battement inquiétant
     a.connect(filter); b.connect(filter);
-    a.start(t); b.start(t);
+    a.start(now); b.start(now);
     drone = { gain, a, b };
   }
   function stopDrone(fade = .5) {
     if (!drone || !audioContext) return;
-    const t = audioContext.currentTime;
+    const now = audioContext.currentTime;
     const { gain, a, b } = drone;
-    gain.gain.cancelScheduledValues(t);
-    gain.gain.setValueAtTime(Math.max(gain.gain.value, .0001), t);
-    gain.gain.exponentialRampToValueAtTime(.0001, t + fade);
-    try { a.stop(t + fade + .05); b.stop(t + fade + .05); } catch (_) {}
+    gain.gain.cancelScheduledValues(now);
+    gain.gain.setValueAtTime(Math.max(gain.gain.value, .0001), now);
+    gain.gain.exponentialRampToValueAtTime(.0001, now + fade);
+    try { a.stop(now + fade + .05); b.stop(now + fade + .05); } catch (_) {}
     drone = null;
   }
 
@@ -198,14 +198,7 @@
     for (const act of ['langPage', 'mainPage', 'scanPage', 'chaos']) $(act).hidden = act !== id;
   }
   function focus(id) { const el = $(id); if (el) el.focus({ preventScroll: true }); }
-  let toastTimer;
-  function toast(message) {
-    const el = $('toast');
-    el.textContent = message;
-    el.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove('show'), 3600);
-  }
+  const toast = message => AF.toast(message, 3618);
 
   /* ---------- Étape 0 : choix de la langue ---------- */
   function detectLanguage() {
@@ -215,7 +208,7 @@
       const short = String(code).toLowerCase().split('-')[0];
       if (I18N[short]) return short;
     }
-    const site = store.get('af_lang');
+    const site = AF.storedLang();
     return I18N[site] ? site : 'en';
   }
 
@@ -248,7 +241,7 @@
 
   function startGame() {
     store.set('jeromed_lang', lang);
-    if (lang === 'fr' || lang === 'en') store.set('af_lang', lang);
+    if (lang === 'fr' || lang === 'en') AF.storeLang(lang); // partagé avec le reste du site
     reset();
   }
 
@@ -319,7 +312,7 @@
       }
       const validate = document.createElement('button');
       validate.type = 'button';
-      validate.className = 'go-btn primary';
+      validate.className = 'btn primary';
       validate.textContent = x.validate;
       validate.addEventListener('click', () => {
         const tiles = [...grid.querySelectorAll('.tile')];
@@ -518,33 +511,34 @@
     const button = $('diplomaBtn');
     button.disabled = true;
     try {
-      if (document.fonts) await Promise.all(['700 80px "Inter"', '600 40px "Inter"', '400 28px "Inter"'].map(f => document.fonts.load(f))).catch(() => {});
+      if (document.fonts) await Promise.all(['700 80px "Geist"', '600 40px "Geist"', '400 28px "Geist"'].map(f => document.fonts.load(f))).catch(() => {});
+      const p = AF.palette(); // la combinaison Wada de la page (№ 265)
       const face = await loadImage('IMG/Jerome.webp');
       const W = 1600, H = 1130;
       const canvas = document.createElement('canvas');
       canvas.width = W;
       canvas.height = H;
       const c = canvas.getContext('2d');
-      const font = '"Inter", system-ui, "Noto Sans", "Segoe UI", sans-serif';
+      const font = '"Geist", system-ui, "Noto Sans", "Segoe UI", sans-serif';
       c.direction = x.dir === 'rtl' ? 'rtl' : 'ltr';
 
-      c.fillStyle = '#0d0d0d';
+      c.fillStyle = p.bg;
       c.fillRect(0, 0, W, H);
-      c.strokeStyle = '#ff981f';
+      c.strokeStyle = p.dot;
       c.lineWidth = 4;
       c.strokeRect(48, 48, W - 96, H - 96);
-      c.strokeStyle = '#2a2a2a';
+      c.strokeStyle = p.line;
       c.lineWidth = 1.5;
       c.strokeRect(66, 66, W - 132, H - 132);
 
       c.textAlign = 'center';
-      c.fillStyle = '#878787';
+      c.fillStyle = p.ink3;
       c.font = `500 24px ${font}`;
       c.fillText(x.introTitle, W / 2, 150);
-      c.fillStyle = '#ededed';
+      c.fillStyle = p.ink;
       c.font = `700 80px ${font}`;
       c.fillText(d.title, W / 2, 250);
-      c.fillStyle = '#ff981f';
+      c.fillStyle = p.dot;
       c.font = `600 40px ${font}`;
       c.fillText(d.subtitle, W / 2, 312);
 
@@ -555,25 +549,25 @@
       c.drawImage(face, W / 2 - 100, 360, 200, 200);
       c.restore();
 
-      c.fillStyle = '#a1a1a1';
+      c.fillStyle = p.ink2;
       c.font = `400 28px ${font}`;
       c.fillText(d.attest, W / 2, 630);
-      c.fillStyle = '#ededed';
+      c.fillStyle = p.ink;
       c.font = `700 68px ${font}`;
       c.fillText(d.got, W / 2, 715);
       const date = result.at.toLocaleDateString(locale(), { day: 'numeric', month: 'long', year: 'numeric' });
       const time = result.at.toLocaleTimeString(locale(), { hour: '2-digit', minute: '2-digit' });
-      c.fillStyle = '#a1a1a1';
+      c.fillStyle = p.ink2;
       c.font = `400 28px ${font}`;
       c.fillText(fill(d.on, { d: date, t: time }), W / 2, 770);
 
       const stats = [[d.fear, $('fearPct').textContent], [d.rank, x.ranks[result.rankIndex]], [d.count, String(result.localCount)]];
       stats.forEach(([label, value], i) => {
         const cx = W / 2 + (i - 1) * 420;
-        c.fillStyle = '#878787';
+        c.fillStyle = p.ink3;
         c.font = `500 22px ${font}`;
         c.fillText(label, cx, 870);
-        c.fillStyle = '#ff981f';
+        c.fillStyle = p.dot;
         c.font = `600 36px ${font}`;
         c.fillText(value, cx, 918);
       });
@@ -581,8 +575,8 @@
       c.save();
       c.translate(W - 240, H - 220);
       c.rotate(-.26);
-      c.strokeStyle = 'rgba(255,107,94,.85)';
-      c.fillStyle = 'rgba(255,107,94,.85)';
+      c.strokeStyle = p.dot;
+      c.fillStyle = p.dot;
       c.lineWidth = 5;
       c.beginPath(); c.arc(0, 0, 110, 0, Math.PI * 2); c.stroke();
       c.font = `700 26px ${font}`;
@@ -590,7 +584,7 @@
       c.fillText(d.stamp[1], 0, 30);
       c.restore();
 
-      c.fillStyle = '#878787';
+      c.fillStyle = p.ink3;
       c.font = `400 20px ${font}`;
       c.textAlign = 'left';
       c.fillText(d.sign, 140, 1010);
@@ -645,8 +639,7 @@
     captcha.removeAttribute('aria-busy');
     captcha.setAttribute('aria-checked', 'false');
     $('allClear').hidden = true;
-    $('barFill').style.width = '0%';
-    $('loadingBar').setAttribute('aria-valuenow', '0');
+    setProgress(0);
     scanStep = 0;
     quizIndex = 0;
   }

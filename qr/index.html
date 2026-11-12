@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ColorQR — Générateur de QR personnalisés et Wi-Fi</title>
+  <meta name="description" content="Crée gratuitement des QR codes personnalisés ou des QR Wi-Fi, avec contrôle automatique du contraste et téléchargement PNG." />
+  <link rel="icon" href="../assets/favicon.webp" type="image/webp" />
+  <link rel="apple-touch-icon" href="../assets/favicon.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js" defer></script>
+  <script src="../assets/site.js" defer></script>
+  <script src="qr.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <a class="back" href="../index.html" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span aria-hidden="true">←</span><span data-i18n="back">Retour</span></a>
+    <div class="top-r">
+      <button class="pill" type="button" id="infoBtn" data-i18n="info">Infos</button>
+      <div class="lang" role="group" aria-label="Choisir la langue"><button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button><button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button></div>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="intro">
+      <h1>ColorQR</h1>
+      <p data-i18n="lead">Un QR code à tes couleurs, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.</p>
+    </section>
+
+    <div class="split">
+      <div class="card stack">
+        <div class="seg" role="tablist">
+          <button id="tabColor" type="button" role="tab" aria-selected="true" aria-controls="panelColor">ColorQR</button>
+          <button id="tabWifi" type="button" role="tab" aria-selected="false" aria-controls="panelWifi" tabindex="-1">Wi-Fi</button>
+        </div>
+
+        <div id="panelColor" role="tabpanel" aria-labelledby="tabColor">
+          <form id="formColor" class="stack">
+            <div class="field">
+              <label for="url" data-i18n="lUrl">Lien</label>
+              <input id="url" type="url" inputmode="url" autocomplete="url" placeholder="https://..." value="https://archivefever.work/qr/" />
+            </div>
+            <div class="field">
+              <span class="label" data-i18n="sColors">Couleurs</span>
+              <div class="palette" data-target="c" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"></div>
+            </div>
+            <div class="two">
+              <div class="field">
+                <label id="lC1" for="c1t" data-i18n="lDark">Couleur des modules</label>
+                <div class="colorline"><input id="c1" type="color" value="#1a1917" aria-labelledby="lC1" /><input id="c1t" type="text" value="#1a1917" spellcheck="false" /></div>
+              </div>
+              <div class="field">
+                <label id="lC2" for="c2t" data-i18n="lLight">Couleur du fond</label>
+                <div class="colorline"><input id="c2" type="color" value="#f7f5f0" aria-labelledby="lC2" /><input id="c2t" type="text" value="#f7f5f0" spellcheck="false" /></div>
+              </div>
+            </div>
+            <p class="hint good" id="contrastColor" role="status"></p>
+            <label class="check"><input id="m1" type="checkbox" checked /><span data-i18n="lMargin">Bordure (marge) — améliore la détection</span></label>
+            <div class="btns">
+              <button class="btn main" type="submit" id="genColor" data-i18n="gen">Générer</button>
+              <button class="btn" type="button" id="swapC" data-i18n="swap">Inverser</button>
+              <button class="btn" type="button" id="randC" data-i18n="rand">Aléatoire</button>
+            </div>
+          </form>
+        </div>
+
+        <div id="panelWifi" role="tabpanel" aria-labelledby="tabWifi" hidden>
+          <form id="formWifi" class="stack">
+            <div class="field">
+              <label for="ssid" data-i18n="lSsid">Nom du Wi-Fi (SSID)</label>
+              <input id="ssid" type="text" placeholder="MonWifi" data-i18n-attr="placeholder:ssidPh" autocomplete="off" required />
+            </div>
+            <div class="two">
+              <div class="field">
+                <label for="pass" data-i18n="lPass">Mot de passe</label>
+                <input id="pass" type="password" placeholder="••••••••" autocomplete="new-password" />
+              </div>
+              <div class="field">
+                <label for="sec" data-i18n="lSec">Sécurité</label>
+                <select id="sec">
+                  <option value="WPA">WPA/WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="nopass" data-i18n="none">Aucune</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <span class="label" data-i18n="sColors">Couleurs</span>
+              <div class="palette" data-target="w" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"></div>
+            </div>
+            <div class="two">
+              <div class="field">
+                <label id="lW1" for="w1t" data-i18n="lDark">Couleur des modules</label>
+                <div class="colorline"><input id="w1" type="color" value="#1a1917" aria-labelledby="lW1" /><input id="w1t" type="text" value="#1a1917" spellcheck="false" /></div>
+              </div>
+              <div class="field">
+                <label id="lW2" for="w2t" data-i18n="lLight">Couleur du fond</label>
+                <div class="colorline"><input id="w2" type="color" value="#f7f5f0" aria-labelledby="lW2" /><input id="w2t" type="text" value="#f7f5f0" spellcheck="false" /></div>
+              </div>
+            </div>
+            <p class="hint good" id="contrastWifi" role="status"></p>
+            <label class="check"><input id="m2" type="checkbox" checked /><span data-i18n="lMargin">Bordure (marge) — améliore la détection</span></label>
+            <div class="btns">
+              <button class="btn main" type="submit" id="genWifi" data-i18n="gen">Générer</button>
+              <button class="btn" type="button" id="swapW" data-i18n="swap">Inverser</button>
+              <button class="btn" type="button" id="randW" data-i18n="rand">Aléatoire</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <aside class="card qr-out" data-i18n-attr="aria-label:preview" aria-label="Aperçu">
+        <div class="qr-screen">
+          <div id="previewBox" class="sheet" hidden><canvas id="canvas" width="256" height="256" aria-label="QR"></canvas></div>
+          <p class="qr-empty" data-i18n="empty">Ton QR apparaîtra ici</p>
+        </div>
+        <p id="status" class="status" data-state="empty" role="status"></p>
+        <a id="dl" class="btn main full" download="qrcode.png" href="#" hidden data-i18n="download">Télécharger</a>
+      </aside>
+    </div>
+  </main>
+
+  <div class="modal" id="infoModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
+    <div class="modal-card">
+      <div class="modal-h">
+        <h2 class="h2" id="infoTitle" data-i18n="info">Infos</h2>
+        <button class="pill" type="button" id="closeInfo" data-i18n="close">Fermer</button>
+      </div>
+      <div class="modal-b" data-i18n-html="modal"></div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>ArchiveFever.Work</span>
+  </footer>
+</body>
+</html>

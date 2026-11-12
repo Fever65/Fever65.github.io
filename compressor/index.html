@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>File Compressor — Images, vidéos et dossiers plus légers</title>
+  <meta name="description" content="Allège tes images, compresse de courtes vidéos et crée des ZIP. Gratuit, sans compte, directement sur ton appareil." />
+  <link rel="icon" href="../assets/favicon.webp" type="image/webp" />
+  <link rel="apple-touch-icon" href="../assets/favicon.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../assets/site.js" defer></script>
+  <script src="vendor/jszip.min.js" defer></script>
+  <script src="compressor.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <a class="back" href="../index.html" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span aria-hidden="true">←</span><span data-i18n="back">Retour</span></a>
+    <div class="lang" role="group" aria-label="Choisir la langue"><button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button><button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button></div>
+  </header>
+
+  <main class="page">
+    <section class="intro">
+      <h1>File Compressor</h1>
+      <p><span data-i18n="lead">Tes fichiers, en plus léger.</span> <span data-i18n="privacy">Sur ton appareil. Aucun fichier envoyé.</span></p>
+    </section>
+
+    <div class="seg modes" role="group" data-i18n-attr="aria-label:typeLabel" aria-label="Type de fichiers">
+      <button class="mode active" type="button" data-mode="images" aria-pressed="true"><span data-i18n="images">Images</span><small>JPG · PNG → WebP</small></button>
+      <button class="mode" type="button" data-mode="videos" aria-pressed="false"><span data-i18n="videos">Vidéos</span><small data-i18n="videosSub">Clips courts → MP4</small></button>
+      <button class="mode" type="button" data-mode="folders" aria-pressed="false"><span data-i18n="folders">Dossiers / ZIP</span><small data-i18n="foldersSub">Tout dans une archive</small></button>
+    </div>
+
+    <div class="split">
+      <section class="card stack" aria-labelledby="dropTitle">
+        <div id="dropzone" class="drop">
+          <div class="stack tight center">
+            <h3 id="dropTitle">Dépose tes images ici</h3>
+            <p id="dropHint" class="hint">JPG, PNG · GIF et WebP conservés sans modification</p>
+            <div class="btns center">
+              <button id="chooseFiles" type="button" class="btn" data-i18n="chooseFiles">Choisir des fichiers</button>
+              <button id="chooseFolder" type="button" class="btn" hidden data-i18n="chooseFolder">Choisir un dossier</button>
+            </div>
+            <input type="file" id="filesInput" multiple hidden accept="image/*" />
+            <input type="file" id="folderInput" webkitdirectory multiple hidden />
+            <p class="hint" id="limitHint">Moins de 2 Gio par fichier et sélection · images : 40 Mpx max.</p>
+          </div>
+        </div>
+        <div class="queue-head">
+          <span class="label" data-i18n="selection">Ta sélection</span>
+          <div><span id="queueCount">0 fichier</span><button id="clear" type="button" class="text-button" hidden data-i18n="clear">Tout retirer</button></div>
+        </div>
+        <p id="empty" class="empty" data-i18n="empty">Les fichiers apparaîtront ici.</p>
+        <ul id="fileList" class="file-list" data-i18n-attr="aria-label:listLabel" aria-label="Fichiers sélectionnés"></ul>
+      </section>
+
+      <aside class="card stack" aria-label="Réglages">
+        <fieldset id="qualityField">
+          <legend data-i18n="quality">Le bon équilibre</legend>
+          <label class="preset"><input type="radio" name="quality" value="high" /><span><strong data-i18n="high">Qualité élevée</strong><small data-i18n="highDesc">Une réduction légère</small></span></label>
+          <label class="preset"><input type="radio" name="quality" value="balanced" checked /><span><strong data-i18n="balanced">Équilibré</strong><small data-i18n="balancedDesc">Le meilleur compromis</small></span></label>
+          <label class="preset"><input type="radio" name="quality" value="small" /><span><strong data-i18n="small">Poids minimum</strong><small data-i18n="smallDesc">Qualité et dimensions réduites</small></span></label>
+        </fieldset>
+        <div id="folderOptions" class="stack tight" hidden>
+          <label class="check"><input type="checkbox" id="optimize" /><span data-i18n="optimize">Alléger aussi les images et vidéos</span></label>
+          <p class="hint" data-i18n="folderNote">Désactivé : ZIP sans modifier les fichiers.</p>
+        </div>
+        <p id="qualityNote" class="hint">La compression peut réduire la qualité. Tes originaux restent intacts.</p>
+        <div class="run-zone">
+          <button id="run" type="button" class="btn main full" disabled><span>Alléger mes fichiers</span></button>
+          <button id="cancel" type="button" class="btn full" hidden data-i18n="cancel">Annuler le traitement</button>
+          <div id="progressArea" class="stack tight" hidden><progress id="progress" max="1" value="0"></progress><p id="progressText" class="hint" role="status" aria-live="polite"></p></div>
+          <p id="status" class="hint" role="status" aria-live="polite"></p>
+        </div>
+      </aside>
+    </div>
+
+    <section id="results" class="card stack" hidden aria-labelledby="resultTitle">
+      <div class="queue-head">
+        <h2 class="h2" id="resultTitle">Prêt à télécharger</h2>
+        <a id="downloadZip" class="btn main" hidden download="compressed.zip" data-i18n="downloadZip">Télécharger le ZIP ↓</a>
+      </div>
+      <div id="stats" class="stats"></div>
+      <p id="resultNote" class="hint"></p>
+      <div id="preview" class="preview" hidden>
+        <figure><img id="beforeImg" alt="Image originale" data-i18n-attr="alt:beforeAlt" /><figcaption data-i18n="before">Avant</figcaption></figure>
+        <figure><img id="afterImg" alt="Image après traitement" data-i18n-attr="alt:afterAlt" /><figcaption data-i18n="after">Après</figcaption></figure>
+      </div>
+    </section>
+
+    <details>
+      <summary data-i18n="know">À savoir avant de commencer</summary>
+      <div>
+        <p data-i18n="deviceWarning"></p>
+        <p data-i18n="knowImages"></p>
+        <p data-i18n="knowVideos"></p>
+        <p data-i18n="knowZip"></p>
+        <p><a href="LICENSES.md" data-i18n="licenses">Logiciels libres &amp; licences</a></p>
+      </div>
+    </details>
+    <noscript><p class="hint">Active JavaScript pour utiliser cet outil. · Enable JavaScript to use this tool.</p></noscript>
+  </main>
+
+  <footer class="foot">
+    <span>ArchiveFever.Work</span>
+  </footer>
+</body>
+</html>

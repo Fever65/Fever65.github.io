@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>ArchiveFever.Work</title>
-<style>
-  html, body { height: 100%; margin: 0; }
-  body { display: flex; align-items: center; justify-content: center; background: #fff; color: #111; font-family: ui-monospace, Menlo, monospace; font-size: 15px; line-height: 1.6; text-align: center; padding: 2rem; }
-  h1 { font-size: 1rem; font-weight: normal; letter-spacing: .08em; margin: 0 0 1rem; }
-  p { margin: 0; color: #666; }
-  @media (prefers-color-scheme: dark) { body { background: #0b0b0b; color: #eee; } p { color: #888; } }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ArchiveFever.Work</title>
+  <meta name="description" content="Petits outils faits main : QR codes, compression, recherche Minecraft." />
+  <link rel="icon" href="assets/favicon.webp" type="image/webp" />
+  <link rel="apple-touch-icon" href="assets/favicon.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/style.css" />
 </head>
-<body>
+<body class="home">
+  <header>
+    <h1>Archive<span class="accent">Fever</span>.Work</h1>
+  </header>
+
   <main>
-    <h1>ArchiveFever.Work</h1>
-    <p>Site en maintenance.<br>De retour bientôt (Joyeux Noël).</p>
+    <!-- Ajouter un projet : <li><a href="dossier/index.html">Nom</a></li> -->
+    <ul class="projets">
+      <li><a href="qr/index.html">ColorQR</a></li>
+      <li><a href="compressor/index.html">File Compressor</a></li>
+      <li><a href="spawners/index.html">Beta 1.7.3 Spawners</a></li>
+    </ul>
+    <p class="vide">Aucun projet pour l’instant.</p>
   </main>
+
+  <footer class="liens">
+    <!-- Ajouter un réseau : <a href="https://...">Nom</a> -->
+    <a href="https://www.youtube.com/@Feveeeer">YouTube</a>
+    <a href="https://www.twitch.tv/feveeeer">Twitch</a>
+    <a href="https://x.com/infinity_lbrtr">X</a>
+    <a href="https://steamcommunity.com/id/Fever65/">Steam</a>
+    <a href="https://paypal.me/SylvainHirtz">PayPal</a>
+  </footer>
 </body>
 </html>

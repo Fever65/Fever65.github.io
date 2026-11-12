@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Beta 1.7.3 Spawners | ArchiveFever.Work</title>
+  <meta name="description" content="Un seed de donjon pour chaque hauteur de Y1 à Y120 hors Far Lands dans Minecraft Java Beta 1.7.3." />
+  <link rel="icon" href="../assets/favicon.webp" type="image/webp" />
+  <link rel="apple-touch-icon" href="../assets/favicon.webp" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/style.css" />
+  <script src="../assets/site.js" defer></script>
+  <script src="spawners.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <a class="back" href="../index.html" data-i18n-attr="aria-label:backAria" aria-label="Retour à l'accueil"><span aria-hidden="true">←</span><span data-i18n="back">Retour</span></a>
+    <div class="lang" role="group" aria-label="Choisir la langue"><button type="button" data-set-lang="fr" aria-pressed="true" lang="fr">FR</button><button type="button" data-set-lang="en" aria-pressed="false" lang="en">EN</button></div>
+  </header>
+
+  <main class="page">
+    <section class="intro">
+      <h1>Beta 1.7.3 Spawners</h1>
+      <p data-lang="fr">Un seed de donjon pour chaque hauteur, de Y1 à Y120, hors Far Lands dans Minecraft Java Beta 1.7.3.</p>
+      <p data-lang="en">A dungeon seed for every height, from Y1 to Y120, outside the Far Lands in Minecraft Java Beta 1.7.3.</p>
+    </section>
+
+    <div class="stats" data-i18n-attr="aria-label:metricsLabel" aria-label="Résumé des résultats">
+      <div class="stat"><span class="metric-value">Y1</span><span class="metric-label" data-i18n="mLowest">Plus bas trouvé</span></div>
+      <div class="stat"><span class="metric-value good">Y120</span><span class="metric-label" data-i18n="mHighest">Plus haut hors Far Lands</span></div>
+      <div class="stat"><span class="metric-value">120</span><span class="metric-label" data-i18n="mConsecutive">Hauteurs consécutives</span></div>
+    </div>
+
+    <section class="card stack" id="altitude" aria-labelledby="altTitle">
+      <div class="stack tight">
+        <h2 class="h2" id="altTitle" data-i18n="altTitle">120 hauteurs. 120 donjons.</h2>
+        <p class="alt-legend">
+          <span><i class="lg"></i><span data-i18n="legendFound">Trouvé hors Far Lands</span></span>
+          <span><i class="lg lg-video"></i><span data-i18n="legendVideo">Avec vidéo</span></span>
+          <span><i class="lg lg-record"></i><span data-i18n="legendRecord">Record Y120</span></span>
+        </p>
+      </div>
+      <div>
+        <div class="alt-map" id="altMap" role="group" data-i18n-attr="aria-label:mapLabel" aria-label="Carte des hauteurs Y1 → Y120"></div>
+        <div class="alt-axis" aria-hidden="true"><span>Y1</span><span>Y30</span><span>Y60</span><span>Y90</span><span>Y120</span></div>
+        <p class="alt-readout" id="altReadout" aria-live="polite" data-i18n="readout">Survole ou touche une barre pour voir son seed. Clique pour l’ouvrir dans la base.</p>
+      </div>
+    </section>
+
+    <section class="card stack" aria-labelledby="y120Title">
+      <h2 class="h2" id="y120Title" data-i18n="y120Found">Y120 trouvé !</h2>
+      <p class="muted" data-lang="fr">Le seed <b>6000000000040461505</b> contient un spawner Zombie confirmé en jeu aux coordonnées <b>X=-993, Y=120, Z=-65</b>. À cette altitude presque tout est de l’air : un donjon y a besoin d’un sol, d’un plafond et d’une salle complète en même temps. C’est ce qui rend Y120 si rare.</p>
+      <p class="muted" data-lang="en">Seed <b>6000000000040461505</b> contains an in-game confirmed zombie spawner at <b>X=-993, Y=120, Z=-65</b>. At this altitude almost everything is air: a dungeon needs a floor, a ceiling and a complete room at the same time. That is what makes Y120 so rare.</p>
+      <div class="btns">
+        <a class="btn main" href="https://youtu.be/srNnxU39jTk" target="_blank" rel="noopener noreferrer"><span data-i18n="watchY120">Voir la découverte Y120 en vidéo</span><span aria-hidden="true">↗</span></a>
+        <a class="btn" href="https://www.youtube.com/playlist?list=PLGEuEha_uXWY" target="_blank" rel="noopener noreferrer" data-i18n="playlist">Playlist Beta Spawner sur YouTube ↗</a>
+      </div>
+    </section>
+
+    <section class="stack" id="database" aria-labelledby="databaseTitle">
+      <div class="stack tight">
+        <h2 class="h2" id="databaseTitle" data-i18n="dbTitle">Tous les seeds, de Y1 à Y120.</h2>
+        <p class="hint" data-lang="fr">Clique sur un seed pour le copier.</p>
+        <p class="hint" data-lang="en">Click a seed to copy it.</p>
+      </div>
+      <div class="controls">
+        <label class="sr-only" for="seedSearch" data-i18n="searchLabel">Rechercher dans les seeds</label>
+        <input id="seedSearch" type="search" autocomplete="off" data-i18n-attr="placeholder:searchPlaceholder" placeholder="Rechercher un Y, un seed ou une coordonnée…" />
+        <button class="btn" id="videoFilter" type="button" aria-pressed="false" data-i18n="legendVideo">Avec vidéo</button>
+        <button class="btn" id="copyAll" type="button" data-i18n="copy">Copier la liste</button>
+      </div>
+      <div class="table-meta">
+        <span id="resultCount" aria-live="polite"></span>
+        <span data-i18n="coordsFormat">Coordonnées : X, Y, Z</span>
+      </div>
+      <div class="table-wrap" tabindex="0" role="region" aria-labelledby="databaseTitle">
+        <table id="seedTable">
+          <caption data-i18n="caption">Seeds de donjons Beta 1.7.3 par hauteur Y</caption>
+          <thead>
+            <tr>
+              <th scope="col">Y</th>
+              <th scope="col">Seed</th>
+              <th scope="col" data-i18n="colF3">Position F3</th>
+              <th scope="col" data-i18n="colVideo">Preuve vidéo</th>
+            </tr>
+          </thead>
+          <tbody id="seedRows"></tbody>
+        </table>
+        <p class="empty-state" id="emptyState" hidden data-i18n="emptyState">Aucun résultat pour cette recherche.</p>
+      </div>
+      <p class="hint" data-i18n="credits">Recherche et données : Fever.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>ArchiveFever.Work</span>
+  </footer>
+
+<script id="seedData" type="application/json">
+[
+  {"y":"1","seed":"11133241127707","coords":"(20, 1, 11)","video":"https://www.youtube.com/watch?v=4EzJtWqlrg8"},
+  {"y":"2","seed":"800000006596469","coords":"(-1, 2, 4)","video":"https://www.youtube.com/watch?v=DAZchmHTO7U"},
+  {"y":"3","seed":"500000000030321","coords":"(-1, 3, 0)","video":"https://www.youtube.com/watch?v=nYqflXcOhhI"},
+  {"y":"4","seed":"545","coords":"(76, 4, 49)","video":""},
+  {"y":"5","seed":"52","coords":"(-43, 5, 44)","video":""},
+  {"y":"6","seed":"2281","coords":"(-50, 6, 43)","video":""},
+  {"y":"7","seed":"1897","coords":"(70, 7, 75)","video":""},
+  {"y":"8","seed":"2196","coords":"(41, 8, 0)","video":""},
+  {"y":"9","seed":"1497","coords":"(-30, 9, -32)","video":""},
+  {"y":"10","seed":"2080","coords":"(-18, 10, 69)","video":""},
+  {"y":"11","seed":"67","coords":"(-49, 11, -2)","video":"https://youtu.be/GM7oGBzP1Lo"},
+  {"y":"12","seed":"300","coords":"(-13, 12, -40)","video":""},
+  {"y":"13","seed":"328","coords":"(-19, 13, -30)","video":""},
+  {"y":"14","seed":"245","coords":"(16, 14, 22)","video":""},
+  {"y":"15","seed":"19","coords":"(50, 15, 23)","video":""},
+  {"y":"16","seed":"10","coords":"(7, 16, -32)","video":""},
+  {"y":"17","seed":"32","coords":"(46, 17, -40)","video":""},
+  {"y":"18","seed":"52","coords":"(32, 18, -15)","video":""},
+  {"y":"19","seed":"199759026695750900","coords":"(13, 19, 20)","video":""},
+  {"y":"20","seed":"10","coords":"(58, 20, 0)","video":""},
+  {"y":"21","seed":"76","coords":"(-8, 21, 67)","video":""},
+  {"y":"22","seed":"92","coords":"(-13, 22, 1)","video":""},
+  {"y":"23","seed":"9","coords":"(23, 23, -53)","video":""},
+  {"y":"24","seed":"8","coords":"(7, 24, 59)","video":""},
+  {"y":"25","seed":"95","coords":"(59, 25, 53)","video":""},
+  {"y":"26","seed":"65","coords":"(-39, 26, 45)","video":""},
+  {"y":"27","seed":"987","coords":"(-10, 27, -31)","video":""},
+  {"y":"28","seed":"19","coords":"(71, 28, 2)","video":""},
+  {"y":"29","seed":"43","coords":"(55, 29, 48)","video":""},
+  {"y":"30","seed":"10","coords":"(-40, 30, -33)","video":""},
+  {"y":"31","seed":"42","coords":"(50, 31, -33)","video":""},
+  {"y":"32","seed":"31","coords":"(71, 32, 71)","video":""},
+  {"y":"33","seed":"32","coords":"(-30, 33, 9)","video":""},
+  {"y":"34","seed":"10","coords":"(51, 34, 26)","video":""},
+  {"y":"35","seed":"38","coords":"(29, 35, 63)","video":""},
+  {"y":"36","seed":"99","coords":"(39, 36, 31)","video":""},
+  {"y":"37","seed":"66","coords":"(57,37, 37)","video":""},
+  {"y":"38","seed":"55","coords":"(53, 38, -33)","video":""},
+  {"y":"39","seed":"992","coords":"(-2, 39, 8)","video":""},
+  {"y":"40","seed":"110","coords":"(68, 40, 21)","video":""},
+  {"y":"41","seed":"164","coords":"(-23, 41, 18)","video":""},
+  {"y":"42","seed":"25","coords":"(-10, 42, -10)","video":""},
+  {"y":"43","seed":"6","coords":"(27, 43, -4)","video":""},
+  {"y":"44","seed":"15","coords":"(1, 44, 2)","video":""},
+  {"y":"45","seed":"10","coords":"(-22, 45, 3)","video":""},
+  {"y":"46","seed":"67","coords":"(-6, 46, 25)","video":""},
+  {"y":"47","seed":"31","coords":"(50, 47, -24)","video":""},
+  {"y":"48","seed":"24","coords":"(-7, 48, 1)","video":""},
+  {"y":"49","seed":"16","coords":"(63, 49, 61)","video":""},
+  {"y":"50","seed":"44","coords":"(-13, 50, 14)","video":""},
+  {"y":"51","seed":"34","coords":"(-3, 51, 34)","video":""},
+  {"y":"52","seed":"18","coords":"(32, 52, 48)","video":""},
+  {"y":"53","seed":"41","coords":"(-20, 53, 31)","video":""},
+  {"y":"54","seed":"57","coords":"(43, 54, 44)","video":""},
+  {"y":"55","seed":"157","coords":"(63, 55, 31)","video":""},
+  {"y":"56","seed":"52","coords":"(71, 56, -30)","video":""},
+  {"y":"57","seed":"52","coords":"(35, 57, 34)","video":""},
+  {"y":"58","seed":"354738866336982400","coords":"(-99, 58, -320)","video":""},
+  {"y":"59","seed":"52","coords":"(27, 59, -3)","video":""},
+  {"y":"60","seed":"259","coords":"(62, 60, 70)","video":""},
+  {"y":"61","seed":"312","coords":"(-31, 61, -37)","video":""},
+  {"y":"62","seed":"356","coords":"(35, 62, -40)","video":""},
+  {"y":"63","seed":"59","coords":"(41, 63, 67)","video":""},
+  {"y":"64","seed":"186","coords":"(4, 64, -20)","video":""},
+  {"y":"65","seed":"79","coords":"(-35, 65, 12)","video":""},
+  {"y":"66","seed":"223","coords":"(-34, 66, 46)","video":""},
+  {"y":"67","seed":"465","coords":"(51, 67, -25)","video":""},
+  {"y":"68","seed":"2325","coords":"(18, 68, 49)","video":""},
+  {"y":"69","seed":"68","coords":"(-11, 69, 23)","video":""},
+  {"y":"70","seed":"606","coords":"(53, 70, -39)","video":""},
+  {"y":"71","seed":"253","coords":"(-34, 71, -23)","video":""},
+  {"y":"72","seed":"293","coords":"(45, 72, 46)","video":""},
+  {"y":"73","seed":"41","coords":"(30, 73, 63)","video":""},
+  {"y":"74","seed":"998","coords":"(15, 74, -36)","video":""},
+  {"y":"75","seed":"2371","coords":"(-25, 75, -6)","video":""},
+  {"y":"76","seed":"519","coords":"(-39, 76, 29)","video":""},
+  {"y":"77","seed":"701","coords":"(13, 77, -8)","video":""},
+  {"y":"78","seed":"887","coords":"(-14, 78, 20)","video":""},
+  {"y":"79","seed":"1539","coords":"(47, 79, 2)","video":""},
+  {"y":"80","seed":"625","coords":"(5, 80, 37)","video":""},
+  {"y":"81","seed":"6800","coords":"(38, 81, 67)","video":""},
+  {"y":"82","seed":"360","coords":"(-28, 82, -2)","video":""},
+  {"y":"83","seed":"973","coords":"(-27, 83, 14)","video":""},
+  {"y":"84","seed":"175","coords":"(44, 84, -20)","video":""},
+  {"y":"85","seed":"8807","coords":"(51, 85, 53)","video":""},
+  {"y":"86","seed":"8698","coords":"(24, 86, 37)","video":""},
+  {"y":"87","seed":"9040","coords":"(66, 87, 15)","video":""},
+  {"y":"88","seed":"4192","coords":"(54, 88, 18)","video":""},
+  {"y":"89","seed":"397","coords":"(50, 89, -35)","video":""},
+  {"y":"90","seed":"7175","coords":"(57, 90, -18)","video":""},
+  {"y":"91","seed":"31863","coords":"(14, 91, 41)","video":""},
+  {"y":"92","seed":"23868","coords":"(-35, 92, 26)","video":""},
+  {"y":"93","seed":"7000000004668","coords":"(10, 93, 19)","video":""},
+  {"y":"94","seed":"724","coords":"(14, 94, 6)","video":""},
+  {"y":"95","seed":"35479","coords":"(-25, 95, -2)","video":""},
+  {"y":"96","seed":"7014","coords":"(-29, 96, 42)","video":""},
+  {"y":"97","seed":"4000000049148","coords":"(20, 97, 14)","video":""},
+  {"y":"98","seed":"99418","coords":"(29, 98, 52)","video":""},
+  {"y":"99","seed":"114760","coords":"(-9, 99, -12)","video":""},
+  {"y":"100","seed":"81871","coords":"(1, 100, 41)","video":""},
+  {"y":"101","seed":"4371","coords":"(37, 101, -39)","video":""},
+  {"y":"102","seed":"13000000000112","coords":"(-159, 102, 1)","video":""},
+  {"y":"103","seed":"18000000000291","coords":"(116, 103, -24)","video":""},
+  {"y":"104","seed":"101384","coords":"(-32, 104, -13)","video":""},
+  {"y":"105","seed":"629863","coords":"(28, 105, 20)","video":""},
+  {"y":"106","seed":"29773","coords":"(-1, 106, 46)","video":""},
+  {"y":"107","seed":"1645063","coords":"(31, 107, 2)","video":""},
+  {"y":"108","seed":"200802","coords":"(8, 108, 44)","video":""},
+  {"y":"109","seed":"1499974","coords":"(21, 109, -10)","video":""},
+  {"y":"110","seed":"1421304","coords":"(-1, 110, -1)","video":""},
+  {"y":"111","seed":"507416","coords":"(19, 111, -16)","video":""},
+  {"y":"112","seed":"40000000000817","coords":"(-43, 112, 62)","video":"https://www.youtube.com/watch?v=yi7_WKfddUE"},
+  {"y":"113","seed":"395516364","coords":"(10, 113, 14)","video":"https://www.youtube.com/watch?v=nlbFYd6POAU"},
+  {"y":"114","seed":"108383170","coords":"(10, 114, 14)","video":"https://www.youtube.com/watch?v=fVRbTek_MPU"},
+  {"y":"115","seed":"314149598","coords":"(13, 115, 15)","video":"https://www.youtube.com/watch?v=yk5mMQyNvho"},
+  {"y":"116","seed":"3570","coords":"(2817, 116, 1823)","video":"https://www.youtube.com/watch?v=SQGjBac8hjk"},
+  {"y":"117","seed":"1443271995859","coords":"(9, 117, 21)","video":"https://www.youtube.com/watch?v=OJOsyxq2wog"},
+  {"y":"117","seed":"1070467979114189800","coords":"(-566, 117, 280)","video":""},
+  {"y":"118","seed":"539109322897647550","coords":"(-493, 118, -267)","video":"https://www.youtube.com/watch?v=gf4ZneFkQwA"},
+  {"y":"119","seed":"2007684728","coords":"(226, 119, 102)","video":"https://www.youtube.com/watch?v=1LNZ1SJtqaI"},
+  {"y":"120","seed":"6000000000040461505","coords":"(-993, 120, -65)","video":"https://youtu.be/srNnxU39jTk"},
+  {"divider":"farlands"},
+  {"y":"119","seed":"539109322897647550","coords":"(12 580 766, 119, 336 078)","video":"","farlands":true}
+]
+  </script>
+</body>
+</html>

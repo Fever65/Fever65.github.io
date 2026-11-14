@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d">
+<meta name="robots" content="noindex">
+<title>JEROMED</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#ecebe6; --white:#fafaf7; --ink:#0d0d0d; --grey:#8f8c84; --red:#ff3b1f;
+  --tx:0; --ty:0;
+  --serif:'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --mono:'Space Mono', ui-monospace, Menlo, monospace;
+  --sans:'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{overflow-x:hidden;overflow-x:clip}
+html{background:var(--paper);transition:filter .25s}
+body{font-family:var(--sans);color:var(--ink);min-height:100vh;line-height:1.4;user-select:none;-webkit-user-select:none}
+body.locked{overflow:hidden;height:100vh}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input{font:inherit;user-select:text;-webkit-user-select:text}
+html.inv{filter:invert(1)}
+
+/* ===== FOND ===== */
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-2;display:block}
+.grain{position:fixed;inset:-50%;z-index:-1;pointer-events:none;opacity:.12;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain .5s steps(4) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
+
+/* ===== LOADER ===== */
+#loader{position:fixed;inset:0;z-index:100;background:var(--ink);color:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:22px;text-align:center;transition:clip-path 1s cubic-bezier(.8,0,.2,1)}
+#loader.gone{clip-path:inset(50% 0 50% 0);pointer-events:none}
+.ld-logo{font-family:var(--serif);font-style:italic;font-size:clamp(3.4rem,17vw,6rem);line-height:1;animation:ldflick 2s steps(1) infinite}
+@keyframes ldflick{0%,92%{opacity:1}93%{opacity:.2}95%{opacity:1}97%{opacity:0}}
+.ld-msg{font-family:var(--mono);font-size:.85rem;min-height:2.8em;max-width:320px}
+.ld-bar{width:min(300px,80vw);height:6px;background:#333;position:relative}
+.ld-fill{height:100%;width:0;background:var(--paper);transition:width .45s cubic-bezier(.5,1.6,.4,1)}
+.ld-pct{font-family:var(--mono);font-size:1.6rem}
+.ld-btn{opacity:0;transform:translateY(20px);pointer-events:none;transition:.5s cubic-bezier(.3,1.8,.5,1);font-family:var(--mono);font-weight:700;font-size:1rem;letter-spacing:.08em;background:var(--paper);color:var(--ink);padding:16px 26px;border:2px solid var(--paper);box-shadow:6px 6px 0 var(--red)}
+.ld-btn.show{opacity:1;transform:none;pointer-events:auto}
+.ld-btn:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--red)}
+.ld-small{font-family:var(--mono);font-size:.68rem;opacity:.45;max-width:300px}
+
+/* ===== BARRE / MUTE ===== */
+#regret{position:fixed;top:0;left:0;right:0;z-index:50;height:24px;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.66rem;display:flex;align-items:center;overflow:hidden;padding-top:env(safe-area-inset-top)}
+#regret .fill{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--red)}
+#regret span{position:relative;padding-left:10px;letter-spacing:.06em}
+#mute{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:60;width:50px;height:50px;border-radius:50%;background:var(--white);border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);font-family:var(--mono);font-weight:700;font-size:.7rem}
+
+/* ===== LAYOUT ===== */
+main{max-width:560px;margin:0 auto;padding:36px 16px 120px;position:relative}
+section{margin:0 0 76px}
+
+/* ===== HERO ===== */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:space-between;text-align:center;padding:26px 0 30px;margin-bottom:20px}
+.hero-top{display:flex;flex-direction:column;align-items:center;gap:12px;transform:translate(calc(var(--tx)*-8px),calc(var(--ty)*-6px))}
+.access{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+.wordmark{font-family:var(--serif);font-size:clamp(2.6rem,13vw,5rem);line-height:.9;display:flex;cursor:pointer}
+.wordmark span{display:inline-block;animation:wob 2.6s ease-in-out infinite;animation-delay:calc(var(--i) * -.35s);transition:transform .35s cubic-bezier(.3,2,.5,1),opacity .3s}
+.wordmark span:nth-child(odd){font-style:italic}
+.wordmark span.r{color:var(--red)}
+.wordmark span.pop{transform:scale(0) rotate(-220deg)!important;opacity:0;animation:none}
+@keyframes wob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-.08em) rotate(4deg)}}
+.eyes{display:flex;gap:10px;transform:translate(calc(var(--tx)*12px),calc(var(--ty)*8px))}
+.eye{width:clamp(48px,13vw,66px);aspect-ratio:1;background:var(--white);border:3px solid var(--ink);border-radius:50%;position:relative;overflow:hidden;transition:transform .08s;cursor:pointer}
+.eye.blink{transform:scaleY(.06)}
+.pupil{position:absolute;width:44%;aspect-ratio:1;left:50%;top:50%;background:var(--ink);border-radius:50%;transform:translate(calc(-50% + var(--px,0px)),calc(-50% + var(--py,0px)));transition:transform .12s ease-out}
+.pupil::after{content:'';position:absolute;width:30%;aspect-ratio:1;background:var(--white);border-radius:50%;top:16%;left:18%}
+
+.babel{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;padding:22px 0;cursor:pointer}
+.babel-lang{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:flex;gap:8px;align-items:center}
+.babel-lang i{font-style:normal;background:var(--ink);color:var(--paper);padding:3px 8px}
+.babel-lang b{color:var(--red)}
+#babel{font-family:var(--serif);line-height:.95;letter-spacing:-.01em;max-width:100%;word-wrap:break-word;overflow-wrap:anywhere;min-height:2em;display:flex;align-items:center;justify-content:center;transition:transform .25s}
+#babel.hit{transform:scale(.94) rotate(-1.5deg)}
+.babel-ctrl{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;justify-content:center}
+.chip{font-family:var(--mono);font-weight:700;font-size:.78rem;letter-spacing:.06em;padding:11px 16px;border:2px solid var(--ink);background:var(--white);box-shadow:3px 3px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.chip:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.chip.red{background:var(--red);color:var(--white)}
+.hero-bot{font-family:var(--mono);font-size:.7rem;opacity:.75;display:flex;flex-direction:column;gap:12px;align-items:center}
+.hero-bot b{color:var(--red)}
+.scrolldown{animation:bounce 1.1s ease-in-out infinite;letter-spacing:.1em}
+@keyframes bounce{50%{transform:translateY(8px)}}
+
+/* ===== BANDEAUX ===== */
+.marquee{margin:0 -40px 76px;overflow:hidden;background:var(--ink);color:var(--paper);transform:rotate(-2.5deg);font-family:var(--mono);font-weight:700;font-size:.95rem;padding:10px 0;white-space:nowrap;letter-spacing:.04em}
+.marquee.alt{background:var(--white);color:var(--ink);border-block:2px solid var(--ink);transform:rotate(2deg)}
+.marquee div{display:inline-block;animation:marq 22s linear infinite}
+.marquee.alt div{animation-direction:reverse;animation-duration:26s}
+.marquee em{color:var(--red);font-style:normal}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ===== CARTES ===== */
+.card{background:var(--white);color:var(--ink);border:2px solid var(--ink);padding:26px 20px 22px;box-shadow:8px 8px 0 var(--ink);position:relative;transform:rotate(var(--rot,0deg));opacity:0;translate:0 60px;transition:opacity .7s,translate .8s cubic-bezier(.2,1.5,.4,1)}
+.card.in{opacity:1;translate:0 0}
+.card.dark{background:var(--ink);color:var(--paper);box-shadow:8px 8px 0 var(--red)}
+.num{position:absolute;top:-14px;left:16px;background:var(--red);color:var(--white);font-family:var(--mono);font-weight:700;font-size:.72rem;padding:4px 10px;transform:rotate(-4deg)}
+.card h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,9vw,2.7rem);line-height:.95;margin:4px 0 6px}
+.card h2 em{font-style:italic}
+.tr{font-family:var(--mono);font-size:.62rem;line-height:1.6;opacity:.5;margin-bottom:12px;letter-spacing:.02em}
+.card p.sub{font-size:.95rem;opacity:.8;margin-bottom:18px}
+.bigbtn{font-family:var(--mono);font-weight:700;font-size:.95rem;letter-spacing:.05em;padding:15px 22px;background:var(--ink);color:var(--paper);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--red);transition:transform .08s,box-shadow .08s}
+.bigbtn:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--red)}
+.dark .bigbtn{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+
+/* bouton */
+.zone{height:230px;position:relative;border:2px dashed currentColor;overflow:hidden}
+#nope{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-weight:700;font-size:1rem;background:var(--red);color:var(--white);width:132px;height:132px;border-radius:50%;border:3px solid var(--paper);box-shadow:0 0 0 3px var(--red),0 10px 0 3px #000;transition:left .25s cubic-bezier(.3,1.6,.5,1),top .25s cubic-bezier(.3,1.6,.5,1);line-height:1.15;padding:10px}
+#nope:active{box-shadow:0 0 0 3px var(--red),0 3px 0 3px #000}
+
+/* traducteur */
+.trin{width:100%;padding:14px;border:2px solid var(--ink);background:var(--paper);font-size:16px;color:var(--ink);margin-bottom:10px}
+.trout{font-family:var(--serif);font-style:italic;font-size:1.9rem;line-height:1.05;min-height:2.2em;padding:14px 0;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);margin:14px 0 10px;word-wrap:break-word}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+
+/* faits */
+.flip{perspective:900px;height:210px;cursor:pointer}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.4,1.6,.4,1);transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:grid;place-items:center;padding:20px;text-align:center;font-family:var(--serif);font-size:1.45rem;line-height:1.1;border:2px solid var(--ink)}
+.face.f1{background:var(--ink);color:var(--paper)}
+.face.f2{background:var(--paper);transform:rotateY(180deg)}
+.face small{display:block;font-family:var(--mono);font-size:.62rem;opacity:.55;margin-top:10px}
+.hint{font-family:var(--mono);font-size:.66rem;opacity:.55;margin-top:10px;text-align:center}
+
+/* oracle */
+.oracle{display:flex;flex-direction:column;align-items:center;gap:16px}
+.ball{width:180px;aspect-ratio:1;border-radius:50%;position:relative;overflow:hidden;cursor:pointer;border:3px solid var(--paper);background:radial-gradient(circle at 35% 30%,#fff 0 5%,#bbb 18%,#333 60%,#000 100%)}
+.ball::before{content:'';position:absolute;inset:-20%;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.18) 0 10deg,transparent 10deg 20deg);animation:spin 6s linear infinite;mix-blend-mode:screen}
+.ball .q{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-size:4rem;color:#fff;z-index:2;mix-blend-mode:difference}
+.ball.shake{animation:bshake .1s linear 10}
+@keyframes bshake{25%{transform:translate(-6px,3px) rotate(-4deg)}75%{transform:translate(6px,-3px) rotate(4deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.prophecy{min-height:5.5em;text-align:center;font-family:var(--serif);font-size:1.45rem;line-height:1.1;width:100%;padding:12px 4px}
+.prophecy small{display:block;font-family:var(--mono);font-size:.68rem;color:var(--red);margin-top:8px}
+
+/* roue */
+.wheelwrap{position:relative;width:min(300px,78vw);aspect-ratio:1;margin:8px auto 18px}
+#wheel{width:100%;height:100%;border-radius:50%;border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);transition:transform 4.6s cubic-bezier(.12,.8,.12,1)}
+.pointer{position:absolute;top:-14px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:30px solid var(--red);z-index:2}
+.hub{position:absolute;left:50%;top:50%;width:56px;height:56px;transform:translate(-50%,-50%);border-radius:50%;background:var(--red);color:var(--white);font-family:var(--mono);font-weight:700;display:grid;place-items:center;font-size:.8rem;border:3px solid var(--ink)}
+.result{text-align:center;font-family:var(--serif);font-size:1.35rem;line-height:1.1;min-height:2.4em;margin-top:14px}
+.center{text-align:center}
+
+/* chat */
+.chat{background:var(--paper);border:2px solid var(--ink);padding:12px;height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:8px}
+.msg{max-width:84%;padding:9px 13px;font-size:.95rem;animation:msgin .35s cubic-bezier(.3,1.8,.5,1);word-wrap:break-word;user-select:text;-webkit-user-select:text}
+@keyframes msgin{from{transform:scale(.3);opacity:0}}
+.msg.bot{background:var(--ink);color:var(--paper);align-self:flex-start}
+.msg.bot small{display:block;font-family:var(--mono);font-size:.6rem;opacity:.55;margin-top:4px}
+.msg.me{background:var(--white);border:2px solid var(--ink);align-self:flex-end}
+.msg.typing{opacity:.6;font-style:italic}
+.chatform{display:flex;gap:8px;margin-top:10px}
+.chatform input{flex:1;min-width:0;padding:14px;border:2px solid var(--ink);background:var(--white);font-size:16px;color:var(--ink)}
+.chatform button{font-family:var(--mono);font-weight:700;background:var(--red);color:var(--white);border:2px solid var(--ink);padding:0 16px}
+
+/* compteur */
+.lost{font-family:var(--serif);font-size:clamp(3.6rem,20vw,5.4rem);text-align:center;line-height:1}
+.lost small{font-family:var(--mono);font-size:.7rem;display:block;letter-spacing:.2em;opacity:.6;margin-top:6px}
+.stats{list-style:none;margin-top:16px;border-top:1px solid currentColor}
+.stats li{padding:10px 2px;display:flex;justify-content:space-between;gap:10px;font-size:.88rem;border-bottom:1px solid rgba(236,235,230,.25)}
+.stats b{color:var(--red);font-family:var(--mono);white-space:nowrap}
+
+/* certificat */
+.certform{display:flex;flex-direction:column;gap:10px}
+.certform input{padding:14px;border:2px solid var(--ink);font-size:16px;background:var(--paper);color:var(--ink)}
+#certOut{margin-top:16px;display:none}
+#certOut img{width:100%;border:2px solid var(--ink);animation:certin .8s cubic-bezier(.3,1.6,.5,1)}
+@keyframes certin{from{transform:scale(.2) rotate(-30deg);opacity:0}}
+#certOut a{display:block;text-align:center;margin-top:10px;text-decoration:none}
+
+.exit{text-align:center}
+.foot{text-align:center;font-family:var(--mono);font-size:.64rem;opacity:.55;margin-top:40px;line-height:1.7}
+.foot .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);opacity:.4;margin-left:6px;cursor:pointer;vertical-align:middle}
+
+/* ===== EFFETS ===== */
+.p,.trail,.rain,.flyer{filter:grayscale(1) contrast(1.15)}
+.p{position:fixed;pointer-events:none;z-index:80;left:0;top:0;margin:-.6em 0 0 -.6em;font-family:var(--serif);animation:fly 1s cubic-bezier(.2,.8,.4,1) forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(var(--r)) scale(.2);opacity:0}}
+.trail{position:fixed;pointer-events:none;z-index:79;font-family:var(--serif);font-size:20px;margin:-.6em 0 0 -.6em;animation:trail 1s ease-out forwards;white-space:nowrap}
+@keyframes trail{to{transform:translateY(46px) rotate(40deg) scale(.4);opacity:0}}
+.rain{position:fixed;top:-60px;pointer-events:none;z-index:78;font-family:var(--serif);animation:fall linear forwards;white-space:nowrap}
+@keyframes fall{to{transform:translateY(calc(100vh + 120px)) rotate(var(--r))}}
+.toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(30px);opacity:0;z-index:90;background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:.78rem;padding:12px 16px;text-align:center;width:max-content;max-width:88vw;box-shadow:4px 4px 0 var(--red);transition:.35s cubic-bezier(.3,1.8,.5,1);pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.notif{position:fixed;top:calc(34px + env(safe-area-inset-top));left:50%;width:min(380px,92vw);transform:translate(-50%,-170%);z-index:95;background:rgba(250,250,247,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:#111;border-radius:20px;padding:12px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:transform .5s cubic-bezier(.3,1.4,.5,1);cursor:pointer}
+.notif.show{transform:translate(-50%,0)}
+.notif .ic{width:40px;height:40px;border-radius:10px;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-size:1.3rem;flex-shrink:0}
+.notif b{display:block;font-size:.85rem}
+.notif span{font-size:.85rem}
+.notif em{margin-left:auto;font-style:normal;font-size:.7rem;opacity:.5;align-self:flex-start}
+.flyer{position:fixed;z-index:70;font-size:44px;cursor:pointer;left:-80px;animation:flyby linear forwards}
+@keyframes flyby{0%{transform:translate(0,0) rotate(0)}25%{transform:translate(30vw,-50px) rotate(90deg)}50%{transform:translate(60vw,40px) rotate(180deg)}75%{transform:translate(90vw,-30px) rotate(270deg)}100%{transform:translate(calc(100vw + 160px),0) rotate(360deg)}}
+#bigmsg{position:fixed;inset:0;z-index:96;display:grid;place-items:center;pointer-events:none;opacity:0;transition:opacity .25s;font-family:var(--serif);font-style:italic;font-size:clamp(2.6rem,13vw,6rem);text-align:center;padding:20px;line-height:.95;color:var(--red);text-shadow:3px 3px 0 var(--ink)}
+#bigmsg.show{opacity:1}
+#nap{position:fixed;inset:0;z-index:94;background:#000;opacity:0;pointer-events:none;transition:opacity 1.2s;display:grid;place-items:center;font-family:var(--serif);font-style:italic;font-size:3rem;color:#444}
+#nap.show{opacity:.94}
+body.chaos main{animation:chaos 3.4s cubic-bezier(.5,0,.5,1) forwards}
+@keyframes chaos{0%{transform:none}10%{transform:rotate(12deg) scale(.9)}20%{transform:rotate(-15deg) scale(1.1)}35%{transform:rotate(180deg) scale(.8)}80%{transform:rotate(180deg) scale(.8) translateX(10px)}100%{transform:none}}
+body.dance .card{animation:dance .35s ease-in-out infinite alternate}
+@keyframes dance{from{transform:rotate(-6deg) translateY(0)}to{transform:rotate(6deg) translateY(-14px)}}
+body.strobe{animation:strobe .16s steps(1) infinite}
+@keyframes strobe{50%{filter:invert(1)}}
+
+.win{position:fixed;z-index:97;width:min(300px,84vw);background:#c3c3c3;color:#000;border:3px solid;border-color:#fff #555 #555 #fff;box-shadow:6px 6px 0 rgba(0,0,0,.5);font-family:Tahoma,Verdana,sans-serif;animation:winpop .3s cubic-bezier(.3,1.8,.5,1)}
+@keyframes winpop{from{transform:scale(.3)}}
+.win .bar{background:#000;color:#fff;font-weight:700;font-size:.85rem;padding:5px 8px;display:flex;justify-content:space-between;align-items:center}
+.win .bar i{font-style:normal;background:#c3c3c3;color:#000;width:20px;height:18px;display:grid;place-items:center;border:2px solid;border-color:#fff #555 #555 #fff;font-size:.75rem}
+.win .bd{padding:18px 14px;display:flex;gap:12px;align-items:center;font-size:.95rem}
+.win .bd span:first-child{font-size:2rem;filter:grayscale(1)}
+.win .ft{display:flex;justify-content:center;gap:10px;padding:0 0 14px}
+.win .ft button{border:2px solid;border-color:#fff #555 #555 #fff;background:#c3c3c3;padding:6px 18px;font-family:inherit;color:#000}
+@media (min-width:900px){ main{max-width:640px} }
+</style>
+</head>
+<body class="locked">
+<canvas id="bg"></canvas>
+<div class="grain"></div>
+
+<div id="loader">
+  <div class="ld-logo">Jeromed</div>
+  <div class="ld-msg" id="ldMsg">…</div>
+  <div class="ld-bar"><div class="ld-fill" id="ldFill"></div></div>
+  <div class="ld-pct" id="ldPct">0%</div>
+  <button class="ld-btn" id="enter">ENTRER · ENTER · 入る · ВОЙТИ</button>
+  <p class="ld-small">En entrant, tu acceptes de ne rien comprendre, dans 37 langues.</p>
+</div>
+
+<div id="regret"><div class="fill" id="regFill"></div><span id="regTxt">REGRET : 0%</span></div>
+<button id="mute" aria-label="Son">SON</button>
+<div id="bigmsg"></div>
+<div id="nap">zzZ</div>
+<div class="toast" id="toast"></div>
+<div class="notif" id="notif"><div class="ic" id="nIc">J</div><div><b id="nTi">Maman</b><span id="nTx">Rentre manger.</span></div><em>maintenant</em></div>
+
+<main>
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-top">
+      <div class="access">Page secrète · Accès : chaussette · 靴下</div>
+      <div class="eyes"><div class="eye"><div class="pupil"></div></div><div class="eye"><div class="pupil"></div></div></div>
+      <h1 class="wordmark" id="wordmark" aria-label="JEROMED"></h1>
+    </div>
+
+    <div class="babel" id="babelZone">
+      <div class="babel-lang"><i id="langName">Français</i><span><b id="langN">1</b>/<span id="langT">37</span></span></div>
+      <div id="babel">LA CHAISE EST UN DIMANCHE</div>
+      <div class="babel-ctrl">
+        <button class="chip red" id="say">▶ ÉCOUTER</button>
+        <button class="chip" id="next">↻ AUTRE LANGUE</button>
+      </div>
+    </div>
+
+    <div class="hero-bot">
+      <div>Visiteur n° <b id="visitor">7 941 302 118</b> · Personne ne sait pourquoi</div>
+      <div class="scrolldown">↓ DESCENDS · SCROLL · 下へ · RUNTER ↓</div>
+    </div>
+  </section>
+
+  <div class="marquee"><div>LA CHAISE EST UN DIMANCHE <em>●</em> THE CHAIR IS A SUNDAY <em>●</em> 椅子是星期天 <em>●</em> DER STUHL IST EIN SONNTAG <em>●</em> СТУЛ — ЭТО ВОСКРЕСЕНЬЕ <em>●</em> ROU ROU ROU <em>●</em> LA CHAISE EST UN DIMANCHE <em>●</em> THE CHAIR IS A SUNDAY <em>●</em> 椅子是星期天 <em>●</em> DER STUHL IST EIN SONNTAG <em>●</em> СТУЛ — ЭТО ВОСКРЕСЕНЬЕ <em>●</em> ROU ROU ROU <em>●</em>&nbsp;</div></div>
+
+  <section class="card" style="--rot:-1.2deg">
+    <div class="num">N°01</div>
+    <h2>Le bouton <em>interdit</em></h2>
+    <p class="tr">THE FORBIDDEN BUTTON · DER VERBOTENE KNOPF · 禁じられたボタン · EL BOTÓN PROHIBIDO</p>
+    <p class="sub">Il ne faut surtout pas appuyer dessus. Dans aucune langue.</p>
+    <div class="zone" id="zone"><button id="nope">N'APPUIE PAS</button></div>
+  </section>
+
+  <section class="card dark" style="--rot:1deg">
+    <div class="num">N°02</div>
+    <h2>Traducteur <em>jéromédais</em></h2>
+    <p class="tr">TRADUCTOR · ÜBERSETZER · 翻訳機 · ПЕРЕВОДЧИК · مترجم</p>
+    <p class="sub">Écris n'importe quoi. On le traduit dans une langue que personne ne parle. Même pas nous.</p>
+    <input class="trin" id="trin" maxlength="80" placeholder="Écris un truc…" style="background:var(--paper)">
+    <div class="trout" id="trout">Blozu méd pifflou.</div>
+    <div class="row"><button class="bigbtn" id="trgo">TRADUIRE</button><button class="bigbtn" id="trsay" style="box-shadow:4px 4px 0 var(--grey)">▶ PRONONCER</button></div>
+  </section>
+
+  <div class="marquee alt"><div>⚠ CONTIENT DES TRACES DE DIMANCHE ⚠ MAY CONTAIN SUNDAY ⚠ KANN SPUREN VON SONNTAG ENTHALTEN ⚠ 日曜日が含まれている可能性があります ⚠ CONTIENT DES TRACES DE DIMANCHE ⚠ MAY CONTAIN SUNDAY ⚠ KANN SPUREN VON SONNTAG ENTHALTEN ⚠ 日曜日が含まれている可能性があります ⚠&nbsp;</div></div>
+
+  <section class="card" style="--rot:-.8deg">
+    <div class="num">N°03</div>
+    <h2>Faits <em>100% vrais</em></h2>
+    <p class="tr">FACTS · HECHOS · FAKTEN · 事実 · ФАКТЫ · 사실</p>
+    <p class="sub">Vérifiés par un pigeon assermenté et traduits par un grille-pain.</p>
+    <div class="flip" id="flip">
+      <div class="flip-in">
+        <div class="face f1" id="fact1">Touche-moi.<small>TOUCH ME · さわって · ТРОНЬ МЕНЯ</small></div>
+        <div class="face f2" id="fact2"></div>
+      </div>
+    </div>
+    <p class="hint">fait n° <span id="factN">0</span> sur ∞</p>
+  </section>
+
+  <section class="card dark" style="--rot:1.4deg">
+    <div class="num">N°04</div>
+    <h2>L'oracle <em>de Jérôme</em></h2>
+    <p class="tr">THE ORACLE · DAS ORAKEL · 神託 · ОРАКУЛ · العرّاف</p>
+    <p class="sub">Touche la boule. Elle parle toutes les langues. Elle dit surtout des bêtises.</p>
+    <div class="oracle">
+      <div class="ball" id="ball"><div class="q">?</div></div>
+      <div class="prophecy" id="prophecy">La boule dort.</div>
+    </div>
+  </section>
+
+  <div class="marquee"><div>JÉRÔME EST EN LIGNE <em>●</em> JÉRÔME IS ONLINE <em>●</em> ジェロームはオンラインです <em>●</em> JÉRÔME ESTÁ EN LÍNEA <em>●</em> JÉRÔME IST ONLINE <em>●</em> JÉRÔME EST EN LIGNE <em>●</em> JÉRÔME IS ONLINE <em>●</em> ジェロームはオンラインです <em>●</em> JÉRÔME ESTÁ EN LÍNEA <em>●</em> JÉRÔME IST ONLINE <em>●</em>&nbsp;</div></div>
+
+  <section class="card" style="--rot:-1.4deg">
+    <div class="num">N°05</div>
+    <h2>La roue <em>du destin</em></h2>
+    <p class="tr">WHEEL OF FATE · RUEDA DEL DESTINO · 運命の輪 · КОЛЕСО СУДЬБЫ</p>
+    <p class="sub">Truquée dans 8 langues différentes.</p>
+    <div class="wheelwrap">
+      <div class="pointer"></div>
+      <canvas id="wheel" width="600" height="600"></canvas>
+      <div class="hub">GO</div>
+    </div>
+    <div class="center"><button class="bigbtn" id="spin">TOURNER · GIRAR · 回す</button></div>
+    <p class="result" id="wres"></p>
+  </section>
+
+  <section class="card" style="--rot:1deg">
+    <div class="num">N°06</div>
+    <h2>Parle <em>à Jérôme</em></h2>
+    <p class="tr">TALK TO JÉRÔME · HABLA CON JÉRÔME · ジェロームと話す · ПОГОВОРИ С ЖЕРОМОМ</p>
+    <p class="sub">Il répond dans la langue de son choix. Rarement la tienne.</p>
+    <div class="chat" id="chat"></div>
+    <form class="chatform" id="chatform" autocomplete="off">
+      <input id="chatin" maxlength="140" placeholder="Pose une question…">
+      <button>→</button>
+    </form>
+  </section>
+
+  <section class="card dark" style="--rot:-1deg">
+    <div class="num">N°07</div>
+    <h2>Le compteur <em>de la honte</em></h2>
+    <p class="tr">TIME WASTED · TIEMPO PERDIDO · VERLORENE ZEIT · 無駄な時間</p>
+    <div class="lost" id="lost">0,0<small>SECONDES · SECONDS · 秒</small></div>
+    <ul class="stats">
+      <li>Œufs mollets que t'aurais pu cuire <b id="s1">0</b></li>
+      <li>Dimanches traversés par la chaise <b id="s2">0</b></li>
+      <li>Langues que tu ne parles toujours pas <b id="s3">37</b></li>
+      <li>Distance parcourue par un escargot <b id="s4">0 cm</b></li>
+      <li>Objets volants attrapés <b id="s5">0</b></li>
+    </ul>
+  </section>
+
+  <section class="card" style="--rot:1.2deg">
+    <div class="num">N°08</div>
+    <h2>Certificat <em>de survie</em></h2>
+    <p class="tr">CERTIFICATE · ZERTIFIKAT · 証明書 · СВИДЕТЕЛЬСТВО · شهادة</p>
+    <p class="sub">Reconnu par aucune institution, dans aucun pays.</p>
+    <form class="certform" id="certform">
+      <input id="certname" maxlength="24" placeholder="Ton prénom (ou ton nom de catcheur)">
+      <button class="bigbtn">GÉNÉRER MON DIPLÔME</button>
+    </form>
+    <div id="certOut"><img id="certImg" alt="Certificat JEROMED"><a class="bigbtn" id="certDl" download="certificat-jeromed.png">TÉLÉCHARGER</a></div>
+  </section>
+
+  <section class="card dark exit" style="--rot:-1deg">
+    <div class="num">N°09</div>
+    <h2>La <em>sortie</em></h2>
+    <p class="tr">EXIT · SALIDA · AUSGANG · 出口 · ВЫХОД · مخرج</p>
+    <p class="sub">Tu veux partir ? Voilà la porte. Elle est en bois. Le bois est un mardi.</p>
+    <button class="bigbtn" id="leave">QUITTER JEROMED</button>
+  </section>
+
+  <p class="foot">JEROMED™ · Aucune chaise n'a été blessée · No chairs were harmed · 椅子は傷つけられていません<br>© quelque part entre 1987 et dimanche<span class="dot" id="dot"></span></p>
+</main>
+
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const rand = (a, b) => Math.random() * (b - a) + a;
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const W = () => window.innerWidth, H = () => window.innerHeight;
+const fmt = (n, d = 0) => n.toLocaleString('fr-FR', {minimumFractionDigits: d, maximumFractionDigits: d});
+const vibrate = p => { try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} };
+
+/* ========= LA PHRASE QUI NE VEUT RIEN DIRE ========= */
+// [nom de la langue, code voix, texte, réglages voix {rate,pitch}]
+const BABEL = [
+  ['Français', 'fr-FR', 'La chaise est un dimanche.'],
+  ['English', 'en-GB', 'The chair is a Sunday.'],
+  ['Español', 'es-ES', 'La silla es un domingo.'],
+  ['Deutsch', 'de-DE', 'Der Stuhl ist ein Sonntag.'],
+  ['Italiano', 'it-IT', 'La sedia è una domenica.'],
+  ['Português', 'pt-BR', 'A cadeira é um domingo.'],
+  ['Pigeon', 'fr-FR', 'Rou. Rou rou. Rouuuuu.', {pitch: 2, rate: 1.4}],
+  ['日本語', 'ja-JP', '椅子は日曜日です。'],
+  ['中文', 'zh-CN', '椅子是星期天。'],
+  ['한국어', 'ko-KR', '의자는 일요일이다.'],
+  ['Русский', 'ru-RU', 'Стул — это воскресенье.'],
+  ['Dauphin', 'fr-FR', 'Iiiik ik ik. Iiiiiik.', {pitch: 2, rate: 1.8}],
+  ['العربية', 'ar-SA', 'الكرسي هو يوم الأحد.'],
+  ['עברית', 'he-IL', 'הכיסא הוא יום ראשון.'],
+  ['हिन्दी', 'hi-IN', 'कुर्सी एक रविवार है।'],
+  ['Ελληνικά', 'el-GR', 'Η καρέκλα είναι Κυριακή.'],
+  ['Grille-pain', 'fr-FR', 'Clac… … … DING.', {pitch: .4, rate: .7}],
+  ['Türkçe', 'tr-TR', 'Sandalye bir pazar günüdür.'],
+  ['Polski', 'pl-PL', 'Krzesło to niedziela.'],
+  ['Nederlands', 'nl-NL', 'De stoel is een zondag.'],
+  ['Svenska', 'sv-SE', 'Stolen är en söndag.'],
+  ['Suomi', 'fi-FI', 'Tuoli on sunnuntai.'],
+  ['Escargot', 'fr-FR', 'Sssslllluuuurp.', {pitch: .1, rate: .3}],
+  ['Kiswahili', 'sw-KE', 'Kiti ni Jumapili.'],
+  ['Tiếng Việt', 'vi-VN', 'Cái ghế là ngày Chủ nhật.'],
+  ['ไทย', 'th-TH', 'เก้าอี้คือวันอาทิตย์'],
+  ['Latin', 'it-IT', 'Sella dies Solis est.'],
+  ['Esperanto', 'eo', 'La seĝo estas dimanĉo.'],
+  ['Morse', 'morse', '.-.. .- / -.-. .... .- .. ... .'],
+  ['Verlan', 'fr-FR', 'La sechai est un chemandi.'],
+  ['Bébé', 'fr-FR', 'Gaga bouh dimanche.', {pitch: 2, rate: .9}],
+  ['À l\'envers', 'fr-FR', '.ehcnamid nu tse esiahc aL'],
+  ['Chaussette', 'fr-FR', '(silence humide)', {pitch: .5, rate: .6}],
+  ['Jéromédais', 'fr-FR', 'Blozu jéromed piffloù.', {pitch: 1.4, rate: .9}],
+  ['Majuscules', 'fr-FR', 'LA CHAISE EST UN DIMANCHE !!!', {pitch: 1.6, rate: 1.3}],
+  ['Chat', 'fr-FR', 'Miaou. Miaou. Mrrrp ?', {pitch: 1.9, rate: 1.1}],
+  ['Silence', 'none', '…']
+];
+$('#langT').textContent = BABEL.length;
+const SCR = 'アイウエオカキクケコ漢字椅子日曜ДЖЗИЛФЦЧШЩЯλξπσψωאבגדהוزحطيكلمنअआइईउ가나다라마ÆØÅßÇ¿¡@#%&?!';
+let bi = 0, babelTimer, scrambling = false;
+function fitBabel(txt) {
+  const el = $('#babel'), w = Math.min(el.parentElement.clientWidth, 640);
+  const cjk = /[぀-ヿ一-鿿가-힯]/.test(txt);
+  const n = Math.max(txt.length, 4);
+  let fs = cjk ? w / (n / 2.4) : w * 5.6 / n;
+  fs = Math.max(34, Math.min(fs, W() > 700 ? 120 : 96));
+  el.style.fontSize = fs + 'px';
+}
+function showBabel(i, instant) {
+  bi = (i + BABEL.length) % BABEL.length;
+  const [name, code, txt] = BABEL[bi], el = $('#babel');
+  $('#langName').textContent = name; $('#langN').textContent = bi + 1;
+  el.dir = /^(ar|he)/.test(code) ? 'rtl' : 'ltr';
+  fitBabel(txt);
+  if (instant) { el.textContent = txt; return; }
+  scrambling = true; let k = 0;
+  const iv = setInterval(() => {
+    k++;
+    el.textContent = [...txt].map((c, j) => (c === ' ' || j < (k / 8) * txt.length) ? c : SCR[Math.floor(Math.random() * SCR.length)]).join('');
+    if (k % 2) beep(rand(500, 1400), .02, 'square', .012);
+    if (k >= 8) { clearInterval(iv); el.textContent = txt; scrambling = false; }
+  }, 40);
+}
+function autoBabel() { clearInterval(babelTimer); babelTimer = setInterval(() => showBabel(bi + 1), 2600); }
+showBabel(0, true);
+
+/* ========= VOIX ========= */
+function speak(txt, code, opts = {}) {
+  if (muted) { toast('Le son est coupé. La chaise se tait.'); return; }
+  if (code === 'morse') { playMorse(txt); return; }
+  if (code === 'none') { toast('… (c\'était magnifique)'); return; }
+  if (!('speechSynthesis' in window)) { toast('Ton téléphone refuse de parler. Il a honte.'); return; }
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(txt);
+    u.lang = code;
+    const v = speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith(code.slice(0, 2).toLowerCase()));
+    if (v) u.voice = v;
+    u.rate = opts.rate || rand(.85, 1.1); u.pitch = opts.pitch || rand(.8, 1.3);
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+function playMorse(m) {
+  let t = 0;
+  for (const c of m) {
+    if (c === '.') { setTimeout(() => beep(700, .08, 'sine', .08), t); t += 160; }
+    else if (c === '-') { setTimeout(() => beep(700, .24, 'sine', .08), t); t += 320; }
+    else t += 220;
+  }
+}
+$('#say').addEventListener('click', e => { e.stopPropagation(); const [, c, t, o] = BABEL[bi]; speak(t, c, o); autoBabel(); });
+$('#next').addEventListener('click', e => { e.stopPropagation(); showBabel(bi + 1); autoBabel(); vibrate(10); });
+$('#babelZone').addEventListener('click', e => {
+  showBabel(Math.floor(Math.random() * BABEL.length)); autoBabel();
+  const el = $('#babel'); el.classList.add('hit'); setTimeout(() => el.classList.remove('hit'), 200);
+  burst(e.clientX, e.clientY, ['?', '¿', '？', '؟', '!', '¡', '…'], 10, 120);
+});
+addEventListener('resize', () => fitBabel(BABEL[bi][2]));
+
+/* ========= SON ========= */
+let actx = null, muted = false;
+function initAudio() { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); actx.resume(); } catch (e) {} }
+function beep(freq = 440, dur = .12, type = 'square', vol = .06, slide = 0) {
+  if (muted || !actx) return;
+  const t = actx.currentTime, o = actx.createOscillator(), g = actx.createGain();
+  o.type = type; o.frequency.setValueAtTime(freq, t);
+  if (slide) o.frequency.exponentialRampToValueAtTime(Math.max(30, freq * slide), t + dur);
+  g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+  o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t + dur + .02);
+}
+function melody(notes, step = .11, type = 'square') { notes.forEach((n, i) => setTimeout(() => n && beep(n, step * .9, type), i * step * 1000)); }
+$('#mute').addEventListener('click', () => {
+  muted = !muted; $('#mute').textContent = muted ? 'CHUT' : 'SON';
+  if (muted) { try { speechSynthesis.cancel(); } catch (e) {} } else { initAudio(); beep(880, .1, 'triangle'); }
+  toast(muted ? 'Silence · Silencio · 静寂' : 'LE SON EST DE RETOUR · 音が戻った');
+});
+
+/* ========= TOAST / GROS MESSAGE ========= */
+let toastT;
+function toast(txt, ms = 2500) { const t = $('#toast'); t.textContent = txt; t.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), ms); }
+function bigMsg(html, ms = 2000) { const b = $('#bigmsg'); b.innerHTML = html; b.classList.add('show'); setTimeout(() => b.classList.remove('show'), ms); }
+
+/* ========= PARTICULES ========= */
+const GLYPHS = ['?', '¿', '!', '椅子', 'Stuhl', 'dimanche', 'Sunday', 'воскресенье', '日曜日', 'rou', '…', '¡', 'ß', 'λ', 'π', 'ж', '가', 'אב', 'ق', 'ॐ', '§', '¶', '∞', '★', '🪑'];
+function burst(x, y, set, n = 12, dist = 160) {
+  for (let i = 0; i < n; i++) {
+    const s = document.createElement('span'); s.className = 'p'; s.textContent = pick(set);
+    const a = Math.random() * Math.PI * 2, d = rand(dist * .4, dist);
+    s.style.left = x + 'px'; s.style.top = y + 'px';
+    s.style.setProperty('--dx', Math.cos(a) * d + 'px'); s.style.setProperty('--dy', Math.sin(a) * d + 'px');
+    s.style.setProperty('--r', rand(-540, 540) + 'deg'); s.style.fontSize = rand(16, 38) + 'px';
+    if (Math.random() < .2) s.style.color = 'var(--red)';
+    document.body.appendChild(s); s.addEventListener('animationend', () => s.remove());
+  }
+}
+function rain(set, n = 40, spread = 2500) {
+  for (let i = 0; i < n; i++) setTimeout(() => {
+    const s = document.createElement('span'); s.className = 'rain'; s.textContent = pick(set);
+    s.style.left = rand(0, W() - 40) + 'px'; s.style.fontSize = rand(20, 56) + 'px';
+    s.style.animationDuration = rand(1.8, 3.6) + 's'; s.style.setProperty('--r', rand(-720, 720) + 'deg');
+    if (Math.random() < .2) s.style.color = 'var(--red)';
+    document.body.appendChild(s); s.addEventListener('animationend', () => s.remove());
+  }, Math.random() * spread);
+}
+
+/* ========= FOND : MOTS QUI FLOTTENT ========= */
+const cv = $('#bg'), cx = cv.getContext('2d');
+const BGW = ['dimanche', 'Sunday', 'domingo', 'Sonntag', '日曜日', '星期天', '일요일', 'воскресенье', 'الأحد', 'Κυριακή', 'chaise', 'chair', 'Stuhl', 'silla', '椅子', 'стул', 'rou', 'JEROMED', '?', 'Jumapili', 'söndag', 'niedziela', 'כיסא', 'कुर्सी'];
+let words = [], DPR = Math.min(window.devicePixelRatio || 1, 2);
+function sizeBg() { cv.width = W() * DPR; cv.height = H() * DPR; cx.setTransform(DPR, 0, 0, DPR, 0, 0); }
+function initBg() {
+  sizeBg();
+  words = Array.from({length: W() < 600 ? 22 : 36}, () => ({
+    t: pick(BGW), x: rand(0, W()), y: rand(0, H()), s: rand(14, 70), vx: rand(-.25, .25), vy: rand(-.2, .2),
+    r: rand(-.4, .4), vr: rand(-.002, .002), a: rand(.04, .13), it: Math.random() < .5
+  }));
+}
+let fast = false, sunA = 0;
+function drawBg() {
+  const w = W(), h = H();
+  cx.clearRect(0, 0, w, h);
+  const sp = fast ? 8 : 1;
+  sunA += .003 * sp;
+  cx.fillStyle = '#ff3b1f'; cx.globalAlpha = .9;
+  cx.beginPath(); cx.arc(w / 2 + Math.cos(sunA) * w * .38, h / 2 + Math.sin(sunA * 1.3) * h * .35, Math.min(w, h) * .05, 0, Math.PI * 2); cx.fill();
+  cx.fillStyle = '#0d0d0d'; cx.textAlign = 'center'; cx.textBaseline = 'middle';
+  words.forEach(o => {
+    o.x += o.vx * sp; o.y += o.vy * sp; o.r += o.vr * sp;
+    if (o.x < -200) o.x = w + 200; if (o.x > w + 200) o.x = -200;
+    if (o.y < -80) o.y = h + 80; if (o.y > h + 80) o.y = -80;
+    cx.save(); cx.translate(o.x, o.y); cx.rotate(o.r); cx.globalAlpha = o.a;
+    cx.font = (o.it ? 'italic ' : '') + o.s + 'px "Instrument Serif", Georgia, serif';
+    cx.fillText(o.t, 0, 0); cx.restore();
+  });
+  cx.globalAlpha = 1;
+  requestAnimationFrame(drawBg);
+}
+initBg(); requestAnimationFrame(drawBg);
+addEventListener('resize', sizeBg);
+
+/* ========= LOADER ========= */
+const steps = [
+  [6, 'Traduction du silence en 37 langues…'], [19, 'Downloading 4 GB of cheese…'],
+  [33, 'Käse wird heruntergeladen…'], [47, 'チーズをダウンロード中…'],
+  [61, 'Négociation avec les pigeons (en pigeon)…'], [78, 'Загрузка воскресенья…'],
+  [99, 'Presque fini · Almost done · ほぼ完了'], [99, 'Toujours presque fini…'],
+  [99, 'On est bloqués. Stuck. 詰んだ。'], [11, 'Oups. On recommence. ¡Ay!'],
+  [420, 'BON. ÇA IRA. OK. 了解。']
+];
+let si = 0;
+function loadStep() {
+  const [p, m] = steps[si];
+  $('#ldMsg').textContent = m; $('#ldPct').textContent = p + '%';
+  $('#ldFill').style.width = Math.min(p, 100) + '%';
+  if (p > 100) $('#ldFill').style.background = 'var(--red)';
+  si++;
+  if (si < steps.length) setTimeout(loadStep, si === 8 ? 1000 : rand(380, 620));
+  else setTimeout(() => $('#enter').classList.add('show'), 400);
+}
+setTimeout(loadStep, 500);
+
+let started = false, t0 = 0;
+$('#enter').addEventListener('click', e => {
+  if (started) return; started = true;
+  initAudio();
+  try { speechSynthesis.getVoices(); } catch (er) {}
+  try { if (typeof DeviceOrientationEvent !== 'undefined' && DeviceOrientationEvent.requestPermission) DeviceOrientationEvent.requestPermission().catch(() => {}); } catch (er) {}
+  try { if (typeof DeviceMotionEvent !== 'undefined' && DeviceMotionEvent.requestPermission) DeviceMotionEvent.requestPermission().catch(() => {}); } catch (er) {}
+  melody([392, 523, 659, 784, 0, 659, 784], .09, 'triangle'); vibrate([30, 40, 60]);
+  burst(e.clientX || W() / 2, e.clientY || H() / 2, GLYPHS, 26, 240);
+  $('#loader').classList.add('gone'); document.body.classList.remove('locked');
+  setTimeout(() => $('#loader').remove(), 1100);
+  t0 = performance.now();
+  setTimeout(() => { showBabel(1); autoBabel(); }, 1400);
+  setTimeout(scheduleNotif, 10000);
+  setTimeout(scheduleFlyer, 6000);
+});
+
+/* ========= WORDMARK ========= */
+const wm = $('#wordmark');
+'JEROMED'.split('').forEach((l, i) => {
+  const s = document.createElement('span'); s.textContent = l; s.style.setProperty('--i', i);
+  if (i === 3) s.className = 'r';
+  wm.appendChild(s);
+});
+const notes = [262, 294, 330, 349, 392, 440, 494];
+let taps = 0, tapReset;
+wm.querySelectorAll('span').forEach((s, i) => s.addEventListener('click', e => {
+  e.stopPropagation(); if (s.classList.contains('pop')) return;
+  const r = s.getBoundingClientRect();
+  burst(r.left + r.width / 2, r.top + r.height / 2, GLYPHS, 12, 130);
+  beep(notes[i] * 2, .15, 'square'); vibrate(20);
+  s.classList.add('pop'); setTimeout(() => s.classList.remove('pop'), 900);
+  taps++; clearTimeout(tapReset); tapReset = setTimeout(() => taps = 0, 3000);
+  if (taps === 4) toast('Continue… · Weiter… · 続けて…');
+  if (taps >= 7) { taps = 0; babelMode(); }
+}));
+
+/* ========= YEUX ========= */
+const pupils = [...document.querySelectorAll('.pupil')];
+function look(x, y) {
+  pupils.forEach(p => {
+    const r = p.parentElement.getBoundingClientRect(), ex = r.left + r.width / 2, ey = r.top + r.height / 2;
+    const a = Math.atan2(y - ey, x - ex), d = Math.min(r.width * .22, Math.hypot(x - ex, y - ey) / 6);
+    p.style.setProperty('--px', Math.cos(a) * d + 'px'); p.style.setProperty('--py', Math.sin(a) * d + 'px');
+  });
+}
+function blink() {
+  document.querySelectorAll('.eye').forEach(e => e.classList.add('blink'));
+  setTimeout(() => document.querySelectorAll('.eye').forEach(e => e.classList.remove('blink')), 130);
+  setTimeout(blink, rand(1500, 5000));
+}
+setTimeout(blink, 2000);
+document.querySelectorAll('.eye').forEach(e => e.addEventListener('click', ev => {
+  ev.stopPropagation(); burst(ev.clientX, ev.clientY, ['×', 'AÏE', 'OUCH', '痛い', 'АЙ'], 8, 90);
+  beep(200, .25, 'sawtooth', .05, .3);
+  toast(pick(['AÏE. Mon œil.', 'Ouch. My eye.', '目が！目がぁ！', 'Je te vois toujours.']));
+}));
+
+/* ========= TRAÎNÉE ========= */
+let lastTrail = 0;
+function trail(x, y) {
+  const now = performance.now(); if (now - lastTrail < 55) return; lastTrail = now;
+  const s = document.createElement('span'); s.className = 'trail'; s.textContent = pick(GLYPHS);
+  s.style.left = x + 'px'; s.style.top = y + 'px';
+  if (Math.random() < .15) s.style.color = 'var(--red)';
+  document.body.appendChild(s); s.addEventListener('animationend', () => s.remove());
+}
+addEventListener('pointermove', e => {
+  trail(e.clientX, e.clientY); look(e.clientX, e.clientY);
+  if (e.pointerType === 'mouse') { document.documentElement.style.setProperty('--tx', (e.clientX / W() - .5) * 2); document.documentElement.style.setProperty('--ty', (e.clientY / H() - .5) * 2); }
+});
+addEventListener('touchmove', e => { const t = e.touches[0]; if (t) { trail(t.clientX, t.clientY); look(t.clientX, t.clientY); } }, {passive: true});
+
+/* ========= GYRO + SECOUSSE ========= */
+addEventListener('deviceorientation', e => {
+  if (e.gamma == null) return;
+  const tx = Math.max(-1, Math.min(1, e.gamma / 30)), ty = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
+  document.documentElement.style.setProperty('--tx', tx); document.documentElement.style.setProperty('--ty', ty);
+  look(W() / 2 + tx * 400, H() * .2 + ty * 400);
+});
+let lastShake = 0;
+addEventListener('devicemotion', e => {
+  const a = e.accelerationIncludingGravity; if (!a || !started) return;
+  if (Math.hypot(a.x || 0, a.y || 0, a.z || 0) > 28 && performance.now() - lastShake > 3000) {
+    lastShake = performance.now();
+    toast(pick(['ARRÊTE DE ME SECOUER', 'STOP SHAKING ME', '揺らさないで！', 'НЕ ТРЯСИ МЕНЯ']));
+    showBabel(Math.floor(Math.random() * BABEL.length));
+    rain(GLYPHS, 25, 1200); vibrate([50, 30, 50]); beep(150, .4, 'sawtooth', .05, 3);
+  }
+});
+
+/* ========= VISITEUR ========= */
+let vis = 7941302118;
+setInterval(() => { vis += Math.floor(rand(1, 900)); $('#visitor').textContent = fmt(vis) + (Math.random() < .12 ? ',5' : ''); }, 140);
+
+/* ========= BOUTON INTERDIT ========= */
+const nope = $('#nope'), zone = $('#zone');
+const nopeLabels = ['NON.', 'NEIN.', 'いやだ', 'НЕТ!!', '¡NO!', 'BON OK. VAS-Y.'];
+let flees = 0, chaosOn = false;
+function flee() {
+  if (flees >= nopeLabels.length - 1) { nope.textContent = nopeLabels[nopeLabels.length - 1]; flees = nopeLabels.length; return; }
+  const z = zone.getBoundingClientRect(), b = nope.getBoundingClientRect(), pad = 8;
+  nope.style.left = rand(b.width / 2 + pad, z.width - b.width / 2 - pad) + 'px';
+  nope.style.top = rand(b.height / 2 + pad, z.height - b.height / 2 - pad) + 'px';
+  nope.textContent = nopeLabels[flees]; flees++;
+  beep(rand(400, 900), .08, 'square', .05, 1.8); vibrate(15);
+}
+nope.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse' && flees < nopeLabels.length - 1) flee(); });
+nope.addEventListener('click', () => {
+  if (flees < nopeLabels.length) { flee(); return; }
+  if (chaosOn) return; chaosOn = true;
+  document.body.classList.add('chaos'); document.documentElement.classList.add('inv');
+  bigMsg('Bravo.<br>T\'as cassé<br>internet.', 2300);
+  speak('Erreur. Error. Fehler. エラー. Ошибка.', 'fr-FR', {pitch: .3, rate: .8});
+  melody([880, 830, 784, 740, 698, 659, 622, 587, 554, 523, 494, 466, 440, 415, 392], .07, 'sawtooth');
+  vibrate([100, 50, 100, 50, 300]); rain(['ERREUR', 'ERROR', 'FEHLER', 'エラー', 'ОШИБКА', '404', '×'], 30, 1500);
+  setTimeout(() => document.documentElement.classList.remove('inv'), 2400);
+  setTimeout(() => {
+    document.body.classList.remove('chaos');
+    bigMsg('…je rigole.<br><span style="font-size:.4em">just kidding · 冗談です</span>', 1800);
+    flees = 0; nope.textContent = 'N\'APPUIE PAS'; nope.style.left = '50%'; nope.style.top = '50%'; chaosOn = false;
+  }, 3500);
+});
+const nopeIdle = ['N\'APPUIE PAS', 'DON\'T PRESS', 'NICHT DRÜCKEN', '押さないで', 'НЕ НАЖИМАЙ', 'NO PRESIONAR'];
+let nIdle = 0;
+setInterval(() => { if (flees === 0 && !chaosOn) nope.textContent = nopeIdle[++nIdle % nopeIdle.length]; }, 1600);
+
+/* ========= TRADUCTEUR JÉROMÉDAIS ========= */
+const SYL = ['blo', 'zu', 'méd', 'kra', 'pou', 'ji', 'rom', 'ffl', 'ou', 'tch', 'glo', 'pi', 'ra', 'dou', 'zé', 'bim', 'ka', 'plu', 'fro', 'mi', 'gnou', 'jé', 'squi', 'bol'];
+function hash(s) { let h = 2166136261; for (const c of s) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
+function jeromize(txt) {
+  const words = txt.trim().split(/\s+/).filter(Boolean);
+  if (!words.length) return '';
+  let out = words.map(w => {
+    let h = hash(w.toLowerCase()); const n = Math.max(1, Math.min(4, Math.ceil(w.length / 3)));
+    let r = ''; for (let i = 0; i < n; i++) { r += SYL[h % SYL.length]; h = Math.floor(h / SYL.length) + i * 7919; }
+    return r;
+  }).join(' ');
+  out = out.charAt(0).toUpperCase() + out.slice(1);
+  return out + pick(['.', ' !', ' ?!', '… jéromed.', ', ou presque.']);
+}
+function doTranslate() {
+  const v = $('#trin').value.trim() || 'La chaise est un dimanche';
+  const out = jeromize(v), el = $('#trout');
+  let k = 0;
+  const iv = setInterval(() => {
+    el.textContent = [...out].map((c, j) => (c === ' ' || j < (k / 10) * out.length) ? c : SCR[Math.floor(Math.random() * SCR.length)]).join('');
+    if (++k > 10) { clearInterval(iv); el.textContent = out; }
+  }, 35);
+  melody([523, 659, 523, 784], .07, 'triangle'); vibrate(20);
+  $('#trin').blur();
+}
+$('#trgo').addEventListener('click', doTranslate);
+$('#trin').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doTranslate(); } });
+$('#trsay').addEventListener('click', () => speak($('#trout').textContent, 'fr-FR', {pitch: rand(.6, 1.7), rate: rand(.7, 1.2)}));
+
+/* ========= FAITS ========= */
+const facts = [
+  ['JEROMED a été inventé par un pigeon en 1987.', 'Il voulait juste du pain.'],
+  ['Ein Stuhl ist kein Sonntag.', 'Sauf le dimanche. — Personne'],
+  ['Cette page pèse exactement 3 kg.', 'Ton téléphone est plus lourd maintenant.'],
+  ['猫は月曜日を知らない。', 'Traduction : les chats ignorent le lundi.'],
+  ['Le mot « JEROMED » n\'existe dans aucune langue.', 'Pour l\'instant.'],
+  ['Los patos no pagan impuestos.', 'Les canards ne paient pas d\'impôts. Vérifié.'],
+  ['Un escargot a lu cette page en entier.', 'Il a mis 14 ans. Il a adoré.'],
+  ['Стул не умеет плавать.', 'La chaise ne sait pas nager. Ni le dimanche.'],
+  ['87 % des statistiques ici sont inventées.', 'Les 13 % restants aussi.'],
+  ['La Lune est un très gros fromage.', 'Elle refuse de l\'admettre.'],
+  ['Il mercoledì è un formaggio.', 'Le mercredi est un fromage. C\'est la loi.'],
+  ['Tu as cligné des yeux 3 fois en lisant ça.', 'On a compté. On compte toujours.']
+];
+let fi = 0, flipped = false;
+$('#flip').addEventListener('click', () => {
+  const [a, b] = facts[fi % facts.length]; fi++;
+  const el = flipped ? $('#fact1') : $('#fact2');
+  el.textContent = a; const sm = document.createElement('small'); sm.textContent = b; el.appendChild(sm);
+  flipped = !flipped; $('#flip').classList.toggle('on', flipped);
+  $('#factN').textContent = fi; beep(flipped ? 660 : 520, .12, 'triangle', .07, 1.5);
+});
+
+/* ========= ORACLE ========= */
+const P = {
+  s: ['Un pigeon polyglotte', 'Ta tante', 'Un inconnu en Crocs', 'Une chaise (le dimanche)', 'Jérôme lui-même', 'Une baguette sentimentale', 'Ton frigo', 'Un escargot ambitieux', 'Le Wi-Fi de tes voisins', 'Un lama en burn-out', 'Ta chaussette disparue', 'Un dauphin bilingue'],
+  v: ['va te demander', 'va te voler', 'te révélera', 'va t\'offrir', 'va cacher', 'va juger en silence', 'va traduire en japonais', 'va chanter pour toi', 'va confondre avec un mardi'],
+  o: ['ta chaussette gauche', 'le sens de la vie', 'trois croissants tièdes', 'ton mot de passe Wi-Fi', 'un secret sur les dauphins', 'ta dignité', 'une carte de fidélité expirée', 'la télécommande', 'un camembert mystique', 'ton dernier neurone', 'le mot « dimanche » en finnois'],
+  t: ['mardi prochain', 'avant la fin de ce scroll', 'en 2047', 'pendant ta douche', 'quand tu t\'y attendras le moins', 'dans exactement 4 minutes', 'dans un rêve chelou', 'un dimanche (évidemment)'],
+  l: ['traduit du pigeon', 'traduit du grille-pain', 'translated from Dolphin', '鳩語から翻訳', 'переведено с улитки', 'traduit de la chaussette']
+};
+let oracleBusy = false;
+$('#ball').addEventListener('click', () => {
+  if (oracleBusy) return; oracleBusy = true;
+  const b = $('#ball'); b.classList.add('shake');
+  $('#prophecy').textContent = pick(['La boule consulte les astres…', 'Connexion à l\'au-delà… (3G)', 'La boule cherche un traducteur…']);
+  melody([392, 523, 392, 659, 392, 784], .1, 'sine'); vibrate([20, 30, 20, 30, 20]);
+  setTimeout(() => {
+    b.classList.remove('shake');
+    const r = b.getBoundingClientRect();
+    burst(r.left + r.width / 2, r.top + r.height / 2, GLYPHS, 16, 170);
+    const pr = `${pick(P.s)} ${pick(P.v)} ${pick(P.o)} ${pick(P.t)}.`;
+    const pe = $('#prophecy'); pe.textContent = pr;
+    const sm = document.createElement('small'); sm.textContent = '(' + pick(P.l) + ')'; pe.appendChild(sm);
+    beep(1047, .4, 'triangle', .06); oracleBusy = false;
+  }, 1100);
+});
+
+/* ========= ROUE ========= */
+const segs = [['PIGEON', '#0d0d0d', '#ecebe6'], ['GLORIA', '#fafaf7', '#0d0d0d'], ['KÄSE', '#0d0d0d', '#ecebe6'], ['RIEN', '#fafaf7', '#0d0d0d'],
+  ['DANCE', '#0d0d0d', '#ecebe6'], ['王様', '#fafaf7', '#0d0d0d'], ['SIESTA', '#0d0d0d', '#ecebe6'], ['ХАОС', '#ff3b1f', '#fafaf7']];
+const wc = $('#wheel'), wx = wc.getContext('2d'), SEG = Math.PI * 2 / segs.length;
+function drawWheel() {
+  wx.clearRect(0, 0, 600, 600);
+  segs.forEach(([lab, bg, fg], i) => {
+    const a0 = -Math.PI / 2 + i * SEG;
+    wx.beginPath(); wx.moveTo(300, 300); wx.arc(300, 300, 298, a0, a0 + SEG); wx.closePath();
+    wx.fillStyle = bg; wx.fill(); wx.lineWidth = 4; wx.strokeStyle = '#0d0d0d'; wx.stroke();
+    wx.save(); wx.translate(300, 300); wx.rotate(a0 + SEG / 2);
+    wx.fillStyle = fg; wx.font = 'italic 52px "Instrument Serif", Georgia, serif'; wx.textAlign = 'right'; wx.textBaseline = 'middle';
+    wx.fillText(lab, 268, 2); wx.restore();
+  });
+}
+drawWheel(); if (document.fonts) document.fonts.ready.then(drawWheel);
+let wrot = 0, spinning = false, king = false;
+$('#spin').addEventListener('click', () => {
+  if (spinning) return; spinning = true;
+  $('#wres').textContent = 'Ça tourne… · Gira… · 回転中…';
+  wrot += 360 * Math.floor(rand(5, 9)) + rand(0, 360);
+  wc.style.transform = `rotate(${wrot}deg)`;
+  let k = 0; const tick = setInterval(() => { beep(1200 - k * 20, .03, 'square', .03); if (++k > 40) clearInterval(tick); }, 90);
+  vibrate(30);
+  setTimeout(() => { spinning = false; wheelResult(Math.floor(((360 - (wrot % 360)) % 360) / 45) % 8); }, 4700);
+});
+function wheelResult(i) {
+  const r = $('#wres'), rr = wc.getBoundingClientRect();
+  burst(rr.left + rr.width / 2, rr.top + rr.height / 2, GLYPHS, 18, 200);
+  switch (i) {
+    case 0: r.textContent = 'Tu es désormais un pigeon. Roucoule pour confirmer.'; speak('Rou. Rou rou.', 'fr-FR', {pitch: 2, rate: 1.3}); rain(['🐦', 'rou', 'ROU', '🍞'], 25); break;
+    case 1: r.textContent = 'Gloria : ton nom sera crié dans un supermarché de province.'; melody([523, 659, 784, 1047, 1319], .1); break;
+    case 2: r.textContent = 'Käse : un camembert t\'attend quelque part. Il a faim de toi.'; rain(['🧀', 'KÄSE', 'チーズ', 'queso', 'сыр'], 35); break;
+    case 3: r.textContent = 'Il ne se passe rien. Nothing. 何もない. Savoure.'; break;
+    case 4: r.textContent = 'TOUT LE MONDE DANSE. MÊME LA PAGE.'; document.body.classList.add('dance');
+      melody([392, 0, 392, 523, 0, 392, 587, 523, 392, 0, 392, 523, 659, 587], .14, 'square');
+      setTimeout(() => document.body.classList.remove('dance'), 3500); break;
+    case 5: r.textContent = '王様 : tu es roi/reine de cette page pendant 30 secondes.';
+      if (!king) { king = true; const c = document.createElement('div'); c.textContent = '👑'; c.style.cssText = 'position:absolute;left:50%;top:-.6em;transform:translateX(-50%) rotate(-10deg);font-size:.55em;filter:grayscale(1)'; wm.style.position = 'relative'; wm.appendChild(c);
+        setTimeout(() => { c.remove(); king = false; toast('Ton règne est fini. Le peuple est soulagé.'); }, 30000); }
+      melody([523, 523, 784, 784, 880, 880, 784], .16, 'triangle'); break;
+    case 6: r.textContent = 'Siesta obligatoire. Chut. しーっ。'; $('#nap').classList.add('show'); beep(200, 1.5, 'sine', .04, .5);
+      setTimeout(() => $('#nap').classList.remove('show'), 2600); break;
+    case 7: r.textContent = 'ХАОС. CHAOS. 混沌.'; babelMode(true); break;
+  }
+}
+
+/* ========= CHAT ========= */
+const chat = $('#chat');
+function addMsg(txt, who, note) {
+  const m = document.createElement('div'); m.className = 'msg ' + who; m.textContent = txt;
+  if (note) { const s = document.createElement('small'); s.textContent = note; m.appendChild(s); }
+  chat.appendChild(m); chat.scrollTop = chat.scrollHeight; return m;
+}
+const REP = [
+  ['Ich bin ein Stuhl.', 'allemand · « je suis une chaise »'],
+  ['La respuesta es: pato.', 'espagnol · « la réponse est : canard »'],
+  ['Это не вопрос, это суп.', 'russe · « ce n\'est pas une question, c\'est une soupe »'],
+  ['猫が答えを知っています。', 'japonais · « le chat connaît la réponse »'],
+  ['Sono un tostapane emotivo.', 'italien · « je suis un grille-pain émotif »'],
+  ['Yes. Non. Peut-être. 多分。', 'quatre langues · zéro certitude'],
+  ['Rou. Rou rou ?', 'pigeon · traduction indisponible'],
+  ['Intéressant. Raconte ça à une plante.', null],
+  ['J\'ai rien compris mais j\'adore.', null],
+  ['Ok mais c\'est dimanche ou pas ?', null],
+  ['Mon avocat me conseille de répondre en finnois : ei.', 'finnois · « non »'],
+  ['Hmm. Hmm hmm. HMMMM.', 'hmm · langue universelle'],
+  ['Je transmets au Conseil des Pigeons.', null],
+  ['Η απάντηση είναι ένα τυρί.', 'grec · « la réponse est un fromage »'],
+  ['나는 의자를 사랑해.', 'coréen · « j\'aime la chaise »'],
+  ['Kiti changu kinacheza dansi.', 'swahili · « ma chaise danse »']
+];
+setTimeout(() => addMsg('Bonjour. Hello. こんにちは. Je suis Jérôme. Je sais tout. Sauf l\'essentiel.', 'bot'), 300);
+$('#chatform').addEventListener('submit', e => {
+  e.preventDefault();
+  const inp = $('#chatin'), v = inp.value.trim(); if (!v) return;
+  addMsg(v, 'me'); inp.value = ''; beep(880, .06, 'triangle');
+  const low = v.toLowerCase();
+  const typing = addMsg(pick(['Jérôme réfléchit…', 'Jérôme cherche un dictionnaire…', 'Jérôme consulte un pigeon…', 'ジェロームは考え中…']), 'bot typing');
+  setTimeout(() => {
+    typing.remove();
+    let a;
+    if (/j[ée]r[oô]me|jeromed/.test(low)) a = [pick(['NE PRONONCE PAS MON NOM.', 'SAY MY NAME… non en fait ne le dis pas.', 'C\'est moi. 私です。Autographe ?']), null];
+    else if (/\b(salut|bonjour|yo|wesh|coucou|hello|slt|bjr|hi)\b/.test(low)) a = [pick(['Salut. Hola. Hallo. Привет. Rou.', 'Bonjour. Je t\'attendais depuis 1987.', 'Yo. Ton écran est sale.']), null];
+    else if (/(chaise|dimanche|chair|sunday)/.test(low)) a = ['ENFIN QUELQU\'UN QUI COMPREND.', 'émotion · toutes langues'];
+    else if (Math.random() < .14) a = ['Je ne comprends que l\'envers : « ' + [...v].reverse().join('') + ' »', null];
+    else if (Math.random() < .1) a = [jeromize(v), 'jéromédais · traduction automatique'];
+    else if (Math.random() < .07) a = ['quoi', null];
+    else a = pick(REP);
+    addMsg(a[0], 'bot', a[1]); beep(440, .08, 'square', .04, 1.5);
+  }, rand(700, 1600));
+});
+
+/* ========= COMPTEUR ========= */
+let caught = 0;
+setInterval(() => {
+  if (!started) return;
+  const s = (performance.now() - t0) / 1000;
+  $('#lost').firstChild.nodeValue = fmt(s, 1);
+  $('#s1').textContent = fmt(s / 360, 3);
+  $('#s2').textContent = fmt(s / 604800, 6);
+  $('#s3').textContent = BABEL.length;
+  $('#s4').textContent = fmt(s * .1, 1) + ' cm';
+  $('#s5').textContent = caught;
+}, 100);
+
+/* ========= NOTIFS ========= */
+const notifs = [
+  ['M', 'Maman', 'Rentre manger, ça refroidit.'], ['%', 'Batterie', '3 %… non je rigole. Ou pas.'],
+  ['R', 'Pigeon', 'Rou rou. (Je suis devant chez toi.)'], ['F', 'Fromage', 'Tu m\'as oublié dans le frigo depuis 2019.'],
+  ['J', 'Jérôme', 'Je te vois scroller.'], ['D', 'Dimanche', 'La chaise te cherche.'],
+  ['猫', '猫', 'にゃー。(Le chat a écrit.)'], ['S', 'Stuhl', 'Ich bin heute ein Sonntag.'],
+  ['?', 'Numéro inconnu', 'Ты знаешь, где моя чашка?'], ['L', 'La Lune', 'Arrête de me regarder comme ça.']
+];
+let notifT;
+function showNotif() {
+  const [i, t, x] = pick(notifs);
+  $('#nIc').textContent = i; $('#nTi').textContent = t; $('#nTx').textContent = x;
+  $('#notif').classList.add('show'); melody([1319, 1568], .09, 'sine'); vibrate([40, 60, 40]);
+  clearTimeout(notifT); notifT = setTimeout(() => $('#notif').classList.remove('show'), 4200);
+}
+$('#notif').addEventListener('click', () => { $('#notif').classList.remove('show'); toast(pick(['Notification ignorée. Elle est vexée.', 'Ignorée. 無視された。', 'Marquée comme « bizarre ».'])); });
+function scheduleNotif() { showNotif(); setTimeout(scheduleNotif, rand(18000, 32000)); }
+
+/* ========= OBJETS VOLANTS ========= */
+function scheduleFlyer() {
+  const f = document.createElement('div'); f.className = 'flyer';
+  f.textContent = pick(['🪑', '🥐', '🦆', '🛸', '🐌', '🧦', '🐟', '🦖', '🍞']);
+  f.style.top = rand(80, H() - 160) + 'px'; f.style.animationDuration = rand(4.5, 7) + 's';
+  f.addEventListener('click', e => {
+    caught++; burst(e.clientX, e.clientY, [f.textContent, '+1', '★'], 14, 150);
+    melody([784, 988, 1175, 1568], .06); vibrate(40);
+    toast(pick(['+1 POINT DE RIEN', '+1 · ¡BIEN! · すごい', 'Réflexes de chat.', 'Score : ' + caught + ' (record mondial)']));
+    f.remove();
+  });
+  f.addEventListener('animationend', () => f.remove());
+  document.body.appendChild(f);
+  setTimeout(scheduleFlyer, rand(9000, 16000));
+}
+
+/* ========= MODE BABEL (ULTIME) ========= */
+let babelOn = false;
+function babelMode(short) {
+  if (babelOn) return; babelOn = true; fast = true;
+  bigMsg(short ? 'ХАОС' : 'Mode<br>Babel', 1600);
+  document.body.classList.add('strobe'); setTimeout(() => document.body.classList.remove('strobe'), 700);
+  melody([523, 659, 784, 1047, 784, 1047, 1319, 1568, 1319, 1568, 2093], .08);
+  vibrate([60, 40, 60, 40, 200]);
+  rain(GLYPHS.concat(BABEL.slice(0, 15).map(b => b[2])), 60, 4000);
+  const els = [...document.querySelectorAll('.card h2, .card p.sub')];
+  const orig = els.map(e => e.innerHTML);
+  const iv = setInterval(() => els.forEach(e => {
+    e.textContent = [...e.textContent].map(c => c === ' ' ? c : SCR[Math.floor(Math.random() * SCR.length)]).join('');
+  }), 120);
+  const bv = setInterval(() => showBabel(bi + 1, true), 180);
+  setTimeout(() => {
+    clearInterval(iv); clearInterval(bv); els.forEach((e, i) => e.innerHTML = orig[i]);
+    fast = false; babelOn = false; autoBabel();
+    toast('Retour au français. Plus ou moins.');
+  }, short ? 3500 : 6000);
+}
+const konami = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+let kbuf = [], typed = '';
+addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  kbuf.push(e.key); kbuf = kbuf.slice(-10); typed = (typed + e.key.toLowerCase()).slice(-6);
+  if (kbuf.join() === konami.join() || typed === 'jerome') { kbuf = []; typed = ''; babelMode(); }
+});
+
+/* ========= ONGLET ========= */
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) document.title = pick(['REVIENS', 'COME BACK', '戻ってきて', 'ВЕРНИСЬ', 'VUELVE']);
+  else { document.title = 'JE SAVAIS'; setTimeout(() => document.title = 'JEROMED', 2000); if (started) toast('Te revoilà. Welcome back. おかえり。'); }
+});
+
+/* ========= BARRE DE REGRET ========= */
+const regretWord = ['REGRET', 'REGRET', 'REUE', '後悔', 'СОЖАЛЕНИЕ', 'ARREPENTIMIENTO', 'RIMPIANTO'];
+addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - H();
+  const p = max > 0 ? Math.min(100, Math.round(scrollY / max * 100)) : 0;
+  $('#regFill').style.width = p + '%';
+  $('#regTxt').textContent = p >= 100 ? 'REGRET : 100 % · FÉLICITATIONS · おめでとう' : regretWord[Math.floor(p / 15) % regretWord.length] + ' : ' + p + ' %';
+}, {passive: true});
+
+/* ========= APPARITION DES CARTES ========= */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), {threshold: .12});
+document.querySelectorAll('.card').forEach(c => io.observe(c));
+
+/* ========= CERTIFICAT ========= */
+function rr(x, a, b, w, h, r) { x.beginPath(); x.moveTo(a + r, b); x.arcTo(a + w, b, a + w, b + h, r); x.arcTo(a + w, b + h, a, b + h, r); x.arcTo(a, b + h, a, b, r); x.arcTo(a, b, a + w, b, r); x.closePath(); }
+function wrap(x, txt, cxp, y, maxW, lh) {
+  let line = '';
+  txt.split(' ').forEach(w => { const t = line ? line + ' ' + w : w; if (x.measureText(t).width > maxW && line) { x.fillText(line, cxp, y); line = w; y += lh; } else line = t; });
+  x.fillText(line, cxp, y);
+}
+function makeCert(name) {
+  const c = document.createElement('canvas'); c.width = 1080; c.height = 1350; const x = c.getContext('2d');
+  x.fillStyle = '#0d0d0d'; x.fillRect(0, 0, 1080, 1350);
+  x.fillStyle = 'rgba(236,235,230,.07)'; x.textAlign = 'center';
+  for (let i = 0; i < 40; i++) { x.font = `italic ${rand(30, 90)}px "Instrument Serif", Georgia, serif`; x.fillText(pick(BGW), rand(0, 1080), rand(0, 1350)); }
+  x.fillStyle = '#ff3b1f'; x.fillRect(84, 94, 920, 1180);
+  x.fillStyle = '#fafaf7'; x.fillRect(70, 80, 920, 1180);
+  x.strokeStyle = '#0d0d0d'; x.lineWidth = 4; x.strokeRect(70, 80, 920, 1180);
+  x.lineWidth = 1.5; x.strokeRect(100, 110, 860, 1120);
+  x.fillStyle = '#0d0d0d';
+  x.font = '700 26px "Space Mono", monospace'; x.fillText('CERTIFICAT OFFICIEL · CERTIFICATE · 証明書', 530, 190);
+  x.font = 'italic 60px "Instrument Serif", Georgia, serif'; x.fillText('de survie à la page secrète', 530, 270);
+  x.font = '190px "Instrument Serif", Georgia, serif'; x.fillText('JEROMED', 530, 450);
+  x.fillStyle = '#ff3b1f'; x.beginPath(); x.arc(530, 500, 8, 0, 7); x.fill(); x.fillStyle = '#0d0d0d';
+  x.font = '600 32px "Space Grotesk", sans-serif'; x.fillText('est solennellement décerné à', 530, 590);
+  let fs = 110; x.font = `italic ${fs}px "Instrument Serif", Georgia, serif`;
+  while (x.measureText(name).width > 800 && fs > 44) { fs -= 4; x.font = `italic ${fs}px "Instrument Serif", Georgia, serif`; }
+  x.fillText(name, 530, 715);
+  x.fillRect(200, 750, 660, 3);
+  x.font = '500 32px "Space Grotesk", sans-serif';
+  wrap(x, pick(['pour avoir survécu à cette page sans appeler un adulte.', 'pour avoir compris que la chaise est un dimanche.', 'pour avoir parlé couramment le pigeon pendant 4 minutes.', 'pour avoir perdu du temps avec un talent rare.']), 530, 820, 740, 44);
+  x.font = 'italic 34px "Instrument Serif", Georgia, serif'; x.fillStyle = '#8f8c84';
+  wrap(x, '« ' + pick(BABEL.slice(0, 26))[2] + ' »', 530, 940, 740, 40);
+  x.fillStyle = '#0d0d0d';
+  const serial = 'JRMD-' + Math.random().toString(36).slice(2, 6).toUpperCase() + '-' + Math.floor(rand(1000, 9999));
+  x.font = '400 22px "Space Mono", monospace'; x.fillText('N° ' + serial + '   ·   ' + new Date().toLocaleDateString('fr-FR') + '   ·   un dimanche', 530, 1030);
+  x.textAlign = 'left'; x.font = 'italic 50px "Instrument Serif", Georgia, serif'; x.fillText('Jérôme', 160, 1140);
+  x.font = '400 18px "Space Mono", monospace'; x.fillText('(probablement)', 165, 1175);
+  x.fillRect(150, 1152, 260, 2);
+  x.save(); x.translate(800, 1120); x.rotate(-.22);
+  x.fillStyle = '#ff3b1f'; x.beginPath();
+  for (let i = 0; i < 28; i++) { const a = i / 28 * Math.PI * 2, r = i % 2 ? 92 : 108; x.lineTo(Math.cos(a) * r, Math.sin(a) * r); }
+  x.closePath(); x.fill();
+  x.fillStyle = '#fafaf7'; x.textAlign = 'center'; x.font = '700 26px "Space Mono", monospace';
+  x.fillText('100%', 0, -12); x.font = '700 15px "Space Mono", monospace'; x.fillText('AUTHENTIQUE', 0, 14); x.fillText('(FAUX)', 0, 36);
+  x.restore();
+  return c;
+}
+$('#certform').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = ($('#certname').value.trim() || 'Inconnu·e Mystérieux·se').slice(0, 24);
+  $('#certname').blur();
+  const go = () => {
+    const url = makeCert(n).toDataURL('image/png');
+    $('#certImg').src = url; $('#certDl').href = url; $('#certOut').style.display = 'block';
+    $('#certImg').style.animation = 'none'; void $('#certImg').offsetWidth; $('#certImg').style.animation = '';
+    melody([523, 659, 784, 1047, 0, 1047, 1319], .1, 'triangle');
+    rain(['🏆', 'BRAVO', 'BRAVO', 'おめでとう', '¡OLÉ!', 'BRAVO', 'УРА'], 30, 1500); vibrate([30, 30, 80]);
+    toast('Félicitations · Congratulations · おめでとう ' + n);
+  };
+  document.fonts ? document.fonts.ready.then(go) : go();
+});
+
+/* ========= SORTIE ========= */
+const wins = [['❓', 'Es-tu sûr·e ? · Are you sure?'], ['🥺', 'Vraiment ? · ¿De verdad? · 本当に？'], ['🪑', 'La chaise va pleurer. Le dimanche aussi.'],
+  ['🐦', 'Rou ? (le pigeon est triste)'], ['⚠️', 'Dernière chance. Последний шанс.'], ['🚪', 'OK. Mais tu vas revenir. Ils reviennent tous.']];
+let leaving = false;
+$('#leave').addEventListener('click', () => {
+  if (leaving) return; leaving = true; let open = wins.length;
+  wins.forEach(([ic, tx], i) => setTimeout(() => {
+    const w = document.createElement('div'); w.className = 'win';
+    w.style.left = Math.max(8, Math.min(W() - 310, W() / 2 - 150 + (i - 2.5) * 14)) + 'px';
+    w.style.top = (H() * .2 + i * 26) + 'px';
+    w.innerHTML = `<div class="bar"><span>JEROMED.exe</span><i>✕</i></div><div class="bd"><span>${ic}</span><span>${tx}</span></div><div class="ft"><button>OK</button><button>はい</button></div>`;
+    const close = () => {
+      w.remove(); open--; beep(300 + open * 80, .08, 'square');
+      if (!open) {
+        leaving = false; bigMsg('C\'était<br>un piège.', 1600);
+        speak('C\'était un piège. It was a trap. 罠だった。', 'fr-FR', {pitch: .6, rate: .9});
+        setTimeout(() => { scrollTo({top: 0, behavior: 'smooth'}); toast('Retour au début. Il n\'y a pas de sortie.', 3200); }, 1200);
+      }
+    };
+    w.querySelectorAll('button, i').forEach(b => b.addEventListener('click', close));
+    document.body.appendChild(w); beep(220, .15, 'square', .05); vibrate(20);
+  }, i * 180));
+});
+
+/* ========= SECRET DU SECRET ========= */
+$('#dot').addEventListener('click', () => {
+  bigMsg('<span style="font-size:.42em;color:var(--ink);text-shadow:none;background:var(--paper);padding:20px;display:block">Tu as trouvé le secret du secret.<br><br>Il n\'y a rien ici.<br>Sauf toi.<br>Et c\'est déjà beaucoup.</span>', 4200);
+  melody([659, 784, 988, 1319], .2, 'sine');
+});
+
+/* ========= TAP SUR LE FOND ========= */
+document.addEventListener('click', e => {
+  if (!started || e.target.closest('button, input, .card, .flyer, .win, .wordmark, .eye, #notif, .foot, .babel')) return;
+  burst(e.clientX, e.clientY, GLYPHS, 8, 90); beep(rand(300, 1200), .07, 'triangle', .04);
+});
+})();
+</script>
+</body>
+</html>

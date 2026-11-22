@@ -4,13 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>ColorQR — Générateur de QR personnalisés et Wi-Fi</title>
-  <meta name="description" content="Crée gratuitement des QR codes personnalisés ou des QR Wi-Fi, avec contrôle automatique du contraste et téléchargement PNG." />
+  <meta name="description" content="Crée gratuitement des QR codes personnalisés (lien ou texte) ou des QR Wi-Fi, avec téléchargement PNG." />
   <link rel="icon" href="../assets/favicon.webp" type="image/webp" />
   <link rel="apple-touch-icon" href="../assets/favicon.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../assets/style.css" />
+  <link rel="stylesheet" href="qr.css" />
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js" defer></script>
   <script src="../assets/site.js" defer></script>
   <script src="qr.js" defer></script>
@@ -27,7 +28,7 @@
   <main class="page">
     <section class="intro">
       <h1>ColorQR</h1>
-      <p data-i18n="lead">Un QR code à tes couleurs, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.</p>
+      <p data-i18n="lead">Un QR code à tes couleurs pour un lien ou du texte, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.</p>
     </section>
 
     <div class="split">
@@ -40,30 +41,26 @@
         <div id="panelColor" role="tabpanel" aria-labelledby="tabColor">
           <form id="formColor" class="stack">
             <div class="field">
-              <label for="url" data-i18n="lUrl">Lien</label>
-              <input id="url" type="url" inputmode="url" autocomplete="url" placeholder="https://..." value="https://archivefever.work/qr/" />
+              <label for="text" data-i18n="lText">Lien ou texte</label>
+              <textarea id="text" rows="3" spellcheck="false" placeholder="https://… ou n'importe quel texte" data-i18n-attr="placeholder:textPh">https://archivefever.work/qr/</textarea>
             </div>
             <div class="field">
               <span class="label" data-i18n="sColors">Couleurs</span>
-              <div class="palette" data-target="c" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"></div>
+              <div class="palette" data-target="c" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"><button class="swatch-rand" type="button" id="randC" data-i18n-attr="aria-label:rand; title:rand" aria-label="Aléatoire" title="Aléatoire">?</button></div>
             </div>
-            <div class="two">
-              <div class="field">
-                <label id="lC1" for="c1t" data-i18n="lDark">Couleur des modules</label>
-                <div class="colorline"><input id="c1" type="color" value="#1a1917" aria-labelledby="lC1" /><input id="c1t" type="text" value="#1a1917" spellcheck="false" /></div>
-              </div>
-              <div class="field">
-                <label id="lC2" for="c2t" data-i18n="lLight">Couleur du fond</label>
-                <div class="colorline"><input id="c2" type="color" value="#f7f5f0" aria-labelledby="lC2" /><input id="c2t" type="text" value="#f7f5f0" spellcheck="false" /></div>
-              </div>
+            <div class="pair">
+                <div class="field">
+                  <label id="lC1" for="c1t" data-i18n="lDark">Couleur des modules</label>
+                  <div class="colorline"><input id="c1" type="color" value="#1a1917" aria-labelledby="lC1" /><input id="c1t" type="text" value="#1a1917" spellcheck="false" /></div>
+                </div>
+              <div class="swap-row"><button class="swap-btn" type="button" id="swapC" data-i18n-attr="aria-label:swap; title:swap" aria-label="Inverser" title="Inverser"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg></button></div>
+                <div class="field">
+                  <label id="lC2" for="c2t" data-i18n="lLight">Couleur du fond</label>
+                  <div class="colorline"><input id="c2" type="color" value="#f7f5f0" aria-labelledby="lC2" /><input id="c2t" type="text" value="#f7f5f0" spellcheck="false" /></div>
+                </div>
             </div>
-            <p class="hint good" id="contrastColor" role="status"></p>
             <label class="check"><input id="m1" type="checkbox" checked /><span data-i18n="lMargin">Bordure (marge) — améliore la détection</span></label>
-            <div class="btns">
-              <button class="btn main" type="submit" id="genColor" data-i18n="gen">Générer</button>
-              <button class="btn" type="button" id="swapC" data-i18n="swap">Inverser</button>
-              <button class="btn" type="button" id="randC" data-i18n="rand">Aléatoire</button>
-            </div>
+            <button class="btn main full" type="submit" id="genColor" data-i18n="gen">Générer</button>
           </form>
         </div>
 
@@ -89,25 +86,21 @@
             </div>
             <div class="field">
               <span class="label" data-i18n="sColors">Couleurs</span>
-              <div class="palette" data-target="w" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"></div>
+              <div class="palette" data-target="w" role="group" data-i18n-attr="aria-label:palettes" aria-label="Palettes harmonieuses"><button class="swatch-rand" type="button" id="randW" data-i18n-attr="aria-label:rand; title:rand" aria-label="Aléatoire" title="Aléatoire">?</button></div>
             </div>
-            <div class="two">
-              <div class="field">
-                <label id="lW1" for="w1t" data-i18n="lDark">Couleur des modules</label>
-                <div class="colorline"><input id="w1" type="color" value="#1a1917" aria-labelledby="lW1" /><input id="w1t" type="text" value="#1a1917" spellcheck="false" /></div>
-              </div>
-              <div class="field">
-                <label id="lW2" for="w2t" data-i18n="lLight">Couleur du fond</label>
-                <div class="colorline"><input id="w2" type="color" value="#f7f5f0" aria-labelledby="lW2" /><input id="w2t" type="text" value="#f7f5f0" spellcheck="false" /></div>
-              </div>
+            <div class="pair">
+                <div class="field">
+                  <label id="lW1" for="w1t" data-i18n="lDark">Couleur des modules</label>
+                  <div class="colorline"><input id="w1" type="color" value="#1a1917" aria-labelledby="lW1" /><input id="w1t" type="text" value="#1a1917" spellcheck="false" /></div>
+                </div>
+              <div class="swap-row"><button class="swap-btn" type="button" id="swapW" data-i18n-attr="aria-label:swap; title:swap" aria-label="Inverser" title="Inverser"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg></button></div>
+                <div class="field">
+                  <label id="lW2" for="w2t" data-i18n="lLight">Couleur du fond</label>
+                  <div class="colorline"><input id="w2" type="color" value="#f7f5f0" aria-labelledby="lW2" /><input id="w2t" type="text" value="#f7f5f0" spellcheck="false" /></div>
+                </div>
             </div>
-            <p class="hint good" id="contrastWifi" role="status"></p>
             <label class="check"><input id="m2" type="checkbox" checked /><span data-i18n="lMargin">Bordure (marge) — améliore la détection</span></label>
-            <div class="btns">
-              <button class="btn main" type="submit" id="genWifi" data-i18n="gen">Générer</button>
-              <button class="btn" type="button" id="swapW" data-i18n="swap">Inverser</button>
-              <button class="btn" type="button" id="randW" data-i18n="rand">Aléatoire</button>
-            </div>
+            <button class="btn main full" type="submit" id="genWifi" data-i18n="gen">Générer</button>
           </form>
         </div>
       </div>

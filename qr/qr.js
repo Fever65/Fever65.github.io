@@ -1,11 +1,11 @@
 /* ColorQR — QR coloré ou Wi-Fi, généré localement (qrcode@1.4.4).
-   Palettes douces foncé / clair ; la saisie libre reste possible et reste vérifiée (contraste ≥ 4,5:1). */
+   Palettes douces foncé / clair ; n'importe quelle couleur est acceptée. */
 (() => {
   'use strict';
 
   const $ = id => document.getElementById(id);
 
-  // Palettes : [nom fr, nom en, modules (foncé), fond (clair)]. Toutes au-dessus de 7:1 de contraste.
+  // Palettes : [nom fr, nom en, modules (foncé), fond (clair)].
   const PRESETS = [
     ['Encre', 'Ink', '#1a1917', '#f7f5f0'], ['Fever', 'Fever', '#0a0a0a', '#ff7a1a'], ['Ardoise', 'Slate', '#2b2f36', '#eceff3'],
     ['Nuit', 'Night', '#1e2a3a', '#e6edf5'], ['Océan', 'Ocean', '#14365a', '#e1eff6'],
@@ -39,10 +39,10 @@
   const DICT = {
     fr: {
       title: 'ColorQR — Générateur de QR personnalisés et Wi-Fi',
-      description: 'Crée gratuitement des QR codes personnalisés ou des QR Wi-Fi, avec contrôle automatique du contraste et téléchargement PNG.',
+      description: 'Crée gratuitement des QR codes personnalisés (lien ou texte) ou des QR Wi-Fi, avec téléchargement PNG.',
       info: 'Infos', close: 'Fermer', modal: MODAL.fr,
-      lead: 'Un QR code à tes couleurs, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.',
-      sColors: 'Couleurs', palettes: 'Palettes', lUrl: 'Lien',
+      lead: 'Un QR code à tes couleurs pour un lien ou du texte, ou un QR qui connecte au Wi-Fi en un seul scan. Tout se passe dans ton navigateur.',
+      sColors: 'Couleurs', palettes: 'Palettes', lText: 'Lien ou texte', textPh: "https://… ou n'importe quel texte",
       lDark: 'Couleur des modules', lLight: 'Couleur du fond',
       lMargin: 'Bordure (marge) — améliore la détection',
       gen: 'Générer', swap: 'Inverser', rand: 'Aléatoire',
@@ -52,19 +52,17 @@
       statusGen: 'Génération…',
       statusReady: 'QR prêt — tu peux télécharger.',
       statusErr: 'Erreur lors de la génération.',
-      errUrl: 'Entre un lien valide (https://…).',
+      errText: 'Entre un lien ou du texte.',
+      errLong: 'Texte trop long pour un QR code : raccourcis-le.',
       errSsid: 'Entre un nom de réseau (SSID).',
-      errPass: 'Entre un mot de passe ou choisis « Aucune » comme sécurité.',
-      errContrast: 'Contraste insuffisant : choisis des modules plus foncés et un fond plus clair.',
-      contrastGood: 'Contraste vérifié : bonne lisibilité.',
-      contrastBad: 'Contraste insuffisant : utilise des modules foncés sur un fond clair.'
+      errPass: 'Entre un mot de passe ou choisis « Aucune » comme sécurité.'
     },
     en: {
       title: 'ColorQR — Custom and Wi-Fi QR code generator',
-      description: 'Create custom or Wi-Fi QR codes for free, with automatic contrast validation and PNG download.',
+      description: 'Create custom QR codes (link or text) or Wi-Fi QR codes for free, with PNG download.',
       info: 'Info', close: 'Close', modal: MODAL.en,
-      lead: 'A QR code in your colors, or one that joins a Wi-Fi network in a single scan. Everything happens in your browser.',
-      sColors: 'Colors', palettes: 'Palettes', lUrl: 'Link',
+      lead: 'A QR code in your colors for a link or any text, or one that joins a Wi-Fi network in a single scan. Everything happens in your browser.',
+      sColors: 'Colors', palettes: 'Palettes', lText: 'Link or text', textPh: 'https://… or any text',
       lDark: 'Module color', lLight: 'Background color',
       lMargin: 'Border (margin) — improves scanning reliability',
       gen: 'Generate', swap: 'Swap', rand: 'Random',
@@ -74,12 +72,10 @@
       statusGen: 'Generating…',
       statusReady: 'QR ready — you can download it.',
       statusErr: 'Generation error.',
-      errUrl: 'Please enter a valid link (https://…).',
+      errText: 'Please enter a link or some text.',
+      errLong: 'Too much text for a QR code: please shorten it.',
       errSsid: 'Please enter a network name (SSID).',
       errPass: 'Enter a password or choose “None” as the security type.',
-      errContrast: 'Low contrast: choose darker modules and a lighter background.',
-      contrastGood: 'Contrast checked: good scan reliability.',
-      contrastBad: 'Low contrast: use dark modules on a light background.'
     }
   };
   let T = {}; // textes de la langue courante, fournis par AF.i18n (onChange)
@@ -139,34 +135,12 @@
   // ---------- Couleurs ----------
   const isHex = v => /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test((v || '').trim());
   const norm = v => AF.toHex(AF.toRgb(v.trim()));
-  const luminance = v => {
-    const c = AF.toRgb(v).map(x => x / 255).map(x => (x <= .03928 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4));
-    return .2126 * c[0] + .7152 * c[1] + .0722 * c[2];
-  };
-  const contrast = (a, b) => { const x = luminance(a), y = luminance(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
-  const isScannable = (dark, light) => isHex(dark) && isHex(light) && luminance(dark) < luminance(light) && contrast(dark, light) >= 4.5;
 
   const fields = {
-    color: { p1: $('c1'), t1: $('c1t'), p2: $('c2'), t2: $('c2t'), hint: $('contrastColor') },
-    wifi: { p1: $('w1'), t1: $('w1t'), p2: $('w2'), t2: $('w2t'), hint: $('contrastWifi') }
+    color: { p1: $('c1'), t1: $('c1t'), p2: $('c2'), t2: $('c2t') },
+    wifi: { p1: $('w1'), t1: $('w1t'), p2: $('w2'), t2: $('w2t') }
   };
 
-  // Le champ texte prend sa propre couleur ; le texte suit la couleur la plus lisible de la paire.
-  function paint(input) {
-    const v = input.value.trim();
-    if (!isHex(v)) return;
-    input.style.background = v;
-    input.style.color = luminance(v) > .2 ? '#111314' : '#f5ecc2';
-  }
-
-  function updateContrast(mode) {
-    const f = fields[mode];
-    const valid = isScannable(f.p1.value, f.p2.value);
-    f.hint.textContent = valid ? t('contrastGood') : t('contrastBad');
-    f.hint.classList.toggle('good', valid);
-    f.hint.classList.toggle('bad', !valid);
-    return valid;
-  }
 
   function setPair(mode, dark, light) {
     const f = fields[mode];
@@ -174,8 +148,6 @@
     f.p2.value = f.t2.value = light;
     f.t1.removeAttribute('aria-invalid');
     f.t2.removeAttribute('aria-invalid');
-    paint(f.t1); paint(f.t2);
-    updateContrast(mode);
   }
 
   function markPreset(mode, dark, light) {
@@ -189,18 +161,14 @@
       picker.addEventListener('input', () => {
         text.value = picker.value;
         text.removeAttribute('aria-invalid');
-        paint(text);
-        updateContrast(mode);
         markPreset(mode, f.p1.value, f.p2.value);
       });
       text.addEventListener('input', () => {
         const valid = isHex(text.value);
         text.setAttribute('aria-invalid', String(!valid));
-        if (valid) { picker.value = norm(text.value); paint(text); }
-        updateContrast(mode);
+        if (valid) { picker.value = norm(text.value); }
         markPreset(mode, f.p1.value, f.p2.value);
       });
-      paint(text);
     });
   });
 
@@ -219,7 +187,9 @@
   $('randC').addEventListener('click', () => randomPair('color'));
   $('randW').addEventListener('click', () => randomPair('wifi'));
 
-  // Pastilles des palettes.
+  // Étiquettes des palettes : un point de la couleur qui caractérise la palette + son nom.
+  // Le point prend le fond s'il est vif (ex. Fever = orange), sinon les modules.
+  const chroma = v => { const c = AF.toRgb(v); return Math.max(...c) - Math.min(...c); };
   document.querySelectorAll('.palette').forEach(palette => {
     const mode = palette.dataset.target === 'w' ? 'wifi' : 'color';
     PRESETS.forEach((preset, i) => {
@@ -227,19 +197,17 @@
       const s = document.createElement('button');
       s.type = 'button';
       s.className = 'swatch';
-      s.style.setProperty('--d', d);
-      s.style.setProperty('--l', l);
+      s.innerHTML = '<span class="dot" aria-hidden="true"></span><span class="name"></span>';
+      s.style.setProperty('--dot', chroma(l) > 80 ? l : d);
       Object.assign(s.dataset, { d, l, i });
       s.setAttribute('aria-pressed', String(i === 0));
       s.addEventListener('click', () => { setPair(mode, d, l); markPreset(mode, d, l); });
-      palette.append(s);
+      palette.insertBefore(s, palette.querySelector('.swatch-rand')); // le « ? » reste en dernier
     });
   });
   function labelSwatches() {
     document.querySelectorAll('.swatch').forEach(s => {
-      const name = presetName(PRESETS[s.dataset.i]);
-      s.setAttribute('aria-label', name);
-      s.title = name;
+      s.querySelector('.name').textContent = presetName(PRESETS[s.dataset.i]);
     });
   }
   // ---------- Génération ----------
@@ -249,13 +217,12 @@
     const f = fields[mode];
     const dark = isHex(f.p1.value) ? f.p1.value : '#111314';
     const light = isHex(f.p2.value) ? f.p2.value : '#f5ecc2';
-    if (!isScannable(dark, light)) return fail('errContrast');
     $('dl').hidden = true;
     setStatus('gen');
     try {
       await QRCode.toCanvas($('canvas'), data, { width: 256, margin: margin ? 1 : 0, color: { dark, light } });
       $('previewBox').hidden = false;
-      // La sérigraphie : la raclette repasse et la feuille se cale (qr.css, .is-printed).
+      // Petite apparition du QR (qr.css, .is-printed).
       $('previewBox').classList.remove('is-printed');
       void $('previewBox').offsetWidth;
       $('previewBox').classList.add('is-printed');
@@ -263,18 +230,28 @@
       $('dl').download = filename;
       $('dl').hidden = false;
       setStatus('ready');
+      // En une colonne, l'aperçu est sous le formulaire : on l'amène à l'écran.
+      if (matchMedia('(max-width: 859px)').matches) {
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        $('previewBox').closest('.qr-out').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+      }
     } catch (err) {
       console.error(err);
-      fail('statusErr');
+      fail(/too big|amount of data/i.test(String(err && err.message)) ? 'errLong' : 'statusErr');
     }
   }
 
   $('formColor').addEventListener('submit', e => {
     e.preventDefault();
-    const url = $('url').value.trim();
-    try { new URL(url); } catch (_) { $('url').setAttribute('aria-invalid', 'true'); return fail('errUrl'); }
-    $('url').removeAttribute('aria-invalid');
-    renderQR(url, 'color', $('m1').checked, `ColorQR_${safeName(url)}.png`);
+    const text = $('text').value.trim();
+    if (!text) { $('text').setAttribute('aria-invalid', 'true'); return fail('errText'); }
+    $('text').removeAttribute('aria-invalid');
+    renderQR(text, 'color', $('m1').checked, `ColorQR_${safeName(text)}.png`);
+  });
+  $('text').addEventListener('input', () => $('text').removeAttribute('aria-invalid'));
+  // Entrée génère, Maj+Entrée fait un retour à la ligne.
+  $('text').addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); $('formColor').requestSubmit(); }
   });
 
   function syncPasswordState() {
@@ -297,6 +274,6 @@
     renderQR(data, 'wifi', $('m2').checked, `WiFiQR_${safeName(ssid)}.png`);
   });
 
-  AF.i18n(DICT, { onChange: (_, dict) => { T = dict; renderStatus(); updateContrast('color'); updateContrast('wifi'); labelSwatches(); } });
+  AF.i18n(DICT, { onChange: (_, dict) => { T = dict; renderStatus(); labelSwatches(); } });
   setMode('color');
 })();
